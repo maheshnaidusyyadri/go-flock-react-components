@@ -1,17 +1,22 @@
-interface SimpleButtonProps {
-  title: string;
-  onClickAction?: () => void;
+import React from "react";
+import "./Button.css";
+
+export interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  primary?: boolean;
 }
 
-const SimpleButton: React.FC<SimpleButtonProps> = ({
-  title,
-  onClickAction,
-}) => {
+const Button: React.FC<ButtonProps> = ({ label, onClick, primary = false }) => {
+  const mode = primary ? "btn-primary" : "btn-secondary";
   return (
-    <div>
-      <button onClick={onClickAction}>{title}</button>
-    </div>
+    <button
+      className={`btn ${mode}`}
+      onClick={onClick}
+    >
+      {label}
+    </button>
   );
 };
 
-export default SimpleButton;
+export default Button;

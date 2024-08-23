@@ -1,6 +1,8 @@
-interface SimpleButtonProps {
-    title: string;
-    onClickAction?: () => void;
+import { default as React } from 'react';
+export interface ButtonProps {
+    label: string;
+    onClick: () => void;
+    primary?: boolean;
 }
-declare const SimpleButton: React.FC<SimpleButtonProps>;
-export default SimpleButton;
+declare const Button: React.FC<ButtonProps>;
+export default Button;
