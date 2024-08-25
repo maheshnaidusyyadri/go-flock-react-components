@@ -1,3 +1,4 @@
 import { default as React } from 'react';
-declare const PhoneNumberAuth: React.FC;
+import { PhoneNumberAuthProps } from '@goflock/types/';
+declare const PhoneNumberAuth: React.FC<PhoneNumberAuthProps>;
 export default PhoneNumberAuth;
