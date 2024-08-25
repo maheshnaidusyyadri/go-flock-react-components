@@ -1,2 +1,2 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const t=require("./index-Vi2QRgs-.cjs");exports.Button=t.Button;
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const e=require("./index-uqtCgmjF.cjs");exports.Button=e.Button;exports.PhoneNumberAuth=e.PhoneNumberAuth;
 //# sourceMappingURL=index.cjs.js.map
