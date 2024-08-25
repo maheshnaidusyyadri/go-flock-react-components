@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   IonContent,
   IonHeader,
@@ -17,13 +17,14 @@ import { PhoneNumberAuthProps } from "@goflock/types/";
 const PhoneNumberAuth: React.FC<PhoneNumberAuthProps> = (
   phoneNumberAuthProps
 ) => {
-  const [countryCode, setCountryCode] = useState("+1"); // Default to USA
-  const [phoneNumber, setPhoneNumber] = useState("");
+  // const [countryCode, setCountryCode] = useState("+1"); // Default to USA
+  // const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleGenerateOTP = () => {
     // Implement OTP generation logic here
-    phoneNumberAuthProps.sendOTP(`${countryCode}${phoneNumber}`);
-    console.log(`Generating OTP for ${countryCode} ${phoneNumber}`);
+    // phoneNumberAuthProps.sendOTP(`${countryCode}${phoneNumber}`);
+    // console.log(`Generating OTP for ${countryCode} ${phoneNumber}`);
+    console.log(phoneNumberAuthProps);
   };
 
   return (
@@ -46,8 +47,8 @@ const PhoneNumberAuth: React.FC<PhoneNumberAuthProps> = (
         <IonItem>
           <IonLabel position="floating">Country</IonLabel>
           <IonSelect
-            value={countryCode}
-            onIonChange={(e) => setCountryCode(e.detail.value)}
+            value={"+1"}
+            onIonChange={(e) => console.log(e)}
           >
             <IonSelectOption value="+1">United States (+1)</IonSelectOption>
             {/* Add more country options here */}
@@ -58,9 +59,9 @@ const PhoneNumberAuth: React.FC<PhoneNumberAuthProps> = (
           <IonLabel position="floating">Mobile Number*</IonLabel>
           <IonInput
             type="tel"
-            value={phoneNumber}
+            value={"2067243837"}
             placeholder="Enter mobile number"
-            onIonChange={(e) => setPhoneNumber(e.detail.value!)}
+            onIonChange={(e) => console.log(e)}
           />
         </IonItem>
 

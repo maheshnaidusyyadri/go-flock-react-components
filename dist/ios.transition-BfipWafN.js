@@ -1,4 +1,4 @@
-import { b as i, g as Z } from "./index-B7VMIACg.js";
+import { b as i, g as Z } from "./index-Dj9-oVNz.js";
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -224,4 +224,4 @@ export {
   V as iosTransitionAnimation,
   I as shadow
 };
-//# sourceMappingURL=ios.transition-BcSJqnjN.js.map
+//# sourceMappingURL=ios.transition-BfipWafN.js.map
