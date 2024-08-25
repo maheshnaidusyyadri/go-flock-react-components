@@ -21,3 +21,9 @@ Secondary.args = {
   primary: false,
   onClick: () => alert("Secondary Button Clicked"),
 };
+
+export const Teritiary = Template.bind({});
+Teritiary.args = {
+  label: "Teritiary Button",
+  onClick: () => alert("Teritiary Button Clicked"),
+};
