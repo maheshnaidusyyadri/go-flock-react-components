@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import PhoneNumberAuth from "./PhoneNumberAuth";
+import PhoneNumberAuth from "./PhoneNumberAuthPresenter";
 import { PhoneNumberAuthProps } from "@goflock/types";
 import { IonApp, IonContent } from "@ionic/react";
 import { action } from "@storybook/addon-actions";

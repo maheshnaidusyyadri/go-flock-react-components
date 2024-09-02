@@ -14,7 +14,7 @@ import {
 } from "@ionic/react";
 import { PhoneNumberAuthProps } from "@goflock/types/";
 
-const PhoneNumberAuth: React.FC<PhoneNumberAuthProps> = (
+const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = (
   phoneNumberAuthProps
 ) => {
   const [countryCode, setCountryCode] = useState("+1"); // Default to USA
@@ -87,4 +87,4 @@ const PhoneNumberAuth: React.FC<PhoneNumberAuthProps> = (
   );
 };
 
-export default PhoneNumberAuth;
+export default PhoneNumberAuthPresenter;

@@ -1,4 +1,4 @@
-"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const c=require("./index-CvrBkY6u.cjs");/*!
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const c=require("./index-D6jmsDgW.cjs");/*!
  * (C) Ionic http://ionicframework.com - MIT License
  */const M=(n,g,m,p,w)=>{const i=n.ownerDocument.defaultView;let s=c.isRTL(n);const y=t=>{const{startX:e}=t;return s?e>=i.innerWidth-50:e<=50},u=t=>s?-t.deltaX:t.deltaX,X=t=>s?-t.velocityX:t.velocityX,S=t=>(s=c.isRTL(n),y(t)&&g()),v=t=>{const e=u(t)/i.innerWidth;p(e)},b=t=>{const o=u(t),e=i.innerWidth,r=o/e,a=X(t),f=e/2,l=a>=0&&(a>.2||o>f),d=(l?1-r:r)*e;let h=0;if(d>5){const D=d/Math.abs(a);h=Math.min(D,540)}w(l,r<=0?.01:c.clamp(0,r,.9999),h)};return c.createGesture({el:n,gestureName:"goback-swipe",gesturePriority:101,threshold:10,canStart:S,onStart:m,onMove:v,onEnd:b})};exports.createSwipeBackGesture=M;
-//# sourceMappingURL=swipe-back-C4WqIGxS.cjs.map
+//# sourceMappingURL=swipe-back-DS9zT6eU.cjs.map
