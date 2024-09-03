@@ -5,7 +5,7 @@ import { IonApp, IonContent } from "@ionic/react";
 import { action } from "@storybook/addon-actions";
 
 export default {
-  title: "GoFlock/Components/PhoneNumberAuth",
+  title: "GoFlock/Presenters/PhoneNumberAuthPresenter",
   component: PhoneNumberAuth,
 } as Meta<typeof PhoneNumberAuth>;
 

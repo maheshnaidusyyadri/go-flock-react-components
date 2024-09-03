@@ -2,7 +2,9 @@ import React from "react";
 import { IonContent, IonButton } from "@ionic/react";
 import { IntroductionProps } from "@goflock/types/";
 
-const Introduction: React.FC<IntroductionProps> = ({ introCompleted }) => {
+const IntroductionPresenter: React.FC<IntroductionProps> = ({
+  introCompleted,
+}) => {
   return (
     <IonContent>
       <h2>Ready to Go!</h2>
@@ -17,4 +19,4 @@ const Introduction: React.FC<IntroductionProps> = ({ introCompleted }) => {
   );
 };
 
-export default Introduction;
+export default IntroductionPresenter;
