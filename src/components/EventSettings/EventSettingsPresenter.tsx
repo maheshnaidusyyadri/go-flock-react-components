@@ -19,9 +19,13 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const updatedSettings = settings.shareMedia
+      settings.shareMedia
         ? await disableMediaSharing(event.id)
         : await enableMediaSharing(event.id);
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        shareMedia: !prevSettings.shareMedia,
+      }));
     } catch (err) {
       setError("Failed to update media sharing settings");
     } finally {
@@ -33,7 +37,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const updatedSettings = settings.splitBills
+      settings.splitBills
         ? await disableSplitBills(event.id)
         : await enableSplitBills(event.id);
     } catch (err) {
@@ -47,7 +51,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const updatedSettings = await updateCurrency(currency);
+      await updateCurrency(currency);
     } catch (err) {
       setError("Failed to update currency");
     } finally {
@@ -59,7 +63,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const updatedSettings = await updateEventVisibility(visibility);
+      await updateEventVisibility(visibility);
     } catch (err) {
       setError("Failed to update event visibility");
     } finally {

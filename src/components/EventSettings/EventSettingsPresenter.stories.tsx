@@ -219,6 +219,7 @@ LoadingState.args = {
     );
   },
   updateCurrency: async (currency: Currency) => {
+    console.log("Currency updated to:", currency);
     return new Promise((resolve) =>
       setTimeout(() => {
         resolve(true);
@@ -226,6 +227,7 @@ LoadingState.args = {
     );
   },
   updateEventVisibility: async (visibility: EventVisibility) => {
+    console.log("Event visibility updated to:", visibility);
     return new Promise((resolve) =>
       setTimeout(() => {
         resolve(true);
