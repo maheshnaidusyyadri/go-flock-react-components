@@ -12,11 +12,12 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
-import { PhoneNumberAuthProps } from "@goflock/types";
+import { PhoneNumberAuthProps } from "@goflock/types/src/presenter/PhoneNumberAuthProps";
 
 const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   sendOTP,
-  verifyOTP, // New prop for OTP verification
+  verifyOTP,
+  onSuccessfulVerification,
 }) => {
   const [countryCode, setCountryCode] = useState("+1"); // Default to USA
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -48,6 +49,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         .then(() => {
           console.log("OTP verified successfully");
           setVerificationError(null);
+          onSuccessfulVerification();
         })
         .catch((error) => {
           console.error("Invalid OTP", error);
