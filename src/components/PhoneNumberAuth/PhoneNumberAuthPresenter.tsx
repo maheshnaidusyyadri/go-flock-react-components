@@ -12,7 +12,7 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
-import { PhoneNumberAuthProps } from "@goflock/types/src/presenter/PhoneNumberAuthProps";
+import { PhoneNumberAuthProps } from "@goflock/types/src/index";
 
 const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   sendOTP,

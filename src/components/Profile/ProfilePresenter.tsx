@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ProfileProps } from "@goflock/types/src/presenter/ProfileProps";
+import { ProfileProps } from "@goflock/types/src/index";
 
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,

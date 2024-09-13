@@ -1,6 +1,6 @@
 import React from "react";
 import { IonContent, IonButton } from "@ionic/react";
-import { IntroductionProps } from "@goflock/types/";
+import { IntroductionProps } from "@goflock/types/src/index";
 
 const IntroductionPresenter: React.FC<IntroductionProps> = ({
   introCompleted,

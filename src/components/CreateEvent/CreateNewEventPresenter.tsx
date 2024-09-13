@@ -10,7 +10,11 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import { CreateNewEventProps, LocationInfo, DraftEvent } from "@goflock/types/"; // Adjust the import based on your file structure
+import {
+  CreateNewEventProps,
+  LocationInfo,
+  DraftEvent,
+} from "@goflock/types/src/index"; // Adjust the import based on your file structure
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,

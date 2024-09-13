@@ -9,7 +9,7 @@ import {
   IonAvatar,
   IonList,
 } from "@ionic/react";
-import { EventListProps } from "@goflock/types";
+import { EventListProps } from "@goflock/types/src/index";
 
 const EventListPresenter: React.FC<EventListProps> = ({ profile, events }) => {
   return (

@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { Currency, EventSettingsProps, EventVisibility } from "@goflock/types";
+import {
+  Currency,
+  EventSettingsProps,
+  EventVisibility,
+} from "@goflock/types/src/index";
 
 const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   event,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventSplitBillProps, Transaction } from "@goflock/types";
+import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
 
 const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   event,

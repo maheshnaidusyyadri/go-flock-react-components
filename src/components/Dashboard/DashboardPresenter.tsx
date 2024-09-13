@@ -10,7 +10,7 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import { DashboardProps } from "@goflock/types/";
+import { DashboardProps } from "@goflock/types/src/index";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,

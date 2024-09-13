@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventMember, InviteMembersProps } from "@goflock/types";
+import { EventMember, InviteMembersProps } from "@goflock/types/src/index";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   admins,
