@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import DashboardPresenter from "./DashboardPresenter"; // Adjust the import path based on your project structure
-import { EventType, DashboardProps } from "@goflock/types";
+import { EventType, DashboardProps } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/DashboardPresenter",
@@ -39,7 +39,6 @@ Default.args = {
         startTime: "9:00 AM",
       },
       visibility: "public",
-      admins: [],
       members: [],
       invitationCard: {
         id: "card_001",
@@ -76,7 +75,6 @@ Default.args = {
         startTime: "7:00 PM",
       },
       visibility: "private",
-      admins: [],
       members: [],
       invitationCard: {
         id: "card_002",
@@ -115,7 +113,6 @@ Default.args = {
         startTime: "12:00 PM",
       },
       visibility: "private",
-      admins: [],
       members: [],
       invitationCard: {
         id: "card_003",

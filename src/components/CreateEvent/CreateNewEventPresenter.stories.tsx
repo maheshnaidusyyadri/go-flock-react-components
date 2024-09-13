@@ -1,6 +1,10 @@
 import { StoryFn } from "@storybook/react";
 import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
-import { LocationInfo, CreateNewEventProps, DraftEvent } from "@goflock/types";
+import {
+  LocationInfo,
+  CreateNewEventProps,
+  DraftEvent,
+} from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
@@ -202,26 +206,13 @@ CreatingEvent.args = {
             endTime: "4:00 PM",
           },
           visibility: "private",
-          admins: [
-            {
-              id: "admin_001",
-              eventId: "event_12345",
-              name: "Alice Smith",
-              email: "alice.smith@example.com",
-            },
-            {
-              id: "admin_002",
-              eventId: "event_12345",
-              name: "Bob Johnson",
-              email: "bob.johnson@example.com",
-            },
-          ],
           members: [
             {
               id: "member_001",
               eventId: "event_12345",
               name: "Charlie Brown",
               phoneNumber: "+1234567890",
+              roles: ["admin"],
               rsvp: {
                 response: "attending",
                 count: 2,
@@ -232,6 +223,7 @@ CreatingEvent.args = {
               eventId: "event_12345",
               name: "David Clark",
               phoneNumber: "+1987654321",
+              roles: ["member"],
               rsvp: {
                 response: "maybe",
                 count: 1,
@@ -242,6 +234,7 @@ CreatingEvent.args = {
               eventId: "event_12345",
               name: "Eve Davis",
               email: "eve.davis@example.com",
+              roles: ["member"],
               rsvp: {
                 response: "not-attending",
                 count: 1,
@@ -252,6 +245,7 @@ CreatingEvent.args = {
               eventId: "event_12345",
               name: "Frank Miller",
               email: "frank.miller@example.com",
+              roles: ["member"],
               rsvp: {
                 response: "attending",
                 count: 3,
@@ -262,6 +256,7 @@ CreatingEvent.args = {
               eventId: "event_12345",
               name: "Grace Lee",
               email: "grace.lee@example.com",
+              roles: ["member"],
               rsvp: {
                 response: "not-answered",
                 count: 0,
