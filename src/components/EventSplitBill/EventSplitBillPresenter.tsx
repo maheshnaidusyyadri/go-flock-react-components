@@ -7,6 +7,7 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   addTransaction,
   updateTransaction,
   deleteTransaction,
+  expenses,
 }) => {
   const [newTransaction, setNewTransaction] = useState<Transaction>({
     id: "",
@@ -15,8 +16,8 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
     description: "",
     amount: 0,
     date: new Date().toISOString(),
-    paidUserId: "", // Initialize with empty payer, adjust according to your model
-    splitAmongUserIds: [], // Initialize with empty participants, adjust according to your model
+    paidUserId: "", // Initialize with empty payer
+    splitAmongUserIds: [], // Initialize with empty participants
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -70,6 +71,8 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   return (
     <div>
       <h2>Split Bill for {event.name}</h2>
+
+      <h3>Transactions</h3>
       <ul>
         {transactions.map((transaction) => (
           <li key={transaction.id}>
@@ -93,52 +96,59 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
         ))}
       </ul>
 
-      <div>
-        <h3>Add New Transaction</h3>
-        <input
-          type="text"
-          placeholder="Description"
-          value={newTransaction.description}
-          onChange={(e) =>
-            setNewTransaction({
-              ...newTransaction,
-              description: e.target.value,
-            })
-          }
-        />
-        <input
-          type="number"
-          placeholder="Amount"
-          value={newTransaction.amount}
-          onChange={(e) =>
-            setNewTransaction({
-              ...newTransaction,
-              amount: parseFloat(e.target.value),
-            })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Payer"
-          value={newTransaction.paidUserId}
-          onChange={(e) =>
-            setNewTransaction({ ...newTransaction, paidUserId: e.target.value })
-          }
-        />
-        {/* Add inputs for participants and date as needed */}
-        <button
-          onClick={handleAddTransaction}
-          disabled={
-            isLoading ||
-            !newTransaction.description ||
-            newTransaction.amount <= 0
-          }
-        >
-          Add Transaction
-        </button>
-      </div>
+      <h3>Add New Transaction</h3>
+      <input
+        type="text"
+        placeholder="Description"
+        value={newTransaction.description}
+        onChange={(e) =>
+          setNewTransaction({
+            ...newTransaction,
+            description: e.target.value,
+          })
+        }
+      />
+      <input
+        type="number"
+        placeholder="Amount"
+        value={newTransaction.amount}
+        onChange={(e) =>
+          setNewTransaction({
+            ...newTransaction,
+            amount: parseFloat(e.target.value),
+          })
+        }
+      />
+      <input
+        type="text"
+        placeholder="Payer"
+        value={newTransaction.paidUserId}
+        onChange={(e) =>
+          setNewTransaction({ ...newTransaction, paidUserId: e.target.value })
+        }
+      />
+      {/* Add inputs for participants and date as needed */}
+      <button
+        onClick={handleAddTransaction}
+        disabled={
+          isLoading || !newTransaction.description || newTransaction.amount <= 0
+        }
+      >
+        Add Transaction
+      </button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <h3>Expense Summary</h3>
+      <ul>
+        {expenses.map((expense) => (
+          <li key={expense.userId}>
+            <p>
+              {expense.name}: ${expense.amount.toFixed(2)}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

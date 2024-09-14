@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventSplitBillPresenter";
-import { EventSplitBillProps, Transaction } from "@goflock/types";
+import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
