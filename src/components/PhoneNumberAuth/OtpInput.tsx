@@ -61,7 +61,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, onChange }) => {
             />
         ))}      
         </div>
-        <p>Didn't receive the code? <a>Resend</a></p>
+        {/* <p>Didn't receive the code? <a>Resend</a></p> */}
     </div>
   );
 };

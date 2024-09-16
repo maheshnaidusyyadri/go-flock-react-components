@@ -18,7 +18,11 @@ import {
   IonRadioGroup,
   IonRadio
 } from "@ionic/react";
-import { CreateNewEventProps, LocationInfo, DraftEvent } from "@goflock/types/"; // Adjust the import based on your file structure
+import {
+  CreateNewEventProps,
+  LocationInfo,
+  DraftEvent,
+} from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,7 +31,7 @@ import Success from '../../images/celebration.svg';
 
 
 
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,

@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import EventPresenter from "./EventPresenter"; // Adjust the import path based on your project structure
-import { EventProps, RSVP } from "@goflock/types";
+import { EventProps, RSVP } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/EventPresenter",
@@ -36,7 +36,6 @@ Default.args = {
       startTime: "7:00 PM",
     },
     visibility: "private",
-    admins: [],
     members: [],
     invitationCard: {
       id: "card_003",

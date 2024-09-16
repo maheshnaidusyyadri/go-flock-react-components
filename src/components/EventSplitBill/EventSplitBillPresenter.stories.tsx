@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventSplitBillPresenter";
-import { EventSplitBillProps, Transaction } from "@goflock/types";
+import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
@@ -30,20 +30,6 @@ Default.args = {
       endTime: "4:00 PM",
     },
     visibility: "private",
-    admins: [
-      {
-        id: "admin_001",
-        eventId: "event_12345",
-        name: "Alice Smith",
-        email: "alice.smith@example.com",
-      },
-      {
-        id: "admin_002",
-        eventId: "event_12345",
-        name: "Bob Johnson",
-        email: "bob.johnson@example.com",
-      },
-    ],
     members: [
       {
         id: "member_001",
@@ -54,6 +40,7 @@ Default.args = {
           response: "attending",
           count: 2,
         },
+        roles: ["admin"],
       },
       {
         id: "member_002",
@@ -64,6 +51,7 @@ Default.args = {
           response: "maybe",
           count: 1,
         },
+        roles: ["admin", "member"],
       },
       {
         id: "member_003",
@@ -74,6 +62,7 @@ Default.args = {
           response: "not-attending",
           count: 1,
         },
+        roles: ["member"],
       },
       {
         id: "member_004",
@@ -84,6 +73,7 @@ Default.args = {
           response: "attending",
           count: 3,
         },
+        roles: ["member"],
       },
       {
         id: "member_005",
@@ -94,6 +84,7 @@ Default.args = {
           response: "not-answered",
           count: 0,
         },
+        roles: ["member"],
       },
     ],
     invitationCard: {

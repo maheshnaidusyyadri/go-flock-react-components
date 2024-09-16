@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventMediaProps, Media } from "@goflock/types";
+import { EventMediaProps, Media } from "@goflock/types/src/index";
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
   media,

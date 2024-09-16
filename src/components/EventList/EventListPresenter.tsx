@@ -9,9 +9,9 @@ import {
   IonAvatar,
   IonList,
 } from "@ionic/react";
-import { EventListProps } from "@goflock/types";
+import { EventListProps } from "@goflock/types/src/index";
 
-const EventList: React.FC<EventListProps> = ({ profile, events }) => {
+const EventListPresenter: React.FC<EventListProps> = ({ profile, events }) => {
   return (
     <IonCard>
       <IonCardHeader>
@@ -44,4 +44,4 @@ const EventList: React.FC<EventListProps> = ({ profile, events }) => {
   );
 };
 
-export default EventList;
+export default EventListPresenter;

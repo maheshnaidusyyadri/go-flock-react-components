@@ -245,9 +245,9 @@
 .otp_section {
     .otp-input-container {
         display: flex;
-        gap: 15px; /* Space between the inputs */
+        gap: 10px; /* Space between the inputs */
         justify-content: center;
-        margin: 0 0 24px 0; /* Margin around the OTP inputs */
+        margin: 0 0 10px 0; /* Margin around the OTP inputs */
         .otp-input {
             width: 38px; /* Width of each input */
             height: 29px; /* Height of each input */
@@ -295,7 +295,26 @@
         }
     }
 }
-
+.otp_error {
+    color: #DC2626;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    font-family: $GoFlockFont;
+}
+.otp_resend {
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $secondaryColor;
+    a {
+        color: #0D1A26;
+        font-weight: 600;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
 
 .onboarding_sec {
     display: flex;

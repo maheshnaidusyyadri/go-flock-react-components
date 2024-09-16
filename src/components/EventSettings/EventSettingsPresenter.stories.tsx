@@ -1,6 +1,10 @@
 import { StoryFn } from "@storybook/react";
 import EventSettingsPresenter from "./EventSettingsPresenter"; // Adjust the import path based on your project structure
-import { EventSettingsProps, Currency, EventVisibility } from "@goflock/types";
+import {
+  EventSettingsProps,
+  Currency,
+  EventVisibility,
+} from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/EventSettingsPresenter",
@@ -30,20 +34,6 @@ Default.args = {
       endTime: "4:00 PM",
     },
     visibility: "private",
-    admins: [
-      {
-        id: "admin_001",
-        eventId: "event_12345",
-        name: "Alice Smith",
-        email: "alice.smith@example.com",
-      },
-      {
-        id: "admin_002",
-        eventId: "event_12345",
-        name: "Bob Johnson",
-        email: "bob.johnson@example.com",
-      },
-    ],
     members: [
       {
         id: "member_001",
@@ -54,6 +44,7 @@ Default.args = {
           response: "attending",
           count: 2,
         },
+        roles: ["admin"],
       },
       {
         id: "member_002",
@@ -64,6 +55,7 @@ Default.args = {
           response: "maybe",
           count: 1,
         },
+        roles: ["admin"],
       },
       {
         id: "member_003",
@@ -74,6 +66,7 @@ Default.args = {
           response: "not-attending",
           count: 1,
         },
+        roles: ["admin"],
       },
       {
         id: "member_004",
@@ -84,6 +77,7 @@ Default.args = {
           response: "attending",
           count: 3,
         },
+        roles: ["member"],
       },
       {
         id: "member_005",
@@ -94,6 +88,7 @@ Default.args = {
           response: "not-answered",
           count: 0,
         },
+        roles: ["member"],
       },
     ],
     invitationCard: {
@@ -219,6 +214,7 @@ LoadingState.args = {
     );
   },
   updateCurrency: async (currency: Currency) => {
+    console.log("Currency updated to:", currency);
     return new Promise((resolve) =>
       setTimeout(() => {
         resolve(true);
@@ -226,6 +222,7 @@ LoadingState.args = {
     );
   },
   updateEventVisibility: async (visibility: EventVisibility) => {
+    console.log("Event visibility updated to:", visibility);
     return new Promise((resolve) =>
       setTimeout(() => {
         resolve(true);

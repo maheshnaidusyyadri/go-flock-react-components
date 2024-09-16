@@ -12,7 +12,7 @@ import {
   IonContent,
   IonLabel,
 } from "@ionic/react";
-import { DashboardProps } from "@goflock/types/";
+import { DashboardProps } from "@goflock/types/src/index";
 import EventDP from '../../images/event_DP.png';
 
 const DashboardPresenter: React.FC<DashboardProps> = ({

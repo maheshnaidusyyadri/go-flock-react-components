@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventProps, RSVP } from "@goflock/types";
+import { EventProps, RSVP } from "@goflock/types/src/index";
 
 const EventPresenter: React.FC<EventProps> = ({
   profile,
