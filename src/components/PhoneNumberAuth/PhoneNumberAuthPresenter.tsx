@@ -1,25 +1,44 @@
 import React, { useEffect, useState } from "react";
+import './PhoneNumberAuthPresenter.scss';
+ 
 import {
   IonContent,
-  IonHeader,
+  // IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
+  // IonTitle,
+  // IonToolbar,
   IonButton,
   IonItem,
   IonLabel,
   IonInput,
+  IonIcon,
   IonSelect,
   IonSelectOption,
+  IonList,
+  IonSearchbar,
+  IonModal,
 } from "@ionic/react";
+import { chevronDownOutline, flagOutline } from 'ionicons/icons';
 import { PhoneNumberAuthProps } from "@goflock/types/";
+import Logo from '../../images/sign-logo.png';
+import Mobile from '../../images/otp_varification.svg';
+import Welcome from '../../images/welcome.svg';
 
+import OtpInput from "./OtpInput";
+ 
+
+
+
+//import { useNavigate } from 'react-router-dom';
+ 
 const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = (
   phoneNumberAuthProps
 ) => {
   const [countryCode, setCountryCode] = useState("+1"); // Default to USA
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  //const navigate = useNavigate ();
+  const [isActive, setIsActive] = useState(false);
+  const [isValidate, setIsValidate] = useState(false);
   useEffect(() => {
     console.log("Component mounted" + countryCode);
   }, []);
@@ -27,63 +46,208 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = (
     // Implement OTP generation logic here
     phoneNumberAuthProps.sendOTP(`${countryCode}${phoneNumber}`);
     console.log(`Generating OTP for ${countryCode} ${phoneNumber}`);
+    
+    setIsActive((prev) => !prev);
+ 
+  };
+
+  const countries = [
+    { name: 'India', code: '+91', flag: 'https://flagcdn.com/w320/in.png' }, 
+  { name: 'Andorra', code: '+376', flag: 'https://flagcdn.com/w320/ad.png' },
+  { name: 'United Arab Emirates', code: '+971', flag: 'https://flagcdn.com/w320/ae.png' },
+  { name: 'Antigua and Barbuda', code: '+1-268', flag: 'https://flagcdn.com/w320/ag.png' },
+  { name: 'Anguilla', code: '+1', flag: 'https://flagcdn.com/w320/ai.png' },
+  { name: 'Armenia', code: '+374', flag: 'https://flagcdn.com/w320/am.png' },
+  { name: 'Angola', code: '+244', flag: 'https://flagcdn.com/w320/ao.png' },
+  { name: 'Argentina', code: '+54', flag: 'https://flagcdn.com/w320/ar.png' },
+  { name: 'American Samoa', code: '+1684', flag: 'https://flagcdn.com/w320/as.png' },
+  { name: 'Austria', code: '+43', flag: 'https://flagcdn.com/w320/at.png' },
+  { name: 'Australia', code: '+61', flag: 'https://flagcdn.com/w320/au.png' },
+  { name: 'Åland', code: '+358', flag: 'https://flagcdn.com/w320/ax.png' },
+    // Add more countries as needed
+  ];
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState(countries[0]); // Default selected country
+  const [isListOpen, setIsListOpen] = useState(false); // Toggle list visibility
+
+  // Filter countries based on the search term
+  const filteredCountries = countries.filter((country) =>
+    country.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Handle selecting a country
+  const handleCountrySelect = (country) => {
+    setSelectedCountry(country);
+    setIsListOpen(false); // Close the list after selection
+  };
+
+  // OTP Varification 
+
+  const [otp, setOtp] = useState<string>('');
+
+  const handleOtpChange = (value: string) => {
+    setOtp(value);
+    console.log('Current OTP:', value); // For debugging or validation
+  };
+
+  const handleValidateOTP = () => {
+    // Validate OTP and submit
+    setIsValidate((prev) => !prev);
+    //setIsActive(false);
+    //alert(`OTP Entered: ${otp}`);
   };
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle></IonTitle> {/* Empty header */}
-        </IonToolbar>
-      </IonHeader>
-      <IonContent
-        className="ion-padding"
+     
+    <IonPage className="authpage"> 
+      <IonContent 
+        className={`generate_cnt ion-padding ${isActive ? '' : 'active'}`}
         fullscreen
+        hidden 
       >
-        <div className="logo-container">Logo.</div>
-        <h2 className="ion-text-center">Enter Your Phone Number</h2>
-        <p className="ion-text-center subtitle">
-          We will send you the 4 digit verification code
-        </p>
+        <div className="auth_sec">
+          <div className="auth_cnt">
+            <img className="logo" alt="Go Flock" src={Logo} />
+            <h2 className="auth-title">Enter Your Phone Number</h2>
+            <p className="subtitle">
+              We will send you the 4 digit verification code
+            </p>
+          </div>
+          <div className="country_selection">
 
-        <IonItem>
-          <IonLabel position="floating">Country</IonLabel>
-          <IonSelect
-            value={countryCode}
-            onIonChange={(e) => setCountryCode(e.detail.value)}
-          >
-            <IonSelectOption value="+1">
-              <img
-                src="/assets/flags/us.png"
-                alt="US Flag"
-                className="flag"
-              />
-              United States (+1)
-            </IonSelectOption>
-            {/* Add more country options here */}
-          </IonSelect>
-        </IonItem>
+            <IonContent>
+              {/* Display the selected country field that toggles the list */}
+              <label>Country</label>
+              <IonItem button onClick={() => setIsListOpen(!isListOpen)}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <img
+                    src={selectedCountry.flag}
+                    alt={selectedCountry.name}
+                    style={{
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      marginRight: '5px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <IonLabel>
+                    {selectedCountry.name} ({selectedCountry.code})
+                  </IonLabel>
+                </div>
+                <IonIcon icon={chevronDownOutline} slot="end" />
+              </IonItem>
 
-        <IonItem>
-          <IonLabel position="floating">Mobile Number*</IonLabel>
-          <IonInput
-            type="tel"
-            value={phoneNumber}
-            placeholder="Enter mobile number"
-            onIonInput={(e) => setPhoneNumber(e.detail.value!)}
-          />
-        </IonItem>
-
+              {/* Modal that acts as the dropdown list */}
+              <IonModal
+                isOpen={isListOpen} onDidDismiss={() => setIsListOpen(false)} cssClass="countries_list">
+                <IonContent>
+                  <h4 className="country-label">Country codes</h4>
+                  <IonSearchbar
+                    placeholder="Search country"
+                    value={searchTerm}
+                    onIonInput={(e) => setSearchTerm(e.detail.value!)}
+                  />
+                  <IonList>
+                    {filteredCountries.map((country) => (
+                      <IonItem
+                        button
+                        key={country.code}
+                        onClick={() => handleCountrySelect(country)}
+                      >
+                        <img
+                          src={country.flag}
+                          alt={country.name}
+                          style={{
+                            width: '20px',
+                            height: '20px',
+                            borderRadius: '50%',
+                            marginRight: '5px',
+                            objectFit: 'cover',
+                          }}
+                        />
+                        <IonLabel>
+                          {country.name} ({country.code})
+                        </IonLabel>
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </IonContent>
+              </IonModal>
+            </IonContent>
+          </div>
+          <div className="form-group">
+            <IonInput
+              label="Mobile Number*"
+              labelPlacement="stacked"
+              type="tel"
+              value={phoneNumber}
+              placeholder="Enter mobile number"
+              onIonInput={(e) => setPhoneNumber(e.detail.value!)}
+            ></IonInput>
+          </div>
+        </div> 
         <IonButton
           expand="block"
           shape="round"
-          className="generate-otp-button"
+          className="primary-btn"
           onClick={handleGenerateOTP}
         >
           Generate OTP
         </IonButton>
       </IonContent>
+      <IonContent         
+        className={`validate_cnt ion-padding ${isActive ? 'active' : ''} ${isValidate ? 'validated' : ''}`}
+        fullscreen
+        
+      >
+        <div className="varification_sec">
+          <div className="auth_cnt">            
+            <h2 className="auth-title">Verify Account</h2>
+            <img className="mobile" alt="Go Flock" src={Mobile} />
+            <h6>Mobile Verification</h6>
+            <p className="subtitle">
+              To continue, please enter the OTP we just sent to ********66
+            </p>
+          </div>
+          <OtpInput length={4} onChange={handleOtpChange} />
+           
+        </div> 
+        <IonButton
+          expand="block"
+          shape="round"
+          className="primary-btn" 
+          onClick={handleValidateOTP}
+        >
+          Verify & Process
+        </IonButton>
+      </IonContent>
+      <IonContent
+        className={`onboarding ion-padding ${isValidate ? 'active' : ''}`}
+        fullscreen
+      >
+        <div className="onboarding_sec">
+          <div className="auth_cnt">     
+            <img className="welcome" alt="Welcome to Go Flock" src={Welcome} />       
+            <h2 className="auth-title">Welcome</h2> 
+            <p className="subtitle">
+              Welcome aboard! Your journey with our Application begins now.
+            </p>
+          </div>  
+        </div> 
+        <IonButton
+          expand="block"
+          shape="round"
+          className="primary-btn"  
+        >
+          Get Started
+        </IonButton>
+        
+      </IonContent>
     </IonPage>
+    
+     
   );
 };
 

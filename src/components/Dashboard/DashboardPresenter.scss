@@ -1,0 +1,356 @@
+@import '../../styles/variables.scss';
+
+body {
+    font-size: 100%;
+    padding: 0px !important;
+    display: block;
+}
+
+.dashboard  {
+    min-height: 100vh;
+    padding: 16px;
+    margin-top: 10px;
+}
+.db_profile {
+    box-shadow: none;
+    margin: 16px;
+    padding-top: 10px;
+    ion-card-header {
+        padding: 0 0 5px 0;
+        ion-card-title {
+            font-family: $GoFlockFont;
+            font-weight: 600;
+            font-size: 20px;
+           // font-size: clamp(13px, 3.38vw, 14px);
+            line-height: 20px;
+            color: $GoFlockColor;
+            padding: 0px;
+            margin: 0;
+        }
+    }
+    ion-card-content {
+        padding: 0;
+        p {
+            font-family: $GoFlockFont;
+            font-weight: 400;
+            color: $secondaryColor;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 0px;
+            margin: 0px;
+        }
+    }
+}
+.events_sec {
+    box-shadow: none;
+    margin: 16px;
+    ion-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        padding: 8px 0 0 0;
+        ion-card-title {
+            font-family: $GoFlockFont;
+            font-weight: 600;
+            font-size: 14px;
+            font-size: clamp(13px, 3.38vw, 14px);
+            line-height: 20px;
+            color: $GoFlockColor;
+            padding: 0px;
+            margin: 0;
+        }
+        .viewall {
+            font-family: $GoFlockFont;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 20px;
+            color: $GoFlockColor;
+            padding: 0px;
+            margin: 0;
+            cursor: pointer;
+        }
+    }
+    ion-card-content {
+        padding: 0;
+        ion-list {
+            display: flex;
+            gap: 16px;
+            padding: 12px 0 0 0;
+            .event_item  {
+                width: 50%;
+                border: 1px solid #E4E4E7;
+                border-radius: 8px;
+                figure {
+                    margin: 0px;
+                    img {
+                        display: block; 
+                    }
+                }
+                .event_info {
+                    padding: 12px;
+                    padding: clamp(10px, 2.9vw, 12px);
+                    ion-label {
+                        font-family: $GoFlockFont;
+                        font-weight: 600;
+                        font-size: 12px;
+                        font-size: clamp(10px, 2.9vw, 12px);
+                        line-height: 18px;
+                        color: $GoFlockColor;
+                        padding: 0px;
+                        margin: 0 0 5px 0;
+                    }
+                    span {
+                        font-family: $GoFlockFont;
+                        font-weight: 400;
+                        font-size: 12px;
+                        font-size: clamp(10px, 2.9vw, 12px);
+                        line-height: 18px;
+                        color: $secondaryColor;
+                        padding: 0px;
+                        margin: 0 0 0px 0;
+                        display: block;
+                    }
+                }
+                
+            }
+        }
+    }
+    .events_list {
+        ul {
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            text-align: center;
+            gap: 5vw;
+            li {
+                list-style-type: none;
+                label {
+                    border: 1px solid rgba($GoFlockColor , 0.1);
+                    border-radius: 12px;
+                    width: 24vw;
+                    height: 24vw;                
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    svg {
+                        width: clamp(30px, 11.6vw, 48px);
+                        height: auto;
+                        
+                    }
+                }
+                span {
+                    font-family: $GoFlockFont;
+                    font-weight: 400;
+                    font-size: 14px;
+                    font-size: clamp(10px, 3.38vw, 14px);
+                    line-height: 20px;
+                    color: $GoFlockColor;
+                }
+                &.create {
+                    label {
+                        background: #F6F6F6;
+                        svg {
+                            width: 32px;
+                            width: clamp(24px, 7.72vw, 32px);
+                            height: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+ 
+
+
+
+
+.form-container {
+    ion-card-content {
+        padding: 0px;
+    }
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+    .form-label {
+        font-family:$GoFlockFont;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: #18181B !important;
+        margin-bottom: 4px;
+        display: block;
+    }
+    ion-input {
+        .input-wrapper {
+            .label-text-wrapper {
+                transform: inherit !important;
+                font-family: $GoFlockFont;
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 500;
+                color: #18181B !important;
+                margin-bottom: 4px;
+            }
+            .native-wrapper {
+                border: 1px solid #E4E4E7;
+                height: 48px;
+                border-radius: 6px;
+                .native-input {
+                    padding: 0 15px;
+                    color: #18181B;
+                    font-family: $GoFlockFont;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    &::placeholder {
+                        color: $secondaryColor;
+                        font-size: 14px;
+                        line-height: 20px;
+                        font-family: $GoFlockFont;
+                        font-weight: 400;
+                        padding: 0px;
+                    }
+                }
+            }
+            .input-highlight {
+                display: none;
+            }
+        }
+    }
+    ion-select {
+        border: 1px solid #E4E4E7;
+        height: 48px;
+        border-radius: 6px;
+    }
+    ion-select {
+        --padding-end: 10px; /* Adjust padding to ensure space on the right */
+        --padding-start: 15px; /* Optional: adjust left padding */
+        --icon-padding-end: 0; /* Ensures the icon is at the far right */
+        --icon-padding-start: auto; /* Pushes the icon to the right */
+        --highlight-color-focused: transparent;
+        --placeholder-color: $secondaryColor !important; /* Sets the color of the placeholder text */
+        --placeholder-opacity: 0.5; /* Sets the opacity of the placeholder text */
+        --placeholder-font-size: 14px; /* Adjusts the font size of the placeholder */
+        --placeholder-font-style: italic; /* Optionally makes the placeholder italic */
+        --placeholder-font-family: $GoFlockFont; 
+        --placeholder-font-weight: 400; /* Adjusts the font weight of the placeholder */
+    }
+
+    ion-select::part(icon) {
+        margin-left: auto; /* Pushes the icon to the right */
+        right: 10px; /* Optional: fine-tune position */
+        position: absolute; /* Set absolute positioning */
+    }
+    
+    /* Adjust padding to prevent overlapping */
+    ion-select::part(native) {
+        padding-right: 30px; /* Adjust based on icon position */
+    }
+
+     
+    ion-textarea {
+        .textarea-wrapper {
+            .label-text-wrapper {
+                transform: inherit !important;
+                font-family: $GoFlockFont;
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 500;
+                color: #18181B !important;
+                margin-bottom: 4px;
+            }
+            .native-wrapper {
+                border: 1px solid #E4E4E7;
+                height: auto;
+                border-radius: 6px;
+                .native-textarea {
+                    padding: 10px 15px;
+                    color: #18181B;
+                    font-family: $GoFlockFont;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    margin-top: 0;
+                    &::placeholder {
+                        color: $secondaryColor;
+                        font-size: 14px;
+                        line-height: 20px;
+                        font-family: $GoFlockFont;
+                        font-weight: 400;
+                        padding: 0px;
+                    }
+                }
+            }
+            .textarea-highlight {
+                display: none;
+            }
+        }
+    }
+
+    ion-datetime-button {
+        border: 1px solid #E4E4E7;
+        height: 48px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        --background: #007bff; /* Background color */
+        --color: $white; /* Text color */
+        --border-radius: 8px; /* Rounded corners */
+        --padding-start: 16px; /* Padding on the left */
+        --padding-end: 16px; /* Padding on the right */
+        --padding-top: 10px; /* Padding on the top */
+        --padding-bottom: 10px; /* Padding on the bottom */
+        --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+        &.date {
+            background: url('../../images/calendar.svg') no-repeat calc(100% - 14px) center ;
+          }
+          &.time {
+            background: url('../../images/Clock.svg') no-repeat calc(100% - 14px) center ;
+          }
+      }
+      ion-datetime-button::part(native) {
+        background-color: transparent; /* Set a custom background color */
+        color: $GoFlockColor; /* Set the text color */
+        font-family: $GoFlockFont;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        border-radius: 0px; /* Set rounded corners */
+        padding: 0; /* Set padding */
+        border: none; /* Remove default border */ 
+        width: 100%;
+        text-align: left;
+        height: 100%;
+        padding: 0 10px;
+      }
+      
+      
+}
+
+
+.event_images {
+    img.events {
+        display: block;
+        width: 100%;
+        max-width: 390px;
+        margin-bottom: 10px;
+        &:nth-last-child(2) {
+            margin-bottom: 0px;
+        }
+    }
+    .addmore {
+        width: 32px;
+        height: 32px;
+        display: block;
+        margin: 0 auto;
+        transform: translateY(-50%);
+        background: url('../../images/plus.png') no-repeat center;
+        cursor: pointer;
+    }
+}
