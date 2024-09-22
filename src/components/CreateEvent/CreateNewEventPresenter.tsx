@@ -18,6 +18,7 @@ import {
   CreateNewEventProps,
   LocationInfo,
   DraftEvent,
+  Event,
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,7 +37,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [locationQuery, setLocationQuery] = useState<string>("");
   const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
-    null
+    {
+      name: "Everett",
+      lat: 0,
+      long: 0,
+    }
   );
   const [eventName, setEventName] = useState<string>("");
   const [isCreating, setIsCreating] = useState<boolean>(false);
@@ -60,8 +65,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     };
 
     try {
-      await createEvent(draftEvent);
-      goToEvent("id");
+      let newEvent: Event = await createEvent(draftEvent);
+      goToEvent(newEvent.id);
     } catch (error) {
       console.error("Error creating event:", error);
     } finally {
@@ -355,7 +360,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           {currentStep === totalSteps && (
             <IonButton
               className="primary-btn"
-              onClick={handleCreateEvent}
+              onClick={() => handleCreateEvent()}
               expand="block"
               //disabled={isCreating || !selectedLocation || !eventName}
             >

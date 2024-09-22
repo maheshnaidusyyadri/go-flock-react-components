@@ -11,7 +11,7 @@ import {
   IonLabel,
   IonActionSheet,
 } from "@ionic/react";
-import { DashboardProps } from "@goflock/types/src/index";
+import { DashboardProps, Event } from "@goflock/types/src/index";
 import EventDP from "../../images/event_DP.png";
 import menuIcon from "../../images/menuIcon.svg";
 import AddIcon from "../../images/icons/add-circle.svg";
@@ -69,7 +69,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         </IonCardHeader>
         <IonCardContent>
           <IonList>
-            {activeEvents.map((event) => (
+            {activeEvents.map((event: Event) => (
               <div
                 className="event_item"
                 key={event.id}

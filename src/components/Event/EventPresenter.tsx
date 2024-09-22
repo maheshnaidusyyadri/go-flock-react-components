@@ -30,6 +30,7 @@ const EventPresenter: React.FC<EventProps> = ({
 
   return (
     <div>
+      <h2>Id: {event.id}</h2>
       <h2>{event.name}</h2>
       <p>{event.description}</p>
       <p>{rsvpStatus?.response}</p>
