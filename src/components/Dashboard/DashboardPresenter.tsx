@@ -1,40 +1,30 @@
 import React from "react";
-import './DashboardPresenter.scss';
+import "./DashboardPresenter.scss";
 import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonButton,
   IonAvatar,
   IonList,
-  IonItem,
   IonContent,
   IonLabel,
   IonActionSheet,
 } from "@ionic/react";
 import { DashboardProps } from "@goflock/types/src/index";
-import EventDP from '../../images/event_DP.png';
-import menuIcon from '../../images/menuIcon.svg';
-import linkIcon from '../../images/icons/link.svg';
-import AddIcon from '../../images/icons/add-circle.svg';
-import vacationIcon from '../../images/icons/vacation.svg';
-import birthdayIcon from '../../images/icons/birthday.svg';
-import marriageIcon from '../../images/icons/marriage.svg';
-import graduationIcon from '../../images/icons/graduation.svg';
-import moreIcon from '../../images/icons/more.svg';
-
-
-
-
-
-
+import EventDP from "../../images/event_DP.png";
+import menuIcon from "../../images/menuIcon.svg";
+import AddIcon from "../../images/icons/add-circle.svg";
+import vacationIcon from "../../images/icons/vacation.svg";
+import birthdayIcon from "../../images/icons/birthday.svg";
+import marriageIcon from "../../images/icons/marriage.svg";
+import graduationIcon from "../../images/icons/graduation.svg";
+import moreIcon from "../../images/icons/more.svg";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
   activeEvents,
   myEvents,
-  createNewEvent,
   openEvent,
   seeAllMyEvents,
   seeAllEvents,
@@ -68,79 +58,107 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
 
       <IonCard className="events_sec">
         <IonCardHeader>
-          <IonCardTitle>Active Events</IonCardTitle> 
-          <span className="viewall"
+          <IonCardTitle>Active Events</IonCardTitle>
+          <span
+            className="viewall"
             onClick={() => seeAllEvents("birthday")}
-            expand="block"
           >
             See all
           </span>
         </IonCardHeader>
-        <IonCardContent >
+        <IonCardContent>
           <IonList>
             {activeEvents.map((event) => (
-              <div className="event_item"
-                key={event.id}                
+              <div
+                className="event_item"
+                key={event.id}
                 onClick={() => openEvent(event.id)}
-              > 
-                <figure><img className="events" alt="Events" src={EventDP} /></figure>
+              >
+                <figure>
+                  <img
+                    className="events"
+                    alt="Events"
+                    src={EventDP}
+                  />
+                </figure>
                 <div className="event_info">
                   <IonLabel>{event.name}</IonLabel>
                   <span>May 16 - May 17</span>
                 </div>
                 <span className="actions_menu">
                   <span id="open-action-sheet">
-                    <img className="events" alt="Event Details" src={menuIcon} />
+                    <img
+                      className="events"
+                      alt="Event Details"
+                      src={menuIcon}
+                    />
                   </span>
-                </span>                
+                </span>
               </div>
             ))}
           </IonList>
-          
         </IonCardContent>
       </IonCard>
       <IonCard className="events_sec">
         <IonCardHeader>
-          <IonCardTitle>All Events</IonCardTitle> 
+          <IonCardTitle>All Events</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <IonList>
-            <div className="events_list"> 
+            <div className="events_list">
               <div className="event_info">
                 <ul>
                   <li className="create">
                     <label>
-                      <img src={AddIcon} alt="Create Event" />
+                      <img
+                        src={AddIcon}
+                        alt="Create Event"
+                      />
                     </label>
                     <span>Add events</span>
                   </li>
                   <li>
                     <label>
-                      <img src={birthdayIcon} alt="Birthday" />
+                      <img
+                        src={birthdayIcon}
+                        alt="Birthday"
+                      />
                     </label>
                     <span>Birthdays</span>
                   </li>
                   <li>
                     <label>
-                      <img src={vacationIcon} alt="Vacations" />
+                      <img
+                        src={vacationIcon}
+                        alt="Vacations"
+                      />
                     </label>
                     <span>Vacation trips</span>
                   </li>
                   <li>
                     <label>
-                      <img src={marriageIcon} alt="Marriage" />
+                      <img
+                        src={marriageIcon}
+                        alt="Marriage"
+                      />
                     </label>
                     <span>Marriage</span>
                   </li>
                   <li>
                     <label>
-                      <img src={graduationIcon} alt="Graduation" />                       
+                      <img
+                        src={graduationIcon}
+                        alt="Graduation"
+                      />
                     </label>
                     <span>Graduation</span>
                   </li>
                   <li>
                     <label>
-                      <img src={moreIcon} alt="Graduation" />    
+                      <img
+                        src={moreIcon}
+                        alt="Graduation"
+                      />
                     </label>
                     <span>Others</span>
                   </li>
@@ -148,15 +166,14 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               </div>
             </div>
           </IonList>
-          
         </IonCardContent>
       </IonCard>
       <IonCard className="events_sec">
         <IonCardHeader>
           <IonCardTitle>My Events</IonCardTitle>
-          <span className="viewall"
+          <span
+            className="viewall"
             onClick={seeAllMyEvents}
-            expand="block"
           >
             See all
           </span>
@@ -164,49 +181,55 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         <IonCardContent>
           <IonList>
             {myEvents.map((event) => (
-              <div className="event_item"
-                key={event.id} 
+              <div
+                className="event_item"
+                key={event.id}
                 onClick={() => openEvent(event.id)}
-              > 
-                <figure><img className="events" alt="Events" src={EventDP} /> </figure>
+              >
+                <figure>
+                  <img
+                    className="events"
+                    alt="Events"
+                    src={EventDP}
+                  />{" "}
+                </figure>
                 <div className="event_info">
-                <IonLabel>{event.name}</IonLabel>
+                  <IonLabel>{event.name}</IonLabel>
                   <span>May 16 - May 17</span>
                 </div>
               </div>
             ))}
           </IonList>
-          
         </IonCardContent>
       </IonCard>
 
       <IonActionSheet
         trigger="open-action-sheet"
-        className="action-menu-end" 
+        className="action-menu-end"
         buttons={[
           {
-            text: 'Copy link',
-            role: 'destructive',             
+            text: "Copy link",
+            role: "destructive",
             data: {
-              action: 'delete',
+              action: "delete",
             },
           },
           {
-            text: 'Edit Event',
+            text: "Edit Event",
             data: {
-              action: 'share',
+              action: "share",
             },
           },
           {
-            text: 'Add Checklist', 
+            text: "Add Checklist",
             data: {
-              action: 'cancel',
+              action: "cancel",
             },
           },
           {
-            text: 'Delete Event', 
+            text: "Delete Event",
             data: {
-              action: 'cancel',
+              action: "cancel",
             },
           },
         ]}

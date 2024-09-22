@@ -54,14 +54,16 @@ Default.args = {
     },
   ],
   getMembersFromContactList: async () => {
-    return {
-      id: "6",
-      name: "New Member",
-      phoneNumber: "1234567890",
-      email: "new@example.com",
-      eventId: "",
-      rsvp: { response: "attending", count: 0 },
-    };
+    return [
+      {
+        id: "6",
+        name: "New Member",
+        phoneNumber: "1234567890",
+        email: "new@example.com",
+        eventId: "",
+        rsvp: { response: "attending", count: 0 },
+      },
+    ];
   },
   addAdmin: async (member: EventMember) => {
     console.log("Admin added:", member);
@@ -88,14 +90,16 @@ LoadingState.args = {
     return new Promise((resolve) =>
       setTimeout(
         () =>
-          resolve({
-            id: "6",
-            name: "New Member",
-            phoneNumber: "1234567890",
-            email: "new@example.com",
-            eventId: "",
-            rsvp: { response: "attending", count: 0 },
-          }),
+          resolve([
+            {
+              id: "6",
+              name: "New Member",
+              phoneNumber: "1234567890",
+              email: "new@example.com",
+              eventId: "",
+              rsvp: { response: "attending", count: 0 },
+            },
+          ]),
         2000
       )
     ); // Simulate a loading state with a delay

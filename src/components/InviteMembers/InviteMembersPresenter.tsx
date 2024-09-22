@@ -10,7 +10,9 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   addMember,
   removeMember,
 }) => {
-  const [newMember, setNewMember] = useState<EventMember | null>(null);
+  const [membersFromContacts, setMembersFromContacts] = useState<EventMember[]>(
+    []
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,8 +68,9 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const memberFromContacts = await getMembersFromContactList();
-      setNewMember(memberFromContacts);
+      const membersFromContacts: EventMember[] =
+        await getMembersFromContactList();
+      setMembersFromContacts(membersFromContacts);
     } catch (err) {
       setError("Failed to get members from contact list");
     } finally {
@@ -127,15 +130,11 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
         >
           Get Member from Contacts
         </button>
-        {newMember && (
+        {membersFromContacts && (
           <div>
-            <p>New Member: {newMember.name}</p>
-            <button
-              onClick={() => handleAddMember(newMember)}
-              disabled={isLoading}
-            >
-              Add Member
-            </button>
+            <p onClick={() => handleAddMember(membersFromContacts[0])}>
+              New member list {membersFromContacts.length}
+            </p>
           </div>
         )}
       </div>
