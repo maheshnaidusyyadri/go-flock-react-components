@@ -25,6 +25,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
   activeEvents,
   myEvents,
+  createNewEvent,
   openEvent,
   seeAllMyEvents,
   seeAllEvents,
@@ -108,7 +109,10 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
             <div className="events_list">
               <div className="event_info">
                 <ul>
-                  <li className="create">
+                  <li
+                    className="create"
+                    onClick={() => createNewEvent()}
+                  >
                     <label>
                       <img
                         src={AddIcon}

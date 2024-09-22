@@ -1,4 +1,18 @@
 import React, { useState } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonCheckbox,
+  IonLoading,
+  IonText,
+} from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
 
 const ProfilePresenter: React.FC<ProfileProps> = ({
@@ -70,71 +84,82 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   };
 
   return (
-    <div>
-      <h2>Profile Settings</h2>
-
-      <div>
-        <label>
-          Preferred Name:
-          <input
-            type="text"
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Profile Settings</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
+        <IonItem>
+          <IonLabel position="stacked">Preferred Name</IonLabel>
+          <IonInput
             value={preferredName}
-            onChange={(e) => setPreferredNameState(e.target.value)}
+            onIonChange={(e) => setPreferredNameState(e.detail.value!)}
+            placeholder="Enter your preferred name"
           />
-        </label>
-        <button
+        </IonItem>
+        <IonButton
+          expand="block"
           onClick={handlePreferredNameChange}
           disabled={isLoading || !preferredName}
         >
-          Save
-        </button>
-      </div>
+          Save Preferred Name
+        </IonButton>
 
-      <div>
-        <label>
-          Show Intro:
-          <input
-            type="checkbox"
+        <IonItem>
+          <IonLabel>Show Intro</IonLabel>
+          <IonCheckbox
+            slot="start"
             checked={isIntroShown}
-            onChange={(e) => setIsIntroShownState(e.target.checked)}
+            onIonChange={(e) => setIsIntroShownState(e.detail.checked)}
           />
-        </label>
-        <button
+        </IonItem>
+        <IonButton
+          expand="block"
           onClick={handleIntroShownChange}
           disabled={isLoading}
         >
-          Save
-        </button>
-      </div>
+          Save Intro Setting
+        </IonButton>
 
-      <div>
-        <label>
-          SMS Notifications:
-          <input
-            type="checkbox"
+        <IonItem>
+          <IonLabel>SMS Notifications</IonLabel>
+          <IonCheckbox
+            slot="start"
             checked={smsPreference}
-            onChange={(e) => setSMSPreferenceState(e.target.checked)}
+            onIonChange={(e) => setSMSPreferenceState(e.detail.checked)}
           />
-        </label>
-        <button
+        </IonItem>
+        <IonButton
+          expand="block"
           onClick={handleSMSPreferenceChange}
           disabled={isLoading}
         >
-          Save
-        </button>
-      </div>
+          Save SMS Preference
+        </IonButton>
 
-      <div>
-        <button
+        <IonButton
+          expand="block"
+          color="danger"
           onClick={handleLogout}
           disabled={isLoading}
         >
           Logout
-        </button>
-      </div>
+        </IonButton>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+        {error && (
+          <IonText color="danger">
+            <p>{error}</p>
+          </IonText>
+        )}
+
+        <IonLoading
+          isOpen={isLoading}
+          message={"Please wait..."}
+        />
+      </IonContent>
+    </IonPage>
   );
 };
 
