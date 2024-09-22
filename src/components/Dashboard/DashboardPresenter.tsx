@@ -62,7 +62,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           <IonCardTitle>Active Events</IonCardTitle>
           <span
             className="viewall"
-            onClick={() => seeAllEvents("birthday")}
+            onClick={() => seeAllEvents("guest")}
           >
             See all
           </span>
@@ -177,7 +177,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           <IonCardTitle>My Events</IonCardTitle>
           <span
             className="viewall"
-            onClick={seeAllMyEvents}
+            onClick={() => seeAllMyEvents()}
           >
             See all
           </span>

@@ -32,6 +32,7 @@ const EventListPresenter: React.FC<EventListProps> = ({ profile, events }) => {
               <IonItem key={event.id}>
                 <IonLabel>
                   <h2>{event.name}</h2>
+                  <h2>{event.id}</h2>
                   <p>{event.description}</p>
                   <p>{new Date().toLocaleDateString()}</p>
                 </IonLabel>
