@@ -1,5 +1,22 @@
 import React, { useState } from "react";
-import { EventMember, InviteMembersProps } from "@goflock/types/src/index";
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonSpinner,
+  IonToast,
+  IonText,
+} from "@ionic/react";
+import {
+  Contact,
+  EventMember,
+  InviteMembersProps,
+} from "@goflock/types/src/index";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   admins,
@@ -10,9 +27,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   addMember,
   removeMember,
 }) => {
-  const [membersFromContacts, setMembersFromContacts] = useState<EventMember[]>(
-    []
-  );
+  const [membersFromContacts, setMembersFromContacts] = useState<Contact[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -68,9 +83,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const membersFromContacts: EventMember[] =
-        await getMembersFromContactList();
-      setMembersFromContacts(membersFromContacts);
+      const contacts: Contact[] = await getMembersFromContactList();
+      console.log("Contacts fetched:", contacts);
+
+      setMembersFromContacts(contacts);
     } catch (err) {
       setError("Failed to get members from contact list");
     } finally {
@@ -79,68 +95,118 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   };
 
   return (
-    <div>
-      <h2>Invite Members to Event</h2>
+    <IonContent>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Invite Members to Event</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <div>
-        <h3>Admins</h3>
-        <ul>
+      <IonContent>
+        {/* Admins List */}
+        <IonList>
+          <IonItem>
+            <IonLabel>Admins ({admins.length})</IonLabel>
+          </IonItem>
           {admins.map((admin) => (
-            <li key={admin.id}>
-              {admin.name}
-              <button
+            <IonItem key={admin.id}>
+              <IonLabel>{admin.name}</IonLabel>
+              <IonButton
                 onClick={() => handleRemoveAdmin(admin)}
                 disabled={isLoading}
+                color="danger"
               >
                 Remove Admin
-              </button>
-            </li>
+              </IonButton>
+            </IonItem>
           ))}
-        </ul>
-      </div>
+        </IonList>
 
-      <div>
-        <h3>Members</h3>
-        <ul>
+        {/* Members List */}
+        <IonList>
+          <IonItem>
+            <IonLabel>Members ({members.length})</IonLabel>
+          </IonItem>
           {members.map((member) => (
-            <li key={member.id}>
-              {member.name}
-              <button
+            <IonItem key={member.id}>
+              <IonLabel>{member.name}</IonLabel>
+              <IonButton
                 onClick={() => handleAddAdmin(member)}
                 disabled={isLoading}
               >
                 Make Admin
-              </button>
-              <button
+              </IonButton>
+              <IonButton
                 onClick={() => handleRemoveMember(member)}
                 disabled={isLoading}
+                color="danger"
               >
                 Remove Member
-              </button>
-            </li>
+              </IonButton>
+            </IonItem>
           ))}
-        </ul>
-      </div>
+        </IonList>
 
-      <div>
-        <h3>Add Member from Contact List</h3>
-        <button
+        {/* Add Member from Contact List */}
+        <IonItem>
+          <IonLabel>Add Member from Contact List</IonLabel>
+        </IonItem>
+        <IonButton
           onClick={handleGetMembersFromContactList}
           disabled={isLoading}
         >
-          Get Member from Contacts
-        </button>
-        {membersFromContacts && (
-          <div>
-            <p onClick={() => handleAddMember(membersFromContacts[0])}>
-              New member list {membersFromContacts.length}
-            </p>
-          </div>
-        )}
-      </div>
+          Get Members from Contacts
+        </IonButton>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+        {/* Contact List with isInvitedForEvent Check */}
+        {membersFromContacts.length > 0 && (
+          <IonList>
+            <IonItem>
+              <IonLabel>
+                Select Contacts to Invite ({membersFromContacts.length})
+              </IonLabel>
+            </IonItem>
+            {membersFromContacts.map((contact, index) => (
+              <IonItem
+                key={index}
+                lines="full"
+                color={contact.isInvitedForEvent ? "light" : ""}
+              >
+                <IonLabel>{contact.name}</IonLabel>
+                <IonText
+                  slot="end"
+                  color={contact.isInvitedForEvent ? "medium" : ""}
+                >
+                  {contact.isInvitedForEvent ? "Already Invited" : ""}
+                </IonText>
+                <IonButton
+                  onClick={() => handleAddMember(contact)}
+                  disabled={isLoading || contact.isInvitedForEvent}
+                  color="primary"
+                  fill={contact.isInvitedForEvent ? "outline" : "solid"}
+                >
+                  Invite
+                </IonButton>
+              </IonItem>
+            ))}
+          </IonList>
+        )}
+
+        {/* Loading Spinner */}
+        {isLoading && <IonSpinner name="crescent" />}
+
+        {/* Error Toast */}
+        {error && (
+          <IonToast
+            isOpen={!!error}
+            message={error}
+            duration={2000}
+            color="danger"
+            onDidDismiss={() => setError(null)}
+          />
+        )}
+      </IonContent>
+    </IonContent>
   );
 };
 
