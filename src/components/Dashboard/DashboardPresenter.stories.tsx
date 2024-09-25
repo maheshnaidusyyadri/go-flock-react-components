@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import DashboardPresenter from "./DashboardPresenter"; // Adjust the import path based on your project structure
-import { EventType, DashboardProps } from "@goflock/types/src/index";
+import { DashboardProps, ListType } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/DashboardPresenter",
@@ -145,8 +145,8 @@ Default.args = {
   seeAllMyEvents: () => {
     console.log("Seeing all my events...");
   },
-  seeAllEvents: (eventType: EventType) => {
-    console.log("Seeing all events of type:", eventType);
+  seeAllEvents: (listType: ListType) => {
+    console.log("Seeing all events of type:", listType);
   },
 };
 

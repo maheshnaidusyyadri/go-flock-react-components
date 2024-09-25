@@ -1,5 +1,19 @@
 import React, { useState } from "react";
 import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonItem,
+  IonLabel,
+  IonSelect,
+  IonSelectOption,
+  IonList,
+  IonLoading,
+  IonToast,
+} from "@ionic/react";
+import {
   Currency,
   EventSettingsProps,
   EventVisibility,
@@ -44,6 +58,10 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
       settings.splitBills
         ? await disableSplitBills(event.id)
         : await enableSplitBills(event.id);
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        splitBills: !prevSettings.splitBills,
+      }));
     } catch (err) {
       setError("Failed to update split bills settings");
     } finally {
@@ -56,6 +74,10 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     setError(null);
     try {
       await updateCurrency(currency);
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        currency,
+      }));
     } catch (err) {
       setError("Failed to update currency");
     } finally {
@@ -68,6 +90,10 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     setError(null);
     try {
       await updateEventVisibility(visibility);
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        visibility,
+      }));
     } catch (err) {
       setError("Failed to update event visibility");
     } finally {
@@ -76,60 +102,91 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   };
 
   return (
-    <div>
-      <h2>Event Settings for {event.name}</h2>
+    <IonContent>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Event Settings for {event.name}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <div>
-        <h3>Media Sharing</h3>
-        <button
-          onClick={handleToggleMediaSharing}
-          disabled={isLoading}
-        >
-          {settings.shareMedia ? "Disable" : "Enable"} Media Sharing
-        </button>
-      </div>
+      <IonList>
+        {/* Media Sharing Toggle */}
+        <IonItem>
+          <IonLabel>Media Sharing</IonLabel>
+          <IonButton
+            onClick={handleToggleMediaSharing}
+            disabled={isLoading}
+            color={settings.shareMedia ? "danger" : "primary"}
+          >
+            {settings.shareMedia ? "Disable" : "Enable"} Media Sharing
+          </IonButton>
+        </IonItem>
 
-      <div>
-        <h3>Split Bills</h3>
-        <button
-          onClick={handleToggleSplitBills}
-          disabled={isLoading}
-        >
-          {settings.splitBills ? "Disable" : "Enable"} Split Bills
-        </button>
-      </div>
+        {/* Split Bills Toggle */}
+        <IonItem>
+          <IonLabel>Split Bills</IonLabel>
+          <IonButton
+            onClick={handleToggleSplitBills}
+            disabled={isLoading}
+            color={settings.splitBills ? "danger" : "primary"}
+          >
+            {settings.splitBills ? "Disable" : "Enable"} Split Bills
+          </IonButton>
+        </IonItem>
 
-      <div>
-        <h3>Currency</h3>
-        <select
-          value={settings.currency}
-          onChange={(e) => handleUpdateCurrency(e.target.value as Currency)}
-          disabled={isLoading}
-        >
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="GBP">GBP</option>
-          {/* Add other currencies as needed */}
-        </select>
-      </div>
+        {/* Currency Selector */}
+        <IonItem>
+          <IonLabel>Currency</IonLabel>
+          <IonSelect
+            value={settings.currency}
+            onIonChange={(e) =>
+              handleUpdateCurrency(e.detail.value as Currency)
+            }
+            disabled={isLoading}
+          >
+            <IonSelectOption value="USD">USD</IonSelectOption>
+            <IonSelectOption value="EUR">EUR</IonSelectOption>
+            <IonSelectOption value="GBP">GBP</IonSelectOption>
+            {/* Add other currencies as needed */}
+          </IonSelect>
+        </IonItem>
 
-      <div>
-        <h3>Event Visibility</h3>
-        <select
-          value={""}
-          onChange={(e) =>
-            handleUpdateEventVisibility(e.target.value as EventVisibility)
-          }
-          disabled={isLoading}
-        >
-          <option value="Public">Public</option>
-          <option value="Private">Private</option>
-          <option value="Hidden">Hidden</option>
-        </select>
-      </div>
+        {/* Event Visibility Selector */}
+        <IonItem>
+          <IonLabel>Event Visibility</IonLabel>
+          <IonSelect
+            value={settings.eventVisibility}
+            onIonChange={(e) =>
+              handleUpdateEventVisibility(e.detail.value as EventVisibility)
+            }
+            disabled={isLoading}
+          >
+            <IonSelectOption value="Public">Public</IonSelectOption>
+            <IonSelectOption value="Private">Private</IonSelectOption>
+            <IonSelectOption value="Hidden">Hidden</IonSelectOption>
+          </IonSelect>
+        </IonItem>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+        {/* Loading Spinner */}
+        {isLoading && (
+          <IonLoading
+            isOpen={isLoading}
+            message={"Updating..."}
+          />
+        )}
+      </IonList>
+
+      {/* Error Toast */}
+      {error && (
+        <IonToast
+          isOpen={!!error}
+          message={error}
+          duration={2000}
+          color="danger"
+          onDidDismiss={() => setError(null)}
+        />
+      )}
+    </IonContent>
   );
 };
 
