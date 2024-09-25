@@ -122,7 +122,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           {/* Step content with prev, current, and next classes */}
           <div className={`step-content ${getStepClass(1)}`}>
             <div className="form-container">
-              <IonCardContent>
+              <IonCardContent className="pad0">
                 <div className="form-group">
                   <IonInput
                     value={eventName}
@@ -135,6 +135,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 <div className="form-group">
                   <label className="form-label">Event Type*</label>
                   <IonSelect
+                    className="ion-select"
                     aria-label="Event"
                     interface="action-sheet"
                     placeholder="Select Type"
@@ -151,6 +152,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </div>
                 <div className="form-group">
                   <IonTextarea
+                    className="ion-textarea"
                     rows={3}
                     label="Description*"
                     labelPlacement="stacked"
@@ -198,12 +200,12 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </div>
           <div className={`step-content ${getStepClass(2)}`}>
             <div className="form-container">
-              <IonCardContent>
+              <IonCardContent className="pad0">
                 <div className="form-group">
                   <label className="form-label">Start Date*</label>
                   {/* <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                  <IonDatetimeButton
-                    className="date"
+                  <IonDatetimeButton                  
+                    className="ion-datetime-button date"
                     datetime="startDate"
                   ></IonDatetimeButton>
                   <IonModal keepContentsMounted={true}>
@@ -225,7 +227,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                   <label className="form-label">End Date*</label>
                   {/* <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} /> */}
                   <IonDatetimeButton
-                    className="date"
+                    className="ion-datetime-button date"
                     datetime="endDate"
                   ></IonDatetimeButton>
                   <IonModal keepContentsMounted={true}>
@@ -246,7 +248,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 <div className="form-group">
                   <label className="form-label">Start Time*</label>
                   <IonDatetimeButton
-                    className="time"
+                    className="ion-datetime-button time"
                     datetime="StartTime"
                   ></IonDatetimeButton>
                   <IonModal keepContentsMounted={true}>
@@ -266,7 +268,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 <div className="form-group">
                   <label className="form-label">End Time*</label>
                   <IonDatetimeButton
-                    className="time"
+                    className="ion-datetime-button time"
                     datetime="endTime"
                   ></IonDatetimeButton>
                   <IonModal keepContentsMounted={true}>
@@ -296,13 +298,15 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </div>
           <div className={`step-content ${getStepClass(3)}`}>
             <div className="form-container">
-              <IonCardContent>
+              <IonCardContent className="pad0">
                 <div className="form-group">
                   <IonRadioGroup
+                    className="ion-radio-group"
                     allowEmptySelection={true}
                     value="turtles"
                   >
                     <IonRadio
+                      className="ion-radio"
                       value="Private Event"
                       justify="space-between"
                     >
@@ -320,6 +324,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     </IonRadio>
 
                     <IonRadio
+                      class="ion-radio"
                       value="Public Event"
                       justify="space-between"
                     >
