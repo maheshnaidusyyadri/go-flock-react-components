@@ -1,4 +1,4 @@
-import React from "react";
+import React , { useState } from 'react';
 import "./DashboardPresenter.scss";
 import {
   IonCard,
@@ -30,36 +30,34 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   seeAllMyEvents,
   seeAllEvents,
 }) => {
+
+  const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
+  const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
+
   return (
     <IonContent className="dashboard">
       <IonCard className="db_profile">
-        <IonCardHeader>
+        <IonCardHeader className="db_profile_head">
           <IonAvatar slot="start">
             <img
               src={profile.pictureUrl}
               alt="Profile"
             />
           </IonAvatar>
-          <IonCardTitle>Welcome, {profile.prefName}</IonCardTitle>
+          <IonCardTitle className="profile-name">Welcome, {profile.prefName}</IonCardTitle>
         </IonCardHeader>
-        <IonCardContent>
+        <IonCardContent className="db_profile_text">
           {profile.isIntroShown ? (
             <p>Your preferences are set! Check out the latest events below.</p>
           ) : (
             <p>Welcome! Let's get started by setting up your preferences.</p>
           )}
-          {/* <IonButton
-            onClick={createNewEvent}
-            expand="block"
-          >
-            Create New Event
-          </IonButton> */}
         </IonCardContent>
       </IonCard>
 
       <IonCard className="events_sec">
-        <IonCardHeader>
-          <IonCardTitle>Active Events</IonCardTitle>
+        <IonCardHeader className="events_head">
+          <IonCardTitle className="events_title">Active Events</IonCardTitle>
           <span
             className="viewall"
             onClick={() => seeAllEvents("guest")}
@@ -67,8 +65,8 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
             See all
           </span>
         </IonCardHeader>
-        <IonCardContent>
-          <IonList>
+        <IonCardContent className="events_cnt">
+          <IonList className="ion-list">
             {activeEvents.map((event: Event) => (
               <div
                 className="event_item"
@@ -83,7 +81,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                   />
                 </figure>
                 <div className="event_info">
-                  <IonLabel>{event.name}</IonLabel>
+                  <IonLabel className="event-name">{event.name}</IonLabel>
                   <span>May 16 - May 17</span>
                 </div>
                 <span className="actions_menu">
@@ -101,11 +99,11 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         </IonCardContent>
       </IonCard>
       <IonCard className="events_sec">
-        <IonCardHeader>
-          <IonCardTitle>All Events</IonCardTitle>
+        <IonCardHeader className="events_head">
+          <IonCardTitle className="events_title">All Events</IonCardTitle>
         </IonCardHeader>
-        <IonCardContent>
-          <IonList>
+        <IonCardContent className="events_cnt">
+          <IonList className="ion-list">
             <div className="events_list">
               <div className="event_info">
                 <ul>
@@ -173,8 +171,8 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         </IonCardContent>
       </IonCard>
       <IonCard className="events_sec">
-        <IonCardHeader>
-          <IonCardTitle>My Events</IonCardTitle>
+        <IonCardHeader className="events_head">
+          <IonCardTitle className="events_title">My Events</IonCardTitle>
           <span
             className="viewall"
             onClick={() => seeAllMyEvents()}
@@ -182,8 +180,8 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
             See all
           </span>
         </IonCardHeader>
-        <IonCardContent>
-          <IonList>
+        <IonCardContent className="events_cnt">
+          <IonList className="ion-list">
             {myEvents.map((event) => (
               <div
                 className="event_item"
@@ -198,7 +196,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                   />{" "}
                 </figure>
                 <div className="event_info">
-                  <IonLabel>{event.name}</IonLabel>
+                  <IonLabel className="event-name">{event.name}</IonLabel>
                   <span>May 16 - May 17</span>
                 </div>
               </div>
@@ -235,9 +233,38 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
             data: {
               action: "cancel",
             },
+            handler: () => { 
+              setShowFirstActionSheet(false); // Close the first action sheet
+              setShowDeleteActionSheet(true); // Open the delete action sheet
+            },
           },
         ]}
       ></IonActionSheet>
+
+      <IonActionSheet         
+         className="action-menu-end" 
+         isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
+         onDidDismiss={() => setShowDeleteActionSheet(false)} // Dismiss delete action sheet
+  
+         buttons={[
+           {
+             text: 'Delete Event',
+             role: 'destructive',             
+             data: {
+               action: 'delete',
+             },
+             cssClass: 'fill-btn', 
+           }, 
+           {
+             text: 'Cancel', 
+             data: {
+               action: 'cancel',
+             },
+             cssClass: 'rounded', 
+           },
+         ]}
+       > 
+       </IonActionSheet> 
     </IonContent>
   );
 };
