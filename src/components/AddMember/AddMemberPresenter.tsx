@@ -24,7 +24,7 @@ import {
   IonAvatar
 } from "@ionic/react";
 import {
-  AddMemberProps,
+  CreateNewEventProps,
   LocationInfo,
   DraftEvent,
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
@@ -47,9 +47,9 @@ import Selected from '../../images/icons/selected.svg';
 
 import Header from '../Header/Header';
 
-const AddMember: React.FC<AddMemberProps> = ({
+const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
-  addMember,
+  createEvent,
   goToEvent,
 }) => {
   const [locationQuery, setLocationQuery] = useState<string>("");
@@ -167,4 +167,4 @@ const AddMember: React.FC<AddMemberProps> = ({
   );
 };
 
-export default AddMember;
+export default CreateNewEvent;
