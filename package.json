@@ -43,6 +43,8 @@
   "dependencies": {
     "@goflock/types": "github:maheshnaidusyyadri/GoFlockTypes",
     "react-datepicker": "^7.3.0",
-    "sass": "^1.78.0"
+    "react-photo-album": "^3.0.2",
+    "sass": "^1.78.0",
+    "yet-another-react-lightbox": "^3.21.6"
   }
 }
