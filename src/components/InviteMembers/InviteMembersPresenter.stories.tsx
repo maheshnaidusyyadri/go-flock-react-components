@@ -50,7 +50,7 @@ Default.args = {
 };
 
 export default {
-  title: "InviteMembersPresenter",
+  title: "GoFlock/Presenters/InviteMembersPresenter",
   component: InviteMembersPresenter,
   args: Default.args,
   decorators: [
