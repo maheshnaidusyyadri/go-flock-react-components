@@ -1,212 +1,157 @@
 import React, { useState } from "react";
+import "./InviteMembersPresenter.scss";
 import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
   IonList,
   IonItem,
   IonLabel,
-  IonSpinner,
-  IonToast,
-  IonText,
+  IonContent,
+  IonSearchbar,
+  IonToolbar,
+  IonThumbnail,
+  IonImg,
 } from "@ionic/react";
-import {
-  Contact,
-  EventMember,
-  InviteMembersProps,
-} from "@goflock/types/src/index";
+import { InviteMembersProps } from "@goflock/types/src/index"; // Adjust the import based on your file structure
+// import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
+import "react-datepicker/dist/react-datepicker.css";
+import memberDp from "../../images/member.png";
+import unSelect from "../../images/icons/close.svg";
+import userDp from "../../images/user.png";
+import Selected from "../../images/icons/selected.svg";
 
-const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
-  admins,
-  members,
-  getMembersFromContactList,
-  addAdmin,
-  removeAdmin,
-  addMember,
-  removeMember,
-}) => {
-  const [membersFromContacts, setMembersFromContacts] = useState<Contact[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+import Header from "../Header/Header";
 
-  const handleAddAdmin = async (member: EventMember) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await addAdmin(member);
-    } catch (err) {
-      setError("Failed to add admin");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+const InviteMembersPresenter: React.FC<InviteMembersProps> = ({}) => {
+  // const [locationQuery, setLocationQuery] = useState<string>("");
+  // const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
+  // const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
+  //   null
+  // );
 
-  const handleRemoveAdmin = async (member: EventMember) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await removeAdmin(member);
-    } catch (err) {
-      setError("Failed to remove admin");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  ////// Member List
+  const members = [
+    {
+      name: "Mahesh Naidu Syyadri",
+      phone: "(307) 555-0133",
+      image: memberDp,
+    },
+    {
+      name: "Esther Howard",
+      phone: "(308) 555-0121",
+      image: memberDp,
+    },
+    {
+      name: "Leslie Alexander",
+      phone: "(704) 555-0127",
+      image: memberDp,
+    },
+    {
+      name: "Brooklyn Simmons",
+      phone: "(629) 555-0129",
+      image: memberDp,
+    },
+    {
+      name: "Guy Hawkins",
+      phone: "(207) 555-0119",
+      image: memberDp,
+    },
+  ];
+  //////Selected Members
+  const users = [
+    { name: "Mahesh Naidu Syyadri", img: userDp },
+    { name: "Brooklyn Simmons", img: userDp },
+    { name: "Guy Hawkins", img: userDp },
+    { name: "Kathryn Murphy", img: userDp },
+    { name: "Leslie Alexander", img: userDp },
+  ];
 
-  const handleAddMember = async (member: EventMember) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await addMember(member);
-    } catch (err) {
-      setError("Failed to add member");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [searchText, setSearchText] = useState(""); // State to track search input
 
-  const handleRemoveMember = async (member: EventMember) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await removeMember(member);
-    } catch (err) {
-      setError("Failed to remove member");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetMembersFromContactList = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const contacts: Contact[] = await getMembersFromContactList();
-      console.log("Contacts fetched:", contacts);
-
-      setMembersFromContacts(contacts);
-    } catch (err) {
-      setError("Failed to get members from contact list");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // Filter members based on search text
+  const filteredMembers = members.filter(
+    (member) =>
+      member.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      member.phone.includes(searchText)
+  );
 
   return (
-    <IonContent>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Invite Members to Event</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
-      <IonContent>
-        {/* Admins List */}
-        <IonList>
-          <IonItem>
-            <IonLabel>Admins ({admins.length})</IonLabel>
-          </IonItem>
-          {admins.map((admin) => (
-            <IonItem key={admin.id}>
-              <IonLabel>{admin.name}</IonLabel>
-              <IonButton
-                onClick={() => handleRemoveAdmin(admin)}
-                disabled={isLoading}
-                color="danger"
-              >
-                Remove Admin
-              </IonButton>
-            </IonItem>
-          ))}
-        </IonList>
-
-        {/* Members List */}
-        <IonList>
-          <IonItem>
-            <IonLabel>Members ({members.length})</IonLabel>
-          </IonItem>
-          {members.map((member) => (
-            <IonItem key={member.id}>
-              <IonLabel>{member.name}</IonLabel>
-              <IonButton
-                onClick={() => handleAddAdmin(member)}
-                disabled={isLoading}
-              >
-                Make Admin
-              </IonButton>
-              <IonButton
-                onClick={() => handleRemoveMember(member)}
-                disabled={isLoading}
-                color="danger"
-              >
-                Remove Member
-              </IonButton>
-            </IonItem>
-          ))}
-        </IonList>
-
-        {/* Add Member from Contact List */}
-        <IonItem>
-          <IonLabel>Add Member from Contact List</IonLabel>
-        </IonItem>
-        <IonButton
-          onClick={handleGetMembersFromContactList}
-          disabled={isLoading}
-        >
-          Get Members from Contacts
-        </IonButton>
-
-        {/* Contact List with isInvitedForEvent Check */}
-        {membersFromContacts.length > 0 && (
-          <IonList>
-            <IonItem>
-              <IonLabel>
-                Select Contacts to Invite ({membersFromContacts.length})
-              </IonLabel>
-            </IonItem>
-            {membersFromContacts.map((contact, index) => (
-              <IonItem
-                key={index}
-                lines="full"
-                color={contact.isInvitedForEvent ? "light" : ""}
-              >
-                <IonLabel>{contact.name}</IonLabel>
-                <IonText
-                  slot="end"
-                  color={contact.isInvitedForEvent ? "medium" : ""}
+    <>
+      <IonContent className="create_event">
+        <Header
+          title="Add Member"
+          showMenu={false}
+          showContactList={true}
+        />
+        <div className="members_page">
+          <p className="paragraph">
+            Type the username or phone number of your friends or colleagues to
+            be able to invite them.
+          </p>
+          <IonToolbar>
+            <IonSearchbar
+              value={searchText}
+              onIonInput={(e) => setSearchText(e.detail.value!)} // Update search text
+              placeholder="Search by name or phone"
+            />
+          </IonToolbar>
+          <div className="users_list">
+            <ul>
+              {users.map((user) => (
+                <li>
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    <IonImg
+                      src={user.img}
+                      alt={user.name}
+                    />
+                    <span className="selection">
+                      <img
+                        src={unSelect}
+                        alt="Remove"
+                      />
+                    </span>
+                  </IonThumbnail>
+                  <h2>{user.name}</h2>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <span className="devider"></span>
+          <div className="menbers_list">
+            <h6>All Members</h6>
+            <IonList className="list_wrap">
+              {filteredMembers.map((member, index) => (
+                <IonItem
+                  key={index}
+                  className="list_item"
                 >
-                  {contact.isInvitedForEvent ? "Already Invited" : ""}
-                </IonText>
-                <IonButton
-                  onClick={() => handleAddMember(contact)}
-                  disabled={isLoading || contact.isInvitedForEvent}
-                  color="primary"
-                  fill={contact.isInvitedForEvent ? "outline" : "solid"}
-                >
-                  Invite
-                </IonButton>
-              </IonItem>
-            ))}
-          </IonList>
-        )}
-
-        {/* Loading Spinner */}
-        {isLoading && <IonSpinner name="crescent" />}
-
-        {/* Error Toast */}
-        {error && (
-          <IonToast
-            isOpen={!!error}
-            message={error}
-            duration={2000}
-            color="danger"
-            onDidDismiss={() => setError(null)}
-          />
-        )}
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    <IonImg
+                      src={member.image}
+                      alt={`${member.name}'s profile`}
+                    />
+                    <span className="selection">
+                      <img
+                        src={Selected}
+                        alt="Select"
+                      />
+                    </span>
+                  </IonThumbnail>
+                  <IonLabel className="member-info">
+                    <h2>{member.name}</h2>
+                    <p>{member.phone}</p>
+                  </IonLabel>
+                </IonItem>
+              ))}
+            </IonList>
+          </div>
+        </div>
       </IonContent>
-    </IonContent>
+    </>
   );
 };
 

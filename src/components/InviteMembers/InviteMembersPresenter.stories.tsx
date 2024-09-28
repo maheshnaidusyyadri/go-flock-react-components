@@ -1,131 +1,63 @@
-import { StoryFn, Meta } from "@storybook/react";
-import InviteMembersPresenter from "./InviteMembersPresenter"; // Path to your component
-import {
-  InviteMembersProps,
-  EventMember,
-  Contact,
-} from "@goflock/types/src/index";
+import { Meta, StoryFn } from "@storybook/react";
+import InviteMembersPresenter from "./InviteMembersPresenter"; // Adjust the import path
+import { InviteMembersProps } from "@goflock/types/src/index"; // Adjust based on your structure
+import { IonContent } from "@ionic/react";
 
-// Dummy data for testing
-const mockAdmins: EventMember[] = [
-  { id: "1", name: "John Doe", roles: ["admin"] },
-  { id: "2", name: "Jane Smith", roles: ["admin"] },
+// Mock data
+const mockAdmins = [
+  { id: "1", name: "Admin 1", phone: "1234567890" },
+  { id: "2", name: "Admin 2", phone: "9876543210" },
 ];
 
-const mockMembers: EventMember[] = [
-  { id: "3", name: "Tom Brown", roles: ["member"] },
-  { id: "4", name: "Alice Johnson", roles: ["member"] },
+const mockMembers = [
+  { id: "3", name: "Member 1", phone: "1111111111" },
+  { id: "4", name: "Member 2", phone: "2222222222" },
+  { id: "5", name: "Member 3", phone: "3333333333" },
 ];
 
-const mockContacts: Contact[] = [
-  { name: "Tom Hanks", phone: "123-456-7890", isInvitedForEvent: false },
-  { name: "Julia Roberts", phone: "987-654-3210", isInvitedForEvent: true },
-];
-
-// Mock functions
-const getMembersFromContactList = async (): Promise<Contact[]> => {
-  return mockContacts;
+const mockProfile = {
+  id: "user_001",
+  prefName: "John Doe",
+  isIntroShown: true,
+  pictureUrl: "https://via.placeholder.com/150",
+  preferences: {
+    smsNotifications: true,
+    emailNotifications: false,
+    pushNotifications: true,
+  },
 };
 
-const addAdmin = async (eventMember: EventMember): Promise<EventMember> => {
-  console.log("Admin added:", eventMember);
-  return eventMember;
+const Template: StoryFn<InviteMembersProps> = (args) => (
+  <IonContent>
+    <InviteMembersPresenter {...args} />
+  </IonContent>
+);
+
+export const Default = Template.bind({});
+Default.args = {
+  profile: mockProfile,
+  eventId: "event_123",
+  admins: mockAdmins,
+  members: mockMembers,
+  getMembersFromContactList: async () => [
+    { name: "Contact 1", phone: "555-1111" },
+    { name: "Contact 2", phone: "555-2222" },
+  ],
+  addAdmin: async (eventMember) => Promise.resolve(eventMember),
+  removeAdmin: async () => Promise.resolve(true),
+  addMember: async (eventMember) => Promise.resolve(eventMember),
+  removeMember: async () => Promise.resolve(true),
 };
 
-const removeAdmin = async (eventMember: EventMember): Promise<boolean> => {
-  console.log("Admin removed:", eventMember);
-  return true;
-};
-
-const addMember = async (eventMember: EventMember): Promise<EventMember> => {
-  console.log("Member added:", eventMember);
-  return eventMember;
-};
-
-const removeMember = async (eventMember: EventMember): Promise<boolean> => {
-  console.log("Member removed:", eventMember);
-  return true;
-};
-
-// Storybook metadata
 export default {
   title: "InviteMembersPresenter",
   component: InviteMembersPresenter,
-} as Meta;
-
-// Template for the story
-const Template: StoryFn<InviteMembersProps> = (args) => (
-  <InviteMembersPresenter {...args} />
-);
-
-// Primary Story
-export const Primary = Template.bind({});
-Primary.args = {
-  profile: {
-    id: "user_001",
-    prefName: "Jane Doe",
-    isIntroShown: true,
-    pictureUrl: "https://via.placeholder.com/150",
-    preferences: {
-      smsNotifications: true,
-      emailNotifications: true,
-      pushNotifications: false,
-    },
-  },
-  eventId: "event123", // Example event ID
-  admins: mockAdmins,
-  members: mockMembers,
-  getMembersFromContactList,
-  addAdmin,
-  removeAdmin,
-  addMember,
-  removeMember,
-};
-
-// Story with no admins and members
-export const NoAdminsAndMembers = Template.bind({});
-NoAdminsAndMembers.args = {
-  profile: {
-    id: "user_001",
-    prefName: "Jane Doe",
-    isIntroShown: true,
-    pictureUrl: "https://via.placeholder.com/150",
-    preferences: {
-      smsNotifications: true,
-      emailNotifications: true,
-      pushNotifications: false,
-    },
-  },
-  eventId: "event123",
-  admins: [],
-  members: [],
-  getMembersFromContactList,
-  addAdmin,
-  removeAdmin,
-  addMember,
-  removeMember,
-};
-
-// Story with loading state
-export const LoadingState = Template.bind({});
-LoadingState.args = {
-  profile: {
-    id: "user_001",
-    prefName: "Jane Doe",
-    isIntroShown: true,
-    pictureUrl: "https://via.placeholder.com/150",
-    preferences: {
-      smsNotifications: true,
-      emailNotifications: true,
-      pushNotifications: false,
-    },
-  },
-  eventId: "event123",
-  admins: mockAdmins,
-  members: mockMembers,
-  getMembersFromContactList,
-  addAdmin,
-  removeAdmin,
-  addMember,
-  removeMember,
-};
+  args: Default.args,
+  decorators: [
+    (Story) => (
+      <IonContent>
+        <Story />
+      </IonContent>
+    ),
+  ],
+} as Meta<InviteMembersProps>;

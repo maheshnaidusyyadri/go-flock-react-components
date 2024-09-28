@@ -1,101 +1,111 @@
 // src/components/Header/Header.tsx
-import React , { useState } from 'react';
+import { useState } from "react";
 
-import { IonHeader, IonTitle, IonActionSheet } from '@ionic/react';
-import './Header.scss';
-import backArrow from '../../images/icons/back-arrow.svg';
-import Menu from '../../images/icons/menu.svg';
-import ContactListIcon from '../../images/icons/ContactList.svg';
+import { IonHeader, IonTitle, IonActionSheet } from "@ionic/react";
+import "./Header.scss";
+import backArrow from "../../images/icons/back-arrow.svg";
+import Menu from "../../images/icons/menu.svg";
+import ContactListIcon from "../../images/icons/ContactList.svg";
 
-const Header = ({ title= '' , showMenu = true, showContactList = false }) => {
-
+const Header = ({ title = "", showMenu = true, showContactList = false }) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
 
   const handleBack = () => {
-    window.history.back();  // Goes back to the previous page
+    window.history.back(); // Goes back to the previous page
   };
 
   return (
     <>
-      <IonHeader className='main-header'>
-        <div className='header-cnt'>         
-            <img src={backArrow} alt="Page Back" onClick={handleBack} />
-            <IonTitle className='page-title'>{title}</IonTitle>
-            {showMenu && (
-            <span id="open-action-sheet" className='menu_icon'>
-              <img src={Menu} alt="More Details" />
-            </span>  
-            )}
-            {showContactList && (
-            <span className='menu_icon contactList'>
-              <img src={ContactListIcon} alt="Contact List" />
+      <IonHeader className="main-header">
+        <div className="header-cnt">
+          <img
+            src={backArrow}
+            alt="Page Back"
+            onClick={handleBack}
+          />
+          <IonTitle className="page-title">{title}</IonTitle>
+          {showMenu && (
+            <span
+              id="open-action-sheet"
+              className="menu_icon"
+            >
+              <img
+                src={Menu}
+                alt="More Details"
+              />
             </span>
-          )}   
-          </div> 
+          )}
+          {showContactList && (
+            <span className="menu_icon contactList">
+              <img
+                src={ContactListIcon}
+                alt="Contact List"
+              />
+            </span>
+          )}
+        </div>
       </IonHeader>
 
       <IonActionSheet
-      trigger="open-action-sheet"
-      className="action-menu-end" 
-      buttons={[
-        {
-          text: 'Copy link',
-          role: 'destructive',             
-          data: {
-            action: 'delete',
+        trigger="open-action-sheet"
+        className="action-menu-end"
+        buttons={[
+          {
+            text: "Copy link",
+            role: "destructive",
+            data: {
+              action: "delete",
+            },
           },
-        },
-        {
-          text: 'Edit Event',
-          data: {
-            action: 'share',
+          {
+            text: "Edit Event",
+            data: {
+              action: "share",
+            },
           },
-        },
-        {
-          text: 'Add Checklist', 
-          data: {
-            action: 'cancel',
+          {
+            text: "Add Checklist",
+            data: {
+              action: "cancel",
+            },
           },
-        },
-        {
-          text: 'Delete Event', 
-          data: {
-            action: 'cancel',
+          {
+            text: "Delete Event",
+            data: {
+              action: "cancel",
+            },
+            handler: () => {
+              console.log("Delete clicked " + showFirstActionSheet);
+              setShowFirstActionSheet(false); // Close the first action sheet
+              setShowDeleteActionSheet(true); // Open the delete action sheet
+            },
           },
-          handler: () => { 
-            setShowFirstActionSheet(false); // Close the first action sheet
-            setShowDeleteActionSheet(true); // Open the delete action sheet
-          },
-        },
-      ]}
+        ]}
       ></IonActionSheet>
 
       <IonActionSheet
-         
-        className="action-menu-end" 
+        className="action-menu-end"
         isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
         onDidDismiss={() => setShowDeleteActionSheet(false)} // Dismiss delete action sheet
- 
         buttons={[
           {
-            text: 'Delete Event',
-            role: 'destructive',             
+            text: "Delete Event",
+            role: "destructive",
             data: {
-              action: 'delete',
+              action: "delete",
             },
-            cssClass: 'fill-btn', 
-          }, 
+            cssClass: "fill-btn",
+          },
           {
-            text: 'Cancel', 
+            text: "Cancel",
             data: {
-              action: 'cancel',
+              action: "cancel",
             },
-            cssClass: 'rounded', 
+            cssClass: "rounded",
           },
         ]}
-      > 
-      </IonActionSheet> 
+      ></IonActionSheet>
     </>
   );
 };

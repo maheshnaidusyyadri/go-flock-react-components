@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React, { useState } from "react";
 import "./DashboardPresenter.scss";
 import {
   IonCard,
@@ -30,7 +30,6 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   seeAllMyEvents,
   seeAllEvents,
 }) => {
-
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
 
@@ -44,7 +43,9 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               alt="Profile"
             />
           </IonAvatar>
-          <IonCardTitle className="profile-name">Welcome, {profile.prefName}</IonCardTitle>
+          <IonCardTitle className="profile-name">
+            Welcome, {profile.prefName}
+          </IonCardTitle>
         </IonCardHeader>
         <IonCardContent className="db_profile_text">
           {profile.isIntroShown ? (
@@ -233,7 +234,8 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
             data: {
               action: "cancel",
             },
-            handler: () => { 
+            handler: () => {
+              console.log("Delete clicked " + showFirstActionSheet);
               setShowFirstActionSheet(false); // Close the first action sheet
               setShowDeleteActionSheet(true); // Open the delete action sheet
             },
@@ -241,30 +243,28 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         ]}
       ></IonActionSheet>
 
-      <IonActionSheet         
-         className="action-menu-end" 
-         isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
-         onDidDismiss={() => setShowDeleteActionSheet(false)} // Dismiss delete action sheet
-  
-         buttons={[
-           {
-             text: 'Delete Event',
-             role: 'destructive',             
-             data: {
-               action: 'delete',
-             },
-             cssClass: 'fill-btn', 
-           }, 
-           {
-             text: 'Cancel', 
-             data: {
-               action: 'cancel',
-             },
-             cssClass: 'rounded', 
-           },
-         ]}
-       > 
-       </IonActionSheet> 
+      <IonActionSheet
+        className="action-menu-end"
+        isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
+        onDidDismiss={() => setShowDeleteActionSheet(false)} // Dismiss delete action sheet
+        buttons={[
+          {
+            text: "Delete Event",
+            role: "destructive",
+            data: {
+              action: "delete",
+            },
+            cssClass: "fill-btn",
+          },
+          {
+            text: "Cancel",
+            data: {
+              action: "cancel",
+            },
+            cssClass: "rounded",
+          },
+        ]}
+      ></IonActionSheet>
     </IonContent>
   );
 };

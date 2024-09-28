@@ -10,7 +10,7 @@ import {
 } from "@ionic/react";
 import { EventMediaProps, Media } from "@goflock/types/src/index";
 import { UserGallaryItem } from "@goflock/types/src/index";
-import { MasonryPhotoAlbum, RowsPhotoAlbum } from "react-photo-album";
+import { MasonryPhotoAlbum } from "react-photo-album";
 import "react-photo-album/masonry.css";
 import "react-photo-album/rows.css";
 
@@ -34,6 +34,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedPhotos, setSelectedPhotos] = useState<UserGallaryItem[]>([]);
+  // const [album, setAlbum] = useState<UserGallaryItem[]>([]);
   const [index, setIndex] = useState(-1);
 
   // Handle adding media by selecting photos from the gallery
@@ -41,6 +42,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     setIsLoading(true);
     setError(null);
     try {
+      console.log(selectedPhotos.length);
+
       const galleryItems = await showGallary();
       setSelectedPhotos(galleryItems);
 
