@@ -8,7 +8,7 @@ import {
   IonToast,
 } from "@ionic/react";
 import { EventMediaProps, Media } from "@goflock/types";
-import { MasonryPhotoAlbum } from "react-photo-album";
+import { MasonryPhotoAlbum, Photo } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
@@ -18,7 +18,13 @@ import "yet-another-react-lightbox/styles.css";
 import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-import photos from "./photos";
+import allPhotos from "./photos";
+import StyledLink from "./StyledLink";
+import SelectIcon from "./SelectIcon";
+
+type SelectablePhoto = Photo & {
+  selected?: boolean;
+};
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
   media,
@@ -29,7 +35,15 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [galleryPhotos, setGalleryPhotos] = useState(media);
-  const [index, setIndex] = useState(-1);
+  const [lightboxPhoto, setLightboxPhoto] = useState<SelectablePhoto>();
+
+  const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
+    allPhotos.map((photo) => ({
+      ...photo,
+      href: photo.src,
+      label: "Open image in a lightbox",
+    }))
+  );
 
   // Handle adding media from the gallery
   const handleAddMedia = async () => {
@@ -75,26 +89,75 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     <>
       <h2>Event Media</h2>
 
-      {/* Display media gallery */}
       <MasonryPhotoAlbum
         photos={photos}
-        onClick={({ index }) => setIndex(index)}
+        // targetRowHeight={150}
+        // custom render functions
+        render={{
+          // render custom styled link
+          link: (props) => <StyledLink {...props} />,
+          // render image selection icon
+          extras: (_, { photo: { selected }, index }) => (
+            <SelectIcon
+              selected={selected}
+              onClick={(event) => {
+                setPhotos((prevPhotos) => {
+                  const newPhotos = [...prevPhotos];
+                  newPhotos[index].selected = !selected;
+                  return newPhotos;
+                });
+
+                // prevent the event from propagating to the parent link element
+                event.preventDefault();
+                event.stopPropagation();
+              }}
+            />
+          ),
+        }}
+        // custom components' props
+        componentsProps={{
+          link: ({ photo: { href } }) =>
+            // add target="_blank" and rel="noreferrer noopener" to external links
+            href?.startsWith("http")
+              ? { target: "_blank", rel: "noreferrer noopener" }
+              : undefined,
+        }}
+        // on click callback
+        onClick={({ event, photo }) => {
+          // let a link open in a new tab / new window / download
+          if (event.shiftKey || event.altKey || event.metaKey) return;
+
+          // prevent the default link behavior
+          event.preventDefault();
+
+          // open photo in a lightbox
+          setLightboxPhoto(photo);
+        }}
+        // describe photo album size in different viewports
+        sizes={{
+          size: "1168px",
+          sizes: [
+            { viewport: "(max-width: 1200px)", size: "calc(100vw - 32px)" },
+          ],
+        }}
+        // re-calculate the layout only at specific breakpoints
+        breakpoints={[220, 360, 480, 600, 900, 1200]}
       />
 
       <Lightbox
+        open={Boolean(lightboxPhoto)}
+        close={() => setLightboxPhoto(undefined)}
         slides={photos}
-        open={index >= 0}
-        index={index}
-        close={() => setIndex(-1)}
+        carousel={{ finite: true }}
+        render={{ buttonPrev: () => null, buttonNext: () => null }}
+        styles={{ root: { "--yarl__color_backdrop": "rgba(0, 0, 0, .8)" } }}
+        controller={{
+          closeOnBackdropClick: true,
+          closeOnPullUp: true,
+          closeOnPullDown: true,
+        }}
         plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
       />
-
-      <IonButton
-        onClick={handleAddMedia}
-        disabled={isLoading}
-      >
-        Add Media from Gallery
-      </IonButton>
 
       {isLoading && <IonSpinner name="crescent" />}
 
@@ -113,6 +176,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           </IonItem>
         ))}
       </IonList>
+
+      <button onClick={handleAddMedia}>Add Media</button>
 
       {/* Error Toast */}
       {error && (

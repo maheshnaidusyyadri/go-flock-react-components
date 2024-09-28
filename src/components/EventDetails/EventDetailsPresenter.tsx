@@ -1,7 +1,6 @@
 import React from "react";
 import "./EventDetailsPresenter.scss";
 import { IonButton, IonContent } from "@ionic/react";
-import { CreateNewEventProps } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css";
 import EventDp from "../../images/event_DP.png";
@@ -15,8 +14,9 @@ import userCrossIcon from "../../images/icons/userCross.svg";
 import helpIcon from "../../images/icons/help.svg";
 
 import Header from "../Header/Header";
+import { EventProps } from "@goflock/types/src";
 
-const CreateNewEvent: React.FC<CreateNewEventProps> = ({}) => {
+const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
   // const [locationQuery, setLocationQuery] = useState<string>("");
   // const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
   // const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
@@ -221,4 +221,4 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({}) => {
     </>
   );
 };
-export default CreateNewEvent;
+export default EventDetailsPresenter;
