@@ -1,28 +1,23 @@
 import React, { useState } from "react";
 import {
   IonButton,
-  IonContent,
   IonItem,
   IonLabel,
   IonList,
   IonSpinner,
   IonToast,
 } from "@ionic/react";
-import { EventMediaProps, Media } from "@goflock/types/src/index";
-import { UserGallaryItem } from "@goflock/types/src/index";
+import { EventMediaProps, Media } from "@goflock/types";
 import { MasonryPhotoAlbum } from "react-photo-album";
-import "react-photo-album/masonry.css";
-import "react-photo-album/rows.css";
-
 import Lightbox from "yet-another-react-lightbox";
-import "yet-another-react-lightbox/styles.css";
-
-// import optional lightbox plugins
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 import photos from "./photos";
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
@@ -33,23 +28,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedPhotos, setSelectedPhotos] = useState<UserGallaryItem[]>([]);
-  // const [album, setAlbum] = useState<UserGallaryItem[]>([]);
+  const [galleryPhotos, setGalleryPhotos] = useState(media);
   const [index, setIndex] = useState(-1);
 
-  // Handle adding media by selecting photos from the gallery
+  // Handle adding media from the gallery
   const handleAddMedia = async () => {
     setIsLoading(true);
     setError(null);
     try {
-      console.log(selectedPhotos.length);
-
       const galleryItems = await showGallary();
-      setSelectedPhotos(galleryItems);
-
-      // Upload each selected image
       for (const item of galleryItems) {
-        await addMedia(item.webviewPath!);
+        const addedMedia = await addMedia(item.webviewPath!);
+        setGalleryPhotos((prevPhotos) => [...prevPhotos, addedMedia]);
       }
     } catch (err) {
       setError("Failed to add media");
@@ -58,11 +48,15 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     }
   };
 
+  // Handle deleting media
   const handleDeleteMedia = async (mediaId: string) => {
     setIsLoading(true);
     setError(null);
     try {
       await deleteMedia(mediaId);
+      setGalleryPhotos((prevPhotos) =>
+        prevPhotos.filter((photo) => photo.id !== mediaId)
+      );
     } catch (err) {
       setError("Failed to delete media");
     } finally {
@@ -70,26 +64,31 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     }
   };
 
+  // // Prepare photos for the photo album
+  // const photos = galleryPhotos.map((item) => ({
+  //   src: item.downloadUrl || item.path,
+  //   width: 300,
+  //   height: 300,
+  // }));
+
   return (
-    <IonContent>
+    <>
       <h2>Event Media</h2>
 
-      {/* Display media using react-photo-album */}
-      <>
-        <MasonryPhotoAlbum
-          photos={photos}
-          onClick={({ index }) => setIndex(index)}
-        />
+      {/* Display media gallery */}
+      <MasonryPhotoAlbum
+        photos={photos}
+        onClick={({ index }) => setIndex(index)}
+      />
 
-        <Lightbox
-          slides={photos}
-          open={index >= 0}
-          index={index}
-          close={() => setIndex(-1)}
-          // enable optional lightbox plugins
-          plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
-        />
-      </>
+      <Lightbox
+        slides={photos}
+        open={index >= 0}
+        index={index}
+        close={() => setIndex(-1)}
+        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
+      />
+
       <IonButton
         onClick={handleAddMedia}
         disabled={isLoading}
@@ -99,9 +98,9 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
 
       {isLoading && <IonSpinner name="crescent" />}
 
-      {/* Media Delete Option */}
+      {/* Media list with delete option */}
       <IonList>
-        {media.map((item: Media) => (
+        {galleryPhotos.map((item: Media) => (
           <IonItem key={item.id}>
             <IonLabel>{item.createdAt}</IonLabel>
             <IonButton
@@ -115,7 +114,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         ))}
       </IonList>
 
-      {/* Display errors if any */}
+      {/* Error Toast */}
       {error && (
         <IonToast
           isOpen={!!error}
@@ -125,7 +124,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           onDidDismiss={() => setError(null)}
         />
       )}
-    </IonContent>
+    </>
   );
 };
 
