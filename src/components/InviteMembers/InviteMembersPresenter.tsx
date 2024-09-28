@@ -21,12 +21,7 @@ import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({}) => {
-  // const [locationQuery, setLocationQuery] = useState<string>("");
-  // const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
-  // const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
-  //   null
-  // );
-
+  console.log("InviteMembersPresenter");
   ////// Member List
   const members = [
     {
@@ -74,84 +69,82 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({}) => {
   );
 
   return (
-    <>
-      <IonContent className="create_event">
-        <Header
-          title="Add Member"
-          showMenu={false}
-          showContactList={true}
-        />
-        <div className="members_page">
-          <p className="paragraph">
-            Type the username or phone number of your friends or colleagues to
-            be able to invite them.
-          </p>
-          <IonToolbar>
-            <IonSearchbar
-              value={searchText}
-              onIonInput={(e) => setSearchText(e.detail.value!)} // Update search text
-              placeholder="Search by name or phone"
-            />
-          </IonToolbar>
-          <div className="users_list">
-            <ul>
-              {users.map((user) => (
-                <li>
-                  <IonThumbnail
-                    slot="start"
-                    className="dp"
-                  >
-                    <IonImg
-                      src={user.img}
-                      alt={user.name}
-                    />
-                    <span className="selection">
-                      <img
-                        src={unSelect}
-                        alt="Remove"
-                      />
-                    </span>
-                  </IonThumbnail>
-                  <h2>{user.name}</h2>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <span className="devider"></span>
-          <div className="menbers_list">
-            <h6>All Members</h6>
-            <IonList className="list_wrap">
-              {filteredMembers.map((member, index) => (
-                <IonItem
-                  key={index}
-                  className="list_item"
+    <IonContent className="create_event">
+      <Header
+        title="Add Member"
+        showMenu={false}
+        showContactList={true}
+      />
+      <div className="members_page">
+        <p className="paragraph">
+          Type the username or phone number of your friends or colleagues to be
+          able to invite them.
+        </p>
+        <IonToolbar>
+          <IonSearchbar
+            value={searchText}
+            onIonInput={(e) => setSearchText(e.detail.value!)} // Update search text
+            placeholder="Search by name or phone"
+          />
+        </IonToolbar>
+        <div className="users_list">
+          <ul>
+            {users.map((user, index) => (
+              <li key={index}>
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
                 >
-                  <IonThumbnail
-                    slot="start"
-                    className="dp"
-                  >
-                    <IonImg
-                      src={member.image}
-                      alt={`${member.name}'s profile`}
+                  <IonImg
+                    src={user.img}
+                    alt={user.name}
+                  />
+                  <span className="selection">
+                    <img
+                      src={unSelect}
+                      alt="Remove"
                     />
-                    <span className="selection">
-                      <img
-                        src={Selected}
-                        alt="Select"
-                      />
-                    </span>
-                  </IonThumbnail>
-                  <IonLabel className="member-info">
-                    <h2>{member.name}</h2>
-                    <p>{member.phone}</p>
-                  </IonLabel>
-                </IonItem>
-              ))}
-            </IonList>
-          </div>
+                  </span>
+                </IonThumbnail>
+                <h2>{user.name}</h2>
+              </li>
+            ))}
+          </ul>
         </div>
-      </IonContent>
-    </>
+        <span className="devider"></span>
+        <div className="menbers_list">
+          <h6>All Members</h6>
+          <IonList className="list_wrap">
+            {filteredMembers.map((member, index) => (
+              <IonItem
+                key={index}
+                className="list_item"
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    src={member.image}
+                    alt={`${member.name}'s profile`}
+                  />
+                  <span className="selection">
+                    <img
+                      src={Selected}
+                      alt="Select"
+                    />
+                  </span>
+                </IonThumbnail>
+                <IonLabel className="member-info">
+                  <h2>{member.name}</h2>
+                  <p>{member.phone}</p>
+                </IonLabel>
+              </IonItem>
+            ))}
+          </IonList>
+        </div>
+      </div>
+    </IonContent>
   );
 };
 

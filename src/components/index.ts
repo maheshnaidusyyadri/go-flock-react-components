@@ -1,7 +1,6 @@
 export * from "./PhoneNumberAuth/PhoneNumberAuthPresenter";
 export * from "./CreateEvent/CreateNewEventPresenter";
 export * from "./Dashboard/DashboardPresenter";
-export * from "./Event/EventPresenter";
 export * from "./EventList/EventListPresenter";
 export * from "./EventMedia/EventMediaPresenter";
 export * from "./EventSettings/EventSettingsPresenter";
