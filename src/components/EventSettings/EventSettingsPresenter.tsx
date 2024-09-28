@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonToggle,
   IonItem,
   IonLabel,
   IonSelect,
   IonSelectOption,
-  IonList,
-  IonLoading,
-  IonToast,
+  IonButton,
 } from "@ionic/react";
-import {
-  Currency,
-  EventSettingsProps,
-  EventVisibility,
-} from "@goflock/types/src/index";
+import { EventSettingsProps, Currency, EventVisibility } from "@goflock/types";
 
 const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   event,
@@ -29,23 +23,25 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   updateCurrency,
   updateEventVisibility,
 }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [settings, setSettings] = useState(eventSettings);
+  const [isLoading, setIsLoading] = useState(false);
+  const [mediaSharing, setMediaSharing] = useState(eventSettings.shareMedia);
+  const [splitBills, setSplitBills] = useState(eventSettings.splitBills);
+  const [currency, setCurrency] = useState<Currency>(eventSettings.currency);
+  const [visibility, setVisibility] = useState<EventVisibility>(
+    eventSettings.eventVisibility
+  );
 
   const handleToggleMediaSharing = async () => {
     setIsLoading(true);
-    setError(null);
     try {
-      settings.shareMedia
-        ? await disableMediaSharing(event.id)
-        : await enableMediaSharing(event.id);
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        shareMedia: !prevSettings.shareMedia,
-      }));
-    } catch (err) {
-      setError("Failed to update media sharing settings");
+      if (mediaSharing) {
+        await disableMediaSharing(event.id);
+      } else {
+        await enableMediaSharing(event.id);
+      }
+      setMediaSharing(!mediaSharing);
+    } catch (error) {
+      console.error("Error updating media sharing:", error);
     } finally {
       setIsLoading(false);
     }
@@ -53,92 +49,73 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
 
   const handleToggleSplitBills = async () => {
     setIsLoading(true);
-    setError(null);
     try {
-      settings.splitBills
-        ? await disableSplitBills(event.id)
-        : await enableSplitBills(event.id);
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        splitBills: !prevSettings.splitBills,
-      }));
-    } catch (err) {
-      setError("Failed to update split bills settings");
+      if (splitBills) {
+        await disableSplitBills(event.id);
+      } else {
+        await enableSplitBills(event.id);
+      }
+      setSplitBills(!splitBills);
+    } catch (error) {
+      console.error("Error updating split bills:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleUpdateCurrency = async (currency: Currency) => {
+  const handleUpdateCurrency = async (newCurrency: Currency) => {
     setIsLoading(true);
-    setError(null);
     try {
-      await updateCurrency(currency);
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        currency,
-      }));
-    } catch (err) {
-      setError("Failed to update currency");
+      await updateCurrency(newCurrency);
+      setCurrency(newCurrency);
+    } catch (error) {
+      console.error("Error updating currency:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleUpdateEventVisibility = async (visibility: EventVisibility) => {
+  const handleUpdateVisibility = async (newVisibility: EventVisibility) => {
     setIsLoading(true);
-    setError(null);
     try {
-      await updateEventVisibility(visibility);
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        visibility,
-      }));
-    } catch (err) {
-      setError("Failed to update event visibility");
+      await updateEventVisibility(newVisibility);
+      setVisibility(newVisibility);
+    } catch (error) {
+      console.error("Error updating event visibility:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <IonContent>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Event Settings for {event.name}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+    <IonCard>
+      <IonCardHeader>
+        <IonCardTitle>Event Settings for {event.name}</IonCardTitle>
+      </IonCardHeader>
 
-      <IonList>
-        {/* Media Sharing Toggle */}
+      <IonCardContent>
         <IonItem>
           <IonLabel>Media Sharing</IonLabel>
-          <IonButton
-            onClick={handleToggleMediaSharing}
+          <IonToggle
+            checked={mediaSharing}
+            onIonChange={handleToggleMediaSharing}
             disabled={isLoading}
-            color={settings.shareMedia ? "danger" : "primary"}
-          >
-            {settings.shareMedia ? "Disable" : "Enable"} Media Sharing
-          </IonButton>
+          />
         </IonItem>
 
-        {/* Split Bills Toggle */}
         <IonItem>
           <IonLabel>Split Bills</IonLabel>
-          <IonButton
-            onClick={handleToggleSplitBills}
+          <IonToggle
+            checked={splitBills}
+            onIonChange={handleToggleSplitBills}
             disabled={isLoading}
-            color={settings.splitBills ? "danger" : "primary"}
-          >
-            {settings.splitBills ? "Disable" : "Enable"} Split Bills
-          </IonButton>
+          />
         </IonItem>
 
-        {/* Currency Selector */}
         <IonItem>
           <IonLabel>Currency</IonLabel>
           <IonSelect
-            value={settings.currency}
+            value={currency}
             onIonChange={(e) =>
               handleUpdateCurrency(e.detail.value as Currency)
             }
@@ -147,46 +124,33 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
             <IonSelectOption value="USD">USD</IonSelectOption>
             <IonSelectOption value="EUR">EUR</IonSelectOption>
             <IonSelectOption value="GBP">GBP</IonSelectOption>
-            {/* Add other currencies as needed */}
           </IonSelect>
         </IonItem>
 
-        {/* Event Visibility Selector */}
         <IonItem>
           <IonLabel>Event Visibility</IonLabel>
           <IonSelect
-            value={settings.eventVisibility}
+            value={visibility}
             onIonChange={(e) =>
-              handleUpdateEventVisibility(e.detail.value as EventVisibility)
+              handleUpdateVisibility(e.detail.value as EventVisibility)
             }
             disabled={isLoading}
           >
-            <IonSelectOption value="Public">Public</IonSelectOption>
-            <IonSelectOption value="Private">Private</IonSelectOption>
-            <IonSelectOption value="Hidden">Hidden</IonSelectOption>
+            <IonSelectOption value="public">Public</IonSelectOption>
+            <IonSelectOption value="private">Private</IonSelectOption>
+            <IonSelectOption value="hidden">Hidden</IonSelectOption>
           </IonSelect>
         </IonItem>
 
-        {/* Loading Spinner */}
-        {isLoading && (
-          <IonLoading
-            isOpen={isLoading}
-            message={"Updating..."}
-          />
-        )}
-      </IonList>
-
-      {/* Error Toast */}
-      {error && (
-        <IonToast
-          isOpen={!!error}
-          message={error}
-          duration={2000}
-          color="danger"
-          onDidDismiss={() => setError(null)}
-        />
-      )}
-    </IonContent>
+        <IonButton
+          expand="block"
+          disabled={isLoading}
+          onClick={() => console.log("Settings saved")}
+        >
+          Save Settings
+        </IonButton>
+      </IonCardContent>
+    </IonCard>
   );
 };
 
