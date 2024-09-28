@@ -10,24 +10,13 @@ import {
   IonThumbnail,
   IonImg,
 } from "@ionic/react";
-import { InviteMembersProps, EventMember } from "@goflock/types/src/index";
+import { InviteMembersProps } from "@goflock/types/src/index";
 import memberDp from "../../images/member.png";
 import unSelect from "../../images/icons/close.svg";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
 
-const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
-  profile,
-  deviceContext,
-  eventId,
-  admins,
-  members,
-  getMembersFromContactList,
-  addAdmin,
-  removeAdmin,
-  addMember,
-  removeMember,
-}) => {
+const InviteMembersPresenter: React.FC<InviteMembersProps> = ({ members }) => {
   const [searchText, setSearchText] = useState(""); // State to track search input
 
   // Filter members based on search text
