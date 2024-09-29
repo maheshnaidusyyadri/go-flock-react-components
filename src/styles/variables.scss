@@ -14,6 +14,24 @@ $white : #ffffff;
 }
 
 
+.ion-select::part(icon) {
+    color: $GoFlockFont; /* Change icon color */
+    
+}
+
+.ion-select::part(placeholder) {
+    color: #9e9e9e; /* Change placeholder color */
+}
+
+.ion-select::part(text) { 
+    font-size: 12px;
+    font-family: $GoFlockFont;
+    font-weight: 600;
+    line-height: 18px;
+    color: $GoFlockColor;
+}
+
+
 /// Font sizes
 /// 10px = 2.9vw
 /// 12px = 2.9vw

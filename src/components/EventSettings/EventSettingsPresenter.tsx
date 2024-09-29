@@ -1,8 +1,6 @@
 import React, { useState } from "react";
+import "./EventSettingsPresenter.scss";
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonCardContent,
   IonToggle,
   IonItem,
@@ -10,8 +8,16 @@ import {
   IonSelect,
   IonSelectOption,
   IonButton,
+  IonContent,
 } from "@ionic/react";
 import { EventSettingsProps, Currency, EventVisibility } from "@goflock/types";
+import Header from "../Header/Header";
+import galleryIcon from "../../images/icons/gallery.svg";
+import billsIcon from "../../images/icons/bills.svg";
+import chatIcon from "../../images/icons/message.svg";
+import ChecklistIcon from "../../images/icons/Checklist.svg";
+import dollarIcon from "../../images/icons/dollar-circle.svg";
+
 
 const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   event,
@@ -85,37 +91,68 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }; 
 
   return (
-    <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Event Settings for {event.name}</IonCardTitle>
-      </IonCardHeader>
-
-      <IonCardContent>
+    <IonContent className="page_cnt">
+      <Header title={`Event Settings for ${event?.name || 'Event'}`} showMenu={false} showContactList={false} />
+       
+      <IonCardContent className="settings_list">
         <IonItem>
-          <IonLabel>Media Sharing</IonLabel>
-          <IonToggle
-            checked={mediaSharing}
-            onIonChange={handleToggleMediaSharing}
-            disabled={isLoading}
-          />
+          <IonLabel className="ion-label">
+            <span className="dp"><img src={galleryIcon} alt="Media" /></span>
+            Media Sharing            
+          </IonLabel>
+          <div>
+            <IonToggle
+              className="ion-toggle"
+              checked={mediaSharing}
+              onIonChange={handleToggleMediaSharing}
+              disabled={isLoading}
+            />
+          </div>
         </IonItem>
 
         <IonItem>
-          <IonLabel>Split Bills</IonLabel>
-          <IonToggle
-            checked={splitBills}
-            onIonChange={handleToggleSplitBills}
-            disabled={isLoading}
-          />
+          <IonLabel className="ion-label"><span className="dp"><img src={billsIcon} alt="Split Bills" /></span>Split Bills</IonLabel>
+          <div>
+            <IonToggle
+              checked={splitBills}
+              onIonChange={handleToggleSplitBills}
+              disabled={isLoading}
+            />
+          </div>
         </IonItem>
 
         <IonItem>
-          <IonLabel>Currency</IonLabel>
+          <IonLabel className="ion-label"><span className="dp"><img src={chatIcon} alt="Chats" /></span>Chats</IonLabel>
+          <div>
+            <IonToggle
+              checked={splitBills}
+              onIonChange={handleToggleSplitBills}
+              disabled={isLoading}
+            />
+          </div>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel className="ion-label"><span className="dp"><img src={ChecklistIcon} alt="Checklist" /></span>Checklist</IonLabel>
+          <div>
+            <IonToggle
+              checked={splitBills}
+              onIonChange={handleToggleSplitBills}
+              disabled={isLoading}
+            />
+          </div>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel className="ion-label"><span className="dp"><img src={dollarIcon} alt="chat" /></span>Currency</IonLabel>
+          <div>
           <IonSelect
+            className="ion-select"
             value={currency}
+            interface="action-sheet"
             onIonChange={(e) =>
               handleUpdateCurrency(e.detail.value as Currency)
             }
@@ -125,32 +162,38 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
             <IonSelectOption value="EUR">EUR</IonSelectOption>
             <IonSelectOption value="GBP">GBP</IonSelectOption>
           </IonSelect>
+          </div>
         </IonItem>
 
         <IonItem>
-          <IonLabel>Event Visibility</IonLabel>
-          <IonSelect
-            value={visibility}
-            onIonChange={(e) =>
-              handleUpdateVisibility(e.detail.value as EventVisibility)
-            }
-            disabled={isLoading}
-          >
-            <IonSelectOption value="public">Public</IonSelectOption>
-            <IonSelectOption value="private">Private</IonSelectOption>
-            <IonSelectOption value="hidden">Hidden</IonSelectOption>
-          </IonSelect>
+          <IonLabel className="ion-label"><span className="dp"><img src={galleryIcon} alt="Media" /></span>Event Visibility</IonLabel>
+          <div>
+            <IonSelect
+              className="ion-select"
+              value={visibility}
+              interface="action-sheet"
+              onIonChange={(e) =>
+                handleUpdateVisibility(e.detail.value as EventVisibility)
+              }
+              disabled={isLoading}
+            >
+              <IonSelectOption value="public">Public</IonSelectOption>
+              <IonSelectOption value="private">Private</IonSelectOption>
+              <IonSelectOption value="hidden">Hidden</IonSelectOption>
+            </IonSelect>
+          </div>
         </IonItem>
 
         <IonButton
           expand="block"
           disabled={isLoading}
           onClick={() => console.log("Settings saved")}
+          className="primary-btn"
         >
           Save Settings
         </IonButton>
       </IonCardContent>
-    </IonCard>
+    </IonContent>
   );
 };
 

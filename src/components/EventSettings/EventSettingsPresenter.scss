@@ -1,0 +1,50 @@
+@import '../../styles/variables.scss';
+@import '../../styles/components.scss';
+
+body { 
+    padding: 0px !important;
+}
+.page_cnt  {
+    min-height: 100vh;
+    padding: 0px !important;
+}
+
+
+.settings_list {
+    .item  {
+        --padding-start:0px;
+        --border-color: transparent;
+        .ion-label {
+            margin-right: auto;
+            font-size: 16px; /* Adjust if necessary */
+            display: flex;
+            align-items: center;
+            font-family: $GoFlockFont;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: $GoFlockColor;
+            .dp {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+                border: 1px solid #E4E4E7;
+                background: #F6F6F6;
+                box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
+                border-radius: 50%;
+                margin-right: 12px;
+            }
+        }
+        .ion-toggle {
+            margin-left: auto;
+            flex: inherit;
+            --handle-background: #ffffff; /* Customize toggle handle color */
+            --background: #e0e0e0; /* Background when toggle is off */
+            --background-checked: #3880ff; /* Background when toggle is on */
+            --width: 50px; /* Customize width of toggle */
+        }
+    }
+}
+
