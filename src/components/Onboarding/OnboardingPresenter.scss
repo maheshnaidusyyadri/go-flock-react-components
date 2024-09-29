@@ -1,0 +1,111 @@
+@import '../../styles/variables.scss';
+@import '../../styles/components.scss';
+
+body {
+    font-size: 100%;
+    padding: 0px !important;
+}
+.create_event  {
+    min-height: 100vh;
+    padding: 0px !important;
+}
+
+ 
+
+.stepper-container {
+    display: flex;
+    gap: 4px; /* Space between the inputs */
+    justify-content: center;
+    margin: 8px 0 24px;
+    padding: 16px 16px 0;
+    .step  {
+        width: 33.3%;
+        height: 4px;
+        border-radius: 50px;
+        background: #ECEFEA;
+        &.active {
+            background: $GoFlockColor;
+        }
+    }
+}
+
+.actions-container {
+    display: block; 
+    padding: 0 16px 16px;
+    gap: 15px;
+    position: sticky;
+    top: calc(100% - 80px);
+    background: #fff;
+    z-index: 9;
+    text-align: center;
+    .primary-btn {
+        margin: 0;
+        --border-radius: 50px;
+        width: 100%;
+        min-width: 100px; 
+    }
+    .skip {
+        font-family: $GoFlockFont;
+        font-size: 14px;
+        line-height: 20px;
+        color: $GoFlockColor;
+        font-weight: 600;
+        padding: 10px 0;
+        text-decoration: underline;
+        display: block;
+    }
+}
+
+.stepper-content {
+    display: flex;
+    position: relative;
+    min-height: 70vh;
+    
+    .step-content {
+        min-width: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        padding: 0 16px;
+        transition: all 0.4s ease-in-out;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 180px);
+        &.prev {
+            left: -100%;
+        }
+        &.next {
+            left: 100%;
+        }
+        &.current {
+            left: 0px;
+        }
+    }
+}
+
+.auth_screen {
+    display: block;
+    text-align: center;
+    img {
+        width: clamp(220px, 90vw, 335px);
+    }
+    .ion-title {
+        font-family: $GoFlockColor;
+        font-size: 28px;
+        line-height: 40px;
+        color: $GoFlockColor;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    .ion-text {
+        font-family: $GoFlockColor;
+        font-size: 14px;
+        line-height: 24px;
+        color: $secondaryColor;
+        font-weight: 400;
+        margin-bottom: 0px;
+    }
+}
+ 
