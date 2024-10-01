@@ -1,5 +1,4 @@
-@import '../../styles/variables.scss';
-@import '../../styles/components.scss';
+@import '../../styles/variables.scss'; 
 
 body {
     font-size: 100%;
@@ -88,24 +87,29 @@ body {
 .auth_screen {
     display: block;
     text-align: center;
+    width: 100%;
     img {
         width: clamp(220px, 90vw, 335px);
     }
     .ion-title {
-        font-family: $GoFlockColor;
+        font-family: $GoFlockFont;
         font-size: 28px;
         line-height: 40px;
         color: $GoFlockColor;
         font-weight: 700;
         margin-bottom: 8px;
+        position: static;
+        padding: 0;
     }
     .ion-text {
-        font-family: $GoFlockColor;
+        font-family: $GoFlockFont;
         font-size: 14px;
         line-height: 24px;
         color: $secondaryColor;
         font-weight: 400;
         margin-bottom: 0px;
+        display: block;
+        position: static;
     }
 }
  
