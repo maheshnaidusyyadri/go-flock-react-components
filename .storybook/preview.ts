@@ -18,6 +18,8 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import "@ionic/react/css/palettes/dark.system.css";
 
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+
 setupIonicReact();
 
 const preview: Preview = {
@@ -27,6 +29,10 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS, // Predefined viewports from Storybook
+      defaultViewport: "iphone13pro", // You can set the default viewport
     },
   },
 };
