@@ -138,7 +138,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     className="ion-select"
                     aria-label="Event"
                     interface="action-sheet"
-                    placeholder="Select Type"
+                    placeholder="Select Type"                    
                   >
                     <IonSelectOption value="Birthday">Birthday</IonSelectOption>
                     <IonSelectOption value="Vacations">

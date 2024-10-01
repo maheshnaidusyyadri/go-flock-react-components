@@ -1,10 +1,10 @@
 import { StoryFn } from "@storybook/react";
 import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
-import {
-  LocationInfo,
-  CreateNewEventProps,
-  DraftEvent,
-} from "@goflock/types/src/index";
+// import {
+//   LocationInfo,
+//   CreateNewEventProps,
+//   DraftEvent,
+// } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
