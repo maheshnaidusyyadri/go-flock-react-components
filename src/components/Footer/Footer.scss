@@ -1,0 +1,44 @@
+@import '../../styles/variables.scss';
+ 
+
+ 
+.main-footer { 
+    box-shadow: none !important; 
+    position: sticky;
+  bottom: 0px;
+  top: calc(100vh - 74px);  
+    nav {
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border-top: 1px solid #ECECEE;
+            background: #F6F6F6;
+            height: 74px;
+            padding: 0px;
+            margin: 0px;
+            li {
+                list-style-type: none;
+                .link {
+                    span {
+                        display: block;
+                        font-family: $GoFlockFont;
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: $secondaryColor;
+                        line-height: 18px;
+                    }
+                    svg {
+                        display: block;
+                        margin: 0 auto 8px;
+                    }
+                    &.active {
+                        span {
+                            color: $GoFlockColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

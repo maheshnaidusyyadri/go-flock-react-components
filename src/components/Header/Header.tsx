@@ -6,8 +6,13 @@ import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
 import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
+type HeaderProps = {
+  title: string;
+  showMenu?: boolean;
+  showContactList?: boolean;
+};
 
-const Header = ({ title = "", showMenu = true, showContactList = false }) => {
+const Header: React.FC<HeaderProps> = ({ title, showMenu = false, showContactList = false }) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
 
@@ -19,12 +24,15 @@ const Header = ({ title = "", showMenu = true, showContactList = false }) => {
     <>
       <IonHeader className="main-header">
         <div className="header-cnt">
+        
           <img
             src={backArrow}
             alt="Page Back"
             onClick={handleBack}
           />
+          {title && (
           <IonTitle className="page-title">{title}</IonTitle>
+          )}
           {showMenu && (
             <span
               id="open-action-sheet"
@@ -44,6 +52,7 @@ const Header = ({ title = "", showMenu = true, showContactList = false }) => {
               />
             </span>
           )}
+          
         </div>
       </IonHeader>
 
