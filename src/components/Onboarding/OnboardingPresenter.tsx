@@ -1,31 +1,12 @@
 import React, { useState } from "react";
 import "./OnboardingPresenter.scss";
-import {
-  IonCardContent,
-  IonButton,
-  IonInput,
-  IonList,
-  IonItem,
-  IonLabel,
-  IonContent,
-  IonTextarea,
-  IonSelect,
-  IonSelectOption,
-  IonRadioGroup,
-  IonRadio,
+import { 
+  IonButton,  
+  IonContent, 
   IonTitle,
   IonText,
 } from "@ionic/react";
-import {
-  OnboardingProps,
-  LocationInfo,
-  DraftEvent,
-  Event,
-} from "@goflock/types/src/index"; // Adjust the import based on your file structure
-// import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
-import "react-datepicker/dist/react-datepicker.css";
-import { IonDatetime, IonDatetimeButton, IonModal } from "@ionic/react";
-import Success from "../../images/celebration.svg";
+import "react-datepicker/dist/react-datepicker.css"; 
 import EventsIcon from "../../images/auth-1.png";
 import mediaIcon from "../../images/auth-2.png";
 import chatIcon from "../../images/auth-3.png";
@@ -34,50 +15,13 @@ import expancesIcon from "../../images/auth-4.png";
 
 // import Header from '../Header/Header';
 
-const Onboarding: React.FC<OnboardingProps> = ({
-  searchLocation,
-  createEvent,
-  goToEvent,
+const Onboarding: React.FC = ({
+ 
+   
 }) => {
-  const [locationQuery, setLocationQuery] = useState<string>("");
-  const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
-    {
-      name: "Everett",
-      lat: 0,
-      long: 0,
-    }
-  );
-  const [eventName, setEventName] = useState<string>("");
-  const [isCreating, setIsCreating] = useState<boolean>(false);
+     
 
-  // Handle location search
-  // @ts-ignore
-  const handleSearchLocation = async () => {
-    if (locationQuery.trim() === "") return;
-    const results = await searchLocation(locationQuery);
-    setLocationResults(results);
-  };
-
-  // Handle creating an event
-  const handleCreateEvent = async () => {
-    if (!selectedLocation || eventName.trim() === "") return;
-
-    setIsCreating(true);
-    const draftEvent: DraftEvent = {
-      name: eventName,
-      type: "birthday",
-    };
-
-    try {
-      let newEvent: Event = await createEvent(draftEvent);
-      goToEvent(newEvent.id);
-    } catch (error) {
-      console.error("Error creating event:", error);
-    } finally {
-      setIsCreating(false);
-    }
-  };
+   
   ////////////////
   const [currentStep, setCurrentStep] = useState(1); // Track the current step
   const totalSteps = 4; // Define the total number of steps
@@ -88,9 +32,9 @@ const Onboarding: React.FC<OnboardingProps> = ({
   };
 
   // Function to go to the previous step
-  const prevStep = () => {
-    if (currentStep > 1) setCurrentStep((prev) => prev - 1);
-  };
+  // const prevStep = () => {
+  //   if (currentStep > 1) setCurrentStep((prev) => prev - 1);
+  // };
 
   // Render steps dynamically based on the total number of steps
   const renderSteps = () => {
