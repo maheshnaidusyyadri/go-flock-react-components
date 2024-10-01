@@ -29,7 +29,7 @@ import DeleteIcon from '../../images/icons/Delete.svg';
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
   setPreferredName,
-  setIsIntroShown,
+ // setIsIntroShown,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
@@ -167,7 +167,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           disabled={isLoading}
         >
           Save SMS Preference
-        </IonButton>
+        </IonButton>  
 
         <IonButton
           expand="block"
@@ -176,7 +176,16 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           disabled={isLoading}
         >
           Logout
-        </IonButton> */}
+        </IonButton>  
+
+        <IonButton
+          expand="block"
+          color="danger"
+          onClick={handleLogout}
+          disabled={isLoading}
+        >
+          Logout
+        </IonButton>*/}
 
         {error && (
           <IonText color="danger">

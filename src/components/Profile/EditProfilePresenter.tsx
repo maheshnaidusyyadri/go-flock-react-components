@@ -90,7 +90,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
 };
 
 export default ProfilePresenter;
-function setError(arg0: null) {
+function setError(_arg0: null) {
   throw new Error("Function not implemented.");
 }
 
