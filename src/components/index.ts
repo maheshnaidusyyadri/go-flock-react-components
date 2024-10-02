@@ -5,7 +5,6 @@ export * from "./EventList/EventListPresenter";
 export * from "./EventMedia/EventMediaPresenter";
 export * from "./EventSettings/EventSettingsPresenter";
 export * from "./EventSplitBill/EventSplitBillPresenter";
-export * from "./Intro/IntroductionPresenter";
 export * from "./InviteMembers/InviteMembersPresenter";
 export * from "./PhoneNumberAuth/PhoneNumberAuthPresenter";
 export * from "./Profile/ProfilePresenter";

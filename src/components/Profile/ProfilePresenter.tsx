@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import './ProfilePresenter.scss';
+import "./ProfilePresenter.scss";
 import {
   IonContent,
-  IonPage,   
-  IonTitle,    
+  IonPage,
+  IonTitle,
   IonInput,
   IonItem,
   IonLabel,
-  IonButton,   
+  IonButton,
   IonLoading,
   IonText,
   IonImg,
@@ -20,21 +20,21 @@ import {
 } from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
-import ProfileDp from '../../images/profile.png';
-import ProfileIcon from '../../images/icons/profile-circle.svg';
-import PrivacyIcon from '../../images/icons/shield-tick.svg';
-import LogOutIcon from '../../images/icons/logOut.svg';
-import DeleteIcon from '../../images/icons/Delete.svg';
+import ProfileDp from "../../images/profile.png";
+import ProfileIcon from "../../images/icons/profile-circle.svg";
+import PrivacyIcon from "../../images/icons/shield-tick.svg";
+import LogOutIcon from "../../images/icons/logOut.svg";
+import DeleteIcon from "../../images/icons/Delete.svg";
 
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
   setPreferredName,
- // setIsIntroShown,
+  // setIsIntroShown,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
   );
-  
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -89,55 +89,96 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
 
   return (
     <>
-    <IonPage>
-      <Header title="Profile Setting" showMenu={false} showContactList={false} />
-      <IonContent className="ion-padding">
-        <IonCard className="profile_card">
-          <IonImg className="dp" src={ProfileDp}></IonImg>
-          <IonTitle className="name">{preferredName}</IonTitle>
-          <IonText className="number">+1 978 569 7852</IonText>
-        </IonCard>
+      <IonPage>
+        <Header
+          title="Profile Setting"
+          showMenu={false}
+          showContactList={false}
+        />
+        <IonContent className="ion-padding">
+          <IonCard className="profile_card">
+            <IonImg
+              className="dp"
+              src={ProfileDp}
+            ></IonImg>
+            <IonTitle className="name">{preferredName}</IonTitle>
+            <IonText className="number">+1 978 569 7852</IonText>
+          </IonCard>
 
-        <IonContent className="pad0 profile_settings">
-          <IonTitle className="list-title">Setting Options</IonTitle>
-          <IonList className="list_wrap">            
-            <IonItem className="list_item">
-              <IonThumbnail slot="start" className="dp">
-                <IonImg className="ion-img" src={ProfileIcon} alt="Profile" /> 
-              </IonThumbnail>
-              <IonLabel className="list-info">
-                <IonTitle className="name">Profile</IonTitle>
-              </IonLabel>
-            </IonItem>
-            <IonItem className="list_item">
-              <IonThumbnail slot="start" className="dp">
-                <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" /> 
-              </IonThumbnail>
-              <IonLabel className="list-info">
-                <IonTitle className="name">Privacy</IonTitle>
-              </IonLabel>
-            </IonItem>
-            
-            <IonItem className="list_item" id="open-logout-action">
-              <IonThumbnail slot="start" className="dp">
-                <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" /> 
-              </IonThumbnail>
-              <IonLabel className="list-info">
-                <IonTitle className="name">Log Out</IonTitle>
-              </IonLabel>
-            </IonItem>
-            <IonItem className="list_item delete" id="open-delete-action">
-              <IonThumbnail slot="start" className="dp">
-                <IonImg className="ion-img" src={DeleteIcon} alt="Delete Account" /> 
-              </IonThumbnail>
-              <IonLabel className="list-info">
-                <IonTitle className="name">Delete Account</IonTitle>
-              </IonLabel>
-            </IonItem>
-          </IonList>
-        </IonContent>
-       
-        {/* <IonItem>
+          <IonContent className="pad0 profile_settings">
+            <IonTitle className="list-title">Setting Options</IonTitle>
+            <IonList className="list_wrap">
+              <IonItem className="list_item">
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={ProfileIcon}
+                    alt="Profile"
+                  />
+                </IonThumbnail>
+                <IonLabel className="list-info">
+                  <IonTitle className="name">Profile</IonTitle>
+                </IonLabel>
+              </IonItem>
+              <IonItem className="list_item">
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={PrivacyIcon}
+                    alt="Privacy"
+                  />
+                </IonThumbnail>
+                <IonLabel className="list-info">
+                  <IonTitle className="name">Privacy</IonTitle>
+                </IonLabel>
+              </IonItem>
+
+              <IonItem
+                className="list_item"
+                id="open-logout-action"
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={LogOutIcon}
+                    alt="Log Out"
+                  />
+                </IonThumbnail>
+                <IonLabel className="list-info">
+                  <IonTitle className="name">Log Out</IonTitle>
+                </IonLabel>
+              </IonItem>
+              <IonItem
+                className="list_item delete"
+                id="open-delete-action"
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={DeleteIcon}
+                    alt="Delete Account"
+                  />
+                </IonThumbnail>
+                <IonLabel className="list-info">
+                  <IonTitle className="name">Delete Account</IonTitle>
+                </IonLabel>
+              </IonItem>
+            </IonList>
+          </IonContent>
+
+          {/* <IonItem>
           <IonLabel>Show Intro</IonLabel>
           <IonCheckbox
             slot="start"
@@ -153,7 +194,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           Save Intro Setting
         </IonButton> */}
 
-        {/* <IonItem>
+          {/* <IonItem>
           <IonLabel>SMS Notifications</IonLabel>
           <IonCheckbox
             slot="start"
@@ -167,7 +208,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           disabled={isLoading}
         >
           Save SMS Preference
-        </IonButton>  
+        </IonButton>
 
         <IonButton
           expand="block"
@@ -176,7 +217,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           disabled={isLoading}
         >
           Logout
-        </IonButton>  
+        </IonButton>
 
         <IonButton
           expand="block"
@@ -187,26 +228,32 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           Logout
         </IonButton>*/}
 
-        {error && (
-          <IonText color="danger">
-            <p>{error}</p>
-          </IonText>
-        )}
+          {error && (
+            <IonText color="danger">
+              <p>{error}</p>
+            </IonText>
+          )}
 
-        <IonLoading
-          isOpen={isLoading}
-          message={"Please wait..."}
-        />
-      </IonContent>
-      <IonContent className="profile_edit_cnt" style={{ display: 'none' }}>
-        <IonCard className="profile_edit_card">
-          <span className="dp_wrap">
-            <IonImg className="dp" src={ProfileDp}></IonImg> 
-            <span className="dp_edit"></span>
-          </span>
-        </IonCard>
-        <div className="profile_info_card">
-          <div className="form-container">
+          <IonLoading
+            isOpen={isLoading}
+            message={"Please wait..."}
+          />
+        </IonContent>
+        <IonContent
+          className="profile_edit_cnt"
+          style={{ display: "none" }}
+        >
+          <IonCard className="profile_edit_card">
+            <span className="dp_wrap">
+              <IonImg
+                className="dp"
+                src={ProfileDp}
+              ></IonImg>
+              <span className="dp_edit"></span>
+            </span>
+          </IonCard>
+          <div className="profile_info_card">
+            <div className="form-container">
               <IonCardContent className="pad0">
                 <div className="form-group">
                   <IonInput
@@ -216,77 +263,77 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                   />
                 </div>
                 <div className="form-group">
-                  <IonInput                    
+                  <IonInput
                     label="Phone Number"
                     labelPlacement="stacked"
-                    placeholder="Enter Phone Number"                     
+                    placeholder="Enter Phone Number"
                   />
                 </div>
                 <div className="terms">
-                  <IonToggle className="ion-toggle" labelPlacement="start">Get remainders, notifications via SMS.</IonToggle>
-                </div>    
-                <IonButton
-                    expand="block"
-                    onClick={handlePreferredNameChange}
-                    disabled={isLoading || !preferredName}
-                    className="primary-btn"
+                  <IonToggle
+                    className="ion-toggle"
+                    labelPlacement="start"
                   >
-                    Save
-                  </IonButton>            
+                    Get remainders, notifications via SMS.
+                  </IonToggle>
+                </div>
+                <IonButton
+                  expand="block"
+                  onClick={handlePreferredNameChange}
+                  disabled={isLoading || !preferredName}
+                  className="primary-btn"
+                >
+                  Save
+                </IonButton>
               </IonCardContent>
+            </div>
           </div>
-        </div> 
-      </IonContent>
-    </IonPage>
-
+        </IonContent>
+      </IonPage>
 
       <IonActionSheet
-          trigger="open-logout-action" 
-         className="action-menu-end"  
-  
-         buttons={[
-           {
-             text: 'Log Out',
-             role: 'destructive',             
-             data: {
-               action: 'Log Out',
-             },
-             cssClass: 'fill-btn',
-           }, 
-           {
-             text: 'Cancel', 
-             data: {
-               action: 'cancel',
-             },
-             cssClass: 'rounded', 
-           },
-         ]}
-       > 
-       </IonActionSheet> 
-       <IonActionSheet
-          trigger="open-delete-action" 
-         className="action-menu-end"  
-  
-         buttons={[
-           {
-             text: 'Delete Account',
-             role: 'destructive',             
-             data: {
-               action: 'Delete Account',
-             },
-             cssClass: 'fill-btn', 
-           }, 
-           {
-             text: 'Cancel', 
-             data: {
-               action: 'cancel',
-             },
-             cssClass: 'rounded', 
-           },
-         ]}
-       > 
-       </IonActionSheet> 
-      </>
+        trigger="open-logout-action"
+        className="action-menu-end"
+        buttons={[
+          {
+            text: "Log Out",
+            role: "destructive",
+            data: {
+              action: "Log Out",
+            },
+            cssClass: "fill-btn",
+          },
+          {
+            text: "Cancel",
+            data: {
+              action: "cancel",
+            },
+            cssClass: "rounded",
+          },
+        ]}
+      ></IonActionSheet>
+      <IonActionSheet
+        trigger="open-delete-action"
+        className="action-menu-end"
+        buttons={[
+          {
+            text: "Delete Account",
+            role: "destructive",
+            data: {
+              action: "Delete Account",
+            },
+            cssClass: "fill-btn",
+          },
+          {
+            text: "Cancel",
+            data: {
+              action: "cancel",
+            },
+            cssClass: "rounded",
+          },
+        ]}
+      ></IonActionSheet>
+    </>
   );
 };
 
