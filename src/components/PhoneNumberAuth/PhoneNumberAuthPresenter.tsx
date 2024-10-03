@@ -141,7 +141,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           <IonTitle>Sign in</IonTitle>
         </IonToolbar>
       </IonHeader> */}
-      <IonContent
+      <IonContent scrollY={false}
         className={`generate_cnt ion-padding ${isActive ? "" : "active"}`}
         fullscreen
         hidden
@@ -359,7 +359,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           Verify & Process
         </IonButton>
       </IonContent> */}
-      <IonContent
+      <IonContent scrollY={false}
         className={`onboarding ion-padding ${isValidate ? "active" : ""}`}
         fullscreen
       >
