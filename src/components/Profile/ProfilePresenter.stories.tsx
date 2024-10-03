@@ -36,9 +36,9 @@ Default.args = {
     console.log("SMS preference set to:", smsNotifications);
     return true;
   },
-  logout: () => {
-    console.log("User logged out");
-  },
+  // handleLogout: () => {
+  //   console.log("User logged out");
+  // },
 };
 
 export const LoadingState = Template.bind({});

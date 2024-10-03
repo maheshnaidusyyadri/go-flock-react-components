@@ -189,7 +189,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
               Generate OTP
             </IonButton> */}
               <div className="country_selection">
-                <IonContent>
+                <IonContent scrollY={false} >
                   {/* Display the selected country field that toggles the list */}
                   <label>Country</label>
                   <IonItem
@@ -213,6 +213,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                       </IonLabel>
                     </div>
                     <IonIcon
+                      className="ion-icon"
                       icon={chevronDownOutline}
                       slot="end"
                     />

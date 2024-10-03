@@ -17,6 +17,7 @@ import {
   IonActionSheet,
   IonCardContent,
   IonToggle,
+  IonGrid,
 } from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
@@ -105,7 +106,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             <IonText className="number">+1 978 569 7852</IonText>
           </IonCard>
 
-          <IonContent className="pad0 profile_settings">
+          <IonGrid className="pad0 profile_settings">
             <IonTitle className="list-title">Setting Options</IonTitle>
             <IonList className="list_wrap">
               <IonItem className="list_item">
@@ -176,7 +177,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonLabel>
               </IonItem>
             </IonList>
-          </IonContent>
+          </IonGrid>
 
           {/* <IonItem>
           <IonLabel>Show Intro</IonLabel>
