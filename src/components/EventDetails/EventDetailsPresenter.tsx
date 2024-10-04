@@ -39,13 +39,16 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   inviteMembers,
   navigateToEventLocation,
+  deleteEvent,
 }) => {
   return (
     <IonContent className="create_event">
       <Header
+        eventId={event.id}
         title={event.name}
         showMenu={true}
         showContactList={false}
+        deleteEvent={deleteEvent}
       />
       <IonGrid className="event_details">
         <IonCard className="event_info">

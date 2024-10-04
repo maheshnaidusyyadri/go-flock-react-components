@@ -6,13 +6,22 @@ import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
 import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
+
 type HeaderProps = {
+  eventId?: string;
   title: string;
   showMenu?: boolean;
   showContactList?: boolean;
+  deleteEvent?: (eventId: string) => void;
 };
 
-const Header: React.FC<HeaderProps> = ({ title, showMenu = false, showContactList = false }) => {
+const Header: React.FC<HeaderProps> = ({
+  eventId,
+  title,
+  showMenu = false,
+  showContactList = false,
+  deleteEvent,
+}) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
 
@@ -24,15 +33,12 @@ const Header: React.FC<HeaderProps> = ({ title, showMenu = false, showContactLis
     <>
       <IonHeader className="main-header">
         <div className="header-cnt">
-        
           <img
             src={backArrow}
             alt="Page Back"
             onClick={handleBack}
           />
-          {title && (
-          <IonTitle className="page-title">{title}</IonTitle>
-          )}
+          {title && <IonTitle className="page-title">{title}</IonTitle>}
           {showMenu && (
             <span
               id="open-action-sheet"
@@ -52,47 +58,47 @@ const Header: React.FC<HeaderProps> = ({ title, showMenu = false, showContactLis
               />
             </span>
           )}
-          
         </div>
       </IonHeader>
 
-      <IonActionSheet
-        trigger="open-action-sheet"
-        className="action-menu-end"
-        buttons={[
-          {
-            text: "Copy link",
-            role: "destructive",
-            data: {
-              action: "delete",
+      {showMenu && (
+        <IonActionSheet
+          trigger="open-action-sheet"
+          className="action-menu-end"
+          buttons={[
+            {
+              text: "Copy link",
+              role: "destructive",
+              data: {
+                action: "delete",
+              },
             },
-          },
-          {
-            text: "Edit Event",
-            data: {
-              action: "share",
+            {
+              text: "Edit Event",
+              data: {
+                action: "share",
+              },
             },
-          },
-          {
-            text: "Add Checklist",
-            data: {
-              action: "cancel",
+            {
+              text: "Add Checklist",
+              data: {
+                action: "cancel",
+              },
             },
-          },
-          {
-            text: "Delete Event",
-            data: {
-              action: "cancel",
+            {
+              text: "Delete Event",
+              data: {
+                action: "cancel",
+              },
+              handler: () => {
+                console.log("Delete clicked " + showFirstActionSheet);
+                setShowFirstActionSheet(false); // Close the first action sheet
+                setShowDeleteActionSheet(true); // Open the delete action sheet
+              },
             },
-            handler: () => {
-              console.log("Delete clicked " + showFirstActionSheet);
-              setShowFirstActionSheet(false); // Close the first action sheet
-              setShowDeleteActionSheet(true); // Open the delete action sheet
-            },
-          },
-        ]}
-      ></IonActionSheet>
-
+          ]}
+        ></IonActionSheet>
+      )}
       <IonActionSheet
         className="action-menu-end"
         isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
@@ -105,6 +111,9 @@ const Header: React.FC<HeaderProps> = ({ title, showMenu = false, showContactLis
               action: "delete",
             },
             cssClass: "fill-btn",
+            handler: () => {
+              deleteEvent?.(eventId!);
+            },
           },
           {
             text: "Cancel",
