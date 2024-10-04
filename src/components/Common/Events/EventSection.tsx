@@ -29,7 +29,12 @@ const EventSection: React.FC<EventSectionProps> = ({
     <IonCardHeader className="events_head">
       <IonCardTitle className="events_title">{title}</IonCardTitle>
       {onSeeAll && (
-        <IonButton className="viewall" onClick={onSeeAll}>See all</IonButton>
+        <IonButton
+          className="viewall"
+          onClick={onSeeAll}
+        >
+          See all
+        </IonButton>
       )}
     </IonCardHeader>
     <IonCardContent className="events_cnt">

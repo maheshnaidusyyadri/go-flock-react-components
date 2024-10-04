@@ -12,11 +12,14 @@ import {
 } from "@ionic/react";
 import { InviteMembersProps } from "@goflock/types/src/index";
 import memberDp from "../../images/member.png";
-import unSelect from "../../images/icons/close.svg";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
+import ProfileList from "../Common/Profiles/ProfileList";
 
-const InviteMembersPresenter: React.FC<InviteMembersProps> = ({ members }) => {
+const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
+  eventId,
+  members,
+}) => {
   const [searchText, setSearchText] = useState(""); // State to track search input
 
   // Filter members based on search text
@@ -47,28 +50,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({ members }) => {
             />
           </IonToolbar>
           <div className="users_list">
-            <ul>
-              {members.map((user, index) => (
-                <li key={index}>
-                  <IonThumbnail
-                    slot="start"
-                    className="dp"
-                  >
-                    <IonImg
-                      src={memberDp}
-                      alt={user.name}
-                    />
-                    <span className="selection">
-                      <img
-                        src={unSelect}
-                        alt="Remove"
-                      />
-                    </span>
-                  </IonThumbnail>
-                  <h2>{user.name}</h2>
-                </li>
-              ))}
-            </ul>
+            <ProfileList
+              eventId={eventId}
+              eventMembers={members}
+            />
           </div>
           <span className="devider"></span>
           <div className="menbers_list">

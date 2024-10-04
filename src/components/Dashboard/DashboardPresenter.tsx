@@ -23,7 +23,7 @@ import birthdayIcon from "../../images/icons/birthday.svg";
 import marriageIcon from "../../images/icons/marriage.svg";
 import graduationIcon from "../../images/icons/graduation.svg";
 import moreIcon from "../../images/icons/more.svg";
-import EventSection from "../common/EventSection";
+import EventSection from "../Common/Events/EventSection";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
@@ -54,9 +54,13 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         </IonCardHeader>
         <IonCardContent className="db_profile_text">
           {profile.isIntroShown ? (
-            <IonText className="profile_text">Your preferences are set! Check out the latest events below.</IonText>
+            <IonText className="profile_text">
+              Your preferences are set! Check out the latest events below.
+            </IonText>
           ) : (
-            <IonText className="profile_text">Welcome! Let's get started by setting up your preferences.</IonText>
+            <IonText className="profile_text">
+              Welcome! Let's get started by setting up your preferences.
+            </IonText>
           )}
         </IonCardContent>
       </IonCard>
@@ -74,9 +78,12 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         <IonCardHeader className="events_head">
           <IonCardTitle className="events_title">All Events</IonCardTitle>
         </IonCardHeader>
-        <IonCardContent className="events_cnt">           
+        <IonCardContent className="events_cnt">
           <IonRow className="event_actions">
-            <IonCol size="4" className="icon-col">
+            <IonCol
+              size="4"
+              className="icon-col"
+            >
               <IonCard className="icon-card create">
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={AddIcon}></IonImg>
@@ -84,7 +91,10 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               </IonCard>
               <IonText className="card-title">Add events</IonText>
             </IonCol>
-            <IonCol size="4" className="icon-col">
+            <IonCol
+              size="4"
+              className="icon-col"
+            >
               <IonCard className="icon-card">
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={birthdayIcon}></IonImg>
@@ -92,39 +102,51 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               </IonCard>
               <IonText className="card-title">Birthdays</IonText>
             </IonCol>
-            <IonCol size="4" className="icon-col">
+            <IonCol
+              size="4"
+              className="icon-col"
+            >
               <IonCard className="icon-card">
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={vacationIcon}></IonImg>
-                </IonThumbnail>                  
+                </IonThumbnail>
               </IonCard>
               <IonText className="card-title">Vacation trips</IonText>
             </IonCol>
-            <IonCol size="4" className="icon-col">
+            <IonCol
+              size="4"
+              className="icon-col"
+            >
               <IonCard className="icon-card">
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={marriageIcon}></IonImg>
-                </IonThumbnail>                  
+                </IonThumbnail>
               </IonCard>
               <IonText className="card-title">Marriage</IonText>
             </IonCol>
-            <IonCol size="4" className="icon-col">
+            <IonCol
+              size="4"
+              className="icon-col"
+            >
               <IonCard className="icon-card">
-              <IonThumbnail className="icon-thumb">
-                <IonImg src={graduationIcon}></IonImg>
-              </IonThumbnail>
+                <IonThumbnail className="icon-thumb">
+                  <IonImg src={graduationIcon}></IonImg>
+                </IonThumbnail>
               </IonCard>
               <IonText className="card-title">Graduation</IonText>
             </IonCol>
-            <IonCol size="4" className="icon-col">
+            <IonCol
+              size="4"
+              className="icon-col"
+            >
               <IonCard className="icon-card">
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={moreIcon}></IonImg>
-                </IonThumbnail>                  
+                </IonThumbnail>
               </IonCard>
               <IonText className="card-title">Others</IonText>
             </IonCol>
-          </IonRow> 
+          </IonRow>
         </IonCardContent>
       </IonCard>
 

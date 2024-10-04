@@ -18,16 +18,13 @@ import {
   IonRow,
   IonText,
   IonThumbnail,
-  IonTitle,
 } from "@ionic/react";
-// import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css";
 import EventDp from "../../images/event_DP.png";
 import clockIcon from "../../images/icons/clock.svg";
 import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
 import addUserIcon from "../../images/icons/addUser.svg";
-import userDp from "../../images/user.png";
 import userTickIcon from "../../images/icons/userTick.svg";
 import userCrossIcon from "../../images/icons/userCross.svg";
 import helpIcon from "../../images/icons/help.svg";
@@ -36,13 +33,10 @@ import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
 import Footer from "../Footer/Footer";
 import DisplayDate from "../../utils/DisplayDate";
+import ProfileList from "../Common/Profiles/ProfileList";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
-  copyEventLink,
-  deleteEvent,
-  deviceContext,
-  editEvent,
   inviteMembers,
   navigateToEventLocation,
 }) => {
@@ -128,78 +122,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </IonThumbnail>
           </IonItem>
           <IonGrid className="users_list">
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
-            <IonList className="user-item">
-              <IonThumbnail className="dp">
-                <IonImg
-                  src={userDp}
-                  alt="Event"
-                />
-              </IonThumbnail>
-              <IonLabel className="user-name">Leslie Leslie</IonLabel>
-            </IonList>
+            <ProfileList
+              eventId={event.id}
+              eventMembers={event.members}
+            />
           </IonGrid>
         </IonCard>
         <IonItemDivider className="devider"></IonItemDivider>

@@ -1,11 +1,18 @@
 // src/components/EventItem.tsx
 
 import React from "react";
-import { IonCard, IonCardContent, IonCardTitle, IonImg, IonLabel, IonThumbnail } from "@ionic/react";
+import {
+  IonCard,
+  IonCardContent,
+  IonCardTitle,
+  IonImg,
+  IonLabel,
+  IonThumbnail,
+} from "@ionic/react";
 import { Event } from "@goflock/types/src/index";
-import EventDP from "../../images/event_DP.png";
-import menuIcon from "../../images/icons/menu_icon.svg";
-import DisplayDate from "../../utils/DisplayDate";
+import EventDP from "../../../images/event_DP.png";
+import menuIcon from "../../../images/icons/menu_icon.svg";
+import DisplayDate from "../../../utils/DisplayDate";
 
 interface EventItemProps {
   event: Event;

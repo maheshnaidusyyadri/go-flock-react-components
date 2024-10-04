@@ -8,7 +8,7 @@ import {
   IonList,
 } from "@ionic/react";
 import { EventListProps } from "@goflock/types/src/index";
-import EventItem from "../common/EventItem";
+import EventItem from "../Common/Events/EventItem";
 
 const EventListPresenter: React.FC<EventListProps> = ({
   profile,
