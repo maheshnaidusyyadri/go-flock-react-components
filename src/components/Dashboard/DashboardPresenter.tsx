@@ -65,14 +65,6 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         onOpenEvent={openEvent}
       />
 
-      {/* My Events Section */}
-      <EventSection
-        title="My Events"
-        events={myEvents}
-        onSeeAll={seeAllMyEvents}
-        onOpenEvent={openEvent}
-      />
-
       {/* Event Categories Section */}
       <IonCard className="events_sec">
         <IonCardHeader className="events_head">
@@ -146,6 +138,14 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           </IonList>
         </IonCardContent>
       </IonCard>
+
+      {/* My Events Section */}
+      <EventSection
+        title="My Events"
+        events={myEvents}
+        onSeeAll={seeAllMyEvents}
+        onOpenEvent={openEvent}
+      />
 
       {/* Action Sheets */}
       <IonActionSheet
