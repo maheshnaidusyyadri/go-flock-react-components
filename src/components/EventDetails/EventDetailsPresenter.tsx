@@ -1,6 +1,25 @@
 import React from "react";
 import "./EventDetailsPresenter.scss";
-import { IonAvatar, IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonImg, IonItem, IonItemDivider, IonLabel, IonList, IonRow, IonText, IonThumbnail, IonTitle } from "@ionic/react";
+import {
+  IonAvatar,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonImg,
+  IonItem,
+  IonItemDivider,
+  IonLabel,
+  IonList,
+  IonRow,
+  IonText,
+  IonThumbnail,
+  IonTitle,
+} from "@ionic/react";
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css";
 import EventDp from "../../images/event_DP.png";
@@ -15,18 +34,22 @@ import helpIcon from "../../images/icons/help.svg";
 
 import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
-import Footer from "../Footer/Footer"; 
+import Footer from "../Footer/Footer";
+import DisplayDate from "../../utils/DisplayDate";
 
-const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
-  // const [locationQuery, setLocationQuery] = useState<string>("");
-  // const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
-  // const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
-  //   null
-  // );
-  return ( 
+const EventDetailsPresenter: React.FC<EventProps> = ({
+  event,
+  copyEventLink,
+  deleteEvent,
+  deviceContext,
+  editEvent,
+  inviteMembers,
+  navigateToEventLocation,
+}) => {
+  return (
     <IonContent className="create_event">
       <Header
-        title="Giggles & Games Gala"
+        title={event.name}
         showMenu={true}
         showContactList={false}
       />
@@ -38,11 +61,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
               alt="Event"
             />
           </IonThumbnail>
-          <IonText className="event_brief">
-            Lorem ipsum dolor sit amet consectetur. Feugiat tristique
-            adipiscing augue vestibulum comma. Nec facilisi accumsan at
-            pretium tempor et magna.
-          </IonText>
+          <IonText className="event_brief">{event.description}</IonText>
           <IonList className="listitems">
             <IonItem className="ion-list">
               <IonCard className="venue_info">
@@ -53,25 +72,39 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
                   />
                 </IonThumbnail>
                 <IonCardContent className="event_titles">
-                  <IonCardTitle className="event_title">Mar 16 (Fri) - May 18 2021 (Mon)</IonCardTitle>
-                  <IonCardSubtitle className="event_subtitle">9:00 AM - 11:30 AM</IonCardSubtitle>
+                  <IonCardTitle className="event_title">
+                    <DisplayDate inputDate={event.time.startDate} />
+                  </IonCardTitle>
+                  <IonCardSubtitle className="event_subtitle">
+                    {event.time.startTime} - {event.time.endTime}
+                  </IonCardSubtitle>
                 </IonCardContent>
               </IonCard>
             </IonItem>
             <IonItem className="ion-list">
               <IonCard className="venue_info">
-                <IonThumbnail className="dp">
+                <IonThumbnail
+                  className="dp"
+                  onClick={() => navigateToEventLocation(event.id)}
+                >
                   <IonImg
                     src={locationIcon}
                     alt=" "
                   />
                 </IonThumbnail>
                 <IonCardContent className="event_titles">
-                  <IonCardTitle className="event_title">New York, NY</IonCardTitle>
-                  <IonCardSubtitle className="event_subtitle">9:00 AM - 11:30 AM</IonCardSubtitle>
+                  <IonCardTitle className="event_title">
+                    {event.location.name}
+                  </IonCardTitle>
+                  <IonCardSubtitle className="event_subtitle">
+                    More adress details
+                  </IonCardSubtitle>
                 </IonCardContent>
               </IonCard>
-              <IonThumbnail className="event_type">
+              <IonThumbnail
+                className="event_type"
+                onClick={() => navigateToEventLocation(event.id)}
+              >
                 <IonImg
                   src={GlobeIcon}
                   alt=""
@@ -84,13 +117,16 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
         <IonCard className="users_info">
           <IonItem className="users_head">
             <IonLabel className="ion-label">Invite Guests</IonLabel>
-            <IonThumbnail className="add-user">
+            <IonThumbnail
+              className="add-user"
+              onClick={() => inviteMembers(event.id)}
+            >
               <IonImg
                 src={addUserIcon}
                 alt="Event"
               />
             </IonThumbnail>
-          </IonItem>             
+          </IonItem>
           <IonGrid className="users_list">
             <IonList className="user-item">
               <IonThumbnail className="dp">
@@ -164,7 +200,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
               </IonThumbnail>
               <IonLabel className="user-name">Leslie Leslie</IonLabel>
             </IonList>
-          </IonGrid>             
+          </IonGrid>
         </IonCard>
         <IonItemDivider className="devider"></IonItemDivider>
         <IonGrid className="status_sec">
@@ -172,7 +208,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
           <IonRow className="status_cards success">
             <IonCol className="status_card">
               <IonAvatar className="avatar">
-                <IonImg className="ion-img"
+                <IonImg
+                  className="ion-img"
                   src={userCrossIcon}
                   alt="Event"
                 />
@@ -183,7 +220,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
             </IonCol>
             <IonCol className="status_card error">
               <IonAvatar className="avatar">
-                <IonImg className="ion-img"
+                <IonImg
+                  className="ion-img"
                   src={userTickIcon}
                   alt="Event"
                 />
@@ -194,7 +232,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
             </IonCol>
             <IonCol className="status_card warning">
               <IonAvatar className="avatar">
-                <IonImg className="ion-img"
+                <IonImg
+                  className="ion-img"
                   src={helpIcon}
                   alt="Event"
                 />
@@ -205,10 +244,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonButton className="primary-btn rounded">Invite Guests</IonButton>
+        <IonButton
+          className="primary-btn rounded"
+          onClick={() => inviteMembers(event.id)}
+        >
+          Invite Guests
+        </IonButton>
       </IonGrid>
       <Footer />
-    </IonContent> 
+    </IonContent>
   );
 };
 export default EventDetailsPresenter;
