@@ -12,17 +12,16 @@ body {
 .event_details {
     padding: 16px;
     .event_info {
-        figure {
+        padding: 0px;
+        margin: 0px;
+        box-shadow: none;
+        .event_dp {
             padding: 0;
             margin: 0 0 16px 0;
-            img {
-                width: 100%;
-                padding: 0px;
-                margin: 0px;
-                display: block;
-            }
+            width: 100%;
+            height: auto; 
         }
-        p {
+        .event_brief {
             font-family: $GoFlockFont;
             font-size: 14px;
             line-height: 24px;
@@ -30,44 +29,42 @@ body {
             font-weight: 400;
             padding: 0px;
             margin: 0px 0 20px 0;
+            display: block;
         }
         .listitems {
             padding: 0px;
             margin: 0px;
-            li {
+            .ion-list {
                 list-style-type: none;
-                margin: 0 0 10px 0;
+                margin: 0 0 5px 0;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                --border-color: transparent;
+                --padding-start: 0;
                 .venue_info {
                     display: flex;
                     align-items: center;
+                    border: 0px;
+                    box-shadow: none;
+                    padding: 0px;
+                    margin: 0;
                     .dp {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 6px;
-                        border: 1px solid #E4E4E7;
-                        background: #F6F6F6;
-                        img {
-                            display: block;
-                        }
+                        --size:40px;
                     }
                     .event_titles {
                         padding: 0 0 0 12px;
-                        label {
+                        .event_title {
                             font-family: $GoFlockFont;
                             font-size: 12px;
                             line-height: 18px;
                             padding: 0px;
-                            margin: 0 0 8px 0;
+                            margin: 0;
                             font-weight: 400;
                             color: $secondaryColor;
+                            display: block;
                         }
-                        em {
+                        .event_subtitle {
                             display: block;
                             font-style: normal;
                             font-family: $GoFlockFont;
@@ -79,14 +76,8 @@ body {
                     }
                 }
                 .event_type {
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    border: 1px solid #E4E4E7;
-                    background: $white;
+                    --size: 40px; 
+                    margin-left: auto;
                 }
                 &:nth-last-child(1) {
                     margin-bottom: 0px;
@@ -95,12 +86,17 @@ body {
         }        
     }
     .users_info {
+        padding: 0px;
+        margin: 0px;
+        box-shadow: none;
         .users_head {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 16px;
-            h6 {
+            --border-color: transparent;
+            --padding-start: 0;
+            .ion-label {
                 font-family: $GoFlockFont;
                 font-size: 14px;
                 color: $GoFlockColor;
@@ -109,59 +105,57 @@ body {
                 padding: 0px;
                 margin: 0px;
             }
-            a {
+            .add-user {
                 display: block;
-                img {
-                    display: block;
-                }
+                --size:40px; 
             }
         }
         .users_list {
-            display: block;
-            ul {
-                display: flex;
-                gap: 12px;
-                padding: 0;
-                margin: 0;
-                list-style-type: none;
-                width: 100%;
-                overflow: auto;
-                li {
-                    width: 60px;
+            display: flex;
+            gap: 12px;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            width: 100%;
+            overflow: auto;
+            .user-item {
+                width: 60px;
+                display: block;
+                --border-color: transparent;
+                --padding-start: 0;
+                .dp {
+                    --size:30px;
+                    width: 30px;
+                    height: 30px;
+                    position: relative;
+                    border-radius: 50%;
+                    overflow: hidden;
                     display: block;
-                    span {
-                        width: 30px;
-                        height: 30px;
-                        position: relative;
-                        border-radius: 50%;
-                        overflow: hidden;
-                        display: block;
-                        margin: 0 auto 5px;
-                        img {
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50%;
-                        }
-                        em {
-                            width: 12px;
-                            height: 12px;
-                            background: url('../../images/icons/close.svg') no-repeat right bottom;
-                        }
-                    }
-                    small {
-                        font-family: $GoFlockFont;
-                        font-size: 12px;
-                        color: $secondaryColor;
-                        font-weight: 400;
-                        line-height: 18px;
-                        padding: 0px;
-                        margin: 0;
-                        white-space: nowrap;
-                        overflow: hidden;
+                    margin: 0 auto 5px;
+                    img {
                         width: 100%;
-                        display: block;
-                        text-overflow: ellipsis;
+                        height: 100%;
+                        border-radius: 50%;
                     }
+                    em {
+                        width: 12px;
+                        height: 12px;
+                        background: url('../../images/icons/close.svg') no-repeat right bottom;
+                    }
+                }
+                .user-name {
+                    font-family: $GoFlockFont;
+                    font-size: 12px;
+                    color: $secondaryColor;
+                    font-weight: 400;
+                    line-height: 18px;
+                    padding: 0px;
+                    margin: 0;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 100%;
+                    display: block;
+                    text-overflow: ellipsis;
                 }
             }
         }
@@ -169,7 +163,7 @@ body {
     .status_sec {
         margin-bottom: 32px;
         padding: 0;
-        h5 {
+        .status-title {
             font-family: $GoFlockFont;
             font-size: 14px;
             font-weight: 600;
@@ -188,7 +182,7 @@ body {
                 padding: 15px 10px;
                 width: 100%;
                 text-align: center;
-                small {
+                .avatar {
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -197,8 +191,12 @@ body {
                     width: 24px;
                     height: 24px; 
                     background: #12B76A;
+                    .ion-img {
+                        width: 16px;
+                        height: auto;
+                    }
                 }
-                label {
+                .ion-label {
                     font-size: 10px;
                     font-family: $GoFlockFont;
                     font-weight: 400;
@@ -213,7 +211,7 @@ body {
                 .devider {
                     margin: 10px 0;
                 }
-                em {
+                .count {
                     font-family: $GoFlockFont;
                     font-size: 12px;
                     font-weight: 700;
@@ -223,17 +221,17 @@ body {
                     font-style: normal;
                 }
                 &.success {
-                    small {
+                    .avatar {
                         background: #12B76A;
                     }
                 }
                 &.error {
-                    small {
+                    .avatar {
                         background: #DC2626;
                     }
                 }
                 &.warning {
-                    small {
+                    .avatar {
                         background: #F29126;
                     }
                 }

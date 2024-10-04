@@ -1,11 +1,11 @@
 import React from "react";
 import "./EventDetailsPresenter.scss";
-import { IonButton, IonContent } from "@ionic/react";
+import { IonAvatar, IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonImg, IonItem, IonItemDivider, IonLabel, IonList, IonRow, IonText, IonThumbnail, IonTitle } from "@ionic/react";
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css";
 import EventDp from "../../images/event_DP.png";
 import clockIcon from "../../images/icons/clock.svg";
-import locationIcon from "../../images/icons/location.svg";
+import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
 import addUserIcon from "../../images/icons/addUser.svg";
 import userDp from "../../images/user.png";
@@ -15,6 +15,7 @@ import helpIcon from "../../images/icons/help.svg";
 
 import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
+import Footer from "../Footer/Footer"; 
 
 const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
   // const [locationQuery, setLocationQuery] = useState<string>("");
@@ -22,203 +23,192 @@ const EventDetailsPresenter: React.FC<EventProps> = ({}) => {
   // const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
   //   null
   // );
-  return (
-    <>
-      <IonContent className="create_event">
-        <Header
-          title="Giggles & Games Gala"
-          showMenu={true}
-          showContactList={false}
-        />
-        <div className="event_details">
-          <div className="event_info">
-            <figure>
-              <img
-                src={EventDp}
+  return ( 
+    <IonContent className="create_event">
+      <Header
+        title="Giggles & Games Gala"
+        showMenu={true}
+        showContactList={false}
+      />
+      <IonGrid className="event_details">
+        <IonCard className="event_info">
+          <IonThumbnail className="event_dp">
+            <IonImg
+              src={EventDp}
+              alt="Event"
+            />
+          </IonThumbnail>
+          <IonText className="event_brief">
+            Lorem ipsum dolor sit amet consectetur. Feugiat tristique
+            adipiscing augue vestibulum comma. Nec facilisi accumsan at
+            pretium tempor et magna.
+          </IonText>
+          <IonList className="listitems">
+            <IonItem className="ion-list">
+              <IonCard className="venue_info">
+                <IonThumbnail className="dp">
+                  <IonImg
+                    src={clockIcon}
+                    alt="Page Back"
+                  />
+                </IonThumbnail>
+                <IonCardContent className="event_titles">
+                  <IonCardTitle className="event_title">Mar 16 (Fri) - May 18 2021 (Mon)</IonCardTitle>
+                  <IonCardSubtitle className="event_subtitle">9:00 AM - 11:30 AM</IonCardSubtitle>
+                </IonCardContent>
+              </IonCard>
+            </IonItem>
+            <IonItem className="ion-list">
+              <IonCard className="venue_info">
+                <IonThumbnail className="dp">
+                  <IonImg
+                    src={locationIcon}
+                    alt=" "
+                  />
+                </IonThumbnail>
+                <IonCardContent className="event_titles">
+                  <IonCardTitle className="event_title">New York, NY</IonCardTitle>
+                  <IonCardSubtitle className="event_subtitle">9:00 AM - 11:30 AM</IonCardSubtitle>
+                </IonCardContent>
+              </IonCard>
+              <IonThumbnail className="event_type">
+                <IonImg
+                  src={GlobeIcon}
+                  alt=""
+                />
+              </IonThumbnail>
+            </IonItem>
+          </IonList>
+        </IonCard>
+        <IonItemDivider className="devider"></IonItemDivider>
+        <IonCard className="users_info">
+          <IonItem className="users_head">
+            <IonLabel className="ion-label">Invite Guests</IonLabel>
+            <IonThumbnail className="add-user">
+              <IonImg
+                src={addUserIcon}
                 alt="Event"
               />
-            </figure>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. Feugiat tristique
-              adipiscing augue vestibulum comma. Nec facilisi accumsan at
-              pretium tempor et magna.
-            </p>
-            <ul className="listitems">
-              <li>
-                <div className="venue_info">
-                  <span className="dp">
-                    <img
-                      src={clockIcon}
-                      alt="Page Back"
-                    />
-                  </span>
-                  <div className="event_titles">
-                    <label>Mar 16 (Fri) - May 18 2021 (Mon)</label>
-                    <em>9:00 AM - 11:30 AM</em>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="venue_info">
-                  <span className="dp">
-                    <img
-                      src={locationIcon}
-                      alt=" "
-                    />
-                  </span>
-                  <div className="event_titles">
-                    <label>New York, NY</label>
-                    <em>9:00 AM - 11:30 AM</em>
-                  </div>
-                </div>
-                <span className="event_type">
-                  <img
-                    src={GlobeIcon}
-                    alt=""
-                  />
-                </span>
-              </li>
-            </ul>
-          </div>
-          <span className="devider"></span>
-          <div className="users_info">
-            <div className="users_head">
-              <h6>Invite Guests</h6>
-              <a>
-                <img
-                  src={addUserIcon}
+            </IonThumbnail>
+          </IonItem>             
+          <IonGrid className="users_list">
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
                   alt="Event"
                 />
-              </a>
-            </div>
-            <div className="users_list">
-              <ul>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={userDp}
-                      alt="Event"
-                    />
-                    <em></em>
-                  </span>
-                  <small>Leslie Leslie</small>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <span className="devider"></span>
-          <div className="status_sec">
-            <h5>RSVP Status</h5>
-            <div className="status_cards success">
-              <div className="status_card">
-                <small>
-                  <img
-                    src={userCrossIcon}
-                    alt="Event"
-                  />
-                </small>
-                <label>Attending</label>
-                <span className="devider"></span>
-                <em>0</em>
-              </div>
-              <div className="status_card error">
-                <small>
-                  <img
-                    src={userTickIcon}
-                    alt="Event"
-                  />
-                </small>
-                <label>Not Attending</label>
-                <span className="devider"></span>
-                <em>0</em>
-              </div>
-              <div className="status_card warning">
-                <small>
-                  <img
-                    src={helpIcon}
-                    alt="Event"
-                  />
-                </small>
-                <label>Not Sure</label>
-                <span className="devider"></span>
-                <em>0</em>
-              </div>
-            </div>
-          </div>
-          <IonButton className="primary-btn rounded">Invite Guests</IonButton>
-        </div>
-      </IonContent>
-    </>
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+            <IonList className="user-item">
+              <IonThumbnail className="dp">
+                <IonImg
+                  src={userDp}
+                  alt="Event"
+                />
+              </IonThumbnail>
+              <IonLabel className="user-name">Leslie Leslie</IonLabel>
+            </IonList>
+          </IonGrid>             
+        </IonCard>
+        <IonItemDivider className="devider"></IonItemDivider>
+        <IonGrid className="status_sec">
+          <IonLabel className="status-title">RSVP Status</IonLabel>
+          <IonRow className="status_cards success">
+            <IonCol className="status_card">
+              <IonAvatar className="avatar">
+                <IonImg className="ion-img"
+                  src={userCrossIcon}
+                  alt="Event"
+                />
+              </IonAvatar>
+              <IonLabel className="ion-label">Attending</IonLabel>
+              <span className="devider"></span>
+              <IonLabel className="count">0</IonLabel>
+            </IonCol>
+            <IonCol className="status_card error">
+              <IonAvatar className="avatar">
+                <IonImg className="ion-img"
+                  src={userTickIcon}
+                  alt="Event"
+                />
+              </IonAvatar>
+              <IonLabel className="ion-label">Not Attending</IonLabel>
+              <span className="devider"></span>
+              <IonLabel className="count">0</IonLabel>
+            </IonCol>
+            <IonCol className="status_card warning">
+              <IonAvatar className="avatar">
+                <IonImg className="ion-img"
+                  src={helpIcon}
+                  alt="Event"
+                />
+              </IonAvatar>
+              <IonLabel className="ion-label">Not Sure</IonLabel>
+              <span className="devider"></span>
+              <IonLabel className="count">0</IonLabel>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+        <IonButton className="primary-btn rounded">Invite Guests</IonButton>
+      </IonGrid>
+      <Footer />
+    </IonContent> 
   );
 };
 export default EventDetailsPresenter;

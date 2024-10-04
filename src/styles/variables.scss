@@ -62,6 +62,9 @@ body {
     &.rounded {
         --border-radius: 50px;
     }
+    &:hover {
+        --background: #46464c;
+    }
 }
 
 .secondary-btn {
@@ -89,6 +92,7 @@ body {
     height: 1px;
     background: #EFEFF1;
     margin: 20px 0;
+    min-height: inherit;
 }
 
 .form-group {
