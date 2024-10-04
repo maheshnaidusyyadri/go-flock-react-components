@@ -20,6 +20,7 @@ import birthdayIcon from "../../images/icons/birthday.svg";
 import marriageIcon from "../../images/icons/marriage.svg";
 import graduationIcon from "../../images/icons/graduation.svg";
 import moreIcon from "../../images/icons/more.svg";
+import DisplayDate from "../../utils/DisplayDate";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
@@ -83,7 +84,9 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                 </figure>
                 <div className="event_info">
                   <IonLabel className="event-name">{event.name}</IonLabel>
-                  <span>May 16 - May 17</span>
+                  <span>
+                    <DisplayDate inputDate={event.time.startDate}></DisplayDate>
+                  </span>
                 </div>
                 <span className="actions_menu">
                   <span id="open-action-sheet">
