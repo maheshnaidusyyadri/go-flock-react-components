@@ -24,17 +24,19 @@ body {
     }
 
     .toolbar-searchbar {
-        position: sticky;
-        top: 0px;
-
-        ion-searchbar {
+        position: absolute !important;
+        left: 50px;
+        top: 3px;
+        width: calc(100% - 60px);
+        --background: transparent;
+        .ion-searchbar {
             padding: 0;
             --box-shadow: none;
 
             .searchbar-input-container {
-                border-radius: 6px;
-                border: 1px solid #E4E4E7;
-                background: $white;
+                border-radius: 0;
+                border: transparent;
+                background: transparent;
 
                 .searchbar-input {
                     background: transparent;
@@ -44,11 +46,14 @@ body {
                     line-height: 20px;
                     color: $GoFlockColor;
                     line-height: 46px;
-                    padding: 0 10px 0 40px !important;
+                    padding: 0 10px;
 
                     &::placeholder {
                         color: $secondaryColor;
                     }
+                }
+                .searchbar-search-icon {
+                    display: none;
                 }
             }
         }
