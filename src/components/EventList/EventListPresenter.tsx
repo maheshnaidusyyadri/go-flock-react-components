@@ -4,14 +4,17 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonItem,
-  IonLabel,
   IonAvatar,
   IonList,
 } from "@ionic/react";
 import { EventListProps } from "@goflock/types/src/index";
+import EventItem from "../common/EventItem";
 
-const EventListPresenter: React.FC<EventListProps> = ({ profile, events }) => {
+const EventListPresenter: React.FC<EventListProps> = ({
+  profile,
+  events,
+  openEvent,
+}) => {
   return (
     <IonCard>
       <IonCardHeader>
@@ -29,14 +32,12 @@ const EventListPresenter: React.FC<EventListProps> = ({ profile, events }) => {
         ) : (
           <IonList>
             {events.map((event) => (
-              <IonItem key={event.id}>
-                <IonLabel>
-                  <h2>{event.name}</h2>
-                  <h2>{event.id}</h2>
-                  <p>{event.description}</p>
-                  <p>{new Date().toLocaleDateString()}</p>
-                </IonLabel>
-              </IonItem>
+              <EventItem
+                key={event.id}
+                event={event}
+                onOpen={openEvent}
+                onShowActionSheet={() => {}}
+              />
             ))}
           </IonList>
         )}
