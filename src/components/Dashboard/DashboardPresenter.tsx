@@ -10,7 +10,11 @@ import {
   IonAvatar,
   IonContent,
   IonActionSheet,
-  IonList,
+  IonCol,
+  IonThumbnail,
+  IonImg,
+  IonText,
+  IonRow,
 } from "@ionic/react";
 import { DashboardProps } from "@goflock/types/src/index";
 import AddIcon from "../../images/icons/add-circle.svg";
@@ -39,7 +43,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
       <IonCard className="db_profile">
         <IonCardHeader className="db_profile_head">
           <IonAvatar slot="start">
-            <img
+            <IonImg
               src={profile.pictureUrl}
               alt="Profile"
             />
@@ -50,9 +54,9 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         </IonCardHeader>
         <IonCardContent className="db_profile_text">
           {profile.isIntroShown ? (
-            <p>Your preferences are set! Check out the latest events below.</p>
+            <IonText className="profile_text">Your preferences are set! Check out the latest events below.</IonText>
           ) : (
-            <p>Welcome! Let's get started by setting up your preferences.</p>
+            <IonText className="profile_text">Welcome! Let's get started by setting up your preferences.</IonText>
           )}
         </IonCardContent>
       </IonCard>
@@ -70,72 +74,57 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         <IonCardHeader className="events_head">
           <IonCardTitle className="events_title">All Events</IonCardTitle>
         </IonCardHeader>
-        <IonCardContent className="events_cnt">
-          <IonList className="ion-list">
-            <div className="events_list">
-              <div className="event_info">
-                <ul>
-                  <li
-                    className="create"
-                    onClick={createNewEvent}
-                  >
-                    <label>
-                      <img
-                        src={AddIcon}
-                        alt="Create Event"
-                      />
-                    </label>
-                    <span>Add events</span>
-                  </li>
-                  <li>
-                    <label>
-                      <img
-                        src={birthdayIcon}
-                        alt="Birthday"
-                      />
-                    </label>
-                    <span>Birthdays</span>
-                  </li>
-                  <li>
-                    <label>
-                      <img
-                        src={vacationIcon}
-                        alt="Vacations"
-                      />
-                    </label>
-                    <span>Vacation trips</span>
-                  </li>
-                  <li>
-                    <label>
-                      <img
-                        src={marriageIcon}
-                        alt="Marriage"
-                      />
-                    </label>
-                    <span>Marriage</span>
-                  </li>
-                  <li>
-                    <label>
-                      <img
-                        src={graduationIcon}
-                        alt="Graduation"
-                      />
-                    </label>
-                    <span>Graduation</span>
-                  </li>
-                  <li>
-                    <label>
-                      <img
-                        src={moreIcon}
-                        alt="Others"
-                      />
-                    </label>
-                    <span>Others</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </IonList>
+        <IonCardContent className="events_cnt">           
+          <IonRow className="event_actions">
+            <IonCol size="4" className="icon-col">
+              <IonCard className="icon-card create">
+                <IonThumbnail className="icon-thumb">
+                  <IonImg src={AddIcon}></IonImg>
+                </IonThumbnail>
+              </IonCard>
+              <IonText className="card-title">Add events</IonText>
+            </IonCol>
+            <IonCol size="4" className="icon-col">
+              <IonCard className="icon-card">
+                <IonThumbnail className="icon-thumb">
+                  <IonImg src={birthdayIcon}></IonImg>
+                </IonThumbnail>
+              </IonCard>
+              <IonText className="card-title">Birthdays</IonText>
+            </IonCol>
+            <IonCol size="4" className="icon-col">
+              <IonCard className="icon-card">
+                <IonThumbnail className="icon-thumb">
+                  <IonImg src={vacationIcon}></IonImg>
+                </IonThumbnail>                  
+              </IonCard>
+              <IonText className="card-title">Vacation trips</IonText>
+            </IonCol>
+            <IonCol size="4" className="icon-col">
+              <IonCard className="icon-card">
+                <IonThumbnail className="icon-thumb">
+                  <IonImg src={marriageIcon}></IonImg>
+                </IonThumbnail>                  
+              </IonCard>
+              <IonText className="card-title">Marriage</IonText>
+            </IonCol>
+            <IonCol size="4" className="icon-col">
+              <IonCard className="icon-card">
+              <IonThumbnail className="icon-thumb">
+                <IonImg src={graduationIcon}></IonImg>
+              </IonThumbnail>
+              </IonCard>
+              <IonText className="card-title">Graduation</IonText>
+            </IonCol>
+            <IonCol size="4" className="icon-col">
+              <IonCard className="icon-card">
+                <IonThumbnail className="icon-thumb">
+                  <IonImg src={moreIcon}></IonImg>
+                </IonThumbnail>                  
+              </IonCard>
+              <IonText className="card-title">Others</IonText>
+            </IonCol>
+          </IonRow> 
         </IonCardContent>
       </IonCard>
 

@@ -7,6 +7,7 @@ import {
   IonCardTitle,
   IonCardContent,
   IonList,
+  IonButton,
 } from "@ionic/react";
 import EventItem from "./EventItem";
 import { Event } from "@goflock/types/src/index";
@@ -28,12 +29,7 @@ const EventSection: React.FC<EventSectionProps> = ({
     <IonCardHeader className="events_head">
       <IonCardTitle className="events_title">{title}</IonCardTitle>
       {onSeeAll && (
-        <span
-          className="viewall"
-          onClick={onSeeAll}
-        >
-          See all
-        </span>
+        <IonButton className="viewall" onClick={onSeeAll}>See all</IonButton>
       )}
     </IonCardHeader>
     <IonCardContent className="events_cnt">

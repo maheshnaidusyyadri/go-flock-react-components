@@ -29,7 +29,7 @@ body {
     }
     .db_profile_text {
         padding: 0;
-        p {
+        .profile_text {
             font-family: $GoFlockFont;
             font-weight: 400;
             color: $secondaryColor;
@@ -37,6 +37,7 @@ body {
             line-height: 16px;
             padding: 0px;
             margin: 0px;
+            display: block;
         }
     }
 }
@@ -68,6 +69,8 @@ body {
             padding: 0px;
             margin: 0;
             cursor: pointer;
+            --background: transparent;
+            --box-shadow: none;
         }
     }
     .events_cnt {
@@ -81,6 +84,8 @@ body {
                 border: 1px solid #E4E4E7;
                 border-radius: 8px;
                 position: relative;
+                box-shadow: none;
+                margin: 0;
                 figure {
                     margin: 0px;
                     img {
@@ -104,7 +109,7 @@ body {
                         padding: 0px;
                         margin: 0 0 5px 0;
                     }
-                    span {
+                    .event-date {
                         font-family: $GoFlockFont;
                         font-weight: 400;
                         font-size: 12px;
@@ -119,53 +124,7 @@ body {
                 
             }
         }
-    }
-    .events_list {
-        ul {
-            padding: 0px;
-            margin: 0px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            text-align: center;
-            gap: 5vw;
-            li {
-                list-style-type: none;
-                label {
-                    border: 1px solid rgba($GoFlockColor , 0.1);
-                    border-radius: 12px;
-                    width: 24vw;
-                    height: 24vw;                
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    svg {
-                        width: clamp(30px, 11.6vw, 48px);
-                        height: auto;
-                        
-                    }
-                }
-                span {
-                    font-family: $GoFlockFont;
-                    font-weight: 400;
-                    font-size: 14px;
-                    font-size: clamp(10px, 3.38vw, 14px);
-                    line-height: 20px;
-                    color: $GoFlockColor;
-                }
-                &.create {
-                    label {
-                        background: #F6F6F6;
-                        svg {
-                            width: 32px;
-                            width: clamp(24px, 7.72vw, 32px);
-                            height: auto;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    } 
 }
  
   
@@ -188,5 +147,48 @@ body {
         transform: translateY(-50%);
         background: url('../../images/plus.png') no-repeat center;
         cursor: pointer;
+    }
+}
+
+
+
+.event_actions {
+    margin-top: 10px;
+    .icon-col { 
+        padding: 0;
+        margin: 0 0 20px 0;
+        .icon-card {
+            border: 1px solid rgba($GoFlockColor , 0.1);
+            border-radius: 12px;
+            width: 24vw;
+            height: 24vw;                
+            box-shadow: none;
+            display: flex;      
+            margin: 0 auto;   
+            .icon-thumb {
+                --size:48px;
+                margin: auto;
+                img {
+                    width: auto;
+                    height:auto;
+                }
+            }
+            &.create {
+                background: #F6F6F6;
+                .icon-thumb {
+                    --size:32px;
+                }
+            }
+        }
+        .card-title {
+            font-family: $GoFlockFont;
+            font-weight: 400;
+            font-size: 14px;
+            font-size: clamp(10px, 3.38vw, 14px);
+            line-height: 20px;
+            color: $GoFlockColor;
+            display: block;
+            text-align: center;
+        }
     }
 }

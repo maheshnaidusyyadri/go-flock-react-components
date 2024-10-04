@@ -1,10 +1,10 @@
 // src/components/EventItem.tsx
 
 import React from "react";
-import { IonImg, IonLabel, IonThumbnail } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardTitle, IonImg, IonLabel, IonThumbnail } from "@ionic/react";
 import { Event } from "@goflock/types/src/index";
 import EventDP from "../../images/event_DP.png";
-import menuIcon from "../../images/menuIcon.svg";
+import menuIcon from "../../images/icons/menu_icon.svg";
 import DisplayDate from "../../utils/DisplayDate";
 
 interface EventItemProps {
@@ -18,34 +18,34 @@ const EventItem: React.FC<EventItemProps> = ({
   onOpen,
   onShowActionSheet,
 }) => (
-  <div
+  <IonCard
     className="event_item"
     onClick={() => onOpen(event.id)}
   >
     <IonThumbnail className="display_pic">
-    <IonImg
+      <IonImg
         className="events"
         alt="Events"
         src={EventDP}
       />
     </IonThumbnail>
-    <div className="event_info">
-      <IonLabel className="event-name">{event.name}</IonLabel>
-      <span>
+    <IonCardContent className="event_info">
+      <IonCardTitle className="event-name">{event.name}</IonCardTitle>
+      <IonLabel className="event-date">
         <DisplayDate inputDate={event.time.startDate} />
-      </span>
-    </div>
-    <span
+      </IonLabel>
+    </IonCardContent>
+    <IonThumbnail
       className="actions_menu"
       onClick={onShowActionSheet}
     >
-      <img
+      <IonImg
         className="events"
         alt="Event Details"
         src={menuIcon}
       />
-    </span>
-  </div>
+    </IonThumbnail>
+  </IonCard>
 );
 
 export default EventItem;
