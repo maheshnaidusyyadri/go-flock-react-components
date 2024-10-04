@@ -21,12 +21,14 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 import allPhotos from "./photos";
 import StyledLink from "./StyledLink";
 import SelectIcon from "./SelectIcon";
+import Footer from "../Footer/Footer";
 
 type SelectablePhoto = Photo & {
   selected?: boolean;
 };
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
+  eventId,
   media,
   addMedia,
   deleteMedia,
@@ -189,6 +191,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           onDidDismiss={() => setError(null)}
         />
       )}
+      <Footer
+        eventId={eventId}
+        activeTab={"media"}
+      />
     </>
   );
 };

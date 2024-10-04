@@ -1,15 +1,20 @@
-import { IonFooter, IonNavLink } from "@ionic/react";
+import { IonFooter } from "@ionic/react";
 import "./Footer.scss";
 
-const Footer = () => {
+interface FooterProps {
+  eventId: string;
+  activeTab: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ eventId }) => {
   return (
     <IonFooter className="main-footer">
       <nav>
         <ul>
           <li>
-            <IonNavLink
+            <a
               className="link active"
-              routerDirection="forward"
+              href={`/event/${eventId}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -23,13 +28,12 @@ const Footer = () => {
                   fill="#18181B"
                 />
               </svg>
-              <span>Home</span>
-            </IonNavLink>
+            </a>
           </li>
           <li>
-            <IonNavLink
+            <a
               className="link"
-              routerDirection="forward"
+              href={`/event-media/${eventId}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,13 +55,12 @@ const Footer = () => {
                   fill="#71717A"
                 />
               </svg>
-              <span>Media</span>
-            </IonNavLink>
+            </a>
           </li>
           <li>
-            <IonNavLink
+            <a
               className="link"
-              routerDirection="forward"
+              href={`/event-split-bill/${eventId}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -79,45 +82,12 @@ const Footer = () => {
                   fill="#71717A"
                 />
               </svg>
-              <span>Split Bill</span>
-            </IonNavLink>
+            </a>
           </li>
           <li>
-            <IonNavLink
+            <a
               className="link"
-              routerDirection="forward"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="21"
-                height="20"
-                viewBox="0 0 21 20"
-                fill="none"
-              >
-                <path
-                  d="M10.4974 19.0084C9.9224 19.0084 9.38073 18.7167 8.9974 18.2084L7.7474 16.5417C7.7224 16.5084 7.6224 16.4667 7.58073 16.4584H7.16406C3.68906 16.4584 1.53906 15.5167 1.53906 10.8334V6.66675C1.53906 2.98341 3.48073 1.04175 7.16406 1.04175H13.8307C17.5141 1.04175 19.4557 2.98341 19.4557 6.66675V10.8334C19.4557 14.5167 17.5141 16.4584 13.8307 16.4584H13.4141C13.3474 16.4584 13.2891 16.4917 13.2474 16.5417L11.9974 18.2084C11.6141 18.7167 11.0724 19.0084 10.4974 19.0084ZM7.16406 2.29175C4.18073 2.29175 2.78906 3.68341 2.78906 6.66675V10.8334C2.78906 14.6001 4.08073 15.2084 7.16406 15.2084H7.58073C8.00573 15.2084 8.48906 15.4501 8.7474 15.7917L9.9974 17.4584C10.2891 17.8417 10.7057 17.8417 10.9974 17.4584L12.2474 15.7917C12.5224 15.4251 12.9557 15.2084 13.4141 15.2084H13.8307C16.8141 15.2084 18.2057 13.8167 18.2057 10.8334V6.66675C18.2057 3.68341 16.8141 2.29175 13.8307 2.29175H7.16406Z"
-                  fill="#71717A"
-                />
-                <path
-                  d="M10.4974 10.0002C10.0307 10.0002 9.66406 9.62516 9.66406 9.16683C9.66406 8.7085 10.0391 8.3335 10.4974 8.3335C10.9557 8.3335 11.3307 8.7085 11.3307 9.16683C11.3307 9.62516 10.9641 10.0002 10.4974 10.0002Z"
-                  fill="#71717A"
-                />
-                <path
-                  d="M13.8314 10.0002C13.3647 10.0002 12.998 9.62516 12.998 9.16683C12.998 8.7085 13.373 8.3335 13.8314 8.3335C14.2897 8.3335 14.6647 8.7085 14.6647 9.16683C14.6647 9.62516 14.298 10.0002 13.8314 10.0002Z"
-                  fill="#71717A"
-                />
-                <path
-                  d="M7.16536 10.0002C6.6987 10.0002 6.33203 9.62516 6.33203 9.16683C6.33203 8.7085 6.70703 8.3335 7.16536 8.3335C7.6237 8.3335 7.9987 8.7085 7.9987 9.16683C7.9987 9.62516 7.63203 10.0002 7.16536 10.0002Z"
-                  fill="#71717A"
-                />
-              </svg>
-              <span>Chat</span>
-            </IonNavLink>
-          </li>
-          <li>
-            <IonNavLink
-              className="link"
-              routerDirection="forward"
+              href={`/event-settings/${eventId}`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -135,8 +105,7 @@ const Footer = () => {
                   fill="#71717A"
                 />
               </svg>
-              <span>Settings</span>
-            </IonNavLink>
+            </a>
           </li>
         </ul>
       </nav>
