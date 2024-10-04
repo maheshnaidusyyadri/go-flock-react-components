@@ -1,7 +1,7 @@
 // src/components/EventItem.tsx
 
 import React from "react";
-import { IonLabel, IonThumbnail } from "@ionic/react";
+import { IonImg, IonLabel, IonThumbnail } from "@ionic/react";
 import { Event } from "@goflock/types/src/index";
 import EventDP from "../../images/event_DP.png";
 import menuIcon from "../../images/menuIcon.svg";
@@ -22,8 +22,8 @@ const EventItem: React.FC<EventItemProps> = ({
     className="event_item"
     onClick={() => onOpen(event.id)}
   >
-    <IonThumbnail slot="start">
-      <img
+    <IonThumbnail className="display_pic">
+    <IonImg
         className="events"
         alt="Events"
         src={EventDP}

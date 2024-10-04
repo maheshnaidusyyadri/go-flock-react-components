@@ -87,6 +87,10 @@ body {
                         display: block; 
                     }
                 }
+                .display_pic {
+                    width: 100%;
+                    height: auto;
+                }
                 .event_info {
                     padding: 12px;
                     padding: clamp(10px, 2.9vw, 12px);
