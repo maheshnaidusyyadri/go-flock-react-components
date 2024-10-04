@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
+import Footer from "../Footer/Footer";
 
 const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   event,
@@ -149,6 +150,10 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
           </li>
         ))}
       </ul>
+      <Footer
+        eventId={event.id}
+        activeTab={"bills"}
+      />
     </div>
   );
 };

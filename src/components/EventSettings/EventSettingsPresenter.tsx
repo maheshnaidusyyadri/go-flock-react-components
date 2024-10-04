@@ -17,7 +17,7 @@ import billsIcon from "../../images/icons/bills.svg";
 import chatIcon from "../../images/icons/message.svg";
 import ChecklistIcon from "../../images/icons/Checklist.svg";
 import dollarIcon from "../../images/icons/dollar-circle.svg";
-
+import Footer from "../Footer/Footer";
 
 const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   event,
@@ -91,17 +91,26 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
     } finally {
       setIsLoading(false);
     }
-  }; 
+  };
 
   return (
     <IonContent className="page_cnt">
-      <Header title={`Event Settings for ${event?.name || 'Event'}`} showMenu={false} showContactList={false} />
-       
+      <Header
+        title={`Event Settings for ${event?.name || "Event"}`}
+        showMenu={false}
+        showContactList={false}
+      />
+
       <IonCardContent className="settings_list">
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp"><img src={galleryIcon} alt="Media" /></span>
-            Media Sharing            
+            <span className="dp">
+              <img
+                src={galleryIcon}
+                alt="Media"
+              />
+            </span>
+            Media Sharing
           </IonLabel>
           <div>
             <IonToggle
@@ -114,7 +123,15 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         </IonItem>
 
         <IonItem>
-          <IonLabel className="ion-label"><span className="dp"><img src={billsIcon} alt="Split Bills" /></span>Split Bills</IonLabel>
+          <IonLabel className="ion-label">
+            <span className="dp">
+              <img
+                src={billsIcon}
+                alt="Split Bills"
+              />
+            </span>
+            Split Bills
+          </IonLabel>
           <div>
             <IonToggle
               checked={splitBills}
@@ -125,7 +142,15 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         </IonItem>
 
         <IonItem>
-          <IonLabel className="ion-label"><span className="dp"><img src={chatIcon} alt="Chats" /></span>Chats</IonLabel>
+          <IonLabel className="ion-label">
+            <span className="dp">
+              <img
+                src={chatIcon}
+                alt="Chats"
+              />
+            </span>
+            Chats
+          </IonLabel>
           <div>
             <IonToggle
               checked={splitBills}
@@ -136,7 +161,15 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         </IonItem>
 
         <IonItem>
-          <IonLabel className="ion-label"><span className="dp"><img src={ChecklistIcon} alt="Checklist" /></span>Checklist</IonLabel>
+          <IonLabel className="ion-label">
+            <span className="dp">
+              <img
+                src={ChecklistIcon}
+                alt="Checklist"
+              />
+            </span>
+            Checklist
+          </IonLabel>
           <div>
             <IonToggle
               checked={splitBills}
@@ -147,26 +180,42 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         </IonItem>
 
         <IonItem>
-          <IonLabel className="ion-label"><span className="dp"><img src={dollarIcon} alt="chat" /></span>Currency</IonLabel>
+          <IonLabel className="ion-label">
+            <span className="dp">
+              <img
+                src={dollarIcon}
+                alt="chat"
+              />
+            </span>
+            Currency
+          </IonLabel>
           <div>
-          <IonSelect
-            className="ion-select"
-            value={currency}
-            interface="action-sheet"
-            onIonChange={(e) =>
-              handleUpdateCurrency(e.detail.value as Currency)
-            }
-            disabled={isLoading}
-          >
-            <IonSelectOption value="USD">USD</IonSelectOption>
-            <IonSelectOption value="EUR">EUR</IonSelectOption>
-            <IonSelectOption value="GBP">GBP</IonSelectOption>
-          </IonSelect>
+            <IonSelect
+              className="ion-select"
+              value={currency}
+              interface="action-sheet"
+              onIonChange={(e) =>
+                handleUpdateCurrency(e.detail.value as Currency)
+              }
+              disabled={isLoading}
+            >
+              <IonSelectOption value="USD">USD</IonSelectOption>
+              <IonSelectOption value="EUR">EUR</IonSelectOption>
+              <IonSelectOption value="GBP">GBP</IonSelectOption>
+            </IonSelect>
           </div>
         </IonItem>
 
         <IonItem>
-          <IonLabel className="ion-label"><span className="dp"><img src={galleryIcon} alt="Media" /></span>Event Visibility</IonLabel>
+          <IonLabel className="ion-label">
+            <span className="dp">
+              <img
+                src={galleryIcon}
+                alt="Media"
+              />
+            </span>
+            Event Visibility
+          </IonLabel>
           <div>
             <IonSelect
               className="ion-select"
@@ -193,6 +242,10 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           Save Settings
         </IonButton>
       </IonCardContent>
+      <Footer
+        eventId={event.id}
+        activeTab={"splitBill"}
+      />
     </IonContent>
   );
 };

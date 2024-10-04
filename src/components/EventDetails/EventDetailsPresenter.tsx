@@ -177,7 +177,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           Invite Guests
         </IonButton>
       </IonGrid>
-      <Footer />
+      <Footer
+        eventId={event.id}
+        activeTab={"home"}
+      />
     </IonContent>
   );
 };
