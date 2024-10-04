@@ -6,8 +6,6 @@ interface DisplayDateProps {
 }
 
 const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate }) => {
-  console.log("inputDate", inputDate.seconds);
-
   // Convert the JSON date string to a JavaScript Date object
   const date = new Date(inputDate.seconds * 1000);
 

@@ -1,3 +1,5 @@
+// src/components/DashboardPresenter.tsx
+
 import React, { useState } from "react";
 import "./DashboardPresenter.scss";
 import {
@@ -6,21 +8,18 @@ import {
   IonCardTitle,
   IonCardContent,
   IonAvatar,
-  IonList,
   IonContent,
-  IonLabel,
   IonActionSheet,
+  IonList,
 } from "@ionic/react";
-import { DashboardProps, Event } from "@goflock/types/src/index";
-import EventDP from "../../images/event_DP.png";
-import menuIcon from "../../images/menuIcon.svg";
+import { DashboardProps } from "@goflock/types/src/index";
 import AddIcon from "../../images/icons/add-circle.svg";
 import vacationIcon from "../../images/icons/vacation.svg";
 import birthdayIcon from "../../images/icons/birthday.svg";
 import marriageIcon from "../../images/icons/marriage.svg";
 import graduationIcon from "../../images/icons/graduation.svg";
 import moreIcon from "../../images/icons/more.svg";
-import DisplayDate from "../../utils/DisplayDate";
+import EventSection from "../common/EventSection";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
@@ -36,6 +35,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
 
   return (
     <IonContent className="dashboard">
+      {/* Profile Section */}
       <IonCard className="db_profile">
         <IonCardHeader className="db_profile_head">
           <IonAvatar slot="start">
@@ -57,51 +57,23 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         </IonCardContent>
       </IonCard>
 
-      <IonCard className="events_sec">
-        <IonCardHeader className="events_head">
-          <IonCardTitle className="events_title">Active Events</IonCardTitle>
-          <span
-            className="viewall"
-            onClick={() => seeAllEvents("guest")}
-          >
-            See all
-          </span>
-        </IonCardHeader>
-        <IonCardContent className="events_cnt">
-          <IonList className="ion-list">
-            {activeEvents.map((event: Event) => (
-              <div
-                className="event_item"
-                key={event.id}
-                onClick={() => openEvent(event.id)}
-              >
-                <figure>
-                  <img
-                    className="events"
-                    alt="Events"
-                    src={EventDP}
-                  />
-                </figure>
-                <div className="event_info">
-                  <IonLabel className="event-name">{event.name}</IonLabel>
-                  <span>
-                    <DisplayDate inputDate={event.time.startDate}></DisplayDate>
-                  </span>
-                </div>
-                <span className="actions_menu">
-                  <span id="open-action-sheet">
-                    <img
-                      className="events"
-                      alt="Event Details"
-                      src={menuIcon}
-                    />
-                  </span>
-                </span>
-              </div>
-            ))}
-          </IonList>
-        </IonCardContent>
-      </IonCard>
+      {/* Active Events Section */}
+      <EventSection
+        title="Active Events"
+        events={activeEvents}
+        onSeeAll={() => seeAllEvents("guest")}
+        onOpenEvent={openEvent}
+      />
+
+      {/* My Events Section */}
+      <EventSection
+        title="My Events"
+        events={myEvents}
+        onSeeAll={seeAllMyEvents}
+        onOpenEvent={openEvent}
+      />
+
+      {/* Event Categories Section */}
       <IonCard className="events_sec">
         <IonCardHeader className="events_head">
           <IonCardTitle className="events_title">All Events</IonCardTitle>
@@ -113,7 +85,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                 <ul>
                   <li
                     className="create"
-                    onClick={() => createNewEvent()}
+                    onClick={createNewEvent}
                   >
                     <label>
                       <img
@@ -163,7 +135,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                     <label>
                       <img
                         src={moreIcon}
-                        alt="Graduation"
+                        alt="Others"
                       />
                     </label>
                     <span>Others</span>
@@ -174,100 +146,43 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           </IonList>
         </IonCardContent>
       </IonCard>
-      <IonCard className="events_sec">
-        <IonCardHeader className="events_head">
-          <IonCardTitle className="events_title">My Events</IonCardTitle>
-          <span
-            className="viewall"
-            onClick={() => seeAllMyEvents()}
-          >
-            See all
-          </span>
-        </IonCardHeader>
-        <IonCardContent className="events_cnt">
-          <IonList className="ion-list">
-            {myEvents.map((event) => (
-              <div
-                className="event_item"
-                key={event.id}
-                onClick={() => openEvent(event.id)}
-              >
-                <figure>
-                  <img
-                    className="events"
-                    alt="Events"
-                    src={EventDP}
-                  />{" "}
-                </figure>
-                <div className="event_info">
-                  <IonLabel className="event-name">{event.name}</IonLabel>
-                  <span>May 16 - May 17</span>
-                </div>
-              </div>
-            ))}
-          </IonList>
-        </IonCardContent>
-      </IonCard>
 
+      {/* Action Sheets */}
       <IonActionSheet
-        trigger="open-action-sheet"
-        className="action-menu-end"
+        isOpen={showFirstActionSheet}
+        onDidDismiss={() => setShowFirstActionSheet(false)}
         buttons={[
           {
             text: "Copy link",
             role: "destructive",
-            data: {
-              action: "delete",
-            },
+            data: { action: "delete" },
           },
-          {
-            text: "Edit Event",
-            data: {
-              action: "share",
-            },
-          },
-          {
-            text: "Add Checklist",
-            data: {
-              action: "cancel",
-            },
-          },
+          { text: "Edit Event", data: { action: "edit" } },
+          { text: "Add Checklist", data: { action: "checklist" } },
           {
             text: "Delete Event",
-            data: {
-              action: "cancel",
-            },
+            role: "destructive",
+            data: { action: "delete" },
             handler: () => {
-              console.log("Delete clicked " + showFirstActionSheet);
-              setShowFirstActionSheet(false); // Close the first action sheet
-              setShowDeleteActionSheet(true); // Open the delete action sheet
+              setShowFirstActionSheet(false);
+              setShowDeleteActionSheet(true);
             },
           },
         ]}
-      ></IonActionSheet>
-
+      />
       <IonActionSheet
-        className="action-menu-end"
-        isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
-        onDidDismiss={() => setShowDeleteActionSheet(false)} // Dismiss delete action sheet
+        isOpen={showDeleteActionSheet}
+        onDidDismiss={() => setShowDeleteActionSheet(false)}
         buttons={[
           {
             text: "Delete Event",
             role: "destructive",
-            data: {
-              action: "delete",
-            },
+            data: { action: "delete" },
             cssClass: "fill-btn",
           },
-          {
-            text: "Cancel",
-            data: {
-              action: "cancel",
-            },
-            cssClass: "rounded",
-          },
+          { text: "Cancel", data: { action: "cancel" }, cssClass: "rounded" },
         ]}
-      ></IonActionSheet>
+      />
     </IonContent>
   );
 };
