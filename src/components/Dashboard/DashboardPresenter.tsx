@@ -29,7 +29,6 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
   activeEvents,
   myEvents,
-  createNewEvent,
   openEvent,
   seeAllMyEvents,
   seeAllEvents,
