@@ -24,6 +24,7 @@ body {
             line-height: 20px;
             color: $GoFlockColor;
             padding: 0px;
+            text-align: left;
             margin: 0;
         }
     }
@@ -78,7 +79,7 @@ body {
         .ion-list {
             display: flex;
             gap: 16px;
-            padding: 12px 0 0 0;
+            padding: 5px 0 0 0;
             .event_item  {
                 width: 50%;
                 border: 1px solid #E4E4E7;
