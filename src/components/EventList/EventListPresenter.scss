@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss'; 
+@import '../../styles/variables.scss';
 
 body {
     font-size: 100%;
@@ -6,11 +6,10 @@ body {
     display: block;
 }
 
- 
+
 .events_sec {
     box-shadow: none;
     margin: 16px;
-    min-height: 100vh;
     .events_head {
         display: flex;
         align-items: center;
@@ -56,7 +55,7 @@ body {
                 figure {
                     margin: 0px;
                     img {
-                        display: block; 
+                        display: block;
                     }
                 }
                 .display_pic {
@@ -88,12 +87,12 @@ body {
                         display: block;
                     }
                 }
-                
+
             }
         }
-    } 
+    }
 }
- 
+
 .pad16 {
     padding: 16px !important ;
 }
@@ -123,17 +122,17 @@ body {
 
 .event_actions {
     margin-top: 10px;
-    .icon-col { 
+    .icon-col {
         padding: 0;
         margin: 0 0 20px 0;
         .icon-card {
             border: 1px solid rgba($GoFlockColor , 0.1);
             border-radius: 12px;
             width: 24vw;
-            height: 24vw;                
+            height: 24vw;
             box-shadow: none;
-            display: flex;      
-            margin: 0 auto;   
+            display: flex;
+            margin: 0 auto;
             .icon-thumb {
                 --size:48px;
                 margin: auto;

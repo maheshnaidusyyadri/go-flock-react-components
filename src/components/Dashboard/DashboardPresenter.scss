@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss'; 
+@import '../../styles/variables.scss';
 
 body {
     font-size: 100%;
@@ -7,20 +7,19 @@ body {
 }
 
 .dashboard  {
-    min-height: 100vh;
     padding: 16px;
     margin-top: 10px;
 }
 .db_profile {
     box-shadow: none;
     margin: 16px;
-    padding-top: 10px; 
+    padding-top: 10px;
     .db_profile_head {
         padding: 0 0 5px 0;
         .profile-name {
             font-family: $GoFlockFont;
             font-weight: 600;
-            font-size: 20px; 
+            font-size: 20px;
             line-height: 20px;
             color: $GoFlockColor;
             padding: 0px;
@@ -90,7 +89,7 @@ body {
                 figure {
                     margin: 0px;
                     img {
-                        display: block; 
+                        display: block;
                     }
                 }
                 .display_pic {
@@ -122,13 +121,13 @@ body {
                         display: block;
                     }
                 }
-                
+
             }
         }
-    } 
+    }
 }
- 
-  
+
+
 
 .event_images {
     img.events {
@@ -155,17 +154,17 @@ body {
 
 .event_actions {
     margin-top: 10px;
-    .icon-col { 
+    .icon-col {
         padding: 0;
         margin: 0 0 20px 0;
         .icon-card {
             border: 1px solid rgba($GoFlockColor , 0.1);
             border-radius: 12px;
             width: 24vw;
-            height: 24vw;                
+            height: 24vw;
             box-shadow: none;
-            display: flex;      
-            margin: 0 auto;   
+            display: flex;
+            margin: 0 auto;
             .icon-thumb {
                 --size:48px;
                 margin: auto;
