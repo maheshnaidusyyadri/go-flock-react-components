@@ -10,16 +10,16 @@ import {
   IonThumbnail,
   IonImg,
 } from "@ionic/react";
-import { PhoneBookProps } from "@goflock/types/src/index";
-import memberDp from "../../images/member.png"; 
+import { InviteMembersProps } from "@goflock/types/src/index";
+import memberDp from "../../images/member.png";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
 import ProfileList from "../Common/Profiles/ProfileList";
 
-const PhoneBookPresenter: React.FC<PhoneBookProps> = ({ 
+const PhoneBookPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   members,
- }) => {
+}) => {
   const [searchText, setSearchText] = useState(""); // State to track search input
 
   // Filter members based on search text
@@ -32,10 +32,12 @@ const PhoneBookPresenter: React.FC<PhoneBookProps> = ({
   return (
     <>
       <IonContent className="create_event">
-        <Header 
+        <Header
           showMenu={false}
-          showContactList={false} title={""}        />
-        <div className="members_page"> 
+          showContactList={false}
+          title={""}
+        />
+        <div className="members_page">
           <IonToolbar>
             <IonSearchbar
               value={searchText}
