@@ -51,6 +51,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
   const handleSelect = (location: LocationInfo) => {
     onSelectLocation(location); // Pass the selected location back to the parent component
     setLocations([]);
+    setQuery("");
   };
 
   return (
@@ -74,12 +75,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
               button
               onClick={() => handleSelect(location)}
             >
-              <IonLabel>
-                {location.name}{" "}
-                {location.lat &&
-                  location.long &&
-                  `(${location.lat}, ${location.long})`}
-              </IonLabel>
+              <IonLabel>{location.name}</IonLabel>
             </IonItem>
           ))}
         </IonList>

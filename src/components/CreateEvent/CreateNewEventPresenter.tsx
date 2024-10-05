@@ -10,6 +10,7 @@ import {
   IonSelectOption,
   IonRadioGroup,
   IonRadio,
+  IonLabel,
 } from "@ionic/react";
 import {
   CreateNewEventProps,
@@ -24,6 +25,7 @@ import Success from "../../images/celebration.svg";
 import privateEventIcon from "../../images/icons/privateEvent.svg";
 import publicEventIcon from "../../images/icons/publicEvent.svg";
 import PlaceSearch from "./PlaceSearch";
+import { EventType, EventVisibility } from "@goflock/types";
 
 // import Header from '../Header/Header';
 
@@ -35,6 +37,19 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
   const [eventName, setEventName] = useState<string>("");
+  const [eventType, setEventType] = useState<EventType>();
+  const [eventDescription, setEventDescription] = useState<string>("");
+  // @ts-ignore
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  // @ts-ignore
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  // @ts-ignore
+  const [startTime, setStartTime] = useState<string>("10:00 AM");
+  // @ts-ignore
+  const [endTime, setEndTime] = useState<string>("12:00 PM");
+
+  const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
+
   const [isCreating, setIsCreating] = useState<boolean>(false);
 
   // Handle creating an event
@@ -44,8 +59,16 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     setIsCreating(true);
     const draftEvent: DraftEvent = {
       name: eventName,
-      type: "birthday",
+      type: eventType!,
+      description: eventDescription,
       location: selectedLocation,
+      visibility: eventVisibility,
+      time: {
+        startDate: startDate || new Date(),
+        endDate,
+        startTime,
+        endTime,
+      },
     };
 
     try {
@@ -128,6 +151,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     aria-label="Event"
                     interface="action-sheet"
                     placeholder="Select Type"
+                    onIonChange={(e) => setEventType(e.detail.value!)}
                   >
                     <IonSelectOption value="Birthday">Birthday</IonSelectOption>
                     <IonSelectOption value="Vacations">
@@ -146,9 +170,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     label="Description*"
                     labelPlacement="stacked"
                     placeholder="Enter text"
+                    onIonChange={(e) => setEventDescription(e.detail.value!)}
                   ></IonTextarea>
                 </div>
                 <div className="form-group">
+                  <IonLabel> Venue </IonLabel>
                   <PlaceSearch
                     searchLocation={searchLocation}
                     onSelectLocation={handleSelectLocation}
@@ -269,10 +295,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     className="ion-radio-group"
                     allowEmptySelection={true}
                     value="turtles"
+                    onIonChange={(e) => setEventVisibility(e.detail.value!)}
                   >
                     <IonRadio
                       className="ion-radio"
-                      value="Private Event"
+                      value={"private"}
                       justify="space-between"
                     >
                       <span>
@@ -290,7 +317,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
                     <IonRadio
                       class="ion-radio"
-                      value="Public Event"
+                      value="public"
                       justify="space-between"
                     >
                       <span>
