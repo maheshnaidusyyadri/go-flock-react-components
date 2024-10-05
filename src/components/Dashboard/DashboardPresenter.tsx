@@ -29,6 +29,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
   activeEvents,
   myEvents,
+  createNewEvent,
   openEvent,
   seeAllMyEvents,
   seeAllEvents,
@@ -83,7 +84,10 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               size="4"
               className="icon-col"
             >
-              <IonCard className="icon-card create">
+              <IonCard
+                className="icon-card create"
+                onClick={createNewEvent}
+              >
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={AddIcon}></IonImg>
                 </IonThumbnail>

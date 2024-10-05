@@ -4,9 +4,6 @@ import {
   IonCardContent,
   IonButton,
   IonInput,
-  IonList,
-  IonItem,
-  IonLabel,
   IonContent,
   IonTextarea,
   IonSelect,
@@ -26,6 +23,7 @@ import { IonDatetime, IonDatetimeButton, IonModal } from "@ionic/react";
 import Success from "../../images/celebration.svg";
 import privateEventIcon from "../../images/icons/privateEvent.svg";
 import publicEventIcon from "../../images/icons/publicEvent.svg";
+import PlaceSearch from "./PlaceSearch";
 
 // import Header from '../Header/Header';
 
@@ -34,25 +32,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   createEvent,
   goToEvent,
 }) => {
-  const [locationQuery, setLocationQuery] = useState<string>("");
-  const [locationResults, setLocationResults] = useState<LocationInfo[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<LocationInfo | null>(
-    {
-      name: "Everett",
-      lat: 0,
-      long: 0,
-    }
-  );
+  const [selectedLocation, setSelectedLocation] =
+    useState<LocationInfo | null>();
   const [eventName, setEventName] = useState<string>("");
   const [isCreating, setIsCreating] = useState<boolean>(false);
-
-  // Handle location search
-  // @ts-ignore
-  const handleSearchLocation = async () => {
-    if (locationQuery.trim() === "") return;
-    const results = await searchLocation(locationQuery);
-    setLocationResults(results);
-  };
 
   // Handle creating an event
   const handleCreateEvent = async () => {
@@ -62,6 +45,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     const draftEvent: DraftEvent = {
       name: eventName,
       type: "birthday",
+      location: selectedLocation,
     };
 
     try {
@@ -104,6 +88,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     return "";
   };
 
+  const handleSelectLocation = (location: LocationInfo) => {
+    console.log("Selected location:", location);
+    setSelectedLocation(location);
+  };
+
   return (
     <>
       {/* <IonCard>
@@ -138,7 +127,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     className="ion-select"
                     aria-label="Event"
                     interface="action-sheet"
-                    placeholder="Select Type"                    
+                    placeholder="Select Type"
                   >
                     <IonSelectOption value="Birthday">Birthday</IonSelectOption>
                     <IonSelectOption value="Vacations">
@@ -160,35 +149,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                   ></IonTextarea>
                 </div>
                 <div className="form-group">
-                  <IonInput
-                    value={locationQuery}
-                    label="Event Name*"
-                    labelPlacement="stacked"
-                    placeholder="Search for a location"
-                    onIonChange={(e) => setLocationQuery(e.detail.value!)}
+                  <PlaceSearch
+                    searchLocation={searchLocation}
+                    onSelectLocation={handleSelectLocation}
                   />
                 </div>
-
-                {/* <IonButton
-                onClick={handleSearchLocation}
-                expand="block"
-              >
-                Search Location
-              </IonButton> */}
-
-                {locationResults.length > 0 && (
-                  <IonList>
-                    {locationResults.map((location) => (
-                      <IonItem
-                        key={""}
-                        button
-                        onClick={() => setSelectedLocation(location)}
-                      >
-                        <IonLabel>{location.name}</IonLabel>
-                      </IonItem>
-                    ))}
-                  </IonList>
-                )}
 
                 {selectedLocation && (
                   <div>
@@ -204,7 +169,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 <div className="form-group">
                   <label className="form-label">Start Date*</label>
                   {/* <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                  <IonDatetimeButton                  
+                  <IonDatetimeButton
                     className="ion-datetime-button date"
                     datetime="startDate"
                   ></IonDatetimeButton>

@@ -33,7 +33,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     <>
       <IonContent className="create_event">
         <Header
-          title="Add Member"
+          title="Manage members"
           showMenu={false}
           showContactList={true}
         />
