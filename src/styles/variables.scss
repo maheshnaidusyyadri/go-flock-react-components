@@ -98,6 +98,7 @@ body {
 .form-group {
     width: 100%;
     margin-bottom: 20px;
+    display: block;
     .form-label {
         font-family:$GoFlockFont;
         font-size: 14px;
@@ -300,8 +301,78 @@ body {
             }
         }
     }
-      
-      
+    .form-label {
+        transform: inherit !important;
+        font-family: $GoFlockFont;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: $GoFlockColor !important;
+        margin-bottom: 4px; 
+    }
+    
+    
+    .ion-searchbar {
+        margin: 0;
+        padding: 0;
+        background: url('../images/plus.png') no-repeat 0 0;
+        min-height: auto;
+        .searchbar-input-container {
+            // .label-text-wrapper {
+            //     transform: inherit !important;
+            //     font-family: $GoFlockFont;
+            //     font-size: 14px;
+            //     line-height: 20px;
+            //     font-weight: 500;
+            //     color: $GoFlockColor !important;
+            //     margin-bottom: 4px;
+            // }
+            background: url('../images/plus.png') no-repeat 0 0;
+            .searchbar-input {
+                padding: 0 15px 0 40px !important;
+                color: $GoFlockColor;
+                font-family: $GoFlockFont;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                border: 1px solid #E4E4E7;
+                height: 48px;
+                border-radius: 6px;
+                background: transparent;
+                &::placeholder {
+                    color: $secondaryColor;
+                    font-size: 14px;
+                    line-height: 20px;
+                    font-family: $GoFlockFont;
+                    font-weight: 400;
+                    padding: 0px;
+                }
+            }
+            .searchbar-search-icon {
+                inset-inline-start: 10px;
+            }
+            .input-highlight {
+                display: none;
+            }
+        }
+    }
+    .list-ios {
+        border: 1px solid #E4E4E7;
+        border-radius: 6px;
+    
+        .item  {
+            --border-color: transparent;
+            .sc-ion-label-ios-h {
+                font-family: $GoFlockFont;
+                font-weight: 400;
+                font-size: 14px;
+                color: $GoFlockColor;
+            }
+        }
+    }
+     &.mb-0 {
+        margin-bottom: 0px;
+     } 
 }
 
 /* Success component Styles */
@@ -322,7 +393,7 @@ body {
             display: block;
             margin: 0 auto 40px;
         }
-        h2 {
+        .action_title {
             display: block;
             text-align: center;
             font-family: $GoFlockFont;
@@ -334,7 +405,7 @@ body {
             font-size: 24px; 
             font-size: clamp(18px, 5.8vw, 24px);
         }
-        p {
+        .action_info {
             display: block;
             font-family: $GoFlockFont; 
             font-weight: 400;
@@ -468,3 +539,20 @@ body {
 // 24px = 5.8vw,
 // 32px = 7.72vw,
 // 48px = 11.6vw,
+
+
+
+
+.location_selection {
+    font-family: $GoFlockFont;
+    font-size: 12px;
+    font-weight: normal;
+    color:$secondaryColor ;
+    line-height: 28px;
+    .location {
+        font-family: $GoFlockFont;
+        font-size: 14px;
+        font-weight: 500;
+        color: $GoFlockColor;
+    }
+}

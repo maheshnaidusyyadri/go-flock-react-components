@@ -11,6 +11,11 @@ import {
   IonRadioGroup,
   IonRadio,
   IonLabel,
+  IonText, 
+  IonList,
+  IonFooter,
+  IonGrid, 
+  IonImg,
 } from "@ionic/react";
 import {
   CreateNewEventProps,
@@ -117,25 +122,16 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   };
 
   return (
-    <>
-      {/* <IonCard>
-      <IonCardHeader>
-        <IonCardTitle>Create a New Event</IonCardTitle>
-      </IonCardHeader>
+    <> 
+      <IonContent className="create_event" style={{ display: "none" }}> 
+        <IonList className="stepper-container">{renderSteps()}</IonList>
 
-    </IonCard> */}
-
-      <IonContent className="create_event">
-        {/* <Header /> */}
-        {/* Stepper display */}
-        <div className="stepper-container">{renderSteps()}</div>
-
-        <div className="stepper-content">
+        <IonGrid className="stepper-content">
           {/* Step content with prev, current, and next classes */}
-          <div className={`step-content ${getStepClass(1)}`}>
-            <div className="form-container">
+          <IonGrid className={`step-content ${getStepClass(1)}`}>
+            <IonGrid className="form-container">
               <IonCardContent className="pad0">
-                <div className="form-group">
+                <IonList className="form-group">
                   <IonInput
                     value={eventName}
                     label="Event Name*"
@@ -143,9 +139,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     placeholder="Event Name"
                     onIonChange={(e) => setEventName(e.detail.value!)}
                   />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Event Type*</label>
+                </IonList>
+                <IonList className="form-group">
+                  <IonLabel className="form-label">Event Type*</IonLabel>
                   <IonSelect
                     className="ion-select"
                     aria-label="Event"
@@ -162,8 +158,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     </IonSelectOption>
                     <IonSelectOption value="Other">Other</IonSelectOption>
                   </IonSelect>
-                </div>
-                <div className="form-group">
+                </IonList>
+                <IonList className="form-group">
                   <IonTextarea
                     className="ion-textarea"
                     rows={3}
@@ -172,28 +168,26 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     placeholder="Enter text"
                     onIonChange={(e) => setEventDescription(e.detail.value!)}
                   ></IonTextarea>
-                </div>
-                <div className="form-group">
-                  <IonLabel> Venue </IonLabel>
+                </IonList>
+                <IonList className="form-group mb-0">
+                  <IonLabel className="form-label">Venue</IonLabel>
                   <PlaceSearch
                     searchLocation={searchLocation}
                     onSelectLocation={handleSelectLocation}
                   />
-                </div>
+                </IonList>
 
                 {selectedLocation && (
-                  <div>
-                    <p>Selected Location: {selectedLocation.name}</p>
-                  </div>
+                  <IonLabel className="location_selection">Selected Location:<IonText className="location"> {selectedLocation.name}</IonText></IonLabel> 
                 )}
               </IonCardContent>
-            </div>
-          </div>
-          <div className={`step-content ${getStepClass(2)}`}>
-            <div className="form-container">
+            </IonGrid>
+          </IonGrid>
+          <IonGrid className={`step-content ${getStepClass(2)}`}>
+            <IonGrid className="form-container">
               <IonCardContent className="pad0">
-                <div className="form-group">
-                  <label className="form-label">Start Date*</label>
+                <IonList className="form-group">
+                  <IonLabel className="form-label">Start Date*</IonLabel>
                   {/* <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} /> */}
                   <IonDatetimeButton
                     className="ion-datetime-button date"
@@ -213,9 +207,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       }}
                     ></IonDatetime>
                   </IonModal>
-                </div>
-                <div className="form-group">
-                  <label className="form-label">End Date*</label>
+                </IonList>
+                <IonList className="form-group">
+                  <IonLabel className="form-label">End Date*</IonLabel>
                   {/* <DatePicker showIcon selected={startDate} onChange={(date) => setStartDate(date)} /> */}
                   <IonDatetimeButton
                     className="ion-datetime-button date"
@@ -235,9 +229,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       }}
                     ></IonDatetime>
                   </IonModal>
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Start Time*</label>
+                </IonList>
+                <IonList className="form-group">
+                  <IonLabel className="form-label">Start Time*</IonLabel>
                   <IonDatetimeButton
                     className="ion-datetime-button time"
                     datetime="StartTime"
@@ -255,9 +249,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       }}
                     ></IonDatetime>
                   </IonModal>
-                </div>
-                <div className="form-group">
-                  <label className="form-label">End Time*</label>
+                </IonList>
+                <IonList className="form-group">
+                  <IonLabel className="form-label">End Time*</IonLabel>
                   <IonDatetimeButton
                     className="ion-datetime-button time"
                     datetime="endTime"
@@ -275,7 +269,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       }}
                     ></IonDatetime>
                   </IonModal>
-                </div>
+                </IonList>
 
                 {/* <IonButton
             onClick={handleCreateEvent}
@@ -285,12 +279,12 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
             {isCreating ? "Creating Event..." : "Create Event"}
           </IonButton> */}
               </IonCardContent>
-            </div>
-          </div>
-          <div className={`step-content ${getStepClass(3)}`}>
-            <div className="form-container">
+            </IonGrid>
+          </IonGrid>
+          <IonGrid className={`step-content ${getStepClass(3)}`}>
+            <IonGrid className="form-container">
               <IonCardContent className="pad0">
-                <div className="form-group">
+                <IonList className="form-group">
                   <IonRadioGroup
                     className="ion-radio-group"
                     allowEmptySelection={true}
@@ -333,13 +327,13 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       </p>
                     </IonRadio>
                   </IonRadioGroup>
-                </div>
+                </IonList>
               </IonCardContent>
-            </div>
-          </div>
-        </div>
+            </IonGrid>
+          </IonGrid>
+        </IonGrid>
         {/* Navigation buttons */}
-        <div className="actions-container">
+        <IonFooter className="actions-container">
           <IonButton
             className="primary-btn actions"
             onClick={prevStep}
@@ -364,30 +358,30 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               {isCreating ? "Creating Event..." : "Create Event"}
             </IonButton>
           )}
-        </div>
+        </IonFooter>
       </IonContent>
-      <div
+      <IonGrid
         className="action_screen"
-        style={{ display: "none" }}
+        
       >
-        <div className="action_screen_cnt">
-          <img
+        <IonGrid className="action_screen_cnt">
+          <IonImg
             alt="Successfully Created Event"
             src={Success}
           />
-          <h2>Successfully Created Event</h2>
-          <p>
+          <IonLabel className="action_title">Successfully Created Event</IonLabel>
+          <IonText className="action_info">
             Event Created! 🎉 Now, let's make it unforgettable. Invite friends
             and let the good times roll!
-          </p>
-        </div>
-        <div className="action_screen_buttons">
+          </IonText>
+        </IonGrid>
+        <IonFooter className="action_screen_buttons">
           <IonButton className="primary-btn">Go To Event Details</IonButton>
           <IonButton className="secondary-btn">
             Invite Friends To The Event
           </IonButton>
-        </div>
-      </div>
+        </IonFooter>
+      </IonGrid>
     </>
   );
 };

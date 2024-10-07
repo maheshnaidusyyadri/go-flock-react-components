@@ -55,6 +55,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
   return (
     <>
       <IonSearchbar
+        className="ion-searchbar"
         value={query}
         debounce={700}
         onIonInput={(e) => setQuery(e.detail.value!)}

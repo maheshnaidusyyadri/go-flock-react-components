@@ -38,7 +38,7 @@ const Onboarding: React.FC<IntroductionProps> = ({}) => {
       {/* Stepper display */}
       <div className="stepper-container">{renderSteps()}</div>
 
-      <div className="stepper-content">
+      <div className="stepper-content onboarding">
         {/* Step content with prev, current, and next classes */}
         <div className={`step-content ${getStepClass(1)}`}>
           <div className="auth_screen">
@@ -92,7 +92,7 @@ const Onboarding: React.FC<IntroductionProps> = ({}) => {
       </div>
 
       {/* Navigation buttons */}
-      <div className="actions-container">
+      <div className="actions-container flex">
         <IonButton
           className="primary-btn actions"
           onClick={nextStep}
