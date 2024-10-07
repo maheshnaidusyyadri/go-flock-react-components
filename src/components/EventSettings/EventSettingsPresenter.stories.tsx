@@ -32,6 +32,8 @@ const mockEvent: Event = {
   name: "Family Gathering",
   type: "anniversary",
   description: "Annual family gathering at the park.",
+  hostedBy: "Me & Family",
+  memberInvitationContactReference: ["+1234567890", "alice.smith@example.com"],
   location: { name: "Central Park" },
   time: { startDate: new Date(), startTime: "12:00 PM" },
   visibility: "private",

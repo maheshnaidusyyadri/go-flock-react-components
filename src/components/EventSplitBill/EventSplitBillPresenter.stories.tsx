@@ -19,6 +19,11 @@ Default.args = {
     name: "Annual Family Reunion",
     type: "reunion",
     description: "An annual gathering of the extended family.",
+    hostedBy: "Me & Family",
+    memberInvitationContactReference: [
+      "+1234567890",
+      "alice.smith@example.com",
+    ],
     location: {
       name: "Grandma's House",
       lat: 40.712776,

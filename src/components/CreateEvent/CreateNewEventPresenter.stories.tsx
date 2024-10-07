@@ -44,6 +44,11 @@ Default.args = {
       owner: "user_001",
       name: "Annual Family Reunion",
       type: "reunion",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       description: "An annual gathering of the extended family.",
       location: {
         name: "Grandma's House",
@@ -195,6 +200,11 @@ CreatingEvent.args = {
           id: "event_12345",
           owner: "user_001",
           name: "Annual Family Reunion",
+          hostedBy: "Me & Family",
+          memberInvitationContactReference: [
+            "+1234567890",
+            "alice.smith@example.com",
+          ],
           type: "reunion",
           description: "An annual gathering of the extended family.",
           location: {
