@@ -29,4 +29,5 @@ Default.args = {
     );
     return true;
   },
+  onSuccessfulVerification: async () => {},
 };
