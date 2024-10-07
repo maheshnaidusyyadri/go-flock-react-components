@@ -93,9 +93,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   <IonCardTitle className="event_title">
                     {event.location.name}
                   </IonCardTitle>
-                  <IonCardSubtitle className="event_subtitle">
-                    More adress details
-                  </IonCardSubtitle>
                 </IonCardContent>
               </IonCard>
               <IonThumbnail

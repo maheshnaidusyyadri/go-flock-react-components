@@ -22,8 +22,6 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  console.log("place search");
-
   useEffect(() => {
     if (query.length > 2) {
       handleSearch(query);
