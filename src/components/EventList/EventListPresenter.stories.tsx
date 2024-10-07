@@ -31,6 +31,11 @@ Default.args = {
       name: "Family Gathering",
       type: "family_event",
       description: "Annual family gathering at the park.",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       location: {
         name: "Central Park",
         lat: 40.785091,
@@ -68,6 +73,11 @@ Default.args = {
       owner: "user_002",
       name: "Office Party",
       type: "party",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
@@ -121,6 +131,11 @@ SingleEvent.args = {
       name: "Birthday Party",
       type: "birthday",
       description: "Celebrating my 30th birthday!",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       location: {
         name: "My House",
       },

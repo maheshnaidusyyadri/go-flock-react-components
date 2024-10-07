@@ -31,6 +31,11 @@ Default.args = {
       name: "Team Meeting",
       type: "get_togather",
       description: "Weekly team sync-up.",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       location: {
         name: "Office",
       },
@@ -66,6 +71,11 @@ Default.args = {
       owner: "user_003",
       name: "Birthday Party",
       type: "birthday",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       description: "Celebrating Sarah's birthday!",
       location: {
         name: "Sarah's House",
@@ -105,6 +115,11 @@ Default.args = {
       name: "Wedding Planning",
       type: "wedding",
       description: "Planning the big day!",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
       location: {
         name: "Downtown Hall",
       },
