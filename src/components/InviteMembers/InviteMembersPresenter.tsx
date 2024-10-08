@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./InviteMembersPresenter.scss";
 import {
   IonList,
@@ -10,7 +10,7 @@ import {
   IonThumbnail,
   IonImg,
 } from "@ionic/react";
-import { InviteMembersProps } from "@goflock/types/src/index";
+import { Contact, InviteMembersProps } from "@goflock/types/src/index";
 import memberDp from "../../images/member.png";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
@@ -19,15 +19,24 @@ import ProfileList from "../Common/Profiles/ProfileList";
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   members,
+  getMembersFromContactList,
+  addMember,
 }) => {
   const [searchText, setSearchText] = useState(""); // State to track search input
+  const [contacts, setContacts] = useState<Contact[]>([]); // State to track search input
 
   // Filter members based on search text
-  const filteredMembers = members.filter(
-    (member) =>
-      member.name?.toLowerCase().includes(searchText.toLowerCase()) ||
-      member.phoneNumber?.includes(searchText)
+  const filteredContacts = contacts.filter(
+    (contact) =>
+      contact.name?.toLowerCase().includes(searchText.toLowerCase()) ||
+      contact.phone?.includes(searchText)
   );
+
+  useEffect(() => {
+    getMembersFromContactList().then((contacts) => {
+      setContacts(contacts);
+    });
+  }, []);
 
   return (
     <>
@@ -38,10 +47,6 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
           showContactList={true}
         />
         <div className="members_page">
-          <p className="paragraph">
-            Type the username or phone number of your friends or colleagues to
-            be able to invite them.
-          </p>
           <IonToolbar>
             <IonSearchbar
               value={searchText}
@@ -59,10 +64,11 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
           <div className="menbers_list">
             <h6>All Members</h6>
             <IonList className="list_wrap">
-              {filteredMembers.map((member, index) => (
+              {filteredContacts.map((member, index) => (
                 <IonItem
                   key={index}
                   className="list_item"
+                  onClick={() => addMember(member)}
                 >
                   <IonThumbnail
                     slot="start"
@@ -81,7 +87,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                   </IonThumbnail>
                   <IonLabel className="member-info">
                     <h2>{member.name}</h2>
-                    <p>{member.phoneNumber}</p>
+                    <p>{member.phone}</p>
                   </IonLabel>
                 </IonItem>
               ))}
