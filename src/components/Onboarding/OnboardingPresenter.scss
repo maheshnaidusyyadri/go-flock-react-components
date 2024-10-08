@@ -51,7 +51,7 @@ body {
         padding-bottom: 50px;
     }
     .swiper  {
-        height: calc(100vh - 40px);
+        height: calc(100vh - 56px);
     }
     .swiper-pagination {
         display: flex;
@@ -105,11 +105,13 @@ body {
         line-height: 20px;
         color: $GoFlockColor;
         font-weight: 600;
-        padding: 10px 0;
+        padding: 0;
         text-decoration: underline;
-        display: block;
+        display: flex;
         margin: 0 auto;
         width: 80px;
-        text-align: center;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
     }
 }

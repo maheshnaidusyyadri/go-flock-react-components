@@ -10,10 +10,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import '@ionic/react/css/ionic-swiper.css'; 
 
-import EventsIcon from "../../images/auth-1.png";
-import mediaIcon from "../../images/auth-2.png";
-import chatIcon from "../../images/auth-3.png";
-import expancesIcon from "../../images/auth-4.png";
+import EventsIcon from "../../images/auth-1.svg";
+import mediaIcon from "../../images/auth-2.svg";
+import chatIcon from "../../images/auth-3.svg";
+import expancesIcon from "../../images/auth-4.svg";
 import { IntroductionProps } from "@goflock/types/src/presenter"; 
 
 const Onboarding: React.FC<IntroductionProps> = ({}) => {
