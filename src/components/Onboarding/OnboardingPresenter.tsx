@@ -1,60 +1,49 @@
-import React, { useState } from "react";
+import React from "react";
+import { IonContent, IonTitle, IonText, IonicSlides, IonGrid, IonCard, IonImg } from "@ionic/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination , Navigation} from 'swiper/modules';
+
 import "./OnboardingPresenter.scss";
-import { IonButton, IonContent, IonTitle, IonText } from "@ionic/react";
-import "react-datepicker/dist/react-datepicker.css";
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import '@ionic/react/css/ionic-swiper.css'; 
+
 import EventsIcon from "../../images/auth-1.png";
 import mediaIcon from "../../images/auth-2.png";
 import chatIcon from "../../images/auth-3.png";
 import expancesIcon from "../../images/auth-4.png";
-import { IntroductionProps } from "@goflock/types/src/presenter";
+import { IntroductionProps } from "@goflock/types/src/presenter"; 
 
 const Onboarding: React.FC<IntroductionProps> = ({}) => {
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
-  const totalSteps = 4;
-
-  const nextStep = () => {
-    if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
-  };
-
-  const renderSteps = () => {
-    return Array.from({ length: totalSteps }, (_, index) => (
-      <div
-        key={index}
-        className={`step ${index + 1 <= currentStep ? "active" : ""}`}
-      ></div>
-    ));
-  };
-
-  const getStepClass = (step: number) => {
-    if (step < currentStep) return "prev";
-    if (step === currentStep) return "current";
-    if (step > currentStep) return "next";
-    return "";
-  };
-
-  return (
-    <IonContent className="create_event">
-      {/* <Header /> */}
-      {/* Stepper display */}
-      <div className="stepper-container">{renderSteps()}</div>
-
-      <div className="stepper-content onboarding">
-        {/* Step content with prev, current, and next classes */}
-        <div className={`step-content ${getStepClass(1)}`}>
-          <div className="auth_screen">
-            <img
-              src={EventsIcon}
-              alt="Private Event"
-            />
-            <IonTitle className="ion-title">Create Events</IonTitle>
-            <IonText className="ion-text">
-              And invite guests or friends receive RSVP
-            </IonText>
-          </div>
-        </div>
-        <div className={`step-content ${getStepClass(2)}`}>
-          <div className="auth_screen">
-            <img
+  return ( 
+    <IonContent className="onboard_cnt">
+      <Swiper 
+        modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+        autoplay={false} 
+        pagination={true} 
+        loop={true}
+        navigation={true} 
+      >
+        <SwiperSlide>
+          <IonGrid className='step-content'>
+            <IonCard className="auth_screen">
+              <IonImg
+                src={EventsIcon}
+                alt="Private Event"
+              />
+              <IonTitle className="ion-title">Create Events</IonTitle>
+              <IonText className="ion-text">
+                And invite guests or friends receive RSVP
+              </IonText>
+            </IonCard>
+          </IonGrid>
+        </SwiperSlide>
+        <SwiperSlide>
+        <IonGrid className='step-content'>
+          <IonCard className="auth_screen">
+            <IonImg
               src={mediaIcon}
               alt="Private Event"
             />
@@ -62,11 +51,13 @@ const Onboarding: React.FC<IntroductionProps> = ({}) => {
             <IonText className="ion-text">
               Capture the fleeting moment in photographs!
             </IonText>
-          </div>
-        </div>
-        <div className={`step-content ${getStepClass(3)}`}>
-          <div className="auth_screen">
-            <img
+          </IonCard>
+        </IonGrid>
+        </SwiperSlide>
+        <SwiperSlide>
+        <IonGrid className='step-content'>
+          <IonCard className="auth_screen">
+            <IonImg
               src={chatIcon}
               alt="Private Event"
             />
@@ -75,11 +66,13 @@ const Onboarding: React.FC<IntroductionProps> = ({}) => {
               Engage in lively conversation among members and ravel in the
               event!
             </IonText>
-          </div>
-        </div>
-        <div className={`step-content ${getStepClass(4)}`}>
-          <div className="auth_screen">
-            <img
+          </IonCard>
+        </IonGrid>
+        </SwiperSlide>
+        <SwiperSlide>
+        <IonGrid className='step-content'>
+          <IonCard className="auth_screen">
+            <IonImg
               src={expancesIcon}
               alt="Private Event"
             />
@@ -87,21 +80,12 @@ const Onboarding: React.FC<IntroductionProps> = ({}) => {
             <IonText className="ion-text">
               Capture the fleeting moment in photographs!
             </IonText>
-          </div>
-        </div>
-      </div>
-
-      {/* Navigation buttons */}
-      <div className="actions-container flex">
-        <IonButton
-          className="primary-btn actions"
-          onClick={nextStep}
-        >
-          Next
-        </IonButton>
-        <span className="skip">Skip</span>
-      </div>
-    </IonContent>
+          </IonCard>
+        </IonGrid>
+        </SwiperSlide>
+      </Swiper>  
+      <span className="skip">Skip</span>
+    </IonContent>  
   );
 };
 

@@ -3,44 +3,101 @@
 body {
     font-size: 100%;
     padding: 0px !important;
-}
-.create_event  {
+} 
+
+.onboard_cnt  {
     min-height: 100vh;
     padding: 0px !important;
-}
-
- 
-
-.stepper-container {
-    display: flex;
-    gap: 4px; /* Space between the inputs */
-    justify-content: center;
-    margin: 8px 0 24px;
-    padding: 16px 16px 0;
-    .step  {
-        width: 33.3%;
-        height: 4px;
-        border-radius: 50px;
-        background: #ECEFEA;
-        &.active {
-            background: $GoFlockColor;
+    .auth_screen {
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        img {
+            width: clamp(220px, 90vw, 335px);
+        }
+        .ion-title {
+            font-family: $GoFlockFont;
+            font-size: 28px;
+            line-height: 40px;
+            color: $GoFlockColor;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: static;
+            padding: 0;
+        }
+        .ion-text {
+            font-family: $GoFlockFont;
+            font-size: 14px;
+            line-height: 24px;
+            color: $secondaryColor;
+            font-weight: 400;
+            margin-bottom: 0px;
+            display: block;
+            position: static;
         }
     }
-}
-
-.actions-container {    
-    padding: 0 16px 16px;
-    gap: 15px;
-    position: sticky;
-    top: calc(100% - 80px);
-    background: #fff;
-    z-index: 9;
-    text-align: center;
-    .primary-btn {
-        margin: 0;
-        --border-radius: 50px;
+    .step-content {
+        min-width: 100%;
         width: 100%;
-        min-width: 100px; 
+        display: block; 
+        top: 0;
+        padding: 0 16px;
+        transition: all 0.4s ease-in-out;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;  
+        padding-bottom: 50px;
+    }
+    .swiper  {
+        height: calc(100vh - 40px);
+    }
+    .swiper-pagination {
+        display: flex;
+        top: 20px !important;
+        left: 0 !important;
+        bottom: inherit !important;
+        .swiper-pagination-bullet {
+            width: 33.3%;
+            height: 4px;
+            border-radius: 50px;
+            background: #ECEFEA !important;
+            opacity: 1;
+            &.swiper-pagination-bullet-active {
+                background: $GoFlockColor !important;
+            }
+        }
+    }
+    .swiper-button-prev, .swiper-button-next {
+        top: inherit;
+        transform: inherit;
+        margin-top: 0;
+        bottom: 0; 
+        background:$GoFlockColor;
+        width: calc(50% - 26px);
+        text-align: center;
+        font-family: $GoFlockFont;
+        font-weight: 600;
+        color: $white;
+        font-size: 14px;
+        line-height: 20px;
+        border-radius: 50px;
+        height: 50px; 
+        &:after {
+            font-family: $GoFlockFont;
+            font-size: 14px;
+            line-height: 20px;
+            text-transform: capitalize !important;
+        }
+    }
+    .swiper-button-next {
+        right: 16px;
+        left: inherit;
+    }
+    .swiper-button-prev {
+        left: 16px;
+        
     }
     .skip {
         font-family: $GoFlockFont;
@@ -51,69 +108,8 @@ body {
         padding: 10px 0;
         text-decoration: underline;
         display: block;
-    }
-    &.flex {
-        display: block; 
-    }
-}
-
-.stepper-content {
-    display: flex;
-    position: relative;
-    min-height: 70vh;
-    
-    .step-content {
-        min-width: 100%;
-        width: 100%;
-        display: block;
-        position: absolute;
-        top: 0;
-        padding: 0 16px;
-        transition: all 0.4s ease-in-out;
-        display: flex !important;
-        align-items: center;
-        justify-content: center; 
-        &.prev {
-            left: -100%;
-        }
-        &.next {
-            left: 100%;
-        }
-        &.current {
-            left: 0px;
-        }
-    }
-    &.onboarding .step-content {
-        height: calc(100vh - 180px);
+        margin: 0 auto;
+        width: 80px;
+        text-align: center;
     }
 }
-
-.auth_screen {
-    display: block;
-    text-align: center;
-    width: 100%;
-    img {
-        width: clamp(220px, 90vw, 335px);
-    }
-    .ion-title {
-        font-family: $GoFlockFont;
-        font-size: 28px;
-        line-height: 40px;
-        color: $GoFlockColor;
-        font-weight: 700;
-        margin-bottom: 8px;
-        position: static;
-        padding: 0;
-    }
-    .ion-text {
-        font-family: $GoFlockFont;
-        font-size: 14px;
-        line-height: 24px;
-        color: $secondaryColor;
-        font-weight: 400;
-        margin-bottom: 0px;
-        display: block;
-        position: static;
-    }
-}
- 
