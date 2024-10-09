@@ -123,8 +123,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
   return (
     <> 
-      <IonContent className="create_event" style={{ display: "none" }}> 
+      <IonContent className="create_event"> 
         <IonList className="stepper-container">{renderSteps()}</IonList>
+
 
         <IonGrid className="stepper-content">
           {/* Step content with prev, current, and next classes */}
@@ -284,7 +285,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           <IonGrid className={`step-content ${getStepClass(3)}`}>
             <IonGrid className="form-container">
               <IonCardContent className="pad0">
-                <IonList className="form-group">
+                <IonList className="form-group">                
                   <IonRadioGroup
                     className="ion-radio-group"
                     allowEmptySelection={true}
@@ -308,7 +309,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         is highly secure. You can change this option later.
                       </p>
                     </IonRadio>
-
                     <IonRadio
                       class="ion-radio"
                       value="public"
@@ -361,7 +361,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
         </IonFooter>
       </IonContent>
       <IonGrid
-        className="action_screen"
+        className="action_screen" style={{ display: "none" }}
         
       >
         <IonGrid className="action_screen_cnt">
