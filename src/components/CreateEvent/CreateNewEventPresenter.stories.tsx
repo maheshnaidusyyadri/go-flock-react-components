@@ -1,7 +1,9 @@
 import { StoryFn } from "@storybook/react";
 import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
+import NoEventPresenter from "./NoEventPresenter"; 
 import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
+import { JSX } from "react/jsx-runtime";
 // import {
 //   LocationInfo,
 //   CreateNewEventProps,
@@ -10,7 +12,7 @@ import { DraftEvent, LocationInfo } from "@goflock/types/src";
 
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
-  component: CreateNewEventPresenter,
+  component: CreateNewEventPresenter, NoEventPresenter
 };
 
 const Template: StoryFn<CreateNewEventProps> = (args) => (
@@ -189,6 +191,13 @@ Default.args = {
     console.log("Navigating to event:", eventId);
   },
 };
+
+export const NoEvent = (args: JSX.IntrinsicAttributes & CreateNewEventProps) => (
+  <NoEventPresenter {...args} />
+);
+NoEvent.args = {
+  
+}
 
 export const CreatingEvent = Template.bind({});
 CreatingEvent.args = {

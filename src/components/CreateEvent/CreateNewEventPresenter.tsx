@@ -31,6 +31,7 @@ import privateEventIcon from "../../images/icons/privateEvent.svg";
 import publicEventIcon from "../../images/icons/publicEvent.svg";
 import PlaceSearch from "./PlaceSearch";
 import { EventType, EventVisibility } from "@goflock/types";
+import Header from "../Header/Header";
 
 // import Header from '../Header/Header';
 
@@ -123,6 +124,12 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
   return (
     <> 
+      <Header         
+        title='Create Event'
+        showMenu={false}
+        showContactList={false} 
+        showProfile = {true} 
+      />
       <IonContent className="create_event"> 
         <IonList className="stepper-container">{renderSteps()}</IonList>
 
