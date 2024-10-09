@@ -42,7 +42,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   deleteEvent,
 }) => {
   return (
-    <IonContent className="create_event">
+    <IonContent className="event_details">
       <Header
         eventId={event.id}
         title={event.name}

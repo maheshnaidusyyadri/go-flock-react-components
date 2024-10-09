@@ -1,17 +1,19 @@
 // src/components/Header/Header.tsx
 import { useState } from "react";
 
-import { IonHeader, IonTitle, IonActionSheet } from "@ionic/react";
+import { IonHeader, IonTitle, IonActionSheet, IonThumbnail, IonImg } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
 import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
+import ProfileIcon from "../../images/profile.png";
 
 type HeaderProps = {
   eventId?: string;
   title: string;
   showMenu?: boolean;
   showContactList?: boolean;
+  showProfile? : boolean;
   deleteEvent?: (eventId: string) => void;
 };
 
@@ -20,7 +22,9 @@ const Header: React.FC<HeaderProps> = ({
   title,
   showMenu = false,
   showContactList = false,
+  showProfile = false,
   deleteEvent,
+ 
 }) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
@@ -57,6 +61,14 @@ const Header: React.FC<HeaderProps> = ({
                 alt="Contact List"
               />
             </span>
+          )}
+          {showProfile && (
+            <IonThumbnail className="profile_icon">
+              <IonImg
+                src={ProfileIcon}
+                alt="ProfileIcon"
+              />
+            </IonThumbnail>
           )}
         </div>
       </IonHeader>

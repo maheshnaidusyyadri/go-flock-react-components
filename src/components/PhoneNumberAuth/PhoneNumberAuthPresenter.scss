@@ -129,6 +129,9 @@
     .modal-wrapper {
         border-radius: 16px 16px 0 0;
     }
+    .modal-shadow {
+        display: none;
+    }
     .ion-page {
         position: relative;
         &:before {
@@ -352,6 +355,7 @@
             &.active {
                 left: 0px;
                 top: 0px;
+                z-index: 99;
             }
         }
         &.validate_cnt {

@@ -40,7 +40,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
 
   return (
     <>
-      <IonContent className="create_event">
+      <IonContent className="invite_members">
         <Header
           title="Manage members"
           showMenu={false}

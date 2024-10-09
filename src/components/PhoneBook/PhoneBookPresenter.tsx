@@ -31,7 +31,7 @@ const PhoneBookPresenter: React.FC<InviteMembersProps> = ({
 
   return (
     <>
-      <IonContent className="create_event">
+      <IonContent className="phonebook">
         <Header
           showMenu={false}
           showContactList={false}
