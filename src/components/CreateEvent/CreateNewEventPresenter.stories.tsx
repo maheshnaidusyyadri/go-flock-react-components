@@ -1,6 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
 import NoEventPresenter from "./NoEventPresenter"; 
+import EventCreatedPresenter from "./EventCreatedPresenter";  
 import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
 import { JSX } from "react/jsx-runtime";
@@ -354,3 +355,10 @@ ErrorState.args = {
     throw new Error("Failed to create event");
   },
 };
+
+export const EventCreated = (args: JSX.IntrinsicAttributes & CreateNewEventProps) => (
+  <EventCreatedPresenter {...args} />
+);
+EventCreated.args = {
+  
+}

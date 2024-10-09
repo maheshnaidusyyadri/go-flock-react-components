@@ -16,13 +16,13 @@ import {
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css"; 
-import noEvent from "../../images/noEvent.svg"; 
+import Success from "../../images/celebration.svg";
 import { EventType, EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 
 // import Header from '../Header/Header';
 
-const NoEvent: React.FC<CreateNewEventProps> = ({
+const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
   createEvent,
   goToEvent,
 }) => {
@@ -82,24 +82,27 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
         showProfile = {true} 
       />
       <IonGrid
-        className="action_screen h-auto"        
-      >
+        className="action_screen has_header">
         <IonGrid className="action_screen_cnt">
           <IonImg className="ion-img"
             alt="Successfully Created Event"
-            src={noEvent}
+            src={Success}
           />
-          <IonLabel className="action_title">Planning a party with friends?</IonLabel>
+          <IonLabel className="action_title">Successfully Created Event</IonLabel>
           <IonText className="action_info">
-            Create an event and share with your friends in an easy and simple way
+            Event Created! 🎉 Now, let's make it unforgettable. Invite friends
+            and let the good times roll!
           </IonText>
         </IonGrid>
         <IonFooter className="action_screen_buttons">
-          <IonButton onClick={handleCreateEvent} className="primary-btn">Create Event</IonButton> 
+          <IonButton className="primary-btn">Go To Event Details</IonButton>
+          <IonButton className="secondary-btn">
+            Invite Friends To The Event
+          </IonButton>
         </IonFooter>
       </IonGrid>
     </>
   );
 };
 
-export default NoEvent;
+export default EventCreatedPresenter;
