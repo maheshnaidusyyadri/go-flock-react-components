@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
+import "./EventSplitBillPresenter.scss";
+
 import Footer from "../Footer/Footer";
 
 const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   event,
-  transactions,
+  transactions = [], // Default to empty array if undefined
   addTransaction,
   updateTransaction,
   deleteTransaction,
-  expenses,
+  expenses = [], // Default to empty array if undefined
 }) => {
   const [newTransaction, setNewTransaction] = useState<Transaction>({
     id: "",
@@ -71,30 +73,36 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
 
   return (
     <div>
+
+
       <h2>Split Bill for {event.name}</h2>
 
       <h3>Transactions</h3>
       <ul>
-        {transactions.map((transaction) => (
-          <li key={transaction.id}>
-            <p>
-              {transaction.description} - ${transaction.amount} by{" "}
-              {transaction.paidUserId}
-            </p>
-            <button
-              onClick={() => handleUpdateTransaction(transaction)}
-              disabled={isLoading}
-            >
-              Update
-            </button>
-            <button
-              onClick={() => handleDeleteTransaction(transaction.id!)}
-              disabled={isLoading}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
+        {transactions.length > 0 ? (
+          transactions.map((transaction) => (
+            <li key={transaction.id}>
+              <p>
+                {transaction.description} - ${transaction.amount} by{" "}
+                {transaction.paidUserId}
+              </p>
+              <button
+                onClick={() => handleUpdateTransaction(transaction)}
+                disabled={isLoading}
+              >
+                Update
+              </button>
+              <button
+                onClick={() => handleDeleteTransaction(transaction.id!)}
+                disabled={isLoading}
+              >
+                Delete
+              </button>
+            </li>
+          ))
+        ) : (
+          <p>No transactions found</p>
+        )}
       </ul>
 
       <h3>Add New Transaction</h3>
@@ -128,7 +136,6 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
           setNewTransaction({ ...newTransaction, paidUserId: e.target.value })
         }
       />
-      {/* Add inputs for participants and date as needed */}
       <button
         onClick={handleAddTransaction}
         disabled={
@@ -142,18 +149,20 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
 
       <h3>Expense Summary</h3>
       <ul>
-        {expenses.map((expense) => (
-          <li key={expense.userId}>
-            <p>
-              {expense.name}: ${expense.amount.toFixed(2)}
-            </p>
-          </li>
-        ))}
+        {expenses.length > 0 ? (
+          expenses.map((expense) => (
+            <li key={expense.userId}>
+              <p>
+                {expense.name}: ${expense.amount.toFixed(2)}
+              </p>
+            </li>
+          ))
+        ) : (
+          <p>No expenses found</p>
+        )}
       </ul>
-      <Footer
-        eventId={event.id}
-        activeTab={"bills"}
-      />
+
+      <Footer eventId={event.id} activeTab={"bills"} />
     </div>
   );
 };

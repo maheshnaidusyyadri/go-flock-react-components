@@ -1,6 +1,8 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventSplitBillPresenter";
 import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
+import EventBillPresenter from "./EventBillPresenter"; 
+import AddExpensePresenter from "./AddExpensePresenter"; 
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
@@ -10,6 +12,20 @@ export default {
 const Template: StoryFn<EventSplitBillProps> = (args) => (
   <EventSplitBillPresenter {...args} />
 );
+
+export const EventBill = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
+  <EventBillPresenter {...args} />
+);
+EventBill.args = {
+  
+}
+
+export const AddExpense = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
+  <AddExpensePresenter {...args} />
+);
+AddExpense.args = {
+  
+}
 
 export const Default = Template.bind({});
 Default.args = {
