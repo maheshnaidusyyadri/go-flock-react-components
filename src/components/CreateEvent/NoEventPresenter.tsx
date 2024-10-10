@@ -10,14 +10,13 @@ import {
 } from "@ionic/react";
 import {
   CreateNewEventProps,
-  LocationInfo,
   DraftEvent,
   Event,
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css"; 
 import noEvent from "../../images/noEvent.svg"; 
-import { EventType, EventVisibility } from "@goflock/types";
+import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 
 // import Header from '../Header/Header';
@@ -26,8 +25,7 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
   createEvent,
   goToEvent,
 }) => {
-  const [selectedLocation] =
-    useState<LocationInfo | null>();
+  
   // const [eventName, setEventName] = useState<string>("");
   // const [eventType, setEventType] = useState<EventType>();
   // const [eventDescription, setEventDescription] = useState<string>("");
@@ -40,20 +38,20 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
   // @ts-ignore
   const [endTime, setEndTime] = useState<string>("12:00 PM");
 
-  const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
+  const [eventVisibility] = useState<EventVisibility>();
 
-  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [, setIsCreating] = useState<boolean>(false);
 
   // Handle creating an event
   const handleCreateEvent = async () => {
-    if (!selectedLocation || eventName.trim() === "") return;
+//    if (!selectedLocation || eventName.trim() === "") return;
 
     setIsCreating(true);
     const draftEvent: DraftEvent = {
-      name: eventName,
-      type: eventType!,
-      description: eventDescription,
-      location: selectedLocation,
+      // name: eventName,
+      // type: eventType!,
+      // description: eventDescription,
+      // location: selectedLocation,
       visibility: eventVisibility,
       time: {
         startDate: startDate || new Date(),
@@ -61,6 +59,8 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
         startTime,
         endTime,
       },
+      name: "",
+      type: "birthday"
     };
 
     try {

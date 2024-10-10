@@ -17,7 +17,7 @@ import {
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
 import "react-datepicker/dist/react-datepicker.css"; 
 import Success from "../../images/celebration.svg";
-import { EventType, EventVisibility } from "@goflock/types";
+import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 
 // import Header from '../Header/Header';
@@ -26,7 +26,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
   createEvent,
   goToEvent,
 }) => {
-  const [selectedLocation] =
+  const [] =
     useState<LocationInfo | null>();
   // const [eventName, setEventName] = useState<string>("");
   // const [eventType, setEventType] = useState<EventType>();
@@ -40,20 +40,20 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
   // @ts-ignore
   const [endTime, setEndTime] = useState<string>("12:00 PM");
 
-  const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
+  const [eventVisibility] = useState<EventVisibility>();
 
-  const [isCreating, setIsCreating] = useState<boolean>(false);
+  const [, setIsCreating] = useState<boolean>(false);
 
   // Handle creating an event
   const handleCreateEvent = async () => {
-    if (!selectedLocation || eventName.trim() === "") return;
+    //if (!selectedLocation || eventName.trim() === "") return;
 
     setIsCreating(true);
     const draftEvent: DraftEvent = {
-      name: eventName,
-      type: eventType!,
-      description: eventDescription,
-      location: selectedLocation,
+      // name: eventName,
+      // type: eventType!,
+      // description: eventDescription,
+      // location: selectedLocation,
       visibility: eventVisibility,
       time: {
         startDate: startDate || new Date(),
@@ -61,6 +61,8 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
         startTime,
         endTime,
       },
+      name: "",
+      type: "birthday"
     };
 
     try {
@@ -96,7 +98,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
         </IonGrid>
         <IonFooter className="action_screen_buttons">
           <IonButton className="primary-btn">Go To Event Details</IonButton>
-          <IonButton className="secondary-btn">
+          <IonButton className="secondary-btn" onClick={handleCreateEvent}>
             Invite Friends To The Event
           </IonButton>
         </IonFooter>

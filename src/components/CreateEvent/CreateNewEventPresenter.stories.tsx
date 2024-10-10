@@ -6,7 +6,7 @@ import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
 import { JSX } from "react/jsx-runtime";
 // import {
-//   LocationInfo,
+//   LocationInfo, 
 //   CreateNewEventProps,
 //   DraftEvent,
 // } from "@goflock/types/src/index";
