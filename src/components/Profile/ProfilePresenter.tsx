@@ -30,6 +30,7 @@ import DeleteIcon from "../../images/icons/Delete.svg";
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
   setPreferredName,
+  logout,
   // setIsIntroShown,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
@@ -303,6 +304,9 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
               action: "Log Out",
             },
             cssClass: "fill-btn",
+            handler: () => {
+              logout();
+            },
           },
           {
             text: "Cancel",
