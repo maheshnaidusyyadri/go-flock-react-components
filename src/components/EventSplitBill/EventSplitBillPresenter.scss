@@ -42,6 +42,9 @@ body {
                 color: #12B76A;
             }
         }
+        &.selected {
+            --background: url('../../images/icons/checked.svg') no-repeat center right;
+        }
     }
 }
  
@@ -111,3 +114,26 @@ body {
     }
 }
 
+
+.card_header {
+    padding: 0;
+    margin: 0 0 5px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .ion-title {
+        color: $secondaryColor;
+        font-family: $GoFlockFont;
+        font-size: 12px; 
+        font-weight: 600;
+        line-height: 18px; 
+    }
+    .list-action {
+        color: $GoFlockColor;
+        font-family: $GoFlockFont;
+        font-size: 12px; 
+        font-weight: 500;
+        line-height: 18px; 
+    }
+}

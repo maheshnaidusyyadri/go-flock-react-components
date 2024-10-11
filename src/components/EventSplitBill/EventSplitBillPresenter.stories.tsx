@@ -4,6 +4,8 @@ import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
 import EventBillPresenter from "./EventBillPresenter"; 
 import AddExpensePresenter from "./AddExpensePresenter"; 
 import ExpensesPresenter from "./ExpensesPresenter"; 
+import WhoPaidPresenter from "./WhoPaidPresenter";
+import SplitBetweenPresenter from "./SplitBetweenPresenter";
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
@@ -106,6 +108,106 @@ export const AddExpense = (args: JSX.IntrinsicAttributes & EventSplitBillProps) 
   ]} {...args} />
 );
 AddExpense.args = {
+  
+}
+
+export const WhoPaid = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
+  <WhoPaidPresenter members={[
+    { 
+      id: "member_001",
+      name: 'Jackson Graham', 
+      phone:'', 
+      expanse: '+833.33', 
+      className: 'green'
+    },
+    { 
+      id: "member_002",
+      name: 'Jane Cooper', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_003",
+      name: 'Cameron Williamson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_004",
+      name: 'Jenny Wilson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_005",
+      name: 'Kristin Watson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_006",
+      name: '',
+      phone:'(307) 555-0133', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+  ]} {...args} />
+);
+WhoPaid.args = {
+  
+}
+
+export const SplitBetween = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
+  <SplitBetweenPresenter members={[
+    { 
+      id: "member_001",
+      name: 'Jackson Graham', 
+      phone:'', 
+      expanse: '+833.33', 
+      className: 'green'
+    },
+    { 
+      id: "member_002",
+      name: 'Jane Cooper', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_003",
+      name: 'Cameron Williamson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_004",
+      name: 'Jenny Wilson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_005",
+      name: 'Kristin Watson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      id: "member_006",
+      name: '',
+      phone:'(307) 555-0133', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+  ]} {...args} />
+);
+SplitBetween.args = {
   
 }
 
