@@ -3,6 +3,9 @@ import PhoneNumberAuth from "./PhoneNumberAuthPresenter";
 import { PhoneNumberAuthProps } from "@goflock/types";
 import { IonApp, IonContent } from "@ionic/react";
 import { action } from "@storybook/addon-actions";
+import WelcomePresenter from "./WelcomePresenter";
+//import { CreateNewEventProps } from "@goflock/types/src";
+import { JSX } from "react/jsx-runtime";
 
 export default {
   title: "GoFlock/Presenters/PhoneNumberAuthPresenter",
@@ -31,3 +34,13 @@ Default.args = {
   },
   onSuccessfulVerification: async () => {},
 };
+
+ 
+ 
+
+export const Welcome = (args: JSX.IntrinsicAttributes & PhoneNumberAuthProps) => (
+  <WelcomePresenter {...args} />
+);
+Welcome.args = {
+  
+}

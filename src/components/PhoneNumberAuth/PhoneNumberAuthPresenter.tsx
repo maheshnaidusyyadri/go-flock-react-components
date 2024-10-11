@@ -17,7 +17,6 @@ import { chevronDownOutline } from "ionicons/icons";
 import { PhoneNumberAuthProps } from "@goflock/types/src/index";
 import Logo from "../../images/sign-logo.png";
 import Mobile from "../../images/otp_varification.svg";
-import Welcome from "../../images/welcome.svg";
 
 import OtpInput from "./OtpInput";
 
@@ -333,57 +332,8 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           </>
         )}
       </IonContent>
-      {/* <IonContent
-        className={`validate_cnt ion-padding ${isActive ? 'active' : ''} ${isValidate ? 'validated' : ''}`}
-        fullscreen
-
-      >
-        <div className="varification_sec">
-          <div className="auth_cnt">
-            <h2 className="auth-title">Verify Account</h2>
-            <img className="mobile" alt="Go Flock" src={Mobile} />
-            <h6>Mobile Verification</h6>
-            <p className="subtitle">
-              To continue, please enter the OTP we just sent to ********66
-            </p>
-          </div>
-          <OtpInput length={4} onChange={handleOtpChange} />
-
-        </div>
-        <IonButton
-          expand="block"
-          shape="round"
-          className="primary-btn"
-          onClick={handleValidateOTP}
-        >
-          Verify & Process
-        </IonButton>
-      </IonContent> */}
-      <IonContent scrollY={false}
-        className={`onboarding ion-padding ${isValidate ? "active" : ""}`}
-        fullscreen
-      >
-        <div className="onboarding_sec">
-          <div className="auth_cnt">
-            <img
-              className="welcome"
-              alt="Welcome to Go Flock"
-              src={Welcome}
-            />
-            <h2 className="auth-title">Welcome</h2>
-            <p className="subtitle">
-              Welcome aboard! Your journey with our Application begins now.
-            </p>
-          </div>
-        </div>
-        <IonButton
-          expand="block"
-          shape="round"
-          className="primary-btn"
-        >
-          Get Started
-        </IonButton>
-      </IonContent>
+       
+      
     </IonPage>
   );
 };
