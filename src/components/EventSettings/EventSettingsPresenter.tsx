@@ -153,8 +153,8 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           </IonLabel>
           <div>
             <IonToggle
-              checked={splitBills}
-              onIonChange={handleToggleSplitBills}
+              checked={true}
+           //   onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
           </div>
@@ -172,8 +172,8 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           </IonLabel>
           <div>
             <IonToggle
-              checked={splitBills}
-              onIonChange={handleToggleSplitBills}
+              checked={true}
+            //  onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
           </div>

@@ -654,3 +654,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
   }
+
+
+.toggle-ltr.toggle-checked {
+    --track-background-checked:#18181B;
+}
