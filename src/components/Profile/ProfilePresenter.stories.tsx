@@ -1,6 +1,8 @@
 import { StoryFn } from "@storybook/react";
 import ProfilePresenter from "./ProfilePresenter";
 import { ProfileProps } from "@goflock/types";
+import EditProfilePresenter from "./EditProfilePresenter";
+import PrivacyPolicyPresenter from "./PrivacyPolicyPresenter";
 
 export default {
   title: "GoFlock/Presenters/ProfilePresenter",
@@ -41,6 +43,7 @@ Default.args = {
   // },
 };
 
+
 export const LoadingState = Template.bind({});
 LoadingState.args = {
   ...Default.args,
@@ -68,3 +71,18 @@ ErrorState.args = {
     throw new Error("Failed to update SMS preference");
   },
 };
+
+export const EditProfile = (args: JSX.IntrinsicAttributes & ProfileProps) => (
+  <EditProfilePresenter {...args} />
+);
+EditProfile.args = {
+  
+}
+
+export const PrivacyPolicy = (args: JSX.IntrinsicAttributes & ProfileProps) => (
+  <PrivacyPolicyPresenter {...args} />
+);
+PrivacyPolicy.args = {
+  
+}
+

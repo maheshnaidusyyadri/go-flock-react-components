@@ -14,7 +14,7 @@ import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
 
 const EditProfilePresenter: React.FC<ProfileProps> = ({
-  profile,
+  profile = { prefName: "", phoneNumber: "" },  // Default profile object with fallback values
   setPreferredName,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
@@ -40,7 +40,7 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
   return (
     <IonPage>
       <Header
-        title="Profile Setting"
+        title="Edit Profile"
         showMenu={false}
         showContactList={false}
       />
@@ -56,11 +56,13 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
         </IonCard>
         <div className="profile_info_card">
           <div className="form-container">
-            <IonCardContent className="pad0">
+            <IonCardContent className="pad0"> 
               <div className="form-group">
                 <IonInput
+                  label="Name"
                   value={preferredName}
                   onIonChange={(e) => setPreferredNameState(e.detail.value!)}
+                  labelPlacement="stacked"
                   placeholder="Enter your name"
                 />
               </div>
