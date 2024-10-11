@@ -3,6 +3,7 @@ import EventSplitBillPresenter from "./EventSplitBillPresenter";
 import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
 import EventBillPresenter from "./EventBillPresenter"; 
 import AddExpensePresenter from "./AddExpensePresenter"; 
+import ExpensesPresenter from "./ExpensesPresenter"; 
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
@@ -20,8 +21,89 @@ EventBill.args = {
   
 }
 
+export const Expenses = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
+  <ExpensesPresenter members={[
+    { 
+      name: 'Jackson Graham', 
+      phone:'', 
+      expanse: '+833.33', 
+      className: 'green'
+    },
+    { 
+      name: 'Jane Cooper', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: 'Cameron Williamson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: 'Jenny Wilson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: 'Kristin Watson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: '',
+      phone:'(307) 555-0133', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+  ]} {...args} />
+);
+Expenses.args = {
+ 
+}
+
 export const AddExpense = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
-  <AddExpensePresenter {...args} />
+  <AddExpensePresenter members={[
+    { 
+      name: 'Jackson Graham', 
+      phone:'', 
+      expanse: '+833.33', 
+      className: 'green'
+    },
+    { 
+      name: 'Jane Cooper', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: 'Cameron Williamson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: 'Jenny Wilson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: 'Kristin Watson', 
+      phone:'', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+    { 
+      name: '',
+      phone:'(307) 555-0133', 
+      expanse: '$166.67', 
+      className: 'red'
+    },
+  ]} {...args} />
 );
 AddExpense.args = {
   
@@ -258,3 +340,7 @@ ErrorState.args = {
     throw new Error("Failed to delete transaction");
   },
 };
+
+ 
+
+

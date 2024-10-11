@@ -19,7 +19,7 @@ import {
   IonTabButton,
 } from "@ionic/react";
 import {
-  EventSplitBillProps,
+ // EventSplitBillProps,
   EventVisibility, 
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
@@ -29,11 +29,21 @@ import PercentIcon from "../../images/icons/Percent.svg";
 import ProfileIcon from "../../images/profile.png"; 
 
 import Header from "../Header/Header"; 
+ 
 
-// import Header from '../Header/Header';
+interface EventSplitBillProps {
+  members: { 
+    name: string; 
+    phone: string;  
+    expanse: string; 
+    profileImage?: string 
+    className : string
+  }[];
+   
+}
 
 const EventBillPresenter: React.FC<EventSplitBillProps> = ({
-  
+  members = [ ],
 }) => {
   
   // @ts-ignore
@@ -250,29 +260,35 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                       </IonItem>
                     </div>
                   </div>
-                </IonTab>
-                
-
-                
+                </IonTab> 
               </IonTabs>
             </IonGrid>
             <IonGrid className={`step-content ${getStepClass(3)}`}>
-                  <div className="users_list">
-                    <IonItem className="user_item">
-                      <IonThumbnail class="dp">
-                        <IonImg src={ProfileIcon} />            
-                      </IonThumbnail>
-                      <IonLabel class="user_name">Jackson Graham</IonLabel>
-                      <IonText class="amout green">+833.33</IonText>
-                    </IonItem>
-                    <IonItem className="user_item">
-                      <IonThumbnail class="dp">
-                        <IonImg src={ProfileIcon} />            
-                      </IonThumbnail>
-                      <IonLabel class="user_name">Jackson Graham</IonLabel>
-                      <IonText class="amout red">$166.67</IonText>
-                    </IonItem>
-                  </div>
+            <IonList className="list_wrap"> 
+              {members.map((member, index) => (
+                <IonItem
+                  key={index}
+                  className="user_item" 
+                >
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    <IonImg
+                      src={ProfileIcon}
+                      alt={`${member.name}'s profile`}
+                    /> 
+                  </IonThumbnail>
+                  <IonLabel className="user_name">
+                     {member.name}
+                     {member.phone}
+                  </IonLabel>
+                  <IonText class="amout" className={member.className}>
+                    {member.expanse}
+                  </IonText>
+                </IonItem>
+              ))}
+            </IonList> 
             </IonGrid>
           </IonGrid>
           {/* <IonFooter className="action_screen_buttons">
