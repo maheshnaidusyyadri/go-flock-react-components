@@ -11,7 +11,7 @@ $white : #ffffff;
     display: block;
     background-color: lightblue;
 }
-  
+
 :host(.active) {
     background-color: lightgreen;
 }
@@ -20,8 +20,13 @@ ion-content {
     flex: inherit;
 }
 
+ion-app {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 body {
-    font-size: 100%; 
+    font-size: 100%;
 }
 .pad0 {
     padding: 0px !important;
@@ -30,14 +35,14 @@ body {
 
 .ion-select::part(icon) {
     color: $GoFlockFont; /* Change icon color */
-    
+
 }
 
 .ion-select::part(placeholder) {
     color: #9e9e9e; /* Change placeholder color */
 }
 
-.ion-select::part(text) { 
+.ion-select::part(text) {
     font-size: 12px;
     font-family: $GoFlockFont;
     font-weight: 600;
@@ -86,7 +91,7 @@ body {
 }
 
 .fill-btn {
-    
+
 }
 
 .devider {
@@ -161,7 +166,7 @@ body {
         --placeholder-opacity: 0.5; /* Sets the opacity of the placeholder text */
         --placeholder-font-size: 14px; /* Adjusts the font size of the placeholder */
         --placeholder-font-style: italic; /* Optionally makes the placeholder italic */
-        --placeholder-font-family: $GoFlockFont; 
+        --placeholder-font-family: $GoFlockFont;
         --placeholder-font-weight: 400; /* Adjusts the font weight of the placeholder */
     }
 
@@ -171,13 +176,13 @@ body {
         position: absolute; /* Set absolute positioning */
         color: $GoFlockColor;
     }
-    
+
     /* Adjust padding to prevent overlapping */
     .ion-select::part(native) {
         padding-right: 30px; /* Adjust based on icon position */
     }
 
-     
+
     .ion-textarea {
         .textarea-wrapper {
             .label-text-wrapper {
@@ -247,7 +252,7 @@ body {
     line-height: 20px;
     border-radius: 0px; /* Set rounded corners */
     padding: 0; /* Set padding */
-    border: none; /* Remove default border */ 
+    border: none; /* Remove default border */
     width: 100%;
     text-align: left;
     height: 100%;
@@ -259,7 +264,7 @@ body {
         width: 100%;
         display: block;
         .ion-radio {
-            width: 100%; 
+            width: 100%;
             border-radius: 6px;
             border: 1px solid #E4E4E7;
             padding: 14px;
@@ -281,7 +286,7 @@ body {
                 }
             }
             p {
-                display: block;                 
+                display: block;
                 white-space: pre-wrap;
                 color: $secondaryColor;
                 font-family: $GoFlockFont;
@@ -311,10 +316,10 @@ body {
         line-height: 20px;
         font-weight: 500;
         color: $GoFlockColor !important;
-        margin-bottom: 4px; 
+        margin-bottom: 4px;
     }
-    
-    
+
+
     .ion-searchbar {
         margin: 0;
         padding: 0;
@@ -362,7 +367,7 @@ body {
     .list-ios {
         border: 1px solid #E4E4E7;
         border-radius: 6px;
-    
+
         .item  {
             --border-color: transparent;
             .sc-ion-label-ios-h {
@@ -375,7 +380,7 @@ body {
     }
      &.mb-0 {
         margin-bottom: 0px;
-     } 
+     }
 }
 
 /* Success component Styles */
@@ -400,24 +405,24 @@ body {
             display: block;
             text-align: center;
             font-family: $GoFlockFont;
-            font-weight: 700;    
+            font-weight: 700;
             line-height: 36px;
             color: $black;
             padding: 0 0 8px 0;
-            margin: 0; 
-            font-size: 24px; 
+            margin: 0;
+            font-size: 24px;
             font-size: clamp(18px, 5.8vw, 24px);
         }
         .action_info {
             display: block;
-            font-family: $GoFlockFont; 
+            font-family: $GoFlockFont;
             font-weight: 400;
             line-height: 24px;
             text-align: center;
             color: #71717A;
             padding: 0;
             margin: 0 0 10px 0;
-            font-size: 14px; 
+            font-size: 14px;
             font-size: clamp(12px, 3.38vw, 14px);
         }
     }
@@ -475,8 +480,8 @@ body {
     //     width: 9px;
     // }
 }
- 
- 
+
+
 .action-sheet-wrapper {
     .action-sheet-container {
         padding: 0;
@@ -520,7 +525,7 @@ body {
                     font-family: $GoFlockFont;
                     font-size: 14px;
                     font-weight: normal;
-                    color: $GoFlockColor;                        
+                    color: $GoFlockColor;
                 }
                 &.fill-btn {
                     background: #DC2626;
@@ -540,7 +545,7 @@ body {
         }
     }
 }
- 
+
 
 /// Font sizes
 /// 10px = 2.9vw
