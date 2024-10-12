@@ -43,10 +43,11 @@ body {
         padding:0 16px 16px 16px;
         .ion-list {
             display: flex;
+            flex-wrap: wrap;
             gap: 16px;
             padding: 5px 0 0 0;
             .event_item  {
-                width: 50%;
+                width: calc(50% - 8px);
                 border: 1px solid #E4E4E7;
                 border-radius: 8px;
                 position: relative;
