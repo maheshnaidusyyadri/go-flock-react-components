@@ -109,6 +109,47 @@ Default.args = {
       transactions: [],
       deleted: false,
     },
+    {
+      id: "event_003",
+      owner: "user_003",
+      name: "Birthday Party",
+      type: "party",
+      hostedBy: "Me & Family",
+      memberInvitationContactReference: [
+        "+1234567890",
+        "alice.smith@example.com",
+      ],
+      description: "End of year office party.",
+      location: {
+        name: "Office Headquarters",
+      },
+      time: {
+        startDate: new Date(),
+        startTime: "6:00 PM",
+      },
+      visibility: "public",
+      members: [],
+      invitationCard: {
+        id: "card_002",
+        cardType: "image",
+        path: "/cards/invitation_card_002.jpg",
+        configuration: "default",
+        shared: true,
+      },
+      settings: {
+        shareMedia: true,
+        splitBills: true,
+        enableChats: true,
+        allowCheckList: false,
+        currency: "USD",
+        eventVisibility: "public",
+      },
+      checkListQuestions: [],
+      checkListResponses: [],
+      media: [],
+      transactions: [],
+      deleted: false,
+    },
   ],
   openEvent: (eventId: string) => {
     console.log("Opening event:", eventId);

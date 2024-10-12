@@ -1,11 +1,12 @@
 import React from "react";
 import "./EventListPresenter.scss";
-import { 
+import {
   IonCardHeader,
   IonCardTitle,
-  IonCardContent, 
+  IonCardContent,
   IonList,
-  IonContent, 
+  IonContent,
+  IonPage,
 } from "@ionic/react";
 import { EventListProps } from "@goflock/types/src/index";
 import EventItem from "../Common/Events/EventItem";
@@ -17,40 +18,38 @@ const EventListPresenter: React.FC<EventListProps> = ({
   openEvent,
 }) => {
   return (
-    <>
-    <Header
-        
+    <IonPage>
+      <Header
         //title={event.name}
         title=""
         showMenu={true}
-        showContactList={false}         
+        showContactList={false}
       />
- 
+
       <IonContent className="events_sec">
-          <IonCardHeader className="events_head">
-            <IonCardTitle className="events_title">{profile.prefName}'s Events</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent className="events_cnt">
-            {events.length === 0 ? (
-              <p>No events to display.</p>
-            ) : (
-              <IonList className="ion-list">
-                {events.map((event) => (
-                  <EventItem
-                    key={event.id}
-                    event={event}
-                    onOpen={openEvent}
-                    onShowActionSheet={() => {}}
-                  />
-                ))}
-              </IonList>
-            )}
-          </IonCardContent>
-        
-         
-       
-    </IonContent>
-    </>
+        <IonCardHeader className="events_head">
+          <IonCardTitle className="events_title">
+            {profile.prefName}'s Events
+          </IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent className="events_cnt">
+          {events.length === 0 ? (
+            <p>No events to display.</p>
+          ) : (
+            <IonList className="ion-list">
+              {events.map((event) => (
+                <EventItem
+                  key={event.id}
+                  event={event}
+                  onOpen={openEvent}
+                  onShowActionSheet={() => {}}
+                />
+              ))}
+            </IonList>
+          )}
+        </IonCardContent>
+      </IonContent>
+    </IonPage>
   );
 };
 
