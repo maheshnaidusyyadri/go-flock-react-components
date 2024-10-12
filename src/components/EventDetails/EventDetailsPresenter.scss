@@ -8,6 +8,16 @@ body {
     padding: 0px !important;
 }
 
+.event_title {
+    font-family: $secondaryFont;
+    font-size: 20px;
+    line-height: 30px;
+    color: $GoFlockColor;
+    font-weight: 500;
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+}
  
 .event_details {
     padding: 16px;
@@ -63,12 +73,22 @@ body {
                             font-weight: 400;
                             color: $secondaryColor;
                             display: block;
+                            text-align: left;
                         }
                         .event_subtitle {
                             display: block;
                             font-style: normal;
                             font-family: $GoFlockFont;
                             font-size: 12px;
+                            font-weight: 500;
+                            line-height: 18px;
+                            color: $GoFlockColor;
+                        }
+                        .event_hostname {
+                            display: block;
+                            font-style: normal;
+                            font-family: $GoFlockFont;
+                            font-size: 14px;
                             font-weight: 500;
                             line-height: 18px;
                             color: $GoFlockColor;
@@ -245,7 +265,9 @@ body {
 }
  
 
-
+.guest_page {
+    min-height: calc(100vh - 147px);
+}
 
  
 
