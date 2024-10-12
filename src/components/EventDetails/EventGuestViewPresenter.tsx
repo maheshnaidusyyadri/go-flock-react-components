@@ -110,7 +110,8 @@ const EventGuestView: React.FC<EventProps> = ({
         title=''
         showMenu={false}
         showContactList={false} 
-        showProfile = {true} 
+        showProfile = {false} 
+        showSignIn = {true}
       />
       <IonGrid className="event_details">
         <IonCard className="event_info guest_page">

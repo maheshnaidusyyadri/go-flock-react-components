@@ -43,3 +43,20 @@
         }
     }
 }
+
+.signIn_btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .signin_text {
+        font-family: $GoFlockColor;
+        font-size: 14px;
+        line-height: 20px;
+        color: $GoFlockColor;
+        font-weight: 500;
+        margin-right: 8px;
+    }
+    img {
+        width: 20px;
+    }
+}

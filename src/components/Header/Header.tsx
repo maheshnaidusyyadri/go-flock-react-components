@@ -1,12 +1,13 @@
 // src/components/Header/Header.tsx
 import { useState } from "react";
 
-import { IonHeader, IonTitle, IonActionSheet, IonThumbnail, IonImg } from "@ionic/react";
+import { IonHeader, IonTitle, IonActionSheet, IonThumbnail, IonImg, IonLabel, IonText } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
 import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
 import ProfileIcon from "../../images/profile.png";
+import signInIcon from "../../images/icons/signIn.svg";
 
 type HeaderProps = {
   eventId?: string;
@@ -14,6 +15,7 @@ type HeaderProps = {
   showMenu?: boolean;
   showContactList?: boolean;
   showProfile? : boolean;
+  showSignIn? : boolean;
   deleteEvent?: (eventId: string) => void;
 };
 
@@ -23,6 +25,7 @@ const Header: React.FC<HeaderProps> = ({
   showMenu = false,
   showContactList = false,
   showProfile = false,
+  showSignIn = false,
   deleteEvent,
  
 }) => {
@@ -69,6 +72,16 @@ const Header: React.FC<HeaderProps> = ({
                 alt="ProfileIcon"
               />
             </IonThumbnail>
+          )}
+          {showSignIn && (
+            <IonLabel class="signIn_btn">
+              <IonText class="signin_text">Sign in</IonText>  
+              <IonImg
+                src={signInIcon}
+                alt="ProfileIcon"
+              />
+             
+            </IonLabel>
           )}
         </div>
       </IonHeader>
