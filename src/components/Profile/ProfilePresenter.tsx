@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfilePresenter.scss";
 import {
   IonContent,
@@ -39,6 +39,10 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log("ProfilePresenter mounted");
+  }, []);
 
   const handlePreferredNameChange = async () => {
     setIsLoading(true);

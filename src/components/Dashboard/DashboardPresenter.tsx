@@ -1,6 +1,6 @@
 // src/components/DashboardPresenter.tsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DashboardPresenter.scss";
 import {
   IonCard,
@@ -38,7 +38,10 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
 
-  console.log("Dashboard presenter");
+  useEffect(() => {
+    console.log("DashboardPresenter mounted");
+  }, []);
+
   return (
     <IonPage>
       <IonContent className="dashboard">

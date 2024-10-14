@@ -121,12 +121,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               />
             </IonThumbnail>
           </IonItem>
-          <IonGrid className="users_list">
-            <ProfileList
-              eventId={event.id}
-              eventMembers={event.members}
-            />
-          </IonGrid>
+          {event.members && (
+            <IonGrid className="users_list">
+              <ProfileList
+                eventId={event.id}
+                eventMembers={event.members}
+              />
+            </IonGrid>
+          )}
         </IonCard>
         <IonItemDivider className="devider"></IonItemDivider>
         <IonGrid className="status_sec">
