@@ -3,9 +3,7 @@ import "./CreateNewEventPresenter.scss";
 import {
   IonCardContent,
   IonButton,
-  IonInput,
   IonContent,
-  IonTextarea,
   IonSelect,
   IonSelectOption,
   IonRadioGroup,
@@ -32,7 +30,9 @@ import publicEventIcon from "../../images/icons/publicEvent.svg";
 import PlaceSearch from "./PlaceSearch";
 import { EventType, EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
-
+import { FormProvider, useForm } from 'react-hook-form';
+import CustomInput from "../Common/CustomInput";
+import IonTextarea from "../Common/CustomTextarea";
 // import Header from '../Header/Header';
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
@@ -46,9 +46,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [eventType, setEventType] = useState<EventType>();
   const [eventDescription, setEventDescription] = useState<string>("");
   // @ts-ignore
-  const [startDate, setStartDate] = useState<Date>(new Date());
+  //const [startDate, setStartDate] = useState<Date>(new Date());
   // @ts-ignore
-  const [endDate, setEndDate] = useState<Date>(new Date());
+  //const [endDate, setEndDate] = useState<Date>(new Date());
   // @ts-ignore
   const [startTime, setStartTime] = useState<string>("10:00 AM");
   // @ts-ignore
@@ -57,7 +57,23 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
 
   const [isCreating, setIsCreating] = useState<boolean>(false);
+  
 
+  const currentDate = new Date();
+  const tomorrow = new Date(currentDate.setDate(currentDate.getDate() + 1));
+  const tomorrowISOString = tomorrow.toISOString();
+  
+  // Date States
+  const [startDate, setStartDate] = useState<string>(tomorrowISOString); // Default to next day
+  const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
+  const methods = useForm();
+  const {  handleSubmit, formState: { errors },register } = useForm();
+
+  // Handle Start Date Change
+  const handleStartDateChange = (newStartDate: string) => {
+    setStartDate(newStartDate);
+    setEndDate(newStartDate); // Auto-fill end date with start date
+  };
   // Handle creating an event
   const handleCreateEvent = async () => {
     if (!selectedLocation || eventName.trim() === "") return;
@@ -91,8 +107,12 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const totalSteps = 3; // Define the total number of steps
 
   // Function to go to the next step
-  const nextStep = () => {
+  const nextStep = (formData:any) => {
+    console.log('formData',formData)
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
+  };
+  const onError = (error:any)=>{
+    console.log("error-error",error)
   };
 
   // Function to go to the previous step
@@ -133,19 +153,24 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       <IonContent className="create_event"> 
         <IonList className="stepper-container">{renderSteps()}</IonList>
 
-
+        <FormProvider {...methods}>
+        
         <IonGrid className="stepper-content">
           {/* Step content with prev, current, and next classes */}
-          <IonGrid className={`step-content ${getStepClass(1)}`}>
+          {currentStep==1&&<IonGrid className={`step-content ${getStepClass(1)}`}>
+
             <IonGrid className="form-container">
               <IonCardContent className="pad0">
                 <IonList className="form-group">
-                  <IonInput
-                    value={eventName}
-                    label="Event Name*"
-                    labelPlacement="stacked"
-                    placeholder="Event Name"
-                    onIonChange={(e) => setEventName(e.detail.value!)}
+                  <CustomInput
+                  placeholder={'Event Name'}
+                  label={'Event Name'}
+                  fieldName={'event'}
+                  isRequired={true}
+                  errors={errors}
+                  errorText={'Event Name'}
+                  //control={control}
+                  register={register}
                   />
                 </IonList>
                 <IonList className="form-group">
@@ -156,6 +181,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     interface="action-sheet"
                     placeholder="Select Type"
                     onIonChange={(e) => setEventType(e.detail.value!)}
+                    
                   >
                     <IonSelectOption value="Birthday">Birthday</IonSelectOption>
                     <IonSelectOption value="Vacations">
@@ -169,13 +195,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonList>
                 <IonList className="form-group">
                   <IonTextarea
-                    className="ion-textarea"
-                    rows={3}
-                    label="Description*"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
-                    onIonChange={(e) => setEventDescription(e.detail.value!)}
-                  ></IonTextarea>
+                  placeholder={'Description'}
+                  label={'Description'}
+                  fieldName={'description'}
+                  isRequired={true}
+                  errors={errors}
+                  errorText={'Description'}
+                  register={register}
+                  />
                 </IonList>
                 <IonList className="form-group mb-0">
                   <IonLabel className="form-label">Venue</IonLabel>
@@ -190,8 +217,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 )}
               </IonCardContent>
             </IonGrid>
-          </IonGrid>
-          <IonGrid className={`step-content ${getStepClass(2)}`}>
+
+          </IonGrid>}
+
+          {currentStep==2&&<IonGrid className={`step-content ${getStepClass(2)}`}>
             <IonGrid className="form-container">
               <IonCardContent className="pad0">
                 <IonList className="form-group">
@@ -202,18 +231,19 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     datetime="startDate"
                   ></IonDatetimeButton>
                   <IonModal keepContentsMounted={true}>
-                    <IonDatetime
-                      id="startDate"
-                      presentation="date"
-                      value="2023-11-02T01:22:00"
-                      formatOptions={{
-                        date: {
-                          weekday: "short",
-                          month: "long",
-                          day: "2-digit",
-                        },
-                      }}
-                    ></IonDatetime>
+                  <IonDatetime
+                    value={startDate} // Default next day
+                    min={tomorrowISOString} // Disable current date, allow future dates
+                    id="startDate"
+                    presentation="date"
+                    // formatOptions={{
+                    //   weekday: "short",
+                    //   month: "long",
+                    //   day: "2-digit",
+                    // }}
+                    showDefaultButtons={true} // Show "Done" button
+                    onIonChange={(e:any) => handleStartDateChange(e.detail.value!)}
+                  />
                   </IonModal>
                 </IonList>
                 <IonList className="form-group">
@@ -224,18 +254,19 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     datetime="endDate"
                   ></IonDatetimeButton>
                   <IonModal keepContentsMounted={true}>
-                    <IonDatetime
+                  <IonDatetime
+                      value={endDate} // Auto-fill end date with start date
+                      min={startDate} // End date cannot be earlier than start date
                       id="endDate"
                       presentation="date"
-                      value="2023-11-02T01:22:00"
-                      formatOptions={{
-                        date: {
-                          weekday: "short",
-                          month: "long",
-                          day: "2-digit",
-                        },
-                      }}
-                    ></IonDatetime>
+                      // formatOptions={{
+                      //   weekday: "short",
+                      //   month: "long",
+                      //   day: "2-digit",
+                      // }}
+                      showDefaultButtons={true} // Show "Done" button
+                      onIonChange={(e: any) => setEndDate(e.detail.value!)}
+                    />
                   </IonModal>
                 </IonList>
                 <IonList className="form-group">
@@ -288,8 +319,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonButton> */}
               </IonCardContent>
             </IonGrid>
-          </IonGrid>
-          <IonGrid className={`step-content ${getStepClass(3)}`}>
+          </IonGrid>}
+
+          {currentStep==3&&<IonGrid className={`step-content ${getStepClass(3)}`}>
             <IonGrid className="form-container">
               <IonCardContent className="pad0">
                 <IonList className="form-group">                
@@ -337,7 +369,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonList>
               </IonCardContent>
             </IonGrid>
-          </IonGrid>
+          </IonGrid>}
+
         </IonGrid>
         {/* Navigation buttons */}
         <IonFooter className="actions-container">
@@ -350,7 +383,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonButton>
           <IonButton
             className="primary-btn actions"
-            onClick={nextStep}
+           // onClick={nextStep}
+           //type="submit"
+           onClick={handleSubmit(nextStep, onError)}
             disabled={currentStep === totalSteps}
           >
             Next
@@ -366,6 +401,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
             </IonButton>
           )}
         </IonFooter>
+
+        </FormProvider>
+        
       </IonContent>
       <IonGrid
         className="action_screen" style={{ display: "none" }}

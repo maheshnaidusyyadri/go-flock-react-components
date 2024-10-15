@@ -34,6 +34,19 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, onChange }) => {
       onChange(otpValue);
     }
   };
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    const pastedData = e.clipboardData.getData('Text');
+    if (pastedData.length === length) {
+      pastedData.split('').forEach((char, i) => {
+        if (inputsRef.current[i]) {
+          inputsRef.current[i].value = char; 
+        }
+      });
+      handleOtpChange();
+      inputsRef.current[length - 1]?.setFocus();
+      e.preventDefault(); 
+    }
+  };
 
   // Focus on the previous input on backspace
   const handleKeyDown = (
@@ -57,6 +70,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, onChange }) => {
             className="otp-input"
             onIonInput={(e) => handleInputChange(e, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
+            onPaste={(e:any) => handlePaste(e)}
             inputmode="numeric"
             />
         ))}      

@@ -7,7 +7,6 @@ import {
   IonButton,
   IonItem,
   IonLabel,
-  IonInput,
   IonIcon,
   IonList,
   IonSearchbar,
@@ -19,6 +18,8 @@ import Logo from "../../images/sign-logo.png";
 import Mobile from "../../images/otp_varification.svg";
 
 import OtpInput from "./OtpInput";
+import { FormProvider,useForm } from "react-hook-form";
+import CustomInput from "../Common/CustomInput";
 
 type Country = {
   name: string;
@@ -34,14 +35,16 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   const [countryCode] = useState("+1"); // Default to USA
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isActive] = useState(false);
-  const [isValidate] = useState(false);
+  //const [isValidate] = useState(false);
   const [otp, setOtp] = useState(""); // State for OTP input
   const [otpSent, setOtpSent] = useState(false); // State to track if OTP was sent
   const [verificationError, setVerificationError] = useState<string | null>(
     null
   ); // Error state for OTP verification
-
+  const methods = useForm();
+  const { handleSubmit, formState: { errors },register } = useForm();
   const handleGenerateOTP = () => {
+
     if (phoneNumber.trim()) {
       sendOTP(`${countryCode}${phoneNumber}`)
         .then(() => {
@@ -71,6 +74,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         });
     } else {
       console.error("OTP is empty");
+      setVerificationError("OTP is required");
     }
 
     //  setIsActive((prev) => !prev);
@@ -129,6 +133,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   // const [otp, setOtp] = useState<string>('');
 
   const handleOtpChange = (value: string) => {
+    setVerificationError(null);
     setOtp(value);
     console.log("Current OTP:", value); // For debugging or validation
   };
@@ -187,6 +192,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
             >
               Generate OTP
             </IonButton> */}
+            <FormProvider {...methods}>
               <div className="country_selection">
                 <IonContent scrollY={false} >
                   {/* Display the selected country field that toggles the list */}
@@ -260,21 +266,25 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 </IonContent>
               </div>
               <div className="form-group">
-                <IonInput
-                  label="Mobile Number*"
-                  labelPlacement="stacked"
-                  type="tel"
-                  value={phoneNumber}
-                  placeholder="Enter mobile number"
-                  onIonInput={(e) => setPhoneNumber(e.detail.value!)}
-                ></IonInput>
+                <CustomInput
+                  placeholder={'Enter mobile number'}
+                  label={'Mobile Number'}
+                  fieldName={'mobile'}
+                  isRequired={true}
+                  errors={errors}
+                  errorText={'Mobile Number'}
+                  register={register}
+                  onInputChange={(e)=> setPhoneNumber(e.detail.value!)}
+                  />
               </div>
+              </FormProvider>
             </div>
             <IonButton
               expand="block"
               shape="round"
               className="primary-btn"
-              onClick={handleGenerateOTP}
+              //onClick={handleGenerateOTP}
+              onClick={handleSubmit(handleGenerateOTP)}
             >
               Generate OTP
             </IonButton>
