@@ -62,59 +62,59 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const currentDate = new Date();
   const tomorrow = new Date(currentDate.setDate(currentDate.getDate() + 1));
   const tomorrowISOString = tomorrow.toISOString();
-  
+
   // Date States,
   const [startDate, setStartDate] = useState<string>(tomorrowISOString); // Default to next day
   const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
   const [locationError, setLocationError] = useState(false);
   const methods = useForm();
-  const {  handleSubmit, formState: { errors },register,control,setValue} = useForm();
+  const { handleSubmit, formState: { errors }, register, control, setValue } = useForm();
   useEffect(() => {
-      setValue("endDate",startDate)
+    setValue("endDate", startDate)
   }, [startDate]);
- 
-  // Handle creating an event
-  const handleCreateEvent = async (data:any) => {
-    if (!selectedLocation || !data.event || data.event.trim() === "") return;
-   // if (!selectedLocation || data.event.trim() === "") return;
-      setIsCreating(true);
-      const draftEvent: DraftEvent = {
-        name: data.event,
-        type: data.eventType,
-        description: data.description,
-        location: selectedLocation,
-        visibility: eventVisibility,
-        time: {
-          startDate: data.startDate || new Date(),
-          endDate:data.endDate,
-          startTime:data.startTime,
-          endTime:data.endTime,
-        },
-      };
-      // const draftEvent: DraftEvent = {
-      //   name: eventName,
-      //   type: eventType!,
-      //   description: eventDescription,
-      //   location: selectedLocation,
-      //   visibility: eventVisibility,
-      //   time: {
-      //     startDate: startDate || new Date(),
-      //     endDate,
-      //     startTime,
-      //     endTime,
-      //   },
-      // };
 
-      try {
-        let newEvent: Event = await createEvent(draftEvent);
-        goToEvent(newEvent.id);
-        //console.log("goToEvent")
-      } catch (error) {
-        console.error("Error creating event:", error);
-      } finally {
-        setIsCreating(false);
-        //console.log("finally")
-      }
+  // Handle creating an event
+  const handleCreateEvent = async (data: any) => {
+    if (!selectedLocation || !data.event || data.event.trim() === "") return;
+    // if (!selectedLocation || data.event.trim() === "") return;
+    setIsCreating(true);
+    const draftEvent: DraftEvent = {
+      name: data.event,
+      type: data.eventType,
+      description: data.description,
+      location: selectedLocation,
+      visibility: eventVisibility,
+      time: {
+        startDate: data.startDate || new Date(),
+        endDate: data.endDate,
+        startTime: data.startTime,
+        endTime: data.endTime,
+      },
+    };
+    // const draftEvent: DraftEvent = {
+    //   name: eventName,
+    //   type: eventType!,
+    //   description: eventDescription,
+    //   location: selectedLocation,
+    //   visibility: eventVisibility,
+    //   time: {
+    //     startDate: startDate || new Date(),
+    //     endDate,
+    //     startTime,
+    //     endTime,
+    //   },
+    // };
+
+    try {
+      let newEvent: Event = await createEvent(draftEvent);
+      goToEvent(newEvent.id);
+      //console.log("goToEvent")
+    } catch (error) {
+      console.error("Error creating event:", error);
+    } finally {
+      setIsCreating(false);
+      //console.log("finally")
+    }
   };
   ////////////////
   const [currentStep, setCurrentStep] = useState(1); // Track the current step
@@ -122,14 +122,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
   // Function to go to the next step
   const nextStep = () => {
-    if(!selectedLocation){
+    if (!selectedLocation) {
       setLocationError(true)
       return
     }
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
-  const onError = ()=>{
-    if(!selectedLocation){
+  const onError = () => {
+    if (!selectedLocation) {
       setLocationError(true)
     }
   };
@@ -176,7 +176,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
         <FormProvider {...methods}>
           <IonGrid className="stepper-content">
             {/* Step content with prev, current, and next classes */}
-            {currentStep==1&&<IonGrid className={`step-content ${getStepClass(1)}`}>
+            {currentStep == 1 && <IonGrid className={`step-content ${getStepClass(1)}`}>
               <IonGrid className="form-container">
                 <IonCardContent className="pad0">
                   <IonList className="form-group">
@@ -205,7 +205,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       isRequired={true}
                       errors={errors}
                       errorText="Event Type"
-                      onIonChange={(e:any) => setEventType(e)}
+                      onIonChange={(e: any) => setEventType(e)}
                     />
                   </IonList>
                   <IonList className="form-group">
@@ -232,13 +232,13 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     </IonText>
                   )}
                   {selectedLocation && (
-                    <IonLabel className="location_selection">Selected Location:<IonText className="location"> {selectedLocation.name}</IonText></IonLabel> 
+                    <IonLabel className="location_selection">Selected Location:<IonText className="location"> {selectedLocation.name}</IonText></IonLabel>
                   )}
                 </IonCardContent>
               </IonGrid>
             </IonGrid>}
 
-            {currentStep==2&&<IonGrid className={`step-content ${getStepClass(2)}`}>
+            {currentStep == 2 && <IonGrid className={`step-content ${getStepClass(2)}`}>
               <IonGrid className="form-container">
                 <IonCardContent className="pad0">
                   <CustomDateTime
@@ -248,9 +248,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     control={control}
                     label={"Start Date"}
                     fieldName="startDate"
-                    minDate={tomorrowISOString} 
-                    isRequired={true} 
-                    errorText="Start Date" 
+                    minDate={tomorrowISOString}
+                    isRequired={true}
+                    errorText="Start Date"
                     errors={errors}
                     defaultValue={startDate}
                     onDateChange={(value: any) => {
@@ -261,7 +261,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       weekday: "short",
                       month: "long",
                       day: "2-digit",
-                    }} 
+                    }}
                   />
                   <CustomDateTime
                     placeHolder={'Select Date'}
@@ -270,19 +270,19 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     control={control}
                     label={"End Date"}
                     fieldName="endDate"
-                    minDate={startDate} 
-                    isRequired={true} 
-                    errorText="End Date" 
+                    minDate={startDate}
+                    isRequired={true}
+                    errorText="End Date"
                     errors={errors}
-                   // defaultValue={startDate}
+                    // defaultValue={startDate}
                     formatOptions={{
                       weekday: "short",
                       month: "long",
                       day: "2-digit",
                     }}
-                    defaultValue={endDate} 
+                    defaultValue={endDate}
                     onDateChange={(value: any) => {
-                      setEndDate(value); 
+                      setEndDate(value);
                     }}
                   />
                   <CustomDateTime
@@ -291,9 +291,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     presentation={"time"}
                     control={control}
                     label={"Start Time"}
-                    fieldName="startTime" 
-                    isRequired={true} 
-                    errorText="Start Time" 
+                    fieldName="startTime"
+                    isRequired={true}
+                    errorText="Start Time"
                     errors={errors}
                     defaultValue={""}
                     formatOptions={{
@@ -309,9 +309,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     presentation={"time"}
                     control={control}
                     label={"End Time"}
-                    fieldName="endTime" 
-                    isRequired={true} 
-                    errorText="End Time" 
+                    fieldName="endTime"
+                    isRequired={true}
+                    errorText="End Time"
                     errors={errors}
                     defaultValue={''}
                     formatOptions={{
@@ -320,9 +320,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         minute: "2-digit",
                       },
                     }}
-                    
+
                   />
-              {/* <IonButton
+                  {/* <IonButton
               onClick={handleCreateEvent}
               expand="block"
               disabled={isCreating || !selectedLocation || !eventName}
@@ -333,10 +333,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               </IonGrid>
             </IonGrid>}
 
-            {currentStep==3&&<IonGrid className={`step-content ${getStepClass(3)}`}>
+            {currentStep == 3 && <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonGrid className="form-container">
                 <IonCardContent className="pad0">
-                  <IonList className="form-group">                
+                  <IonList className="form-group">
                     <IonRadioGroup
                       className="ion-radio-group"
                       allowEmptySelection={true}
