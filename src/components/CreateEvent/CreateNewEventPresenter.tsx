@@ -7,10 +7,10 @@ import {
   IonRadioGroup,
   IonRadio,
   IonLabel,
-  IonText, 
+  IonText,
   IonList,
   IonFooter,
-  IonGrid, 
+  IonGrid,
   IonImg,
 } from "@ionic/react";
 import {
@@ -27,7 +27,7 @@ import publicEventIcon from "../../images/icons/publicEvent.svg";
 import PlaceSearch from "./PlaceSearch";
 import { EventType, EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
 import IonTextarea from "../Common/CustomTextarea";
 import CustomSelect from "../Common/CustomSelect";
@@ -58,7 +58,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
 
   const [isCreating, setIsCreating] = useState<boolean>(false);
-  
 
   const currentDate = new Date();
   const tomorrow = new Date(currentDate.setDate(currentDate.getDate() + 1));
@@ -164,14 +163,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   };
 
   return (
-    <> 
-      <Header         
-        title='Create Event'
+    <>
+      <Header
+        title="Create Event"
         showMenu={false}
-        showContactList={false} 
-        showProfile = {true} 
+        showContactList={false}
+        showProfile={true}
       />
-      <IonContent className="create_event"> 
+      <IonContent className="create_event">
         <IonList className="stepper-container">{renderSteps()}</IonList>
 
         <FormProvider {...methods}>
@@ -423,7 +422,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
             alt="Successfully Created Event"
             src={Success}
           />
-          <IonLabel className="action_title">Successfully Created Event</IonLabel>
+          <IonLabel className="action_title">
+            Successfully Created Event
+          </IonLabel>
           <IonText className="action_info">
             Event Created! 🎉 Now, let's make it unforgettable. Invite friends
             and let the good times roll!
