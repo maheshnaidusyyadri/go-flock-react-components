@@ -1,14 +1,29 @@
 .button {
     cursor: pointer;
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
     padding: 4px;
     border: initial;
     background: initial;
+    
 }
-
+.button svg {
+    background: white;
+    border-radius: 50%;
+}
+.button[aria-label="Deselect image"] svg {
+    background: transparent;
+}
 .icon {
     display: block;
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, .8));
+    /* background: #000000; */
+    /* border-radius: 50%; */
+}
+
+.react-photo-album--masonry .react-photo-album--photo {
+    box-shadow: inherit !important;
+    border-radius: 12px;
+    overflow: hidden;
 }

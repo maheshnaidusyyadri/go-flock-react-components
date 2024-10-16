@@ -1,5 +1,5 @@
 import type React from "react";
-import { MdCheckCircleOutline, MdOutlineCircle } from "react-icons/md";
+import { MdCheckCircleOutline, MdOutlineCircle,} from "react-icons/md";
 
 // @ts-ignore
 import classes from "./SelectIcon.module.css";
@@ -14,10 +14,10 @@ type SelectIconProps = {
 export default function SelectIcon({
   selected,
   onClick,
-  color = "white",
-  size = "24px",
+  color = "black",
+  size = "22px",
 }: SelectIconProps) {
-  const Icon = selected ? MdCheckCircleOutline : MdOutlineCircle;
+  const Icon = selected ?  MdOutlineCircle : MdCheckCircleOutline;
 
   return (
     <button
