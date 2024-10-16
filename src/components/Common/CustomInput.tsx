@@ -1,7 +1,6 @@
 import React from 'react';
 import {  IonLabel, IonInput, IonText } from '@ionic/react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
-
 interface CustomInputProps {
   label?: string;
   placeholder?: string;
@@ -26,7 +25,6 @@ const CustomInput: React.FC<CustomInputProps> = ({
   register,
   onInputChange,
 }) => {
-
   return (
     <>
       {label && <IonLabel className='form-label'>{isRequired ? label + "*" : label}</IonLabel>}
@@ -51,13 +49,6 @@ const CustomInput: React.FC<CustomInputProps> = ({
             
           }
         }}
-        // onIonInput={(e)=>{
-        //   if (e.detail.value !== undefined) {
-        //     register(fieldName).onChange(e); // Call the register's onChange
-        //   }
-        //   console.log('onIonInput',e)
-        //   reset()
-        // }}
       />
        {errors?.[fieldName] && errors?.[fieldName].type && errors?.[fieldName].type === "required" &&
           <IonText color="danger" style={{ fontSize: 12 }}>{"* " + errorText + ' is required'}</IonText>}
