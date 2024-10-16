@@ -93,7 +93,7 @@ const CustomDateTime: React.FC<CustomStartDateProps> = ({
               />
             </IonModal>
             {errors?.[fieldName] && errors?.[fieldName].type && errors?.[fieldName].type === "required" &&
-           <IonText color="danger" style={{ fontSize: 12 }}>{"* " + errorText + ' is required'}</IonText>}
+           <IonText color="danger" className='error' style={{ fontSize: 12 }}>{"* " + errorText + ' is required'}</IonText>}
           </>
         )}
       />

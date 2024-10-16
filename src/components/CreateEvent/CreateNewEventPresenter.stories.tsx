@@ -55,6 +55,7 @@ Default.args = {
       description: "An annual gathering of the extended family.",
       location: {
         name: "Grandma's House",
+        place: "New York, NY",
         lat: 40.712776,
         long: -74.005974,
       },
@@ -219,6 +220,7 @@ CreatingEvent.args = {
           description: "An annual gathering of the extended family.",
           location: {
             name: "Grandma's House",
+            place: "New York, NY",
             lat: 40.712776,
             long: -74.005974,
           },
