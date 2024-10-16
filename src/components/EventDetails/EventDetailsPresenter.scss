@@ -52,6 +52,7 @@ body {
                 justify-content: space-between;
                 --border-color: transparent;
                 --padding-start: 0;
+                --inner-padding-end: 0;
                 .venue_info {
                     display: flex;
                     align-items: center;
@@ -116,6 +117,7 @@ body {
             margin-bottom: 16px;
             --border-color: transparent;
             --padding-start: 0;
+            --inner-padding-end: 0;
             .ion-label {
                 font-family: $GoFlockFont;
                 font-size: 14px;

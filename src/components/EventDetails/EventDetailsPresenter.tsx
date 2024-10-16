@@ -261,7 +261,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         eventId={event.id}
         activeTab={"home"}
       />
-      )};
+      )}
     </IonContent>
 
       <IonGrid  

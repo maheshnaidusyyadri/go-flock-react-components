@@ -118,7 +118,18 @@ body {
         margin-bottom: 4px;
         display: block;
     }
-    .input-wrapper {
+    .form-placeholder {
+        color: $secondaryColor;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: $GoFlockFont;
+        font-weight: 400;
+        padding: 0px;
+        position: absolute;
+        left: 12px;
+        top: 46px;
+    }
+     .input-wrapper {
         .label-text-wrapper {
             transform: inherit !important;
             font-family: $GoFlockFont;
