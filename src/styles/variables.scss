@@ -745,3 +745,17 @@ input[type=number] {
         padding: 0 16px; 
     }
 }
+
+.stickyFooter {
+    position: sticky;
+    top: 100%;
+    bottom: 0;
+    box-shadow: none;
+    padding: 16px;
+    .primary-btn {
+        margin: 0;
+    }
+    &.hasFooter {
+        top: calc(100% - 160px);
+    }
+}
