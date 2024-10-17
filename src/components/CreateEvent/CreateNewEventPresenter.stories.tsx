@@ -1,19 +1,20 @@
 import { StoryFn } from "@storybook/react";
 import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
-import NoEventPresenter from "./NoEventPresenter"; 
-import EventCreatedPresenter from "./EventCreatedPresenter";  
+import NoEventPresenter from "./NoEventPresenter";
+import EventCreatedPresenter from "./EventCreatedPresenter";
 import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
 import { JSX } from "react/jsx-runtime";
 // import {
-//   LocationInfo, 
+//   LocationInfo,
 //   CreateNewEventProps,
 //   DraftEvent,
 // } from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
-  component: CreateNewEventPresenter, NoEventPresenter
+  component: CreateNewEventPresenter,
+  NoEventPresenter,
 };
 
 const Template: StoryFn<CreateNewEventProps> = (args) => (
@@ -194,12 +195,10 @@ Default.args = {
   },
 };
 
-export const NoEvent = (args: JSX.IntrinsicAttributes & CreateNewEventProps) => (
-  <NoEventPresenter {...args} />
-);
-NoEvent.args = {
-  
-}
+export const NoEvent = (
+  args: JSX.IntrinsicAttributes & CreateNewEventProps
+) => <NoEventPresenter {...args} />;
+NoEvent.args = {};
 
 export const CreatingEvent = Template.bind({});
 CreatingEvent.args = {
@@ -219,8 +218,7 @@ CreatingEvent.args = {
           type: "reunion",
           description: "An annual gathering of the extended family.",
           location: {
-            name: "Grandma's House",
-            place: "New York, NY",
+            name: "New York, NY",
             lat: 40.712776,
             long: -74.005974,
           },
@@ -358,9 +356,7 @@ ErrorState.args = {
   },
 };
 
-export const EventCreated = (args: JSX.IntrinsicAttributes & CreateNewEventProps) => (
-  <EventCreatedPresenter {...args} />
-);
-EventCreated.args = {
-  
-}
+export const EventCreated = (
+  args: JSX.IntrinsicAttributes & CreateNewEventProps
+) => <EventCreatedPresenter {...args} />;
+EventCreated.args = {};

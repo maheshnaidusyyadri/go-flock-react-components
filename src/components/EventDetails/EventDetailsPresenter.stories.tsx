@@ -2,7 +2,7 @@ import { StoryFn } from "@storybook/react";
 import EventDetailsPresenter from "./EventDetailsPresenter"; // Adjust the import path based on your project structure
 import { EventProps } from "@goflock/types/src/index";
 //import EventGuestViewPresenter from "./EventGuestViewPresenter";
-// import EventGuestViewPresenter from "./EventGuestViewPresenter"; 
+// import EventGuestViewPresenter from "./EventGuestViewPresenter";
 // import { JSX } from "react/jsx-runtime";
 
 export default {
@@ -41,8 +41,7 @@ EventGuestView.args = {
     ],
     description: "An annual gathering of the extended family.",
     location: {
-      name: "Grandma's House",
-      place: "New York, NY",
+      name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
     },
@@ -166,10 +165,10 @@ EventGuestView.args = {
     ],
     deleted: false,
   },
-  eventRelation:{
+  eventRelation: {
     roles: [],
-    visitType: 'member' || 'visitor' || 'unauthorized'
-  }
+    visitType: "member",
+  },
 };
 
 export const PublicEventHostView = Template.bind({});
@@ -199,8 +198,7 @@ PublicEventHostView.args = {
     type: "reunion",
     description: "An annual gathering of the extended family.",
     location: {
-      name: "Grandma's House",
-      place: "New York, NY",
+      name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
     },
@@ -324,10 +322,10 @@ PublicEventHostView.args = {
     ],
     deleted: false,
   },
-  eventRelation:{
+  eventRelation: {
     roles: [],
-    visitType: 'admin' || 'owner'
-  }
+    visitType: "admin",
+  },
 };
 
 export const PrivateEventHostView = Template.bind({});
@@ -357,8 +355,7 @@ PrivateEventHostView.args = {
     ],
     description: "An annual gathering of the extended family.",
     location: {
-      name: "Grandma's House",
-      place: "New York, NY",
+      name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
     },
@@ -482,8 +479,8 @@ PrivateEventHostView.args = {
     ],
     deleted: false,
   },
-  eventRelation:{
+  eventRelation: {
     roles: [],
-    visitType: 'admin' || 'owner'
-  }
+    visitType: "admin",
+  },
 };
