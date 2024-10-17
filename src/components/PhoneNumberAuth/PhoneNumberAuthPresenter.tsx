@@ -32,7 +32,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   verifyOTP,
   onSuccessfulVerification,
 }) => {
-  const [countryCode] = useState("+1"); // Default to USA
+  const [countryCode,setCountryCode] = useState("+1"); // Default to USA
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isActive] = useState(false);
   //const [isValidate] = useState(false);
@@ -80,6 +80,10 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     //  setIsActive((prev) => !prev);
   };
 
+  const resendOTP = () => {
+    alert(`OTP has been sent successfully to your registered number: ${countryCode} ${phoneNumber}`);
+  };
+
   const countries: Country[] = [
     {
       name: "United States",
@@ -98,7 +102,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
       code: "+1-268",
       flag: "https://flagcdn.com/w320/ag.png",
     },
-    { name: "Anguilla", code: "+1", flag: "https://flagcdn.com/w320/ai.png" },
+    { name: "Anguilla", code: "+1 264", flag: "https://flagcdn.com/w320/ai.png" },
     { name: "Armenia", code: "+374", flag: "https://flagcdn.com/w320/am.png" },
     { name: "Angola", code: "+244", flag: "https://flagcdn.com/w320/ao.png" },
     { name: "Argentina", code: "+54", flag: "https://flagcdn.com/w320/ar.png" },
@@ -124,6 +128,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
 
   // Handle selecting a country
   const handleCountrySelect = (country: Country) => {
+    setCountryCode(country.code)
     setSelectedCountry(country);
     setIsListOpen(false); // Close the list after selection
   };
@@ -326,7 +331,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 {verificationError && (
                   <p className="otp_error">{verificationError}</p>
                 )}
-                <p className="otp_resend">
+                <p className="otp_resend" onClick={resendOTP}>
                   Didn't receive the code? <a>Resend</a>
                 </p>
               </div>
