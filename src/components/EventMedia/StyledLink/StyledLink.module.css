@@ -12,5 +12,5 @@
 
 .link:hover {
     z-index: 1;
-    box-shadow: var(--shadow-elevation-high);
+  
 }

@@ -58,7 +58,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       />
       
       {errors?.[fieldName]?.type === "required" && (
-        <IonText color="danger" style={{ fontSize: 12 }}>
+        <IonText color="danger" className='error' style={{ fontSize: 12 }}>
           {"* " + errorText + ' is required'}
         </IonText>
       )}

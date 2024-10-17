@@ -70,7 +70,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const methods = useForm();
   const { handleSubmit, formState: { errors }, register, control, setValue } = useForm();
   useEffect(() => {
-    setValue("endDate", startDate)
+    setValue("endDate", startDate);
+    console.log(eventType);
   }, [startDate]);
 
   // Handle creating an event
@@ -219,7 +220,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       register={register}
                     />
                   </IonList>
-                  <IonList className="form-group mb-0">
+                  <IonList className="form-group mb-0 pb-0">
                     <IonLabel className="form-label">Venue</IonLabel>
                     <PlaceSearch
                       searchLocation={searchLocation}
@@ -387,7 +388,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
           </IonGrid>
           {/* Navigation buttons */}
-          <IonFooter className="actions-container">
+          <IonFooter className="actions-container stickyFooter"> 
             <IonButton
               className="primary-btn actions"
               onClick={prevStep}
