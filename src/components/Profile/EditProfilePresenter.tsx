@@ -71,6 +71,7 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
         title="Edit Profile"
         showMenu={false}
         showContactList={false}
+        className="darkheader"
       />
       {/* Hidden file input for image upload */}
       <input
@@ -123,7 +124,7 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
                 expand="block"
                 onClick={handlePreferredNameChange}
                 disabled={isLoading || !preferredName}
-                className="primary-btn"
+                className="primary-btn rounded"
               >
                 Save
               </IonButton>

@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({
       <IonHeader className={`main-header ${className}`}>
         <div className="header-cnt">
           {showGoBack && (
-            <img
+            <IonImg
               src={backArrow}
               alt="Page Back"
               onClick={handleBack}
@@ -65,23 +65,23 @@ const Header: React.FC<HeaderProps> = ({
           )}
           {title && <IonTitle className="page-title">{title}</IonTitle>} 
           {showMenu && (
-            <span
+            <IonThumbnail
               id="open-action-sheet"
               className="menu_icon"
             >
-              <img
+              <IonImg
                 src={Menu}
                 alt="More Details"
               />
-            </span>
+            </IonThumbnail>
           )}
           {showContactList && (
-            <span className="menu_icon contactList">
-              <img
+            <IonThumbnail className="menu_icon contactList">
+              <IonImg
                 src={ContactListIcon}
                 alt="Contact List"
               />
-            </span>
+            </IonThumbnail>
           )}
           {showProfile && (
             <IonThumbnail className="profile_icon">
