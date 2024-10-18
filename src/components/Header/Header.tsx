@@ -8,6 +8,8 @@ import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
 import ProfileIcon from "../../images/profile.png";
 import signInIcon from "../../images/icons/signIn.svg";
+import goflockLogo from "../../images/icons/goflock.svg";
+
 
 type HeaderProps = {
   eventId?: string;
@@ -16,7 +18,9 @@ type HeaderProps = {
   showContactList?: boolean;
   showProfile? : boolean;
   showSignIn? : boolean;
+  showLogo? : boolean;
   className?: string;
+  showGoBack? : boolean;
   deleteEvent?: (eventId: string) => void;
 };
 
@@ -28,6 +32,8 @@ const Header: React.FC<HeaderProps> = ({
   showProfile = false,
   showSignIn = false,
   className = '',
+  showLogo = false,
+  showGoBack = true,
   deleteEvent,
  
 }) => {
@@ -42,12 +48,22 @@ const Header: React.FC<HeaderProps> = ({
     <>
       <IonHeader className={`main-header ${className}`}>
         <div className="header-cnt">
-          <img
-            src={backArrow}
-            alt="Page Back"
-            onClick={handleBack}
-          />
-          {title && <IonTitle className="page-title">{title}</IonTitle>}
+          {showGoBack && (
+            <img
+              src={backArrow}
+              alt="Page Back"
+              onClick={handleBack}
+            />
+          )}
+          {showLogo && (
+            <IonThumbnail className="profile_icon">
+              <IonImg
+                src={goflockLogo}
+                alt="ProfileIcon"
+              />
+            </IonThumbnail>
+          )}
+          {title && <IonTitle className="page-title">{title}</IonTitle>} 
           {showMenu && (
             <span
               id="open-action-sheet"

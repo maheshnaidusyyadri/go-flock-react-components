@@ -38,6 +38,7 @@ Default.args = {
       ],
       location: {
         name: "Central Park",
+        place: "New York, NY",
         lat: 40.785091,
         long: -73.968285,
       },
@@ -82,6 +83,7 @@ Default.args = {
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
+        place: "",
       },
       time: {
         startDate: new Date(),
@@ -124,6 +126,7 @@ Default.args = {
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
+        place: "",
       },
       time: {
         startDate: new Date(),
@@ -182,6 +185,7 @@ SingleEvent.args = {
       ],
       location: {
         name: "My House",
+        place: "",
       },
       time: {
         startDate: new Date(),

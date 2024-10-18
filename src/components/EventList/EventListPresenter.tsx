@@ -21,9 +21,11 @@ const EventListPresenter: React.FC<EventListProps> = ({
     <IonPage>
       <Header
         //title={event.name}
-        title=""
-        showMenu={true}
+        title="" 
+        showLogo={true}
         showContactList={false}
+        showGoBack={false}
+        showProfile={true}
       />
 
       <IonContent className="events_sec">
