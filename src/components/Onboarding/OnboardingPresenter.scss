@@ -19,7 +19,7 @@ body {
         }
         .ion-title {
             font-family: $GoFlockFont;
-            font-size: 28px;
+            font-size: clamp(16px, 7.1vw, 28px);
             line-height: 40px;
             color: $GoFlockColor;
             font-weight: 700;
@@ -29,8 +29,8 @@ body {
         }
         .ion-text {
             font-family: $GoFlockFont;
-            font-size: 14px;
-            line-height: 24px;
+            font-size: clamp(12px, 3.38vw, 14px);
+            line-height: 18px;
             color: $secondaryColor;
             font-weight: 400;
             margin-bottom: 0px;
@@ -51,7 +51,7 @@ body {
         padding-bottom: 50px;
     }
     .swiper  {
-        height: calc(100vh - 56px);
+        height: 100vh;
     }
     .swiper-pagination {
         display: flex;
@@ -94,10 +94,11 @@ body {
     .swiper-button-next {
         right: 16px;
         left: inherit;
+        bottom: 16px;
     }
     .swiper-button-prev {
         left: 16px;
-        
+        display: none;
     }
     .skip {
         font-family: $GoFlockFont;
@@ -109,9 +110,22 @@ body {
         text-decoration: underline;
         display: flex;
         margin: 0 auto;
-        width: 80px;
-        height: 40px;
+        width: 50%;
+        height: 50px;
         align-items: center;
         justify-content: center;
+        position: absolute;
+        left: 0px;
+        bottom: 16px;
+        z-index: 99;
+    }
+    .getstart {
+        position: absolute;
+        left: 0px;
+        bottom: 16px;
+        z-index: 99;
+        height: 50px;
+        left: 16px;
+        width: calc(100% - 32px);
     }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonContent,
   IonTitle,
@@ -7,6 +7,8 @@ import {
   IonGrid,
   IonCard,
   IonImg,
+  IonButton,
+  IonLabel,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -25,79 +27,69 @@ import expancesIcon from "../../images/auth-4.svg";
 import { IntroductionProps } from "@goflock/types/src/presenter";
 
 const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleSlideChange = (swiper: any) => {
+    setActiveIndex(swiper.activeIndex);
+  };
+
+  const slides = [
+    {
+      image: EventsIcon,
+      title: "Create Events",
+      text: "And invite guests or friends receive RSVP",
+    },
+    {
+      image: mediaIcon,
+      title: "Share Photos",
+      text: "Capture the fleeting moment in photographs!",
+    },
+    {
+      image: chatIcon,
+      title: "Chat with the Group",
+      text: "Engage in lively conversation among members and ravel in the event!",
+    },
+    {
+      image: expancesIcon,
+      title: "Split expenses",
+      text: "Capture the fleeting moment in photographs!",
+    },
+  ];
+
   return (
     <IonContent className="onboard_cnt">
       <Swiper
         modules={[Autoplay, Pagination, IonicSlides, Navigation]}
         autoplay={false}
         pagination={true}
-        loop={true}
-        navigation={true}
+        loop={false}
+        navigation={activeIndex !== slides.length - 1} // Hide navigation on the last slide
+        onSlideChange={handleSlideChange}
       >
-        <SwiperSlide>
-          <IonGrid className="step-content">
-            <IonCard className="auth_screen">
-              <IonImg
-                src={EventsIcon}
-                alt="Private Event"
-              />
-              <IonTitle className="ion-title">Create Events</IonTitle>
-              <IonText className="ion-text">
-                And invite guests or friends receive RSVP
-              </IonText>
-            </IonCard>
-          </IonGrid>
-        </SwiperSlide>
-        <SwiperSlide>
-          <IonGrid className="step-content">
-            <IonCard className="auth_screen">
-              <IonImg
-                src={mediaIcon}
-                alt="Private Event"
-              />
-              <IonTitle className="ion-title">Share Photos</IonTitle>
-              <IonText className="ion-text">
-                Capture the fleeting moment in photographs!
-              </IonText>
-            </IonCard>
-          </IonGrid>
-        </SwiperSlide>
-        <SwiperSlide>
-          <IonGrid className="step-content">
-            <IonCard className="auth_screen">
-              <IonImg
-                src={chatIcon}
-                alt="Private Event"
-              />
-              <IonTitle className="ion-title">Chat with the Group</IonTitle>
-              <IonText className="ion-text">
-                Engage in lively conversation among members and ravel in the
-                event!
-              </IonText>
-            </IonCard>
-          </IonGrid>
-        </SwiperSlide>
-        <SwiperSlide>
-          <IonGrid className="step-content">
-            <IonCard className="auth_screen">
-              <IonImg
-                src={expancesIcon}
-                alt="Private Event"
-              />
-              <IonTitle className="ion-title">Split expenses</IonTitle>
-              <IonText className="ion-text">
-                Capture the fleeting moment in photographs!
-              </IonText>
-            </IonCard>
-          </IonGrid>
-        </SwiperSlide>
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <IonGrid className="step-content">
+              <IonCard className="auth_screen">
+                <IonImg src={slide.image} alt={slide.title} />
+                <IonTitle className="ion-title">{slide.title}</IonTitle>
+                <IonText className="ion-text">{slide.text}</IonText>
+              </IonCard>
+            </IonGrid>
+          </SwiperSlide>
+        ))}
       </Swiper>
-      <span
-        className="skip"
-        onClick={() => introCompleted()}
-      >
-        Skip
-      </span>
+
+      {activeIndex !== slides.length - 1 && (
+        <IonLabel className="skip" onClick={introCompleted}>
+          Skip
+        </IonLabel>
+      )}
+
+      {activeIndex === slides.length - 1 && (
+        <IonButton className="primary-btn rounded getstart" onClick={introCompleted}>
+          Get Started
+        </IonButton>
+      )}
     </IonContent>
   );
 };
