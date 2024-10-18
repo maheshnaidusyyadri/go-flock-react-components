@@ -16,6 +16,7 @@ type HeaderProps = {
   showContactList?: boolean;
   showProfile? : boolean;
   showSignIn? : boolean;
+  className?: string;
   deleteEvent?: (eventId: string) => void;
 };
 
@@ -26,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({
   showContactList = false,
   showProfile = false,
   showSignIn = false,
+  className = '',
   deleteEvent,
  
 }) => {
@@ -38,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-      <IonHeader className="main-header">
+      <IonHeader className={`main-header ${className}`}>
         <div className="header-cnt">
           <img
             src={backArrow}

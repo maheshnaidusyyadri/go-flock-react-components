@@ -7,8 +7,9 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
-  IonButton,
   IonContent,
+  IonThumbnail,
+  IonImg,
 } from "@ionic/react";
 import { EventSettingsProps, Currency, EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
@@ -99,97 +100,98 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         title={`Event Settings for ${event?.name || "Event"}`}
         showMenu={false}
         showContactList={false}
+        className="sticky"
       />
 
       <IonCardContent className="settings_list">
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp">
-              <img
+            <IonThumbnail className="dp">
+              <IonImg
                 src={galleryIcon}
                 alt="Media"
               />
-            </span>
+            </IonThumbnail>
             Media Sharing
           </IonLabel>
-          <div>
+          <IonItem>
             <IonToggle
               className="ion-toggle"
               checked={mediaSharing}
               onIonChange={handleToggleMediaSharing}
               disabled={isLoading}
             />
-          </div>
+          </IonItem>
         </IonItem>
 
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp">
-              <img
+            <IonThumbnail className="dp">
+              <IonImg
                 src={billsIcon}
                 alt="Split Bills"
               />
-            </span>
+            </IonThumbnail>
             Split Bills
           </IonLabel>
-          <div>
+          <IonItem>
             <IonToggle
               checked={splitBills}
               onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
-          </div>
+          </IonItem>
         </IonItem>
 
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp">
-              <img
+            <IonThumbnail className="dp">
+              <IonImg
                 src={chatIcon}
                 alt="Chats"
               />
-            </span>
+            </IonThumbnail>
             Chats
           </IonLabel>
-          <div>
+          <IonItem>
             <IonToggle
               checked={true}
            //   onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
-          </div>
+          </IonItem>
         </IonItem>
 
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp">
-              <img
+            <IonThumbnail className="dp">
+              <IonImg
                 src={ChecklistIcon}
                 alt="Checklist"
               />
-            </span>
+            </IonThumbnail>
             Checklist
           </IonLabel>
-          <div>
+          <IonItem>
             <IonToggle
               checked={true}
             //  onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
-          </div>
+          </IonItem>
         </IonItem>
 
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp">
-              <img
+            <IonThumbnail className="dp">
+              <IonImg
                 src={dollarIcon}
                 alt="chat"
               />
-            </span>
+            </IonThumbnail>
             Currency
           </IonLabel>
-          <div>
+          <IonItem>
             <IonSelect
               className="ion-select"
               value={currency}
@@ -203,20 +205,20 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               <IonSelectOption value="EUR">EUR</IonSelectOption>
               <IonSelectOption value="GBP">GBP</IonSelectOption>
             </IonSelect>
-          </div>
+          </IonItem>
         </IonItem>
 
         <IonItem>
           <IonLabel className="ion-label">
-            <span className="dp">
-              <img
+            <IonThumbnail className="dp">
+              <IonImg
                 src={galleryIcon}
                 alt="Media"
               />
-            </span>
+            </IonThumbnail>
             Event Visibility
           </IonLabel>
-          <div>
+          <IonItem>
             <IonSelect
               className="ion-select"
               value={visibility}
@@ -230,17 +232,8 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               <IonSelectOption value="private">Private</IonSelectOption>
               <IonSelectOption value="hidden">Hidden</IonSelectOption>
             </IonSelect>
-          </div>
-        </IonItem>
-
-        <IonButton
-          expand="block"
-          disabled={isLoading}
-          onClick={() => console.log("Settings saved")}
-          className="primary-btn"
-        >
-          Save Settings
-        </IonButton>
+          </IonItem>
+        </IonItem> 
       </IonCardContent>
       <Footer
         eventId={event.id}

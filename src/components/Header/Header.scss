@@ -42,8 +42,10 @@
             --size:30px;
         }
     }
-    &.modal-header {
-        
+    &.main-header {
+        position: sticky;
+        top: 0px;
+        z-index: 99;
     }
 }
 
