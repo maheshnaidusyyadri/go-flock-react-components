@@ -96,7 +96,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
-                      <DisplayDate inputDate={event.time} />
+                      <DisplayDate inputDate={event.time} isTimeRequired={true}/>
                     </IonCardTitle>
                     {/* <IonCardSubtitle className="event_subtitle">
                       {event.time.startTime} - {event.time.endTime}
@@ -118,6 +118,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
                       {event.location.name}
+                    </IonCardTitle>
+                    <IonCardTitle className="event_subtitle">
+                      {event.location.place}
                     </IonCardTitle>
                   </IonCardContent>
                 </IonCard>

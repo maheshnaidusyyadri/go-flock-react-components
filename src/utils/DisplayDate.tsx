@@ -1,12 +1,15 @@
+import { IonCardSubtitle } from "@ionic/react";
 import React from "react";
 
 // Define the props type
 interface DisplayDateProps {
-  inputDate: any;
+  inputDate?: any;
+  isTimeRequired?:boolean
 }
 
-const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate }) => {
-  const { startDate, endDate } = inputDate;
+const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate,isTimeRequired=false }) => {
+  const { startDate, endDate,startTime,endTime } = inputDate;
+  console.log('inputDate-',inputDate)
 
   // Convert the start and end date strings to JavaScript Date objects
   const startDateObj = new Date(startDate);
@@ -27,6 +30,12 @@ const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate }) => {
   return (
     <>
       {formattedStartDate} - {formattedEndDate}
+      {isTimeRequired && (
+        <IonCardSubtitle className="event_subtitle">
+        {startTime} - {endTime}
+        </IonCardSubtitle>
+      )}
+
     </>
   );
 };
