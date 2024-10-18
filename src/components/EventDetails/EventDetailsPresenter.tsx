@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EventDetailsPresenter.scss";
 import {
   IonAvatar,
@@ -29,9 +29,9 @@ import clockIcon from "../../images/icons/clock.svg";
 import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
 import addUserIcon from "../../images/icons/addUser.svg";
-import userTickIcon from "../../images/icons/userTick.svg";
+//import userTickIcon from "../../images/icons/userTick.svg";
 import userCrossIcon from "../../images/icons/userCross.svg";
-import helpIcon from "../../images/icons/help.svg";
+//import helpIcon from "../../images/icons/help.svg";
 import ProfileIcon from "../../images/profile.png";
 import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
@@ -54,6 +54,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setIsActive(!isActive); // Toggle the class
     setIsOpen(false);
   };
+  useEffect(()=>{
+    console.log('event-@@@@',event)
+  },[])
 
   const toggleClass2 = () => {
     setIsActive(false);
@@ -190,7 +193,21 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonGrid className="status_sec">
                 <IonLabel className="status-title">RSVP Status</IonLabel>
                 <IonRow className="status_cards success">
-                  <IonCol className="status_card">
+                {event.members && event.members.length > 0 && event.members.slice(0, 3).map((status,index) => (
+                  <IonCol key={status.name} className={index==0?"status_card":index==1?"status_card error":index==2?"status_card warning":"status_card"}>
+                    <IonAvatar className="avatar">
+                      <IonImg
+                        className="ion-img"
+                        src={userCrossIcon}
+                        alt="Event"
+                      />
+                    </IonAvatar>
+                    <IonLabel className="ion-label">{status?.rsvp?.response}</IonLabel>
+                    <span className="devider"></span>
+                    <IonLabel className="count">{status?.rsvp?.count}</IonLabel>
+                  </IonCol>
+                ))}
+                  {/* <IonCol className="status_card">
                     <IonAvatar className="avatar">
                       <IonImg
                         className="ion-img"
@@ -225,7 +242,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     <IonLabel className="ion-label">Not Sure</IonLabel>
                     <span className="devider"></span>
                     <IonLabel className="count">0</IonLabel>
-                  </IonCol>
+                  </IonCol> */}
                 </IonRow>
               </IonGrid>
             </>
