@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   IonContent,
   IonPage,
@@ -26,7 +26,8 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the hidden file input
+  const [image, setImage] = useState<string | null>(null); // State to hold the selected image
   const handlePreferredNameChange = async () => {
     setIsLoading(true);
     setError(null);
@@ -41,6 +42,28 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
       setIsLoading(false);
     }
   };
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log('Selected file:', file.name);
+      const base64 = await convertFileToBase64(file);
+      setImage(base64); // Set the selected image as the new profile picture
+      console.log('SelectedImage',base64);
+    } else {
+      console.log('No file selected');
+    }
+  };
+
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <IonPage>
@@ -49,14 +72,22 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
         showMenu={false}
         showContactList={false}
       />
+      {/* Hidden file input for image upload */}
+      <input
+          type="file"
+          accept="image/*"
+          style={{ display: 'none' }} // Hide the file input
+          ref={fileInputRef} // Assign ref to the file input
+          onChange={handleFileChange} // Handle file change
+        />
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
             <IonImg
               className="dp"
-              src={ProfileDp}
+              src={image || ProfileDp}
             ></IonImg>
-            <span className="dp_edit"></span>
+            <span className="dp_edit" onClick={() => fileInputRef.current?.click()}></span>
           </span>
         </IonCard>
         <div className="profile_info_card">
