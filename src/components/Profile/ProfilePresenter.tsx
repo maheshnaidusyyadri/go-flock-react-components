@@ -18,6 +18,7 @@ import {
   IonCardContent,
   IonToggle,
   IonGrid,
+  IonModal,
 } from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
@@ -26,6 +27,7 @@ import ProfileIcon from "../../images/icons/profile-circle.svg";
 import PrivacyIcon from "../../images/icons/shield-tick.svg";
 import LogOutIcon from "../../images/icons/logOut.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
+import PrivacyPolicyPresenter from "./PrivacyPolicyPresenter";
 
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
@@ -95,7 +97,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   // const handleLogout = () => {
   //   logout();
   // };
-
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <IonPage>
@@ -132,7 +134,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                   <IonTitle className="name">Profile</IonTitle>
                 </IonLabel>
               </IonItem>
-              <IonItem className="list_item">
+              <IonItem className="list_item" onClick={() => setIsOpen(true)}>
                 <IonThumbnail
                   slot="start"
                   className="dp"
@@ -347,6 +349,11 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           },
         ]}
       ></IonActionSheet>
+
+
+      <IonModal isOpen={isOpen}>
+        <PrivacyPolicyPresenter /> 
+      </IonModal>
     </>
   );
 };

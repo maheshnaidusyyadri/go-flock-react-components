@@ -169,6 +169,7 @@
 }
 
 .privacy_sec {
+    min-height: calc(100vh - 60px);
     margin-top: 10px;
     .privacy_cnt {
         border-radius: 6px;
