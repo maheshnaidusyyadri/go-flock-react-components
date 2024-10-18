@@ -25,6 +25,7 @@ Default.args = {
       emailNotifications: false,
       pushNotifications: true,
     },
+    phone:'+1 978 569 7852'
   },
   setPreferredName: async (prefName: string) => {
     console.log("Preferred name set to:", prefName);
@@ -76,7 +77,18 @@ export const EditProfile = (args: JSX.IntrinsicAttributes & ProfileProps) => (
   <EditProfilePresenter {...args} />
 );
 EditProfile.args = {
-  
+  profile: {
+    id: "1",
+    prefName: "John Doe",
+    isIntroShown: true,
+    pictureUrl: "https://example.com/profile.jpg",
+    preferences: {
+      smsNotifications: true,
+      emailNotifications: false,
+      pushNotifications: true,
+    },
+    phone:'+1 978 569 7852'
+  },
 }
 
 export const PrivacyPolicy = (args: JSX.IntrinsicAttributes & ProfileProps) => (

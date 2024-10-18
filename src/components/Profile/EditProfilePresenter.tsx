@@ -14,12 +14,17 @@ import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
 
 const EditProfilePresenter: React.FC<ProfileProps> = ({
-  profile = { prefName: "", phoneNumber: "" },  // Default profile object with fallback values
+  //profile = { prefName: "", phoneNumber: "" },  // Default profile object with fallback values
+  profile,
   setPreferredName,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
   );
+  const [phone, setPhone] = useState<string>(
+    profile.phone || ""
+  );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handlePreferredNameChange = async () => {
@@ -71,6 +76,8 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
                   label="Phone Number"
                   labelPlacement="stacked"
                   placeholder="Enter Phone Number"
+                  value={phone}
+                  onIonChange={(e) => setPhone(e.detail.value!)}
                 />
               </div>
               <div className="terms">
