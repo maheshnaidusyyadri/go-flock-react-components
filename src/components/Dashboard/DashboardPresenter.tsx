@@ -25,6 +25,7 @@ import marriageIcon from "../../images/icons/marriage.svg";
 import graduationIcon from "../../images/icons/graduation.svg";
 import moreIcon from "../../images/icons/more.svg";
 import EventSection from "../Common/Events/EventSection";
+import Header from "../Header/Header";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
@@ -44,6 +45,12 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
 
   return (
     <IonPage>
+      <Header
+          showMenu={false}
+          showContactList={false}
+          title={""}
+          showProfile={true}
+        />
       <IonContent className="dashboard">
         <IonCard className="db_profile">
           <IonCardHeader className="db_profile_head">

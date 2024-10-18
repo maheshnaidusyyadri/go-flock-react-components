@@ -154,19 +154,22 @@ body {
 
 .event_actions {
     margin-top: 10px;
-    .icon-col {
-        padding: 0;
+    margin-left: clamp(-5px, -1vw, -10px);
+    margin-right: clamp(-5px, -1vw, -10px);
+    .icon-col { 
+        padding-left:clamp(5px, 1vw, 10px);
+        padding-right:clamp(5px, 1vw, 10px);
         margin: 0 0 20px 0;
         .icon-card {
             border: 1px solid rgba($GoFlockColor , 0.1);
             border-radius: 12px;
-            width: 24vw;
-            height: 24vw;
+            width: 25vw;
+            height: 25vw;
             box-shadow: none;
             display: flex;
             margin: 0 auto;
             .icon-thumb {
-                --size:48px;
+                --size:clamp(20px, 12vw, 48px);
                 margin: auto;
                 img {
                     width: auto;
