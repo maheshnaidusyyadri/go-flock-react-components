@@ -11,6 +11,9 @@ import {
   IonList,
   IonSearchbar,
   IonModal,
+  IonText,
+  IonImg,
+  IonGrid,
 } from "@ionic/react";
 import { chevronDownOutline } from "ionicons/icons";
 import { PhoneNumberAuthProps } from "@goflock/types/src/index";
@@ -145,11 +148,6 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
 
   return (
     <IonPage className="authpage">
-      {/* <IonHeader>
-        <IonToolbar>
-          <IonTitle>Sign in</IonTitle>
-        </IonToolbar>
-      </IonHeader> */}
       <IonContent scrollY={false}
         className={`generate_cnt ion-padding ${isActive ? "" : "active"}`}
         fullscreen
@@ -157,46 +155,18 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
       >
         {!otpSent ? (
           <>
-            <div className="auth_sec">
-              <div className="auth_cnt">
-                <img
+            <IonGrid className="auth_sec">
+              <IonGrid className="auth_cnt">
+                <IonImg
                   className="logo"
                   alt="Go Flock"
                   src={Logo}
                 />
-                <h2 className="auth-title">Enter Your Phone Number</h2>
-                <p className="subtitle">
+                <IonLabel className="auth-title">Enter Your Phone Number</IonLabel>
+                <IonText className="subtitle">
                   We will send you a 6-digit verification code
-                </p>
-              </div>
-              {/* <IonItem>
-              <IonLabel position="floating">Country</IonLabel>
-              <IonSelect
-                value={countryCode}
-                onIonChange={(e) => setCountryCode(e.detail.value)}
-              >
-                <IonSelectOption value="+1">United States (+1)</IonSelectOption>
-              </IonSelect>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="floating">Mobile Number*</IonLabel>
-              <IonInput
-                type="tel"
-                value={phoneNumber}
-                placeholder="Enter mobile number"
-                onIonInput={(e) => setPhoneNumber(e.detail.value!)}
-              />
-            </IonItem>
-
-            <IonButton
-              expand="block"
-              shape="round"
-              className="generate-otp-button"
-              onClick={handleGenerateOTP}
-            >
-              Generate OTP
-            </IonButton> */}
+                </IonText>
+              </IonGrid> 
             <FormProvider {...methods}>
               <div className="country_selection">
                 <IonContent scrollY={false} >
@@ -283,7 +253,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                   />
               </div>
               </FormProvider>
-            </div>
+            </IonGrid>
             <IonButton
               expand="block"
               shape="round"
@@ -296,46 +266,32 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           </>
         ) : (
           <>
-            <div className="varification_sec">
-              <div className="auth_cnt">
-                <h2 className="auth-title">Verify Account</h2>
-                <img
+            <IonGrid className="varification_sec">
+              <IonGrid className="auth_cnt">
+                <IonLabel className="auth-title">Verify Account</IonLabel>
+                <IonImg
                   className="mobile"
                   alt="Go Flock"
                   src={Mobile}
                 />
-                <h6>Mobile Verification</h6>
-                <p className="subtitle">
+                <IonText class="vatification-title">Mobile Verification</IonText>
+                <IonText className="subtitle">
                   To continue, please enter the OTP we just sent to{" "}
-                  {countryCode} {phoneNumber}
-                </p>
-                {/* <p className="ion-text-center subtitle">
-              We have sent the verification code to {countryCode} {phoneNumber}
-            </p> */}
-
-                {/* <IonItem>
-              <IonLabel position="floating">OTP Code</IonLabel>
-              <IonInput
-                type="text"
-                value={otp}
-                placeholder="Enter OTP"
-                onIonInput={(e) => setOtp(e.detail.value!)}
-              />
-            </IonItem> */}
-
+                  <IonText className="mobile_number">{countryCode} {phoneNumber}</IonText> 
+                </IonText>
                 <OtpInput
                   length={6}
                   onChange={handleOtpChange}
                 />
 
                 {verificationError && (
-                  <p className="otp_error">{verificationError}</p>
+                  <IonText className="otp_error">{verificationError}</IonText>
                 )}
-                <p className="otp_resend" onClick={resendOTP}>
+                <IonText className="otp_resend" onClick={resendOTP}>
                   Didn't receive the code? <a>Resend</a>
-                </p>
-              </div>
-            </div>
+                </IonText>
+              </IonGrid>
+            </IonGrid>
             <IonButton
               expand="block"
               shape="round"
