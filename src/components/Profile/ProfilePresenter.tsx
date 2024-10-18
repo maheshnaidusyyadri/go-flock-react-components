@@ -28,6 +28,8 @@ import PrivacyIcon from "../../images/icons/shield-tick.svg";
 import LogOutIcon from "../../images/icons/logOut.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
 import PrivacyPolicyPresenter from "./PrivacyPolicyPresenter";
+import backArrow from "../.././images/icons/back-arrow.svg";
+import EditProfilePresenter from "./EditProfilePresenter";
 
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
@@ -98,6 +100,28 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   //   logout();
   // };
   const [isOpen, setIsOpen] = useState(false);
+  const [isProfileOpen, setProfile] = useState(false);
+  const profileData = {
+    
+      id: "1",
+      prefName: "John Doe",
+      isIntroShown: true,
+      pictureUrl: "https://example.com/profile.jpg",
+      preferences: {
+        smsNotifications: true,
+        emailNotifications: false,
+        pushNotifications: true,
+      },
+      phone:'+1 978 569 7852'
+    
+  };
+ 
+
+  // const setPreferredName = async (name) => {
+  //   console.log("Preferred Name Set:", name);
+  //   // Here you can add the logic to update the preferred name in your state or API
+  //   return Promise.resolve(true); // Simulate async behavior
+  // };
   return (
     <>
       <IonPage>
@@ -119,7 +143,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           <IonGrid className="pad0 profile_settings">
             <IonTitle className="list-title">Setting Options</IonTitle>
             <IonList className="list_wrap">
-              <IonItem className="list_item">
+              <IonItem className="list_item" onClick={() => setProfile(true)}>
                 <IonThumbnail
                   slot="start"
                   className="dp"
@@ -350,10 +374,34 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
         ]}
       ></IonActionSheet>
 
-
-      <IonModal isOpen={isOpen}>
-        <PrivacyPolicyPresenter /> 
-      </IonModal>
+      {isProfileOpen&&
+      <>
+         <IonLabel className="modal_close" onClick={() => setProfile(false)}>
+            <img src={backArrow} alt="Page Back" />
+          </IonLabel>
+       
+         
+          <IonModal isOpen={isProfileOpen}>
+            <EditProfilePresenter
+             profile={profileData}
+           // setPreferredName={setPreferredName}
+            /> 
+          </IonModal>
+       </>
+       }
+        {isOpen&&
+      <>
+         <IonLabel className="modal_close" onClick={() => setIsOpen(false)}>
+            <img src={backArrow} alt="Page Back" />
+          </IonLabel>
+       
+         
+          <IonModal isOpen={isOpen}>
+            <PrivacyPolicyPresenter /> 
+          </IonModal>
+       </>
+       }
+    
     </>
   );
 };

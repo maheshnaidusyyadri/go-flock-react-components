@@ -790,4 +790,9 @@ input[type=number] {
 }
 
 
- 
+ .modal_close {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    z-index: 99999;
+ }
