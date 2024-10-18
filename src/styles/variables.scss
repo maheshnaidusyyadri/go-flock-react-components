@@ -59,6 +59,9 @@ body {
     height: 52px;
     border-radius: 50px;
     --background: #18181B;
+    --background-hover:#18181B;
+    --background-focused:#2780bf;
+    --background-activated:#2780bf;
     font-family: $GoFlockFont;
     font-size: 14px;
     font-weight: 500;
@@ -579,6 +582,7 @@ body {
 /// 12px = 2.9vw
 /// 14px = 3.38vw
 // 24px = 5.8vw,
+// 28px = 7.1vw,
 // 32px = 7.72vw,
 // 48px = 11.6vw,
 
@@ -784,3 +788,6 @@ input[type=number] {
         top: calc(100% - 160px);
     }
 }
+
+
+ 
