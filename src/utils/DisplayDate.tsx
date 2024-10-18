@@ -6,16 +6,29 @@ interface DisplayDateProps {
 }
 
 const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate }) => {
-  // Convert the JSON date string to a JavaScript Date object
-  const date = new Date(inputDate.seconds * 1000);
+  const { startDate, endDate } = inputDate;
 
-  // Use toLocaleDateString to format the date for month and day
-  const formattedDate = date.toLocaleDateString("en-US", {
-    month: "short", // Full month name (e.g., October)
-    day: "numeric", // Numeric day (e.g., 2)
+  // Convert the start and end date strings to JavaScript Date objects
+  const startDateObj = new Date(startDate);
+  const endDateObj = new Date(endDate);
+
+  // Format the dates using toLocaleDateString
+  const formattedStartDate = startDateObj.toLocaleDateString("en-US", {
+    month: "short", // Short month name (e.g., Oct)
+    day: "numeric", // Numeric day (e.g., 18)
   });
 
-  return <>{formattedDate}</>;
+  const formattedEndDate = endDateObj.toLocaleDateString("en-US", {
+    month: "short", // Short month name (e.g., Oct)
+    day: "numeric", // Numeric day (e.g., 18)
+  });
+
+  // If the start and end dates are the same, just display one
+  return (
+    <>
+      {formattedStartDate} - {formattedEndDate}
+    </>
+  );
 };
 
 export default DisplayDate;

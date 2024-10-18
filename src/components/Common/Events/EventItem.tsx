@@ -1,6 +1,6 @@
 // src/components/EventItem.tsx
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonActionSheet,
   IonCard,
@@ -30,6 +30,9 @@ const EventItem: React.FC<EventItemProps> = ({
   const handleActionSheetDismiss = () => {
     setShowFirstActionSheet(false);
   };
+  useEffect(()=>{
+    console.log("event-event",event)
+  },[])
 
   const handleAction = (action: string) => {
     switch (action) {
@@ -64,7 +67,7 @@ const EventItem: React.FC<EventItemProps> = ({
         <IonCardContent className="event_info">
           <IonCardTitle className="event-name">{event.name}</IonCardTitle>
           <IonLabel className="event-date">
-            <DisplayDate inputDate={event.time.startDate} />
+            <DisplayDate inputDate={event.time} />
           </IonLabel>
         </IonCardContent>
         <IonThumbnail

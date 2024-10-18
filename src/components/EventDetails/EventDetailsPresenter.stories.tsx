@@ -46,9 +46,10 @@ EventGuestView.args = {
       long: -74.005974,
     },
     time: {
-      startDate: new Date("2024-12-25T00:00:00Z"),
+      startDate: new Date(),
       startTime: "12:00 PM",
       endTime: "4:00 PM",
+      endDate: new Date()
     },
     visibility: "private",
     members: [
@@ -203,9 +204,10 @@ PublicEventHostView.args = {
       long: -74.005974,
     },
     time: {
-      startDate: new Date("2024-12-25T00:00:00Z"),
+      startDate: new Date(),
       startTime: "12:00 PM",
       endTime: "4:00 PM",
+      endDate: new Date()
     },
     visibility: "private",
     members: [
@@ -360,9 +362,10 @@ PrivateEventHostView.args = {
       long: -74.005974,
     },
     time: {
-      startDate: new Date("2024-12-25T00:00:00Z"),
+      startDate: new Date(),
       startTime: "12:00 PM",
       endTime: "4:00 PM",
+      endDate: new Date()
     },
     visibility: "private",
     members: [
