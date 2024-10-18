@@ -36,12 +36,15 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
   );
+  const [phone, setPhone] = useState<string>(
+    profile.phone || ""
+  );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("ProfilePresenter mounted");
+    console.log("ProfilePresenter mounted",profile);
   }, []);
 
   const handlePreferredNameChange = async () => {
@@ -108,7 +111,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
               src={ProfileDp}
             ></IonImg>
             <IonTitle className="name">{preferredName}</IonTitle>
-            <IonText className="number">+1 978 569 7852</IonText>
+            <IonText className="number">{phone}</IonText>
           </IonCard>
 
           <IonGrid className="pad0 profile_settings">
@@ -273,6 +276,8 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                     label="Phone Number"
                     labelPlacement="stacked"
                     placeholder="Enter Phone Number"
+                    value={phone}
+                    onIonChange={(e) => setPhone(e.detail.value!)}
                   />
                 </div>
                 <div className="terms">
