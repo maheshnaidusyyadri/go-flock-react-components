@@ -44,6 +44,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "10:00 AM",
+        endDate: new Date()
       },
       visibility: "private",
       members: [],
@@ -85,6 +86,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "6:00 PM",
+        endDate: new Date()
       },
       visibility: "public",
       members: [],
@@ -126,6 +128,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "6:00 PM",
+        endDate: new Date()
       },
       visibility: "public",
       members: [],
@@ -183,6 +186,7 @@ SingleEvent.args = {
       time: {
         startDate: new Date(),
         startTime: "7:00 PM",
+        endDate: new Date()
       },
       visibility: "private",
       members: [],
