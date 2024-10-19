@@ -69,6 +69,7 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
+      action:[]
     },
     {
       id: "event_002",
@@ -112,6 +113,7 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
+      action:[]
     },
     {
       id: "event_003",
@@ -155,6 +157,7 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
+      action:[]
     },
   ],
   openEvent: (eventId: string) => {
@@ -214,6 +217,7 @@ SingleEvent.args = {
       media: [],
       transactions: [],
       deleted: false,
+      action:[]
     },
   ],
 };

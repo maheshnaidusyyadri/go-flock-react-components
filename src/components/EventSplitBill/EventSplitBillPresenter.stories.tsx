@@ -349,6 +349,7 @@ Default.args = {
       },
     ],
     deleted: false,
+    action:[]
   },
   transactions: [
     {

@@ -342,6 +342,7 @@ CreatingEvent.args = {
             },
           ],
           deleted: false,
+          action:[]
         });
         console.log("Event created (after delay)");
       }, 2000);
