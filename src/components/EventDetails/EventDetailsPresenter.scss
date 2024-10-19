@@ -295,3 +295,19 @@ body {
     }
 }
  
+.copy_event {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --border-color: transparent;
+    .copy_text {
+        font-family: $GoFlockFont;
+        font-size: 14px;
+        font-weight: 400;
+        color: $secondaryColor;
+        width: calc(100% - 40px);
+        padding-right: 10px;
+    }
+    .copy_icon {
+        --size:40px
+    }
+}

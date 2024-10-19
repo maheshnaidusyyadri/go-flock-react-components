@@ -41,7 +41,7 @@ import ProfileList from "../Common/Profiles/ProfileList";
 import MessageIcon from "../../images/icons/message_icon.svg";
 import InviteIcon from "../../images/icons/UserPlus.svg";
 import CopyIcon from "../../images/icons/copy.svg";
-
+import Copy from "../../images/icons/copy_white.svg";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -268,7 +268,18 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </>
           )}
         </IonGrid>
-        {["admin", "owner"].includes(eventRelation?.visitType) && (
+        {["admin"].includes(eventRelation?.visitType) && (
+          <IonFooter className="stickyFooter hasFooter">
+            <IonButton
+              className="primary-btn rounded"
+              onClick={() => inviteMembers(event.id)}
+            >
+              <IonImg src={Copy} />
+              Copy link
+            </IonButton>
+          </IonFooter>
+        )}
+        {["owner"].includes(eventRelation?.visitType) && (
           <IonFooter className="stickyFooter hasFooter">
             <IonButton
               className="primary-btn rounded"
