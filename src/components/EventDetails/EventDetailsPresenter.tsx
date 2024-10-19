@@ -29,9 +29,9 @@ import clockIcon from "../../images/icons/clock.svg";
 import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
 import addUserIcon from "../../images/icons/addUser.svg";
-//import userTickIcon from "../../images/icons/userTick.svg";
+import userTickIcon from "../../images/icons/userTick.svg";
 import userCrossIcon from "../../images/icons/userCross.svg";
-//import helpIcon from "../../images/icons/help.svg";
+import helpIcon from "../../images/icons/help.svg";
 import ProfileIcon from "../../images/profile.png";
 import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
@@ -39,6 +39,8 @@ import Footer from "../Footer/Footer";
 import DisplayDate from "../../utils/DisplayDate";
 import ProfileList from "../Common/Profiles/ProfileList";
 import MessageIcon from "../../images/icons/message_icon.svg";
+import { FormProvider, useForm } from "react-hook-form";
+import CustomInput from "../Common/CustomInput";
 import InviteIcon from "../../images/icons/UserPlus.svg";
 import CopyIcon from "../../images/icons/copy.svg";
 import Copy from "../../images/icons/copy_white.svg";
@@ -52,20 +54,36 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 }) => {
   const [isActive, setIsActive] = useState(false); // State to manage the class toggle
   const [isOpen, setIsOpen] = useState(false);
-
+  const [selectedEventValue, setSelectedEventValue] = useState<string>("");
+  const [eventErrorMessage, setErrorMessage] = useState<string>("");
+  const methods = useForm();
+  const { handleSubmit, formState: { errors }, register, } = useForm();
   const toggleClass = () => {
     setIsActive(!isActive); // Toggle the class
     setIsOpen(false);
   };
-  useEffect(()=>{
-    console.log('event-@@@@',event)
-  },[])
 
   const toggleClass2 = () => {
+    if (!selectedEventValue) {
+      setErrorMessage("Please select an option.");
+      return
+    }
     setIsActive(false);
     setIsOpen(!isOpen); // Toggle the class
   };
-
+  const handleRadioChange = (event: CustomEvent) => {
+    setSelectedEventValue(event.detail.value);
+    setErrorMessage("");
+    console.log("Selected value: ", event.detail.value);
+  };
+  const handleOnSubmit = (formData:any) => {
+    console.log("handleOnSubmit",formData)
+    setIsActive(false);
+    setIsOpen(!isOpen);
+  };
+  const onError = (error:any) => {
+    console.log("error",error)
+  };
   return (
     <>
       <IonContent className="eventDetails">
@@ -218,7 +236,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     <IonAvatar className="avatar">
                       <IonImg
                         className="ion-img"
-                        src={userCrossIcon}
+                        src={index==0?userTickIcon:index==1?userCrossIcon:index==2?helpIcon:userCrossIcon}
                         alt="Event"
                       />
                     </IonAvatar>
@@ -322,14 +340,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             Will you join the Event?
           </IonCardTitle>
           <IonRadioGroup
-            value=""
+            value={selectedEventValue}
             class="list_radio_group"
+            onIonChange={handleRadioChange}
           >
             <IonRadio value="Yes">Yes</IonRadio>
             <IonRadio value="No">No</IonRadio>
             <IonRadio value="NotSure">Not Sure</IonRadio>
           </IonRadioGroup>
-
+          {eventErrorMessage && (
+              <IonText class='error' color="danger" style={{ fontSize: 12 }}>{eventErrorMessage}</IonText>
+            )}
           <IonButton
             onClick={toggleClass2}
             className="primary-btn rounded"
@@ -352,7 +373,26 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           <IonCardTitle className="card_title">
             How many members will come with you?
           </IonCardTitle>
+          <FormProvider {...methods}>
           <IonList className="form-group">
+                    <CustomInput
+                      placeholder={'Enter number'}
+                      label={''}
+                      fieldName={'totalMembers'}
+                      isRequired={true}
+                      errors={errors}
+                      errorText={'Members'}
+                      register={register}
+                    />
+                  </IonList>
+                  <IonButton
+             onClick={handleSubmit(handleOnSubmit, onError)}
+            className="primary-btn rounded"
+          >
+            Complete
+          </IonButton>
+          </FormProvider>
+          {/* <IonList className="form-group">
             <IonInput
               label=""
               labelPlacement="stacked"
@@ -364,7 +404,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             className="primary-btn rounded"
           >
             Complete
-          </IonButton>
+          </IonButton> */}
         </IonCard>
       </IonGrid>
     </>
