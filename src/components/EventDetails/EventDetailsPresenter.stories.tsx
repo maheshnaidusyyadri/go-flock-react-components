@@ -72,7 +72,7 @@ EventGuestView.args = {
         phoneNumber: "+1987654321",
         roles: ["member"],
         rsvp: {
-          response: "maybe",
+          response: "not-attending",
           count: 1,
         },
       },
@@ -83,7 +83,7 @@ EventGuestView.args = {
         email: "eve.davis@example.com",
         roles: ["member"],
         rsvp: {
-          response: "not-attending",
+          response: "maybe",
           count: 1,
         },
       },
@@ -231,7 +231,7 @@ PublicEventHostView.args = {
         phoneNumber: "+1987654321",
         roles: ["member"],
         rsvp: {
-          response: "maybe",
+          response: "not-attending",
           count: 1,
         },
       },
@@ -242,7 +242,7 @@ PublicEventHostView.args = {
         email: "eve.davis@example.com",
         roles: ["member"],
         rsvp: {
-          response: "not-attending",
+          response: "maybe",
           count: 1,
         },
       },
@@ -390,7 +390,7 @@ PrivateEventHostView.args = {
         phoneNumber: "+1987654321",
         roles: ["member"],
         rsvp: {
-          response: "maybe",
+          response: "not-attending",
           count: 1,
         },
       },
@@ -401,7 +401,7 @@ PrivateEventHostView.args = {
         email: "eve.davis@example.com",
         roles: ["member"],
         rsvp: {
-          response: "not-attending",
+          response: "maybe",
           count: 1,
         },
       },

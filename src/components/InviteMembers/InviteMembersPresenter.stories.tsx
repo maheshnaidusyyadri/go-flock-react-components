@@ -21,21 +21,25 @@ const mockMembers: EventMember[] = [
     id: "member_001",
     name: "Alice Cooper",
     phoneNumber: "555-1234",
+    profileImg:"https://i.pravatar.cc/150?img=1"
   },
   {
     id: "member_002",
     name: "Bob Dylan",
     phoneNumber: "555-5678",
+    profileImg:"https://i.pravatar.cc/150?img=1"
   },
   {
     id: "member_003",
     name: "Charlie Brown",
     phoneNumber: "555-9012",
+    profileImg:"https://i.pravatar.cc/150?img=1"
   },
   {
     id: "member_004",
     name: "David Bowie",
     phoneNumber: "555-3456",
+    //profileImg:"https://i.pravatar.cc/150?img=1"
   },
 ];
 

@@ -11,7 +11,7 @@ import {
   IonImg,
 } from "@ionic/react";
 import { Contact, InviteMembersProps } from "@goflock/types/src/index";
-import memberDp from "../../images/member.png";
+//import memberDp from "../../images/member.png";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
 import ProfileList from "../Common/Profiles/ProfileList";
@@ -35,9 +35,12 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   useEffect(() => {
     getMembersFromContactList().then((contacts) => {
       setContacts(contacts);
+      //console.log('contactscontacts',contacts)
     });
   }, []);
-
+  const getDisplayName = (name: string) => {
+    return name.length > 1 ? name.slice(0, 2).toUpperCase() : name.toUpperCase();
+  }
   return (
     <>
       <IonContent className="invite_members">
@@ -74,10 +77,19 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                     slot="start"
                     className="dp"
                   >
-                    <IonImg
+                    {/* <IonImg
                       src={memberDp}
                       alt={`${member.name}'s profile`}
-                    />
+                    /> */}
+                    {member.profileImg?<IonImg
+                     src={member.profileImg}
+                      alt={`${member.name}'s profile`}
+                    />:
+                    <div>
+                    {getDisplayName(member.name)}
+                  </div>}
+
+
                     <span className="selection">
                       <img
                         src={Selected}

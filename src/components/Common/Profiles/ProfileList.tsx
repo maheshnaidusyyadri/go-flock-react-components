@@ -10,7 +10,10 @@ interface ProfileListProps {
 }
 
 const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
-  console.log(eventMembers);
+  console.log("eventMembers",eventMembers);
+  const getDisplayName = (name: any) => {
+    return name.length > 1 ? name.slice(0, 2).toUpperCase() : name.toUpperCase();
+  };
   return (
     <div className="profile-list">
       {eventMembers.map((eventMember) => (
@@ -19,12 +22,19 @@ const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
           className="profile-item"
         >
           <IonThumbnail className="profile-avatar-wrapper">
-            <IonAvatar className="profile-avatar">
-              <img
-                src={"https://i.pravatar.cc/150?img=1"}
-                alt={eventMember.name}
-              />
-            </IonAvatar>
+            
+            {eventMember.profileImg ? (
+                <IonAvatar className="profile-avatar">
+                <img
+                  src={eventMember.profileImg}
+                  alt={eventMember.name}
+                />
+              </IonAvatar>
+              ) : (
+                <div className="profile-avatar">
+                  {getDisplayName(eventMember?.name)}
+                </div>
+             )}
             <img
               src={Selected}
               alt="status"

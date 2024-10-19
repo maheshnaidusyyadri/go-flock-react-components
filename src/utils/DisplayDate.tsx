@@ -29,7 +29,11 @@ const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate,isTimeRequired=fals
   // If the start and end dates are the same, just display one
   return (
     <>
-      {formattedStartDate} - {formattedEndDate}
+      {formattedStartDate === formattedEndDate ? (
+        formattedStartDate // Display only start date if both are the same
+      ) : (
+        `${formattedStartDate} - ${formattedEndDate}` // Display both dates
+      )}
       {isTimeRequired && (
         <IonCardSubtitle className="event_subtitle">
         {startTime} - {endTime}
