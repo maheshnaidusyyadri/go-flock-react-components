@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./EventDetailsPresenter.scss";
 import {
   IonAvatar,
@@ -12,7 +12,6 @@ import {
   IonFooter,
   IonGrid,
   IonImg,
-  IonInput,
   IonItem,
   IonItemDivider,
   IonLabel,
@@ -93,6 +92,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           showMenu={true}
           showContactList={false}
           deleteEvent={deleteEvent}
+          eventType={event}
         />
         <IonGrid className="event_details">
           <IonCard className="event_info">

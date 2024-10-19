@@ -27,7 +27,7 @@ const PrivacyPolicyPresenter: React.FC<ProfileProps> = ({}) => {
        
         <IonHeader className="main-header">
           <div className="header-cnt">
-             <img src={backArrow} alt="Page Back" /> 
+             <img src={backArrow} alt="Page Back" onClick={onDismiss}/> 
             <IonTitle className="page-title">Privacy Policy</IonTitle>
           </div>
         </IonHeader>

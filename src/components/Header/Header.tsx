@@ -22,6 +22,7 @@ type HeaderProps = {
   className?: string;
   showGoBack? : boolean;
   deleteEvent?: (eventId: string) => void;
+  eventType?:any
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -35,6 +36,7 @@ const Header: React.FC<HeaderProps> = ({
   showLogo = false,
   showGoBack = true,
   deleteEvent,
+  eventType
  
 }) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
@@ -108,38 +110,17 @@ const Header: React.FC<HeaderProps> = ({
         <IonActionSheet
           trigger="open-action-sheet"
           className="action-menu-end"
-          buttons={[
-            {
-              text: "Copy link",
-              role: "destructive",
-              data: {
-                action: "delete",
-              },
+          buttons={eventType && eventType.action && eventType.action.map((act:any) => ({
+            text: act.text,
+            role: act.role,
+            handler: () => {
+              if (act.data.action) {
+                setShowFirstActionSheet(false);
+                setShowDeleteActionSheet(true);
+                console.log(showFirstActionSheet)
+              }
             },
-            {
-              text: "Edit Event",
-              data: {
-                action: "share",
-              },
-            },
-            {
-              text: "Add Checklist",
-              data: {
-                action: "cancel",
-              },
-            },
-            {
-              text: "Delete Event",
-              data: {
-                action: "cancel",
-              },
-              handler: () => {
-                console.log("Delete clicked " + showFirstActionSheet);
-                setShowFirstActionSheet(false); // Close the first action sheet
-                setShowDeleteActionSheet(true); // Open the delete action sheet
-              },
-            },
-          ]}
+          }))}
         ></IonActionSheet>
       )}
       <IonActionSheet

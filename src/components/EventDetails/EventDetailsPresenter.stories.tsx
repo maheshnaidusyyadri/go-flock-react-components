@@ -166,6 +166,16 @@ EventGuestView.args = {
       },
     ],
     deleted: false,
+    action:[
+      {
+        text: "Copy link",
+        role: "destructive",
+        data: {
+          action: "delete",
+        },
+      },
+    ]
+     
   },
   eventRelation: {
     roles: [],
@@ -325,6 +335,33 @@ PublicEventHostView.args = {
       },
     ],
     deleted: false,
+    action:[
+      {
+        text: "Copy link",
+        role: "destructive",
+        data: {
+          action: "delete",
+        },
+      },
+      {
+        text: "Edit Event",
+        data: {
+          action: "share",
+        },
+      },
+      {
+        text: "Add Checklist",
+        data: {
+          action: "cancel",
+        },
+      },
+      {
+        text: "Delete Event",
+        data: {
+          action: "cancel",
+        },
+      }
+    ]
   },
   eventRelation: {
     roles: [],
@@ -484,6 +521,40 @@ PrivateEventHostView.args = {
       },
     ],
     deleted: false,
+    action:[
+      {
+        text: "Copy link",
+        role: "destructive",
+        data: {
+          action: "delete",
+        },
+      },
+      {
+        text: "Edit Event",
+        data: {
+          action: "share",
+        },
+      },
+      {
+        text: "Add Checklist",
+        data: {
+          action: "cancel",
+        },
+      },
+      {
+        text: "Delete Event",
+        data: {
+          action: "cancel",
+        },
+      }
+      ,
+      {
+        text: "InviteGuest",
+        data: {
+          action: "cancel",
+        },
+      }
+    ]
   },
   eventRelation: {
     roles: [],

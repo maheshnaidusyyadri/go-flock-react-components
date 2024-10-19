@@ -86,7 +86,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                       alt={`${member.name}'s profile`}
                     />:
                     <div>
-                    {getDisplayName(member.name)}
+                    {getDisplayName(member.name||"")}
                   </div>}
 
 
