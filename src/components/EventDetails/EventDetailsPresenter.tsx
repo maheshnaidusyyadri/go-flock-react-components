@@ -41,6 +41,9 @@ import ProfileList from "../Common/Profiles/ProfileList";
 import MessageIcon from "../../images/icons/message_icon.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
+import InviteIcon from "../../images/icons/UserPlus.svg";
+import CopyIcon from "../../images/icons/copy.svg";
+
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -180,7 +183,21 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               )}
             </IonList>
           </IonCard>
-          {["admin", "owner"].includes(eventRelation?.visitType) && (
+          {["admin"].includes(eventRelation?.visitType) && (
+            <>
+              <IonItemDivider className="devider"></IonItemDivider>
+              <IonItem className="copy_event">
+                <IonText class="copy_text">
+                  This is a public event. Copy event link & share it with other! 🚀
+                </IonText>
+                <IonThumbnail class="copy_icon">
+                  <IonImg src={CopyIcon}></IonImg>
+                </IonThumbnail>
+              </IonItem>
+            </>
+          )} 
+          
+          {["owner"].includes(eventRelation?.visitType) && (
             <>
               <IonItemDivider className="devider"></IonItemDivider>
               <IonCard className="users_info">
@@ -275,6 +292,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               className="primary-btn rounded"
               onClick={() => inviteMembers(event.id)}
             >
+              <IonImg src={InviteIcon} />
               Invite Guests
             </IonButton>
           </IonFooter>
