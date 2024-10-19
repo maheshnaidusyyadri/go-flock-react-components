@@ -487,6 +487,6 @@ PrivateEventHostView.args = {
   },
   eventRelation: {
     roles: [],
-    visitType: "admin",
+    visitType: "owner",
   },
 };
