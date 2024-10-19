@@ -38,6 +38,7 @@ Default.args = {
       ],
       location: {
         name: "Office",
+        place:'',
       },
       time: {
         startDate: new Date(),
