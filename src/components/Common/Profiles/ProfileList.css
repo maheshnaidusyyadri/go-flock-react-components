@@ -19,13 +19,19 @@
 
 .profile-avatar-wrapper {
     position: relative;
+    --size: 40px;
 }
 
 .profile-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+
 
 .profile-name {
     margin-top: 5px;

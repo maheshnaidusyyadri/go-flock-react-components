@@ -796,3 +796,17 @@ input[type=number] {
     left: 16px;
     z-index: 99999;
  }
+ 
+.profile-dp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ddd;
+    font-family: $GoFlockFont;
+    font-weight: 600;
+    font-size: 14px;
+    color: $GoFlockColor;
+}

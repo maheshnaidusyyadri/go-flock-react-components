@@ -37,7 +37,7 @@ const PhoneBookPresenter: React.FC<InviteMembersProps> = ({
           showContactList={false}
           title={""}
         />
-        <div className="members_page">
+        <div className="members_page phone_book">
           <IonToolbar>
             <IonSearchbar
               value={searchText}

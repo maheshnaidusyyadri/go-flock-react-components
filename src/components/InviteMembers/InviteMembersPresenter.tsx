@@ -9,6 +9,7 @@ import {
   IonToolbar,
   IonThumbnail,
   IonImg,
+  IonAvatar,
 } from "@ionic/react";
 import { Contact, InviteMembersProps } from "@goflock/types/src/index";
 //import memberDp from "../../images/member.png";
@@ -85,9 +86,9 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                      src={member.profileImg}
                       alt={`${member.name}'s profile`}
                     />:
-                    <div>
-                    {getDisplayName(member.name||"")}
-                  </div>}
+                    <IonAvatar class="profile-dp">
+                      {getDisplayName(member.name||"")}
+                    </IonAvatar>}
 
 
                     <span className="selection">

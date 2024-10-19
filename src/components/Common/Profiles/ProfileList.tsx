@@ -31,9 +31,9 @@ const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
                 />
               </IonAvatar>
               ) : (
-                <div className="profile-avatar">
+                <IonAvatar className="profile-dp">
                   {getDisplayName(eventMember?.name)}
-                </div>
+                </IonAvatar>
              )}
             <img
               src={Selected}

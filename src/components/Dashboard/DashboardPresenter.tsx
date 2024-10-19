@@ -46,8 +46,8 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   return (
     <IonPage>
       <Header
-          showMenu={false}
-          showContactList={false}
+          showGoBack={false}
+          showLogo={true}
           title={""}
           showProfile={true}
         />
