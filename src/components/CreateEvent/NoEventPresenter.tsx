@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./CreateNewEventPresenter.scss";
 import {
-  IonButton, 
+  IonButton,
   IonLabel,
-  IonText,  
+  IonText,
   IonFooter,
-  IonGrid, 
+  IonGrid,
   IonImg,
 } from "@ionic/react";
 import {
@@ -14,18 +14,13 @@ import {
   Event,
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 // import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
-import "react-datepicker/dist/react-datepicker.css"; 
-import noEvent from "../../images/noEvent.svg"; 
+import noEvent from "../../images/noEvent.svg";
 import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 
 // import Header from '../Header/Header';
 
-const NoEvent: React.FC<CreateNewEventProps> = ({
-  createEvent,
-  goToEvent,
-}) => {
-  
+const NoEvent: React.FC<CreateNewEventProps> = ({ createEvent, goToEvent }) => {
   // const [eventName, setEventName] = useState<string>("");
   // const [eventType, setEventType] = useState<EventType>();
   // const [eventDescription, setEventDescription] = useState<string>("");
@@ -44,7 +39,7 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
 
   // Handle creating an event
   const handleCreateEvent = async () => {
-//    if (!selectedLocation || eventName.trim() === "") return;
+    //    if (!selectedLocation || eventName.trim() === "") return;
 
     setIsCreating(true);
     const draftEvent: DraftEvent = {
@@ -60,7 +55,7 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
         endTime,
       },
       name: "",
-      type: "birthday"
+      type: "birthday",
     };
 
     try {
@@ -74,28 +69,32 @@ const NoEvent: React.FC<CreateNewEventProps> = ({
   };
 
   return (
-    <>  
-      <Header         
-        title=''
+    <>
+      <Header
+        title=""
         showMenu={false}
-        showContactList={false} 
-        showProfile = {true} 
+        showContactList={false}
+        showProfile={true}
       />
-      <IonGrid
-        className="action_screen h-auto"        
-      >
+      <IonGrid className="action_screen h-auto">
         <IonGrid className="action_screen_cnt">
-          <IonImg className="ion-img"
+          <IonImg
+            className="ion-img"
             alt="Successfully Created Event"
             src={noEvent}
           />
-          <IonLabel className="action_title">Planning a party with friends?</IonLabel>
+          <IonLabel className="action_title">
+            Planning a party with friends?
+          </IonLabel>
           <IonText className="action_info">
-            Create an event and share with your friends in an easy and simple way
+            Create an event and share with your friends in an easy and simple
+            way
           </IonText>
         </IonGrid>
         <IonFooter className="action_screen_buttons">
-          <IonButton onClick={handleCreateEvent} className="primary-btn">Create Event</IonButton> 
+          <IonButton onClick={handleCreateEvent} className="primary-btn">
+            Create Event
+          </IonButton>
         </IonFooter>
       </IonGrid>
     </>

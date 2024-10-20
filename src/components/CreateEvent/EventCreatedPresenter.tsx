@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./CreateNewEventPresenter.scss";
 import {
-  IonButton, 
+  IonButton,
   IonLabel,
-  IonText,  
+  IonText,
   IonFooter,
-  IonGrid, 
+  IonGrid,
   IonImg,
 } from "@ionic/react";
 import {
@@ -14,8 +14,6 @@ import {
   DraftEvent,
   Event,
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
-// import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
-import "react-datepicker/dist/react-datepicker.css"; 
 import Success from "../../images/celebration.svg";
 import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
@@ -26,8 +24,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
   createEvent,
   goToEvent,
 }) => {
-  const [] =
-    useState<LocationInfo | null>();
+  const [] = useState<LocationInfo | null>();
   // const [eventName, setEventName] = useState<string>("");
   // const [eventType, setEventType] = useState<EventType>();
   // const [eventDescription, setEventDescription] = useState<string>("");
@@ -62,7 +59,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
         endTime,
       },
       name: "",
-      type: "birthday"
+      type: "birthday",
     };
 
     try {
@@ -76,21 +73,23 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({
   };
 
   return (
-    <>  
-      <Header         
-        title=''
+    <>
+      <Header
+        title=""
         showMenu={false}
-        showContactList={false} 
-        showProfile = {true} 
+        showContactList={false}
+        showProfile={true}
       />
-      <IonGrid
-        className="action_screen has_header">
+      <IonGrid className="action_screen has_header">
         <IonGrid className="action_screen_cnt">
-          <IonImg className="ion-img"
+          <IonImg
+            className="ion-img"
             alt="Successfully Created Event"
             src={Success}
           />
-          <IonLabel className="action_title">Successfully Created Event</IonLabel>
+          <IonLabel className="action_title">
+            Successfully Created Event
+          </IonLabel>
           <IonText className="action_info">
             Event Created! 🎉 Now, let's make it unforgettable. Invite friends
             and let the good times roll!

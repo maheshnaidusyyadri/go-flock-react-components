@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PhoneNumberAuthPresenter.scss";
 import {
-  IonButton,  
+  IonButton,
   IonImg,
   IonContent,
   IonLabel,
@@ -9,19 +9,12 @@ import {
   IonCard,
   IonGrid,
 } from "@ionic/react";
-import {
-  PhoneNumberAuthProps,
-} from "@goflock/types/src/index"; // Adjust the import based on your file structure
-import "react-datepicker/dist/react-datepicker.css"; 
+import { PhoneNumberAuthProps } from "@goflock/types/src/index"; // Adjust the import based on your file structure
 import Welcome from "../../images/welcome.svg";
- 
 
 // import Header from '../Header/Header';
 
-const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({
-  
-}) => {
-  
+const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({}) => {
   // const [eventName, setEventName] = useState<string>("");
   // const [eventType, setEventType] = useState<EventType>();
   // const [eventDescription, setEventDescription] = useState<string>("");
@@ -35,9 +28,10 @@ const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({
   const [endTime, setEndTime] = useState<string>("12:00 PM");
 
   return (
-    <>   
-      <IonContent scrollY={false}
-        className='action_screen ion-padding'
+    <>
+      <IonContent
+        scrollY={false}
+        className="action_screen ion-padding"
         fullscreen
       >
         <IonGrid className="onboarding_sec">
@@ -53,11 +47,7 @@ const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({
             </IonText>
           </IonCard>
         </IonGrid>
-        <IonButton
-          expand="block"
-          shape="round"
-          className="primary-btn"
-        >
+        <IonButton expand="block" shape="round" className="primary-btn">
           Get Started
         </IonButton>
       </IonContent>

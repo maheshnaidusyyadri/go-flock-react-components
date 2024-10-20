@@ -40,15 +40,13 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
   );
-  const [phone, setPhone] = useState<string>(
-    profile.phone || ""
-  );
+  const [phone, setPhone] = useState<string>(profile.phone || "");
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("ProfilePresenter mounted",profile);
+    console.log("ProfilePresenter mounted", profile);
   }, []);
 
   const handlePreferredNameChange = async () => {
@@ -102,20 +100,17 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setProfile] = useState(false);
   const profileData = {
-    
-      id: "1",
-      prefName: "John Doe",
-      isIntroShown: true,
-      pictureUrl: "https://example.com/profile.jpg",
-      preferences: {
-        smsNotifications: true,
-        emailNotifications: false,
-        pushNotifications: true,
-      },
-      phone:'+1 978 569 7852'
-    
+    id: "1",
+    prefName: "John Doe",
+    isIntroShown: true,
+    pictureUrl: "https://example.com/profile.jpg",
+    preferences: {
+      smsNotifications: true,
+      emailNotifications: false,
+      pushNotifications: true,
+    },
+    phone: "+1 978 569 7852",
   };
- 
 
   // const setPreferredName = async (name) => {
   //   console.log("Preferred Name Set:", name);
@@ -132,10 +127,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
         />
         <IonContent className="ion-padding">
           <IonCard className="profile_card">
-            <IonImg
-              className="dp"
-              src={ProfileDp}
-            ></IonImg>
+            <IonImg className="dp" src={ProfileDp}></IonImg>
             <IonTitle className="name">{preferredName}</IonTitle>
             <IonText className="number">{phone}</IonText>
           </IonCard>
@@ -144,62 +136,32 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             <IonTitle className="list-title">Setting Options</IonTitle>
             <IonList className="list_wrap">
               <IonItem className="list_item" onClick={() => setProfile(true)}>
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={ProfileIcon}
-                    alt="Profile"
-                  />
+                <IonThumbnail slot="start" className="dp">
+                  <IonImg className="ion-img" src={ProfileIcon} alt="Profile" />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Profile</IonTitle>
                 </IonLabel>
               </IonItem>
               <IonItem className="list_item" onClick={() => setIsOpen(true)}>
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={PrivacyIcon}
-                    alt="Privacy"
-                  />
+                <IonThumbnail slot="start" className="dp">
+                  <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Privacy</IonTitle>
                 </IonLabel>
               </IonItem>
 
-              <IonItem
-                className="list_item"
-                id="open-logout-action"
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={LogOutIcon}
-                    alt="Log Out"
-                  />
+              <IonItem className="list_item" id="open-logout-action">
+                <IonThumbnail slot="start" className="dp">
+                  <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Log Out</IonTitle>
                 </IonLabel>
               </IonItem>
-              <IonItem
-                className="list_item delete"
-                id="open-delete-action"
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
+              <IonItem className="list_item delete" id="open-delete-action">
+                <IonThumbnail slot="start" className="dp">
                   <IonImg
                     className="ion-img"
                     src={DeleteIcon}
@@ -269,21 +231,12 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             </IonText>
           )}
 
-          <IonLoading
-            isOpen={isLoading}
-            message={"Please wait..."}
-          />
+          <IonLoading isOpen={isLoading} message={"Please wait..."} />
         </IonContent>
-        <IonContent
-          className="profile_edit_cnt"
-          style={{ display: "none" }}
-        >
+        <IonContent className="profile_edit_cnt" style={{ display: "none" }}>
           <IonCard className="profile_edit_card">
             <span className="dp_wrap">
-              <IonImg
-                className="dp"
-                src={ProfileDp}
-              ></IonImg>
+              <IonImg className="dp" src={ProfileDp}></IonImg>
               <span className="dp_edit"></span>
             </span>
           </IonCard>
@@ -307,10 +260,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                   />
                 </div>
                 <div className="terms">
-                  <IonToggle
-                    className="ion-toggle"
-                    labelPlacement="start"
-                  >
+                  <IonToggle className="ion-toggle" labelPlacement="start">
                     Get remainders, notifications via SMS.
                   </IonToggle>
                 </div>
@@ -374,34 +324,31 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
         ]}
       ></IonActionSheet>
 
-      {isProfileOpen&&
-      <>
-         <IonLabel className="modal_close" onClick={() => setProfile(false)}>
+      {isProfileOpen && (
+        <>
+          <IonLabel className="modal_close" onClick={() => setProfile(false)}>
             <img src={backArrow} alt="Page Back" />
           </IonLabel>
-       
-         
+
           <IonModal isOpen={isProfileOpen}>
             <EditProfilePresenter
-             profile={profileData}
-           // setPreferredName={setPreferredName}
-            /> 
+              profile={profileData}
+              // setPreferredName={setPreferredName}
+            />
           </IonModal>
-       </>
-       }
-        {isOpen&&
-      <>
-         <IonLabel className="modal_close" onClick={() => setIsOpen(false)}>
+        </>
+      )}
+      {isOpen && (
+        <>
+          <IonLabel className="modal_close" onClick={() => setIsOpen(false)}>
             <img src={backArrow} alt="Page Back" />
           </IonLabel>
-       
-         
+
           <IonModal isOpen={isOpen}>
-            <PrivacyPolicyPresenter /> 
+            <PrivacyPolicyPresenter />
           </IonModal>
-       </>
-       }
-    
+        </>
+      )}
     </>
   );
 };

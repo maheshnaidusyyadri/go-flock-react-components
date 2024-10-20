@@ -17,6 +17,8 @@ import {
   IonTab,
   IonTabBar,
   IonTabButton,
+  IonModal,
+  IonContent,
 } from "@ionic/react";
 import {
  // EventSplitBillProps,
@@ -91,6 +93,8 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     throw new Error("Function not implemented.");
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+  
   return (
     <>  
       <Header         
@@ -125,7 +129,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                       onIonChange={(e) => setEventName(e.detail.value!)}
                     />
                   </IonList>
-                  <IonList className="form-group">
+                  <IonList className="form-group" onClick={() => setIsOpen(true)}>
                     <IonInput
                       value=''
                       label="Paid by*"
@@ -326,6 +330,25 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
           )}
         </IonFooter>
       </IonGrid> 
+
+      <IonModal isOpen={isOpen}>
+          {/* <IonHeader>
+            <IonToolbar>
+              <IonTitle>Modal</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader> */}
+          <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+          <IonContent className="ion-padding">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
+              reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui.
+              Eaque, dicta.
+            </p>
+          </IonContent>
+        </IonModal>
     </>
   );
 };
