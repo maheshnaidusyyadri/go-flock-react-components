@@ -5,8 +5,8 @@ import {
   IonCardTitle,
   IonCardContent,
   IonList,
-  IonContent,
   IonPage,
+  IonGrid,
 } from "@ionic/react";
 import { EventListProps } from "@goflock/types/src/index";
 import EventItem from "../Common/Events/EventItem";
@@ -21,14 +21,14 @@ const EventListPresenter: React.FC<EventListProps> = ({
     <IonPage>
       <Header
         //title={event.name}
-        title="" 
+        title=""
         showLogo={true}
         showContactList={false}
         showGoBack={false}
         showProfile={true}
       />
 
-      <IonContent className="events_sec">
+      <IonGrid className="events_sec">
         <IonCardHeader className="events_head">
           <IonCardTitle className="events_title">
             {profile.prefName}'s Events
@@ -50,7 +50,7 @@ const EventListPresenter: React.FC<EventListProps> = ({
             </IonList>
           )}
         </IonCardContent>
-      </IonContent>
+      </IonGrid>
     </IonPage>
   );
 };
