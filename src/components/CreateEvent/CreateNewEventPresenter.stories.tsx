@@ -219,7 +219,7 @@ CreatingEvent.args = {
           description: "An annual gathering of the extended family.",
           location: {
             name: "New York, NY",
-            place:"",
+           // place:"",
             lat: 40.712776,
             long: -74.005974,
           },

@@ -41,7 +41,7 @@ EventGuestView.args = {
     ],
     description: "An annual gathering of the extended family.",
     location: {
-      place:"Astoria Park",
+     // place:"Astoria Park",
       name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
@@ -210,7 +210,7 @@ PublicEventHostView.args = {
     type: "reunion",
     description: "An annual gathering of the extended family.",
     location: {
-      place:"Astoria Park",
+     // place:"Astoria Park",
       name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
@@ -396,7 +396,7 @@ PrivateEventHostView.args = {
     ],
     description: "An annual gathering of the extended family.",
     location: {
-      place:"Astoria Park",
+      //place:"Astoria Park",
       name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,

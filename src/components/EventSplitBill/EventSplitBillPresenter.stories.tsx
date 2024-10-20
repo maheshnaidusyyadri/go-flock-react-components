@@ -226,7 +226,7 @@ Default.args = {
     ],
     location: {
       name: "Grandma's House",
-      place:"",
+     // place:"",
       lat: 40.712776,
       long: -74.005974,
     },
