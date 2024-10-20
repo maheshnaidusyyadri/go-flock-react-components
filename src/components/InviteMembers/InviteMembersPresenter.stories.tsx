@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 import InviteMembersPresenter from "./InviteMembersPresenter";
-import { EventMember } from "@goflock/types";
+import { EventMember } from "@goflock/types/src/index";
 
 // Mock data
 const mockAdmins: EventMember[] = [
@@ -21,19 +21,19 @@ const mockMembers: EventMember[] = [
     id: "member_001",
     name: "Alice Cooper",
     phoneNumber: "555-1234",
-    profileImg:"https://i.pravatar.cc/150?img=1"
+    profileImg: "https://i.pravatar.cc/150?img=1",
   },
   {
     id: "member_002",
     name: "Bob Dylan",
     phoneNumber: "555-5678",
-    profileImg:"https://i.pravatar.cc/150?img=1"
+    profileImg: "https://i.pravatar.cc/150?img=1",
   },
   {
     id: "member_003",
     name: "Charlie Brown",
     phoneNumber: "555-9012",
-    profileImg:"https://i.pravatar.cc/150?img=1"
+    profileImg: "https://i.pravatar.cc/150?img=1",
   },
   {
     id: "member_004",
