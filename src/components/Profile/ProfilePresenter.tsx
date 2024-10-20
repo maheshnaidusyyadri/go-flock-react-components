@@ -27,15 +27,14 @@ import ProfileIcon from "../../images/icons/profile-circle.svg";
 import PrivacyIcon from "../../images/icons/shield-tick.svg";
 import LogOutIcon from "../../images/icons/logOut.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
-import PrivacyPolicyPresenter from "./PrivacyPolicyPresenter";
+import PrivacyPolicy from "./PrivacyPolicy";
 import backArrow from "../.././images/icons/back-arrow.svg";
-import EditProfilePresenter from "./EditProfilePresenter";
-import { EditProfile } from "./ProfilePresenter.stories";
+import EditProfile from "./EditProfile";
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
   setPreferredName,
   logout,
-  // setIsIntroShown,
+  setSMSPreference,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
@@ -99,7 +98,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
   // };
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setProfile] = useState(false);
-  
+
   // const setPreferredName = async (name) => {
   //   console.log("Preferred Name Set:", name);
   //   // Here you can add the logic to update the preferred name in your state or API
@@ -319,8 +318,11 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           </IonLabel>
 
           <IonModal isOpen={isProfileOpen}>
-            <EditProfilePresenter
-              profile={EditProfile.args.profile}/>
+            <EditProfile
+              profile={profile}
+              setPreferredName={setPreferredName}
+              setSMSPreference={setSMSPreference}
+            />
           </IonModal>
         </>
       )}
@@ -331,7 +333,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           </IonLabel>
 
           <IonModal isOpen={isOpen}>
-            <PrivacyPolicyPresenter />
+            <PrivacyPolicy />
           </IonModal>
         </>
       )}

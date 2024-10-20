@@ -43,7 +43,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "9:00 AM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "public",
       members: [],
@@ -67,7 +67,6 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
     {
       id: "event_002",
@@ -86,7 +85,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "7:00 PM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "private",
       members: [],
@@ -110,7 +109,6 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
   ],
   myEvents: [
@@ -131,7 +129,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "12:00 PM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "private",
       members: [],
@@ -155,7 +153,6 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
   ],
   createNewEvent: () => {

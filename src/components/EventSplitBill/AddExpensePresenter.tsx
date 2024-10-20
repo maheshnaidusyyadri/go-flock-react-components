@@ -31,6 +31,8 @@ import PercentIcon from "../../images/icons/Percent.svg";
 import ProfileIcon from "../../images/profile.png";
 
 import Header from "../Header/Header";
+import CustomInput from "../Common/CustomInput";
+import { FormProvider, useForm } from "react-hook-form";
 
 interface EventSplitBillProps {
   members: {
@@ -58,6 +60,13 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   const totalSteps = 3; // Define the total number of steps
 
   // Function to go to the next step
+  const methods = useForm();
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm();
+
   const nextStep = () => {
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
@@ -88,6 +97,10 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     throw new Error("Function not implemented.");
   }
 
+  const onError = (error: any) => {
+    console.log("onError", error);
+  };
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -100,8 +113,62 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
       />
       <IonGrid className="expense_page">
         <IonList className="stepper-container">{renderSteps()}</IonList>
-        <IonGrid className="stepper-content">
-          <IonGrid className={`step-content ${getStepClass(1)}`}>
+        <FormProvider {...methods}>
+          <IonGrid className="stepper-content">
+            {currentStep == 1 && (
+              <IonGrid className={`step-content ${getStepClass(1)}`}>
+                <IonGrid className="form-container">
+                  <IonCardContent className="pad0">
+                    <IonList className="form-group">
+                      <CustomInput
+                        placeholder={"Expense Details"}
+                        label={"Expense details"}
+                        fieldName={"billName"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Expense Details"}
+                        register={register}
+                      />
+                    </IonList>
+                    <IonList className="form-group">
+                      <CustomInput
+                        placeholder={"Total Amount"}
+                        label={"Total Amount"}
+                        fieldName={"totalAmount"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Total Amount"}
+                        register={register}
+                      />
+                    </IonList>
+                    <IonList
+                      className="form-group"
+                      onClick={() => setIsOpen(true)}
+                    >
+                      <IonInput
+                        value=""
+                        label="Paid by*"
+                        labelPlacement="stacked"
+                        placeholder="You"
+                        onIonChange={(e) => setEventName(e.detail.value!)}
+                      />
+                    </IonList>
+                    <IonList className="form-group">
+                      <IonInput
+                        value=""
+                        label="Split among*"
+                        labelPlacement="stacked"
+                        placeholder="Choose members"
+                        onIonChange={(e) => setEventName(e.detail.value!)}
+                        readonly
+                      />
+                    </IonList>
+                  </IonCardContent>
+                </IonGrid>
+              </IonGrid>
+            )}
+
+            {/* <IonGrid className={`step-content ${getStepClass(1)}`}>
             <IonGrid className="form-container">
               <IonCardContent className="pad0">
                 <IonList className="form-group">
@@ -115,6 +182,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                 </IonList>
                 <IonList className="form-group">
                   <IonInput
+                  type="number"
                     value=""
                     label="Total Amount*"
                     labelPlacement="stacked"
@@ -143,152 +211,154 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                 </IonList>
               </IonCardContent>
             </IonGrid>
-          </IonGrid>
-          <IonGrid className={`step-content ${getStepClass(2)}`}>
-            <IonTabs className="expense_tabs">
-              <IonTabBar slot="top">
-                <IonTabButton tab="home">
-                  <IonImg src={EqualIcon} />
-                </IonTabButton>
-                <IonTabButton tab="radio">
-                  <IonImg src={DollarIcon} />
-                </IonTabButton>
-                <IonTabButton tab="library">
-                  <IonImg src={PercentIcon} />
-                </IonTabButton>
-              </IonTabBar>
+          </IonGrid>*/}
+            <IonGrid className={`step-content ${getStepClass(2)}`}>
+              <IonTabs className="expense_tabs">
+                <IonTabBar slot="top">
+                  <IonTabButton tab="home">
+                    <IonImg src={EqualIcon} />
+                  </IonTabButton>
+                  <IonTabButton tab="radio">
+                    <IonImg src={DollarIcon} />
+                  </IonTabButton>
+                  <IonTabButton tab="library">
+                    <IonImg src={PercentIcon} />
+                  </IonTabButton>
+                </IonTabBar>
 
-              <IonTab tab="home">
-                <div id="home-page">
-                  <IonList className="list_wrap">
-                    {members.map((member, index) => (
-                      <IonItem key={index} className="user_item">
-                        <IonThumbnail slot="start" className="dp">
-                          <IonImg
-                            src={ProfileIcon}
-                            alt={`${member.name}'s profile`}
+                <IonTab tab="home">
+                  <div id="home-page">
+                    <IonList className="list_wrap">
+                      {members.map((member, index) => (
+                        <IonItem key={index} className="user_item">
+                          <IonThumbnail slot="start" className="dp">
+                            <IonImg
+                              src={ProfileIcon}
+                              alt={`${member.name}'s profile`}
+                            />
+                          </IonThumbnail>
+                          <IonLabel className="user_name">
+                            {member.name}
+                            {member.phone}
+                          </IonLabel>
+                          <IonText class="amout">{member.expanse}</IonText>
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </div>
+                </IonTab>
+                <IonTab tab="radio">
+                  <div id="radio-page">
+                    <IonList className="list_wrap">
+                      {members.map((member, index) => (
+                        <IonItem key={index} className="user_item">
+                          <IonThumbnail slot="start" className="dp">
+                            <IonImg
+                              src={ProfileIcon}
+                              alt={`${member.name}'s profile`}
+                            />
+                          </IonThumbnail>
+                          <IonLabel className="user_name">
+                            {member.name}
+                            {member.phone}
+                          </IonLabel>
+                          <IonInput
+                            className="ion_input prefix"
+                            value=""
+                            label=""
+                            labelPlacement="stacked"
+                            placeholder="0.00"
+                            type="number" // Ensures numeric input
+                            inputmode="decimal"
+                            onIonChange={(e) => setEventName(e.detail.value!)}
                           />
-                        </IonThumbnail>
-                        <IonLabel className="user_name">
-                          {member.name}
-                          {member.phone}
-                        </IonLabel>
-                        <IonText class="amout">{member.expanse}</IonText>
-                      </IonItem>
-                    ))}
-                  </IonList>
-                </div>
-              </IonTab>
-              <IonTab tab="radio">
-                <div id="radio-page">
-                  <IonList className="list_wrap">
-                    {members.map((member, index) => (
-                      <IonItem key={index} className="user_item">
-                        <IonThumbnail slot="start" className="dp">
-                          <IonImg
-                            src={ProfileIcon}
-                            alt={`${member.name}'s profile`}
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </div>
+                </IonTab>
+                <IonTab tab="library">
+                  <div id="library-page">
+                    <IonList className="list_wrap">
+                      {members.map((member, index) => (
+                        <IonItem key={index} className="user_item">
+                          <IonThumbnail slot="start" className="dp">
+                            <IonImg
+                              src={ProfileIcon}
+                              alt={`${member.name}'s profile`}
+                            />
+                          </IonThumbnail>
+                          <IonLabel className="user_name">
+                            {member.name}
+                            {member.phone}
+                          </IonLabel>
+                          <IonInput
+                            class="ion_input safix"
+                            value=""
+                            label=""
+                            labelPlacement="stacked"
+                            placeholder="0"
+                            type="number" // Ensures numeric input
+                            inputmode="decimal"
+                            onIonChange={(e) => setEventName(e.detail.value!)}
                           />
-                        </IonThumbnail>
-                        <IonLabel className="user_name">
-                          {member.name}
-                          {member.phone}
-                        </IonLabel>
-                        <IonInput
-                          className="ion_input prefix"
-                          value=""
-                          label=""
-                          labelPlacement="stacked"
-                          placeholder="0.00"
-                          type="number" // Ensures numeric input
-                          inputmode="decimal"
-                          onIonChange={(e) => setEventName(e.detail.value!)}
-                        />
-                      </IonItem>
-                    ))}
-                  </IonList>
-                </div>
-              </IonTab>
-              <IonTab tab="library">
-                <div id="library-page">
-                  <IonList className="list_wrap">
-                    {members.map((member, index) => (
-                      <IonItem key={index} className="user_item">
-                        <IonThumbnail slot="start" className="dp">
-                          <IonImg
-                            src={ProfileIcon}
-                            alt={`${member.name}'s profile`}
-                          />
-                        </IonThumbnail>
-                        <IonLabel className="user_name">
-                          {member.name}
-                          {member.phone}
-                        </IonLabel>
-                        <IonInput
-                          class="ion_input safix"
-                          value=""
-                          label=""
-                          labelPlacement="stacked"
-                          placeholder="0"
-                          type="number" // Ensures numeric input
-                          inputmode="decimal"
-                          onIonChange={(e) => setEventName(e.detail.value!)}
-                        />
-                      </IonItem>
-                    ))}
-                  </IonList>
-                </div>
-              </IonTab>
-            </IonTabs>
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </div>
+                </IonTab>
+              </IonTabs>
+            </IonGrid>
+            <IonGrid className={`step-content ${getStepClass(3)}`}>
+              <IonList className="list_wrap">
+                {members.map((member, index) => (
+                  <IonItem key={index} className="user_item">
+                    <IonThumbnail slot="start" className="dp">
+                      <IonImg
+                        src={ProfileIcon}
+                        alt={`${member.name}'s profile`}
+                      />
+                    </IonThumbnail>
+                    <IonLabel className="user_name">
+                      {member.name}
+                      {member.phone}
+                    </IonLabel>
+                    <IonText class="amout" className={member.className}>
+                      {member.expanse}
+                    </IonText>
+                  </IonItem>
+                ))}
+              </IonList>
+            </IonGrid>
           </IonGrid>
-          <IonGrid className={`step-content ${getStepClass(3)}`}>
-            <IonList className="list_wrap">
-              {members.map((member, index) => (
-                <IonItem key={index} className="user_item">
-                  <IonThumbnail slot="start" className="dp">
-                    <IonImg
-                      src={ProfileIcon}
-                      alt={`${member.name}'s profile`}
-                    />
-                  </IonThumbnail>
-                  <IonLabel className="user_name">
-                    {member.name}
-                    {member.phone}
-                  </IonLabel>
-                  <IonText class="amout" className={member.className}>
-                    {member.expanse}
-                  </IonText>
-                </IonItem>
-              ))}
-            </IonList>
-          </IonGrid>
-        </IonGrid>
-        <IonFooter className="actions-container stickyFooter">
-          <IonButton
-            className="primary-btn actions"
-            onClick={prevStep}
-            disabled={currentStep === 1}
-          >
-            Previous
-          </IonButton>
-          <IonButton
-            className="primary-btn actions"
-            onClick={nextStep}
-            disabled={currentStep === totalSteps}
-          >
-            Next
-          </IonButton>
-          {currentStep === totalSteps && (
+          <IonFooter className="actions-container stickyFooter">
             <IonButton
-              className="primary-btn save"
-              // onClick={() => handleCreateEvent()}
-              expand="block"
-              //disabled={isCreating || !selectedLocation || !eventName}
+              className="primary-btn actions"
+              onClick={prevStep}
+              disabled={currentStep === 1}
             >
-              Save & Back To Home
+              Previous
             </IonButton>
-          )}
-        </IonFooter>
+            <IonButton
+              className="primary-btn actions"
+              onClick={handleSubmit(nextStep, onError)}
+              //onClick={nextStep}
+              disabled={currentStep === totalSteps}
+            >
+              Next
+            </IonButton>
+            {currentStep === totalSteps && (
+              <IonButton
+                className="primary-btn save"
+                // onClick={() => handleCreateEvent()}
+                expand="block"
+                //disabled={isCreating || !selectedLocation || !eventName}
+              >
+                Save & Back To Home
+              </IonButton>
+            )}
+          </IonFooter>
+        </FormProvider>
       </IonGrid>
 
       <IonModal isOpen={isOpen}>

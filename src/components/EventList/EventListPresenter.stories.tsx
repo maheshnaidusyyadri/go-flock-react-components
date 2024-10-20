@@ -45,7 +45,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "10:00 AM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "private",
       members: [],
@@ -69,7 +69,6 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
     {
       id: "event_002",
@@ -89,7 +88,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "6:00 PM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "public",
       members: [],
@@ -113,7 +112,6 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
     {
       id: "event_003",
@@ -133,7 +131,7 @@ Default.args = {
       time: {
         startDate: new Date(),
         startTime: "6:00 PM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "public",
       members: [],
@@ -157,7 +155,6 @@ Default.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
   ],
   openEvent: (eventId: string) => {
@@ -193,7 +190,7 @@ SingleEvent.args = {
       time: {
         startDate: new Date(),
         startTime: "7:00 PM",
-        endDate: new Date()
+        endDate: new Date(),
       },
       visibility: "private",
       members: [],
@@ -217,7 +214,6 @@ SingleEvent.args = {
       media: [],
       transactions: [],
       deleted: false,
-      action:[]
     },
   ],
 };

@@ -1,9 +1,9 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventSplitBillPresenter";
 import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
-import EventBillPresenter from "./EventBillPresenter"; 
-import AddExpensePresenter from "./AddExpensePresenter"; 
-import ExpensesPresenter from "./ExpensesPresenter"; 
+import EventBillPresenter from "./EventBillPresenter";
+import AddExpensePresenter from "./AddExpensePresenter";
+import ExpensesPresenter from "./ExpensesPresenter";
 import WhoPaidPresenter from "./WhoPaidPresenter";
 import SplitBetweenPresenter from "./SplitBetweenPresenter";
 
@@ -16,200 +16,210 @@ const Template: StoryFn<EventSplitBillProps> = (args) => (
   <EventSplitBillPresenter {...args} />
 );
 
-export const EventBill = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
-  <EventBillPresenter {...args} />
-);
-EventBill.args = {
-  
-}
+export const EventBill = (
+  args: JSX.IntrinsicAttributes & EventSplitBillProps
+) => <EventBillPresenter {...args} />;
+EventBill.args = {};
 
-export const Expenses = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
-  <ExpensesPresenter members={[
-    { 
-      name: 'Jackson Graham', 
-      phone:'', 
-      expanse: '+833.33', 
-      className: 'green'
-    },
-    { 
-      name: 'Jane Cooper', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: 'Cameron Williamson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: 'Jenny Wilson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: 'Kristin Watson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: '',
-      phone:'(307) 555-0133', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-  ]} {...args} />
+export const Expenses = (
+  args: JSX.IntrinsicAttributes & EventSplitBillProps
+) => (
+  <ExpensesPresenter
+    members={[
+      {
+        name: "Jackson Graham",
+        phone: "",
+        expanse: "+833.33",
+        className: "green",
+      },
+      {
+        name: "Jane Cooper",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "Cameron Williamson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "Jenny Wilson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "Kristin Watson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "",
+        phone: "(307) 555-0133",
+        expanse: "$166.67",
+        className: "red",
+      },
+    ]}
+    {...args}
+  />
 );
-Expenses.args = {
- 
-}
+Expenses.args = {};
 
-export const AddExpense = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
-  <AddExpensePresenter members={[
-    { 
-      name: 'Jackson Graham', 
-      phone:'', 
-      expanse: '+833.33', 
-      className: 'green'
-    },
-    { 
-      name: 'Jane Cooper', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: 'Cameron Williamson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: 'Jenny Wilson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: 'Kristin Watson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      name: '',
-      phone:'(307) 555-0133', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-  ]} {...args} />
+export const AddExpense = (
+  args: JSX.IntrinsicAttributes & EventSplitBillProps
+) => (
+  <AddExpensePresenter
+    members={[
+      {
+        name: "Jackson Graham",
+        phone: "",
+        expanse: "+833.33",
+        className: "green",
+      },
+      {
+        name: "Jane Cooper",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "Cameron Williamson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "Jenny Wilson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "Kristin Watson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        name: "",
+        phone: "(307) 555-0133",
+        expanse: "$166.67",
+        className: "red",
+      },
+    ]}
+    {...args}
+  />
 );
-AddExpense.args = {
-  
-}
+AddExpense.args = {};
 
-export const WhoPaid = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
-  <WhoPaidPresenter members={[
-    { 
-      id: "member_001",
-      name: 'Jackson Graham', 
-      phone:'', 
-      expanse: '+833.33', 
-      className: 'green'
-    },
-    { 
-      id: "member_002",
-      name: 'Jane Cooper', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_003",
-      name: 'Cameron Williamson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_004",
-      name: 'Jenny Wilson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_005",
-      name: 'Kristin Watson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_006",
-      name: '',
-      phone:'(307) 555-0133', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-  ]} {...args} />
+export const WhoPaid = (
+  args: JSX.IntrinsicAttributes & EventSplitBillProps
+) => (
+  <WhoPaidPresenter
+    members={[
+      {
+        id: "member_001",
+        name: "Jackson Graham",
+        phone: "",
+        expanse: "+833.33",
+        className: "green",
+      },
+      {
+        id: "member_002",
+        name: "Jane Cooper",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_003",
+        name: "Cameron Williamson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_004",
+        name: "Jenny Wilson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_005",
+        name: "Kristin Watson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_006",
+        name: "",
+        phone: "(307) 555-0133",
+        expanse: "$166.67",
+        className: "red",
+      },
+    ]}
+    {...args}
+  />
 );
-WhoPaid.args = {
-  
-}
+WhoPaid.args = {};
 
-export const SplitBetween = (args: JSX.IntrinsicAttributes & EventSplitBillProps) => (
-  <SplitBetweenPresenter members={[
-    { 
-      id: "member_001",
-      name: 'Jackson Graham', 
-      phone:'', 
-      expanse: '+833.33', 
-      className: 'green'
-    },
-    { 
-      id: "member_002",
-      name: 'Jane Cooper', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_003",
-      name: 'Cameron Williamson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_004",
-      name: 'Jenny Wilson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_005",
-      name: 'Kristin Watson', 
-      phone:'', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-    { 
-      id: "member_006",
-      name: '',
-      phone:'(307) 555-0133', 
-      expanse: '$166.67', 
-      className: 'red'
-    },
-  ]} {...args} />
+export const SplitBetween = (
+  args: JSX.IntrinsicAttributes & EventSplitBillProps
+) => (
+  <SplitBetweenPresenter
+    members={[
+      {
+        id: "member_001",
+        name: "Jackson Graham",
+        phone: "",
+        expanse: "+833.33",
+        className: "green",
+      },
+      {
+        id: "member_002",
+        name: "Jane Cooper",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_003",
+        name: "Cameron Williamson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_004",
+        name: "Jenny Wilson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_005",
+        name: "Kristin Watson",
+        phone: "",
+        expanse: "$166.67",
+        className: "red",
+      },
+      {
+        id: "member_006",
+        name: "",
+        phone: "(307) 555-0133",
+        expanse: "$166.67",
+        className: "red",
+      },
+    ]}
+    {...args}
+  />
 );
-SplitBetween.args = {
-  
-}
+SplitBetween.args = {};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -226,7 +236,7 @@ Default.args = {
     ],
     location: {
       name: "Grandma's House",
-     // place:"",
+      // place:"",
       lat: 40.712776,
       long: -74.005974,
     },
@@ -349,7 +359,6 @@ Default.args = {
       },
     ],
     deleted: false,
-    action:[]
   },
   transactions: [
     {
@@ -444,7 +453,3 @@ ErrorState.args = {
     throw new Error("Failed to delete transaction");
   },
 };
-
- 
-
-

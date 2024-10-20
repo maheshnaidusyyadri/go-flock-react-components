@@ -1,8 +1,8 @@
 import { StoryFn } from "@storybook/react";
 import ProfilePresenter from "./ProfilePresenter";
 import { ProfileProps } from "@goflock/types";
-import EditProfilePresenter from "./EditProfilePresenter";
-import PrivacyPolicyPresenter from "./PrivacyPolicyPresenter";
+import EditProfilePresenter from "./EditProfile";
+import PrivacyPolicyPresenter from "./PrivacyPolicy";
 
 export default {
   title: "GoFlock/Presenters/ProfilePresenter",
@@ -25,7 +25,7 @@ Default.args = {
       emailNotifications: false,
       pushNotifications: true,
     },
-    phone:'+1 978 569 7852'
+    phone: "+1 978 569 7852",
   },
   setPreferredName: async (prefName: string) => {
     console.log("Preferred name set to:", prefName);
@@ -43,7 +43,6 @@ Default.args = {
   //   console.log("User logged out");
   // },
 };
-
 
 export const LoadingState = Template.bind({});
 LoadingState.args = {
@@ -87,14 +86,11 @@ EditProfile.args = {
       emailNotifications: false,
       pushNotifications: true,
     },
-    phone:'+1 978 569 7852'
+    phone: "+1 978 569 7852",
   },
-}
+};
 
 export const PrivacyPolicy = (args: JSX.IntrinsicAttributes & ProfileProps) => (
   <PrivacyPolicyPresenter {...args} />
 );
-PrivacyPolicy.args = {
-  
-}
-
+PrivacyPolicy.args = {};

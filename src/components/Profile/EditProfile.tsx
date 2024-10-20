@@ -10,20 +10,23 @@ import {
   IonToggle,
 } from "@ionic/react";
 import ProfileDp from "../../images/profile.png";
-import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
+import { Profile } from "@goflock/types";
 
-const EditProfilePresenter: React.FC<ProfileProps> = ({
-  //profile = { prefName: "", phoneNumber: "" },  // Default profile object with fallback values
+type EditProfileProps = {
+  profile: Profile;
+  setPreferredName: (prefName: string) => Promise<boolean>;
+  setSMSPreference: (smsNotifications: boolean) => Promise<boolean>;
+};
+
+const EditProfile: React.FC<EditProfileProps> = ({
   profile,
   setPreferredName,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
   );
-  const [phone, setPhone] = useState<string>(
-    profile.phone || ""
-  );
+  const [phone, setPhone] = useState<string>(profile.phone || "");
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the hidden file input
@@ -42,15 +45,17 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
       setIsLoading(false);
     }
   };
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
-      console.log('Selected file:', file.name);
+      console.log("Selected file:", file.name);
       const base64 = await convertFileToBase64(file);
       setImage(base64); // Set the selected image as the new profile picture
-      console.log('SelectedImage',base64);
+      console.log("SelectedImage", base64);
     } else {
-      console.log('No file selected');
+      console.log("No file selected");
     }
   };
 
@@ -75,25 +80,25 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
       />
       {/* Hidden file input for image upload */}
       <input
-          type="file"
-          accept="image/*"
-          style={{ display: 'none' }} // Hide the file input
-          ref={fileInputRef} // Assign ref to the file input
-          onChange={handleFileChange} // Handle file change
-        />
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }} // Hide the file input
+        ref={fileInputRef} // Assign ref to the file input
+        onChange={handleFileChange} // Handle file change
+      />
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
-            <IonImg
-              className="dp"
-              src={image || ProfileDp}
-            ></IonImg>
-            <span className="dp_edit" onClick={() => fileInputRef.current?.click()}></span>
+            <IonImg className="dp" src={image || ProfileDp}></IonImg>
+            <span
+              className="dp_edit"
+              onClick={() => fileInputRef.current?.click()}
+            ></span>
           </span>
         </IonCard>
         <div className="profile_info_card">
           <div className="form-container">
-            <IonCardContent className="pad0"> 
+            <IonCardContent className="pad0">
               <div className="form-group">
                 <IonInput
                   label="Name"
@@ -113,10 +118,7 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
                 />
               </div>
               <div className="terms">
-                <IonToggle
-                  className="ion-toggle"
-                  labelPlacement="start"
-                >
+                <IonToggle className="ion-toggle" labelPlacement="start">
                   Get remainders, notifications via SMS.
                 </IonToggle>
               </div>
@@ -136,7 +138,7 @@ const EditProfilePresenter: React.FC<ProfileProps> = ({
   );
 };
 
-export default EditProfilePresenter;
+export default EditProfile;
 function setError(_arg0: null) {
   throw new Error("Function not implemented.");
 }

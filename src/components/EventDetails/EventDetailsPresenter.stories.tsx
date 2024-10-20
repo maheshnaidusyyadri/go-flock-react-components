@@ -41,7 +41,7 @@ EventGuestView.args = {
     ],
     description: "An annual gathering of the extended family.",
     location: {
-     // place:"Astoria Park",
+      // place:"Astoria Park",
       name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
@@ -50,7 +50,7 @@ EventGuestView.args = {
       startDate: new Date(),
       startTime: "12:00 PM",
       endTime: "4:00 PM",
-      endDate: new Date()
+      endDate: new Date(),
     },
     visibility: "private",
     members: [
@@ -166,16 +166,6 @@ EventGuestView.args = {
       },
     ],
     deleted: false,
-    action:[
-      {
-        text: "Copy link",
-        role: "destructive",
-        data: {
-          action: "delete",
-        },
-      },
-    ]
-     
   },
   eventRelation: {
     roles: [],
@@ -210,7 +200,7 @@ PublicEventHostView.args = {
     type: "reunion",
     description: "An annual gathering of the extended family.",
     location: {
-     // place:"Astoria Park",
+      // place:"Astoria Park",
       name: "New York, NY",
       lat: 40.712776,
       long: -74.005974,
@@ -219,7 +209,7 @@ PublicEventHostView.args = {
       startDate: new Date(),
       startTime: "12:00 PM",
       endTime: "4:00 PM",
-      endDate: new Date()
+      endDate: new Date(),
     },
     visibility: "private",
     members: [
@@ -335,33 +325,6 @@ PublicEventHostView.args = {
       },
     ],
     deleted: false,
-    action:[
-      {
-        text: "Copy link",
-        role: "destructive",
-        data: {
-          action: "delete",
-        },
-      },
-      {
-        text: "Edit Event",
-        data: {
-          action: "share",
-        },
-      },
-      {
-        text: "Add Checklist",
-        data: {
-          action: "cancel",
-        },
-      },
-      {
-        text: "Delete Event",
-        data: {
-          action: "cancel",
-        },
-      }
-    ]
   },
   eventRelation: {
     roles: [],
@@ -405,7 +368,7 @@ PrivateEventHostView.args = {
       startDate: new Date(),
       startTime: "12:00 PM",
       endTime: "4:00 PM",
-      endDate: new Date()
+      endDate: new Date(),
     },
     visibility: "private",
     members: [
@@ -521,40 +484,6 @@ PrivateEventHostView.args = {
       },
     ],
     deleted: false,
-    action:[
-      {
-        text: "Copy link",
-        role: "destructive",
-        data: {
-          action: "delete",
-        },
-      },
-      {
-        text: "Edit Event",
-        data: {
-          action: "share",
-        },
-      },
-      {
-        text: "Add Checklist",
-        data: {
-          action: "cancel",
-        },
-      },
-      {
-        text: "Delete Event",
-        data: {
-          action: "cancel",
-        },
-      }
-      ,
-      {
-        text: "InviteGuest",
-        data: {
-          action: "cancel",
-        },
-      }
-    ]
   },
   eventRelation: {
     roles: [],
