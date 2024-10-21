@@ -14,6 +14,7 @@ import {
   IonText,
   IonImg,
   IonGrid,
+  IonCard,
 } from "@ionic/react";
 import { chevronDownOutline } from "ionicons/icons";
 import { PhoneNumberAuthProps } from "@goflock/types/src/index";
@@ -21,7 +22,7 @@ import Logo from "../../images/sign-logo.png";
 import Mobile from "../../images/otp_varification.svg";
 
 import OtpInput from "./OtpInput";
-import { FormProvider,useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
 
 type Country = {
@@ -35,7 +36,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   verifyOTP,
   onSuccessfulVerification,
 }) => {
-  const [countryCode,setCountryCode] = useState("+1"); // Default to USA
+  const [countryCode, setCountryCode] = useState("+1"); // Default to USA
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isActive] = useState(false);
   //const [isValidate] = useState(false);
@@ -45,9 +46,12 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     null
   ); // Error state for OTP verification
   const methods = useForm();
-  const { handleSubmit, formState: { errors },register } = useForm();
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm();
   const handleGenerateOTP = () => {
-
     if (phoneNumber.trim()) {
       sendOTP(`${countryCode}${phoneNumber}`)
         .then(() => {
@@ -84,7 +88,9 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   };
 
   const resendOTP = () => {
-    alert(`OTP has been sent successfully to your registered number: ${countryCode} ${phoneNumber}`);
+    alert(
+      `OTP has been sent successfully to your registered number: ${countryCode} ${phoneNumber}`
+    );
   };
 
   const countries: Country[] = [
@@ -105,7 +111,11 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
       code: "+1-268",
       flag: "https://flagcdn.com/w320/ag.png",
     },
-    { name: "Anguilla", code: "+1 264", flag: "https://flagcdn.com/w320/ai.png" },
+    {
+      name: "Anguilla",
+      code: "+1 264",
+      flag: "https://flagcdn.com/w320/ai.png",
+    },
     { name: "Armenia", code: "+374", flag: "https://flagcdn.com/w320/am.png" },
     { name: "Angola", code: "+244", flag: "https://flagcdn.com/w320/ao.png" },
     { name: "Argentina", code: "+54", flag: "https://flagcdn.com/w320/ar.png" },
@@ -131,7 +141,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
 
   // Handle selecting a country
   const handleCountrySelect = (country: Country) => {
-    setCountryCode(country.code)
+    setCountryCode(country.code);
     setSelectedCountry(country);
     setIsListOpen(false); // Close the list after selection
   };
@@ -148,7 +158,8 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
 
   return (
     <IonPage className="authpage">
-      <IonContent scrollY={false}
+      <IonContent
+        scrollY={false}
         className={`generate_cnt ion-padding ${isActive ? "" : "active"}`}
         fullscreen
         hidden
@@ -156,102 +167,97 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         {!otpSent ? (
           <>
             <IonGrid className="auth_sec">
-              <IonGrid className="auth_cnt">
-                <IonImg
-                  className="logo"
-                  alt="Go Flock"
-                  src={Logo}
-                />
-                <IonLabel className="auth-title">Enter Your Phone Number</IonLabel>
+              <IonCard className="auth_cnt">
+                <IonImg className="logo" alt="Go Flock" src={Logo} />
+                <IonLabel className="auth-title">
+                  Enter Your Phone Number
+                </IonLabel>
                 <IonText className="subtitle">
                   We will send you a 6-digit verification code
                 </IonText>
-              </IonGrid> 
-            <FormProvider {...methods}>
-              <div className="country_selection">
-                <IonContent scrollY={false} >
-                  {/* Display the selected country field that toggles the list */}
-                  <label>Country</label>
-                  <IonItem
-                    button
-                    onClick={() => setIsListOpen(!isListOpen)}
-                  >
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <img
-                        src={selectedCountry.flag}
-                        alt={selectedCountry.name}
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "50%",
-                          marginRight: "5px",
-                          objectFit: "cover",
-                        }}
+              </IonCard>
+              <FormProvider {...methods}>
+                <div className="country_selection">
+                  <IonContent scrollY={false}>
+                    {/* Display the selected country field that toggles the list */}
+                    <label>Country</label>
+                    <IonItem button onClick={() => setIsListOpen(!isListOpen)}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={selectedCountry.flag}
+                          alt={selectedCountry.name}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "50%",
+                            marginRight: "5px",
+                            objectFit: "cover",
+                          }}
+                        />
+                        <IonLabel>
+                          {selectedCountry.name} ({selectedCountry.code})
+                        </IonLabel>
+                      </div>
+                      <IonIcon
+                        className="ion-icon"
+                        icon={chevronDownOutline}
+                        slot="end"
                       />
-                      <IonLabel>
-                        {selectedCountry.name} ({selectedCountry.code})
-                      </IonLabel>
-                    </div>
-                    <IonIcon
-                      className="ion-icon"
-                      icon={chevronDownOutline}
-                      slot="end"
-                    />
-                  </IonItem>
+                    </IonItem>
 
-                  {/* Modal that acts as the dropdown list */}
-                  <IonModal
-                    isOpen={isListOpen}
-                    onDidDismiss={() => setIsListOpen(false)}
-                    className="countries_list"
-                  >
-                    <IonContent>
-                      <h4 className="country-label">Country codes</h4>
-                      <IonSearchbar
-                        placeholder="Search country"
-                        value={searchTerm}
-                        onIonInput={(e) => setSearchTerm(e.detail.value!)}
-                      />
-                      <IonList>
-                        {filteredCountries.map((country) => (
-                          <IonItem
-                            button
-                            key={country.code}
-                            onClick={() => handleCountrySelect(country)}
-                          >
-                            <img
-                              src={country.flag}
-                              alt={country.name}
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "50%",
-                                marginRight: "5px",
-                                objectFit: "cover",
-                              }}
-                            />
-                            <IonLabel>
-                              {country.name} ({country.code})
-                            </IonLabel>
-                          </IonItem>
-                        ))}
-                      </IonList>
-                    </IonContent>
-                  </IonModal>
-                </IonContent>
-              </div>
-              <div className="form-group">
-                <CustomInput
-                  placeholder={'Enter mobile number'}
-                  label={'Mobile Number'}
-                  fieldName={'mobile'}
-                  isRequired={true}
-                  errors={errors}
-                  errorText={'Mobile Number'}
-                  register={register}
-                  onInputChange={(e)=> setPhoneNumber(e.detail.value!)}
+                    {/* Modal that acts as the dropdown list */}
+                    <IonModal
+                      isOpen={isListOpen}
+                      onDidDismiss={() => setIsListOpen(false)}
+                      className="countries_list"
+                    >
+                      <IonContent>
+                        <h4 className="country-label">Country codes</h4>
+                        <IonSearchbar
+                          placeholder="Search country"
+                          value={searchTerm}
+                          onIonInput={(e) => setSearchTerm(e.detail.value!)}
+                        />
+                        <IonList>
+                          {filteredCountries.map((country) => (
+                            <IonItem
+                              button
+                              key={country.code}
+                              onClick={() => handleCountrySelect(country)}
+                            >
+                              <img
+                                src={country.flag}
+                                alt={country.name}
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "50%",
+                                  marginRight: "5px",
+                                  objectFit: "cover",
+                                }}
+                              />
+                              <IonLabel>
+                                {country.name} ({country.code})
+                              </IonLabel>
+                            </IonItem>
+                          ))}
+                        </IonList>
+                      </IonContent>
+                    </IonModal>
+                  </IonContent>
+                </div>
+                <div className="form-group">
+                  <CustomInput
+                    placeholder={"Enter mobile number"}
+                    label={"Mobile Number"}
+                    fieldName={"mobile"}
+                    isRequired={true}
+                    errors={errors}
+                    errorText={"Mobile Number"}
+                    register={register}
+                    onInputChange={(e) => setPhoneNumber(e.detail.value!)}
                   />
-              </div>
+                </div>
               </FormProvider>
             </IonGrid>
             <IonButton
@@ -267,22 +273,19 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         ) : (
           <>
             <IonGrid className="varification_sec">
-              <IonGrid className="auth_cnt">
+              <IonCard className="auth_cnt">
                 <IonLabel className="auth-title">Verify Account</IonLabel>
-                <IonImg
-                  className="mobile"
-                  alt="Go Flock"
-                  src={Mobile}
-                />
-                <IonText class="vatification-title">Mobile Verification</IonText>
+                <IonImg className="mobile" alt="Go Flock" src={Mobile} />
+                <IonText class="vatification-title">
+                  Mobile Verification
+                </IonText>
                 <IonText className="subtitle">
                   To continue, please enter the OTP we just sent to{" "}
-                  <IonText className="mobile_number">{countryCode} {phoneNumber}</IonText> 
+                  <IonText className="mobile_number">
+                    {countryCode} {phoneNumber}
+                  </IonText>
                 </IonText>
-                <OtpInput
-                  length={6}
-                  onChange={handleOtpChange}
-                />
+                <OtpInput length={6} onChange={handleOtpChange} />
 
                 {verificationError && (
                   <IonText className="otp_error">{verificationError}</IonText>
@@ -290,7 +293,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 <IonText className="otp_resend" onClick={resendOTP}>
                   Didn't receive the code? <a>Resend</a>
                 </IonText>
-              </IonGrid>
+              </IonCard>
             </IonGrid>
             <IonButton
               expand="block"
@@ -303,8 +306,6 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           </>
         )}
       </IonContent>
-       
-      
     </IonPage>
   );
 };
