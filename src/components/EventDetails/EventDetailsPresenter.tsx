@@ -42,6 +42,7 @@ import CustomInput from "../Common/CustomInput";
 import InviteIcon from "../../images/icons/UserPlus.svg";
 import CopyIcon from "../../images/icons/copy.svg";
 import Copy from "../../images/icons/copy_white.svg";
+import AddressDisplay from "../Common/AddressDisplay";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -153,7 +154,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
-                      {event.location.name}
+                      <AddressDisplay address={event.location.name} />
                     </IonCardTitle>
                   </IonCardContent>
                 </IonCard>

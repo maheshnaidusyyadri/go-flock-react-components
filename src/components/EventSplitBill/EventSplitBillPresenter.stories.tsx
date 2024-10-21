@@ -234,6 +234,15 @@ Default.args = {
       "+1234567890",
       "alice.smith@example.com",
     ],
+    counters: {
+      totalDeclinedCount: 0,
+      totalAdultsCount: 0,
+      totalAttendingCount: 0,
+      totalChildrenCount: 0,
+      totalMaybeCount: 0,
+      totalInvitedCount: 0,
+      totalRsvpCount: 0,
+    },
     location: {
       name: "Grandma's House",
       // place:"",

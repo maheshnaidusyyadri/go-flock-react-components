@@ -11,7 +11,11 @@ import {
   IonThumbnail,
   IonImg,
 } from "@ionic/react";
-import { EventSettingsProps, Currency, EventVisibility } from "@goflock/types";
+import {
+  EventSettingsProps,
+  Currency,
+  EventVisibility,
+} from "@goflock/types/src/index";
 import Header from "../Header/Header";
 import galleryIcon from "../../images/icons/gallery.svg";
 import billsIcon from "../../images/icons/bills.svg";
@@ -156,7 +160,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonToggle
               checked={true}
-           //   onIonChange={handleToggleSplitBills}
+              //   onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
           </IonItem>
@@ -175,7 +179,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonToggle
               checked={true}
-            //  onIonChange={handleToggleSplitBills}
+              //  onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
           </IonItem>
@@ -233,7 +237,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               <IonSelectOption value="hidden">Hidden</IonSelectOption>
             </IonSelect>
           </IonItem>
-        </IonItem> 
+        </IonItem>
       </IonCardContent>
       <Footer
         eventId={event.id}

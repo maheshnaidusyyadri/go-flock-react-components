@@ -6,7 +6,7 @@ import {
   Profile,
   EventSettings,
   Event,
-} from "@goflock/types";
+} from "@goflock/types/src/index";
 
 export default {
   title: "GoFlock/Presenters/EventSettingsPresenter",
@@ -33,6 +33,15 @@ const mockEvent: Event = {
   type: "anniversary",
   description: "Annual family gathering at the park.",
   hostedBy: "Me & Family",
+  counters: {
+    totalAdultsCount: 0,
+    totalAttendingCount: 0,
+    totalChildrenCount: 0,
+    totalDeclinedCount: 0,
+    totalInvitedCount: 0,
+    totalMaybeCount: 0,
+    totalRsvpCount: 0,
+  },
   memberInvitationContactReference: ["+1234567890", "alice.smith@example.com"],
   location: { name: "Central Park" },
   time: { startDate: new Date(), startTime: "12:00 PM" },
