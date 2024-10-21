@@ -549,6 +549,27 @@ body {
         width: 130px;
         height: 4px;
       }
+      .action-sheet-title {
+        color: $GoFlockColor;
+        text-align: center;
+        font-family: $GoFlockFont;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 30px;
+        margin-bottom: 4px;
+        background: transparent;
+        padding: 0 0 30px 0;
+        margin: 0;
+        .action-sheet-sub-title {
+          color: $secondaryColor;
+          text-align: center;
+          font-family: $GoFlockFont;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+        }
+      }
+
       .action-sheet-button {
         height: 50px;
         width: 100%;
@@ -559,7 +580,7 @@ body {
           justify-content: center;
           font-family: $GoFlockFont;
           font-size: 14px;
-          font-weight: normal;
+          font-weight: 500;
           color: $GoFlockColor;
         }
         &.fill-btn {
@@ -570,6 +591,9 @@ body {
             color: $white;
           }
         }
+        &.dark-btn {
+          background: $GoFlockColor;
+        }
         &.rounded {
           border-radius: 52px;
         }
@@ -577,6 +601,14 @@ body {
     }
     .action-sheet-group-cancel {
       display: none;
+    }
+  }
+}
+
+.action-menu-end {
+  &.delete {
+    background: url("../images/icons/delete_icon.svg") no-repeat center top;
+    .action-sheet-title {
     }
   }
 }
@@ -776,7 +808,7 @@ input[type="number"] {
   position: sticky;
   top: 100%;
   bottom: 0;
-  box-shadow: none;
+  box-shadow: none !important;
   padding: 16px;
   .primary-btn {
     margin: 0;

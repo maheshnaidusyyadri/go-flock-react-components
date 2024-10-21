@@ -268,6 +268,8 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
       <IonActionSheet
         trigger="open-logout-action"
         className="action-menu-end"
+        header="Log out"
+        subHeader="Are you sure you want to log out?"
         buttons={[
           {
             text: "Log Out",
@@ -275,7 +277,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             data: {
               action: "Log Out",
             },
-            cssClass: "fill-btn",
+            cssClass: "fill-btn dark-btn",
             handler: () => {
               logout();
             },
@@ -292,6 +294,8 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
       <IonActionSheet
         trigger="open-delete-action"
         className="action-menu-end"
+        header="Delete Account"
+        subHeader="Do you really want to delete the account permanently?"
         buttons={[
           {
             text: "Delete Account",
