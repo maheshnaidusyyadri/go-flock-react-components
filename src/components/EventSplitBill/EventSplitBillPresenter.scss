@@ -25,6 +25,9 @@ body {
     .dp {
       --size: 30px;
       margin-right: 10px;
+      ion-img {
+        border-radius: 50%;
+      }
     }
     .user_name {
       font-family: $GoFlockFont;

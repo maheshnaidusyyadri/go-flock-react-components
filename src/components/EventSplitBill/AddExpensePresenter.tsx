@@ -74,7 +74,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
     const shareAmount =
       selectedMember.length > 0
-        ? validSelectedAmount / selectedMember.length
+        ? (validSelectedAmount / selectedMember.length).toFixed(2)
         : 0;
     selectedMember.forEach((memberItem: any) => {
       memberItem.amount = shareAmount;
@@ -218,7 +218,9 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                         readonly={true}
                       />
                       {selectedPaidBy && (
-                        <IonText>{selectedPaidBy?.name}</IonText>
+                        <IonText className="selected_value">
+                          {selectedPaidBy?.name}
+                        </IonText>
                       )}
                     </IonList>
                     <IonList
@@ -236,29 +238,33 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                         readonly={true}
                       />
                       {selectedMember && selectedMember.length > 0 && (
-                        <IonText>{selectedMember.length}</IonText>
+                        <IonText className="selected_value">
+                          {selectedMember.length}
+                        </IonText>
                       )}
-                      {selectedMember.map((eventMember: any) => (
-                        <div key={eventMember.id} className="profile-item">
-                          <IonThumbnail className="profile-avatar-wrapper">
-                            {eventMember.profileImg ? (
-                              <IonAvatar className="profile-avatar">
-                                <img
-                                  src={eventMember.profileImg}
-                                  alt={eventMember.name}
-                                />
-                              </IonAvatar>
-                            ) : (
-                              <IonAvatar className="profile-dp">
-                                {getDisplayName(eventMember?.name)}
-                              </IonAvatar>
-                            )}
-                          </IonThumbnail>
-                          <IonLabel className="profile-name">
-                            {eventMember.name}
-                          </IonLabel>
-                        </div>
-                      ))}
+                      <IonGrid class="profile-list">
+                        {selectedMember.map((eventMember: any) => (
+                          <div key={eventMember.id} className="profile-item">
+                            <IonThumbnail className="profile-avatar-wrapper">
+                              {eventMember.profileImg ? (
+                                <IonAvatar className="profile-avatar">
+                                  <img
+                                    src={eventMember.profileImg}
+                                    alt={eventMember.name}
+                                  />
+                                </IonAvatar>
+                              ) : (
+                                <IonAvatar className="profile-dp">
+                                  {getDisplayName(eventMember?.name)}
+                                </IonAvatar>
+                              )}
+                            </IonThumbnail>
+                            <IonLabel className="profile-name">
+                              {eventMember.name}
+                            </IonLabel>
+                          </div>
+                        ))}
+                      </IonGrid>
                     </IonList>
                   </IonCardContent>
                 </IonGrid>
@@ -292,7 +298,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                             <IonLabel className="user_name">
                               {Item.name || Item.phoneNumber}
                             </IonLabel>
-                            <IonText class="amout">{Item.amount}</IonText>
+                            <IonText class="amout">${Item.amount}</IonText>
                           </IonItem>
                         ))}
                       </IonList>
@@ -364,21 +370,18 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
 
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
-                {members.map((member, index) => (
+                {selectedMember.map((Item: any, index: any) => (
                   <IonItem key={index} className="user_item">
                     <IonThumbnail slot="start" className="dp">
                       <IonImg
-                        src={ProfileIcon}
-                        alt={`${member.name}'s profile`}
+                        src={Item.profileImg}
+                        alt={`${Item.name}'s profile`}
                       />
                     </IonThumbnail>
                     <IonLabel className="user_name">
-                      {member.name}
-                      {member.phone}
+                      {Item.name || Item.phoneNumber}
                     </IonLabel>
-                    <IonText class="amout" className={member.className}>
-                      {member.expanse}
-                    </IonText>
+                    <IonText class="amout">${Item.amount}</IonText>
                   </IonItem>
                 ))}
               </IonList>
