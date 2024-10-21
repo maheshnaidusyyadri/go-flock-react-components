@@ -10,10 +10,13 @@ import {
   IonThumbnail,
   IonImg,
   IonAvatar,
+  IonFooter,
+  IonButton,
 } from "@ionic/react";
 import { Contact, InviteMembersProps } from "@goflock/types/src/index";
 //import memberDp from "../../images/member.png";
 import Selected from "../../images/icons/selected.svg";
+import GoArrow from "../../images/icons/GoArrow.svg";
 import Header from "../Header/Header";
 import ProfileList from "../Common/Profiles/ProfileList";
 
@@ -40,8 +43,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     });
   }, []);
   const getDisplayName = (name: string) => {
-    return name.length > 1 ? name.slice(0, 2).toUpperCase() : name.toUpperCase();
-  }
+    return name.length > 1
+      ? name.slice(0, 2).toUpperCase()
+      : name.toUpperCase();
+  };
   return (
     <>
       <IonContent className="invite_members">
@@ -59,10 +64,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
             />
           </IonToolbar>
           <div className="users_list">
-            <ProfileList
-              eventId={eventId}
-              eventMembers={members}
-            />
+            <ProfileList eventId={eventId} eventMembers={members} />
           </div>
           <span className="devider"></span>
           <div className="menbers_list">
@@ -74,28 +76,24 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                   className="list_item"
                   onClick={() => addMember(member)}
                 >
-                  <IonThumbnail
-                    slot="start"
-                    className="dp"
-                  >
+                  <IonThumbnail slot="start" className="dp">
                     {/* <IonImg
                       src={memberDp}
                       alt={`${member.name}'s profile`}
                     /> */}
-                    {member.profileImg?<IonImg
-                     src={member.profileImg}
-                      alt={`${member.name}'s profile`}
-                    />:
-                    <IonAvatar class="profile-dp">
-                      {getDisplayName(member.name||"")}
-                    </IonAvatar>}
-
+                    {member.profileImg ? (
+                      <IonImg
+                        src={member.profileImg}
+                        alt={`${member.name}'s profile`}
+                      />
+                    ) : (
+                      <IonAvatar class="profile-dp">
+                        {getDisplayName(member.name || "")}
+                      </IonAvatar>
+                    )}
 
                     <span className="selection">
-                      <img
-                        src={Selected}
-                        alt="Select"
-                      />
+                      <img src={Selected} alt="Select" />
                     </span>
                   </IonThumbnail>
                   <IonLabel className="member-info">
@@ -107,6 +105,15 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
             </IonList>
           </div>
         </div>
+        <IonFooter class="stickyFooter">
+          <IonButton className="goarrow">
+            <IonImg src={GoArrow} />
+          </IonButton>
+          {/* <IonButton className="secondary-btn rounded">
+            Send Invitation Link
+          </IonButton>
+          <IonButton className="primary-btn rounded">Done</IonButton> */}
+        </IonFooter>
       </IonContent>
     </>
   );
