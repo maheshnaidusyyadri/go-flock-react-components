@@ -166,6 +166,10 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     }
     setIsOpen(false);
   };
+  const handleSave = () => {
+    console.log(selectedPaidBy);
+    alert("Saved Successfully");
+  };
 
   return (
     <>
@@ -397,7 +401,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
             {currentStep === totalSteps && (
               <IonButton
                 className="primary-btn save"
-                // onClick={() => handleCreateEvent()}
+                onClick={() => handleSave()}
                 expand="block"
                 //disabled={isCreating || !selectedLocation || !eventName}
               >
@@ -409,7 +413,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
       </IonGrid>
 
       <IonGrid className={`custom-modal ${isOpen ? "open" : ""}`}>
-        {isOpen && (
+        {true && (
           <>
             <SelectMembers
               title={isFromPaidBy ? "Who paid" : "Choose members"}
