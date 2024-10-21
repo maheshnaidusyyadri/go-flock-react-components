@@ -33,14 +33,12 @@ const EditProfile: React.FC<EditProfileProps> = ({
   const [image, setImage] = useState<string | null>(null); // State to hold the selected image
   const handlePreferredNameChange = async () => {
     setIsLoading(true);
-    setError(null);
     try {
       const success = await setPreferredName(preferredName);
       if (!success) {
         throw new Error("Failed to set preferred name");
       }
     } catch (err: any) {
-      setError(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -89,7 +87,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
-            <IonImg className="dp" src={image || ProfileDp}></IonImg>
+            <IonImg
+              className="dp"
+              src={image || ProfileDp}
+            ></IonImg>
             <span
               className="dp_edit"
               onClick={() => fileInputRef.current?.click()}
@@ -118,7 +119,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
                 />
               </div>
               <div className="terms">
-                <IonToggle className="ion-toggle" labelPlacement="start">
+                <IonToggle
+                  className="ion-toggle"
+                  labelPlacement="start"
+                >
                   Get remainders, notifications via SMS.
                 </IonToggle>
               </div>
@@ -139,6 +143,3 @@ const EditProfile: React.FC<EditProfileProps> = ({
 };
 
 export default EditProfile;
-function setError(_arg0: null) {
-  throw new Error("Function not implemented.");
-}
