@@ -130,11 +130,12 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   const handleMemberSelect = (selected: string[] | string | null | any) => {
     console.log("Selected members:", selected);
     if (isFromPaidBy) {
-      setValue("paidBy", selected);
+      setValue("paidBy", selected.name);
       setselectedPaidBy(selected);
       clearErrors("paidBy");
     } else {
-      setValue("splitAmong", selected);
+      const numberOfSelected = selected.length;
+      setValue("splitAmong", `${numberOfSelected} People`);
       setSelectedMembers(selected);
       clearErrors("splitAmong");
     }
@@ -217,11 +218,6 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                         register={register}
                         readonly={true}
                       />
-                      {selectedPaidBy && (
-                        <IonText className="selected_value">
-                          {selectedPaidBy?.name}
-                        </IonText>
-                      )}
                     </IonList>
                     <IonList
                       className="form-group"
@@ -237,11 +233,6 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                         register={register}
                         readonly={true}
                       />
-                      {selectedMember && selectedMember.length > 0 && (
-                        <IonText className="selected_value">
-                          {selectedMember.length}
-                        </IonText>
-                      )}
                       <IonGrid class="profile-list">
                         {selectedMember.map((eventMember: any) => (
                           <div key={eventMember.id} className="profile-item">
@@ -307,7 +298,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                   <IonTab tab="radio">
                     <div id="radio-page">
                       <IonList className="list_wrap">
-                        {members.map((member, index) => (
+                        {members.map((member: any, index: any) => (
                           <IonItem key={index} className="user_item">
                             <IonThumbnail slot="start" className="dp">
                               <IonImg
@@ -337,7 +328,7 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                   <IonTab tab="library">
                     <div id="library-page">
                       <IonList className="list_wrap">
-                        {members.map((member, index) => (
+                        {members.map((member: any, index: any) => (
                           <IonItem key={index} className="user_item">
                             <IonThumbnail slot="start" className="dp">
                               <IonImg
