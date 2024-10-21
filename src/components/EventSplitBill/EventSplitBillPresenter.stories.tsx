@@ -93,7 +93,7 @@ const mockMembers: EventMember[] = [
     id: "member_004",
     name: "David Bowie",
     phoneNumber: "555-3456",
-    //profileImg:"https://i.pravatar.cc/150?img=1"
+    profileImg: "https://i.pravatar.cc/150?img=1",
   },
 ];
 export const AddExpense = (
