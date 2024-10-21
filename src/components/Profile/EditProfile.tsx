@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   IonContent,
   IonPage,
-  IonInput,
   IonButton,
   IonCard,
   IonImg,
@@ -49,6 +48,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
   }, [profile.prefName, profile.phone]);
 
   const handlePreferredNameChange = async () => {
+    console.log(isLoading);
     setIsLoading(true);
     try {
       const success = await setPreferredName(preferredName);

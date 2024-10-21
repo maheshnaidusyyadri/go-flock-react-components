@@ -47,7 +47,6 @@ interface EventSplitBillProps {
 }
 
 const EventBillPresenter: React.FC<EventSplitBillProps> = ({
-  members = [],
   getMembersFromContactList,
 }) => {
   const [] = useState<EventVisibility>();
