@@ -1,6 +1,10 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventSplitBillPresenter";
-import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
+import {
+  EventMember,
+  EventSplitBillProps,
+  Transaction,
+} from "@goflock/types/src/index";
 import EventBillPresenter from "./EventBillPresenter";
 import AddExpensePresenter from "./AddExpensePresenter";
 import ExpensesPresenter from "./ExpensesPresenter";
@@ -68,6 +72,32 @@ export const Expenses = (
 );
 Expenses.args = {};
 
+const mockMembers: EventMember[] = [
+  {
+    id: "member_001",
+    name: "Alice Cooper",
+    phoneNumber: "555-1234",
+    profileImg: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: "member_002",
+    name: "Bob Dylan",
+    phoneNumber: "555-5678",
+    profileImg: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: "member_003",
+    name: "Charlie Brown",
+    phoneNumber: "555-9012",
+    profileImg: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: "member_004",
+    name: "David Bowie",
+    phoneNumber: "555-3456",
+    //profileImg:"https://i.pravatar.cc/150?img=1"
+  },
+];
 export const AddExpense = (
   args: JSX.IntrinsicAttributes & EventSplitBillProps
 ) => (
@@ -113,7 +143,12 @@ export const AddExpense = (
     {...args}
   />
 );
-AddExpense.args = {};
+AddExpense.args = {
+  getMembersFromContactList: async () => {
+    console.log("Fetching members from contact list...");
+    return mockMembers;
+  },
+};
 
 export const WhoPaid = (
   args: JSX.IntrinsicAttributes & EventSplitBillProps

@@ -138,3 +138,10 @@ body {
     line-height: 18px;
   }
 }
+
+.suctom_modal {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 999;
+}

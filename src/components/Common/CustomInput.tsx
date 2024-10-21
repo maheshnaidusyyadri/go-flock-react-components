@@ -1,7 +1,8 @@
-import React from 'react';
-import {  IonLabel, IonInput, IonText } from '@ionic/react';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import React from "react";
+import { IonLabel, IonInput, IonText } from "@ionic/react";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 interface CustomInputProps {
+  readonly?: boolean;
   label?: string;
   placeholder?: string;
   fieldName: string;
@@ -10,7 +11,7 @@ interface CustomInputProps {
   errorText?: string;
   register: UseFormRegister<any>; // Adjust the type based on your form data type
   readOnly?: boolean;
-  type?: string; // Default type for input
+  inputType?: any; // Default type for input
   defaultValue?: string;
   onInputChange?: (e: CustomEvent) => void; // Optional input change handler
 }
@@ -22,18 +23,28 @@ const CustomInput: React.FC<CustomInputProps> = ({
   isRequired = false,
   errors,
   errorText,
+  readonly,
+  inputType = "text",
   register,
   onInputChange,
 }) => {
   return (
     <>
-      {label && <IonLabel className='form-label'>{isRequired ? label + "*" : label}</IonLabel>}
+      {label && (
+        <IonLabel className="form-label">
+          {isRequired ? label + "*" : label}
+        </IonLabel>
+      )}
       <IonInput
         placeholder={placeholder}
-        //name={fieldName}
-        {...register(fieldName, { 
-          required: isRequired, 
-          validate: (value) => (isRequired && !value ? errorText || `${fieldName} is required` : true),
+        readonly={readonly}
+        type={inputType}
+        {...register(fieldName, {
+          required: isRequired,
+          validate: (value) =>
+            isRequired && !value
+              ? errorText || `${fieldName} is required`
+              : true,
           onChange: (e) => {
             if (onInputChange) {
               onInputChange(e);
@@ -45,13 +56,17 @@ const CustomInput: React.FC<CustomInputProps> = ({
             if (onInputChange) {
               onInputChange(e);
             }
-            register(fieldName).onChange(e)
-            
+            register(fieldName).onChange(e);
           }
         }}
       />
-       {errors?.[fieldName] && errors?.[fieldName].type && errors?.[fieldName].type === "required" &&
-          <IonText class='error' color="danger" style={{ fontSize: 12 }}>{"* " + errorText + ' is required'}</IonText>}
+      {errors?.[fieldName] &&
+        errors?.[fieldName].type &&
+        errors?.[fieldName].type === "required" && (
+          <IonText class="error" color="danger" style={{ fontSize: 12 }}>
+            {"* " + errorText + " is required"}
+          </IonText>
+        )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EventSplitBillPresenter.scss";
 
 import {
@@ -17,10 +17,10 @@ import {
   IonTab,
   IonTabBar,
   IonTabButton,
-  IonModal,
-  IonContent,
+  IonAvatar,
 } from "@ionic/react";
 import {
+  Contact,
   // EventSplitBillProps,
   EventVisibility,
 } from "@goflock/types/src/index"; // Adjust the import based on your file structure
@@ -33,7 +33,7 @@ import ProfileIcon from "../../images/profile.png";
 import Header from "../Header/Header";
 import CustomInput from "../Common/CustomInput";
 import { FormProvider, useForm } from "react-hook-form";
-
+import SelectMembers from "./SelectExpense";
 interface EventSplitBillProps {
   members: {
     name: string;
@@ -41,30 +41,31 @@ interface EventSplitBillProps {
     expanse: string;
     profileImage?: string;
     className: string;
-  }[];
+  };
+  getMembersFromContactList: () => Promise<Contact[]>;
 }
 
 const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   members = [],
+  getMembersFromContactList,
 }) => {
-  // @ts-ignore
-  const [endDate, setEndDate] = useState<Date>(new Date());
-  // @ts-ignore
-  const [startTime, setStartTime] = useState<string>("10:00 AM");
-  // @ts-ignore
-  const [endTime, setEndTime] = useState<string>("12:00 PM");
-
   const [] = useState<EventVisibility>();
-
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
-  const totalSteps = 3; // Define the total number of steps
-
-  // Function to go to the next step
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 3;
+  const [contactsList, setContactsList] = useState<Contact[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isFromPaidBy, setIsFromPaidBy] = useState(false);
+  const [selectedMember, setSelectedMembers] = useState([]);
+  const [selectedPaidBy, setselectedPaidBy] = useState(null);
   const methods = useForm();
   const {
     handleSubmit,
     formState: { errors },
     register,
+    setValue,
+    getValues,
+    clearErrors,
+    trigger,
   } = useForm();
 
   const nextStep = () => {
@@ -98,10 +99,55 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   }
 
   const onError = (error: any) => {
+    const formData = getValues(); // Get current form values
+    console.log("Current Form Data:", formData);
     console.log("onError", error);
   };
+  useEffect(() => {
+    getMembersFromContactList().then((contacts) => {
+      console.log("InviteMembersProps", contacts);
+      setContactsList(contacts);
+    });
+  }, []);
 
-  const [isOpen, setIsOpen] = useState(false);
+  const handleMemberSelect = (selected: string[] | string | null | any) => {
+    console.log("Selected members:", selected);
+    if (isFromPaidBy) {
+      setValue("paidBy", selected);
+      setselectedPaidBy(selected);
+      clearErrors("paidBy");
+    } else {
+      setValue("splitAmong", selected);
+      setSelectedMembers(selected);
+      clearErrors("splitAmong");
+    }
+    //setIsOpen(false);
+  };
+  const handlePaidByClick = () => {
+    setIsFromPaidBy(true);
+    setIsOpen(true);
+  };
+  const handleChooseMembersClick = () => {
+    setIsFromPaidBy(false);
+    setIsOpen(true);
+  };
+  const getDisplayName = (name: any) => {
+    return name.length > 1
+      ? name.slice(0, 2).toUpperCase()
+      : name.toUpperCase();
+  };
+  const handleClose = () => {
+    if (isFromPaidBy) {
+      setValue("paidBy", null);
+      setselectedPaidBy(null);
+      trigger();
+    } else {
+      setValue("splitAmong", null);
+      setSelectedMembers([]);
+      trigger();
+    }
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -139,79 +185,67 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                         errors={errors}
                         errorText={"Total Amount"}
                         register={register}
+                        inputType="number"
                       />
+                    </IonList>
+                    <IonList className="form-group" onClick={handlePaidByClick}>
+                      <CustomInput
+                        placeholder={"You"}
+                        label={"Paid by"}
+                        fieldName={"paidBy"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Paid By"}
+                        register={register}
+                        readonly={true}
+                      />
+                      {selectedPaidBy && (
+                        <IonText>{selectedPaidBy?.name}</IonText>
+                      )}
                     </IonList>
                     <IonList
                       className="form-group"
-                      onClick={() => setIsOpen(true)}
+                      onClick={handleChooseMembersClick}
                     >
-                      <IonInput
-                        value=""
-                        label="Paid by*"
-                        labelPlacement="stacked"
-                        placeholder="You"
-                        onIonChange={(e) => setEventName(e.detail.value!)}
+                      <CustomInput
+                        placeholder={"Choose members"}
+                        label={"Split among"}
+                        fieldName={"splitAmong"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Choose members"}
+                        register={register}
+                        readonly={true}
                       />
-                    </IonList>
-                    <IonList className="form-group">
-                      <IonInput
-                        value=""
-                        label="Split among*"
-                        labelPlacement="stacked"
-                        placeholder="Choose members"
-                        onIonChange={(e) => setEventName(e.detail.value!)}
-                        readonly
-                      />
+                      {selectedMember && selectedMember.length > 0 && (
+                        <IonText>{selectedMember.length}</IonText>
+                      )}
+                      {selectedMember.map((eventMember: any) => (
+                        <div key={eventMember.id} className="profile-item">
+                          <IonThumbnail className="profile-avatar-wrapper">
+                            {eventMember.profileImg ? (
+                              <IonAvatar className="profile-avatar">
+                                <img
+                                  src={eventMember.profileImg}
+                                  alt={eventMember.name}
+                                />
+                              </IonAvatar>
+                            ) : (
+                              <IonAvatar className="profile-dp">
+                                {getDisplayName(eventMember?.name)}
+                              </IonAvatar>
+                            )}
+                          </IonThumbnail>
+                          <IonLabel className="profile-name">
+                            {eventMember.name}
+                          </IonLabel>
+                        </div>
+                      ))}
                     </IonList>
                   </IonCardContent>
                 </IonGrid>
               </IonGrid>
             )}
-
-            {/* <IonGrid className={`step-content ${getStepClass(1)}`}>
-            <IonGrid className="form-container">
-              <IonCardContent className="pad0">
-                <IonList className="form-group">
-                  <IonInput
-                    value=""
-                    label="Expense details*"
-                    labelPlacement="stacked"
-                    placeholder="Enter bill name"
-                    onIonChange={(e) => setEventName(e.detail.value!)}
-                  />
-                </IonList>
-                <IonList className="form-group">
-                  <IonInput
-                  type="number"
-                    value=""
-                    label="Total Amount*"
-                    labelPlacement="stacked"
-                    placeholder="Enter amount"
-                    onIonChange={(e) => setEventName(e.detail.value!)}
-                  />
-                </IonList>
-                <IonList className="form-group" onClick={() => setIsOpen(true)}>
-                  <IonInput
-                    value=""
-                    label="Paid by*"
-                    labelPlacement="stacked"
-                    placeholder="You"
-                    onIonChange={(e) => setEventName(e.detail.value!)}
-                  />
-                </IonList>
-                <IonList className="form-group">
-                  <IonInput
-                    value=""
-                    label="Split among*"
-                    labelPlacement="stacked"
-                    placeholder="Choose members"
-                    onIonChange={(e) => setEventName(e.detail.value!)}
-                    readonly
-                  />
-                </IonList>
-              </IonCardContent>
-            </IonGrid>
-          </IonGrid>*/}
             <IonGrid className={`step-content ${getStepClass(2)}`}>
               <IonTabs className="expense_tabs">
                 <IonTabBar slot="top">
@@ -361,25 +395,25 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
         </FormProvider>
       </IonGrid>
 
-      <IonModal isOpen={isOpen}>
-        {/* <IonHeader>
-            <IonToolbar>
-              <IonTitle>Modal</IonTitle>
-              <IonButtons slot="end">
-                <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader> */}
-        <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
-        <IonContent className="ion-padding">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum
-            quidem recusandae ducimus quos reprehenderit. Veniam, molestias
-            quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui.
-            Eaque, dicta.
-          </p>
-        </IonContent>
-      </IonModal>
+      {isOpen && (
+        <IonGrid className="custom-modal open">
+          <SelectMembers
+            title={isFromPaidBy ? "Who paid" : "Choose members"}
+            members={contactsList}
+            isMultiple={!isFromPaidBy}
+            onMemberSelect={handleMemberSelect}
+            modalClose={handleClose}
+          />
+          <IonFooter className="stickyFooter hasFooter">
+            <IonButton
+              className="primary-btn rounded"
+              onClick={() => setIsOpen(false)}
+            >
+              Done
+            </IonButton>
+          </IonFooter>
+        </IonGrid>
+      )}
     </>
   );
 };
