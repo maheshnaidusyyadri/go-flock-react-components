@@ -71,19 +71,39 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     trigger,
   } = useForm();
 
+  // const nextStep = () => {
+  //   const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
+  //   const shareAmount =
+  //     selectedMember.length > 0
+  //       ? (validSelectedAmount / selectedMember.length).toFixed(2)
+  //       : 0;
+  //   selectedMember.forEach((memberItem: any) => {
+  //     memberItem.amount = shareAmount;
+  //     memberItem.percentage = validSelectedAmount > 0
+  //     ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
+  //     : 0;
+  //   });
+  //   if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
+  // };
+
+  // Function to go to the previous step
   const nextStep = () => {
     const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
-    const shareAmount =
+    const shareAmount: string =
       selectedMember.length > 0
         ? (validSelectedAmount / selectedMember.length).toFixed(2)
-        : 0;
+        : "0";
     selectedMember.forEach((memberItem: any) => {
       memberItem.amount = shareAmount;
+      memberItem.percentage =
+        validSelectedAmount > 0
+          ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
+          : "0";
     });
+
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
 
-  // Function to go to the previous step
   const prevStep = () => {
     //if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
     // const updatedMembers = selectedMember.map((memberItem: any) => ({
@@ -129,14 +149,15 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   }, []);
 
   const handleMemberSelect = (selected: string[] | string | null | any) => {
-    console.log("Selected members:", selected);
     if (isFromPaidBy) {
       setValue("paidBy", selected.name);
       setselectedPaidBy(selected);
       clearErrors("paidBy");
     } else {
       const numberOfSelected = selected.length;
-      setValue("splitAmong", `${numberOfSelected} People`);
+      if (numberOfSelected && numberOfSelected > 0) {
+        setValue("splitAmong", `${numberOfSelected} People`);
+      }
       setSelectedMembers(selected);
       clearErrors("splitAmong");
     }
@@ -167,6 +188,19 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     }
     setIsOpen(false);
   };
+  const handleRemove = (memberToRemove: any) => {
+    const updatedMembers = selectedMember.filter(
+      (member: any) => member.id !== memberToRemove.id
+    );
+    setSelectedMembers(updatedMembers);
+    if (updatedMembers && updatedMembers.length > 0) {
+      setValue("splitAmong", `${updatedMembers.length} People`);
+    } else {
+      setValue("splitAmong", null);
+    }
+    trigger();
+  };
+
   const handleSave = () => {
     console.log(selectedPaidBy);
     alert("Saved Successfully");
@@ -223,23 +257,31 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                       readonly={true}
                     />
                   </IonList>
-                  <IonList
-                    className="form-group"
-                    onClick={handleChooseMembersClick}
-                  >
-                    <CustomInput
-                      placeholder={"Choose members"}
-                      label={"Split among"}
-                      fieldName={"splitAmong"}
-                      isRequired={true}
-                      errors={errors}
-                      errorText={"Choose members"}
-                      register={register}
-                      readonly={true}
-                    />
+                  <IonList>
+                    <>
+                      <IonLabel
+                        className="form-group"
+                        onClick={handleChooseMembersClick}
+                      >
+                        <CustomInput
+                          placeholder={"Choose members"}
+                          label={"Split among"}
+                          fieldName={"splitAmong"}
+                          isRequired={true}
+                          errors={errors}
+                          errorText={"Choose members"}
+                          register={register}
+                          readonly={true}
+                        />
+                      </IonLabel>
+                    </>
                     <IonGrid class="profile-list">
                       {selectedMember.map((eventMember: any) => (
-                        <div key={eventMember.id} className="profile-item">
+                        <div
+                          key={eventMember.id}
+                          className="profile-item"
+                          onClick={() => handleRemove(eventMember)}
+                        >
                           <IonThumbnail className="profile-avatar-wrapper">
                             <>
                               {eventMember.profileImg ? (
@@ -308,21 +350,20 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                 <IonTab tab="radio">
                   <div id="radio-page">
                     <IonList className="list_wrap">
-                      {members.map((member: any, index: any) => (
+                      {selectedMember.map((Item: any, index: any) => (
                         <IonItem key={index} className="user_item">
                           <IonThumbnail slot="start" className="dp">
                             <IonImg
                               src={ProfileIcon}
-                              alt={`${member.name}'s profile`}
+                              alt={`${Item.name}'s profile`}
                             />
                           </IonThumbnail>
                           <IonLabel className="user_name">
-                            {member.name}
-                            {member.phone}
+                            {Item.name || Item.phone}
                           </IonLabel>
                           <IonInput
                             className="ion_input prefix"
-                            value=""
+                            value={Item.amount}
                             label=""
                             labelPlacement="stacked"
                             placeholder="0.00"
@@ -338,21 +379,20 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                 <IonTab tab="library">
                   <div id="library-page">
                     <IonList className="list_wrap">
-                      {members.map((member: any, index: any) => (
+                      {selectedMember.map((Item: any, index: any) => (
                         <IonItem key={index} className="user_item">
                           <IonThumbnail slot="start" className="dp">
                             <IonImg
                               src={ProfileIcon}
-                              alt={`${member.name}'s profile`}
+                              alt={`${Item.name}'s profile`}
                             />
                           </IonThumbnail>
                           <IonLabel className="user_name">
-                            {member.name}
-                            {member.phone}
+                            {Item.name || Item.phone}
                           </IonLabel>
                           <IonInput
                             class="ion_input safix"
-                            value=""
+                            value={Item.percentage}
                             label=""
                             labelPlacement="stacked"
                             placeholder="0"
