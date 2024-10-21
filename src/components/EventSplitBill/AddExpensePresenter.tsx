@@ -408,25 +408,27 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
         </FormProvider>
       </IonGrid>
 
-      {isOpen && (
-        <IonGrid className="custom-modal open">
-          <SelectMembers
-            title={isFromPaidBy ? "Who paid" : "Choose members"}
-            members={contactsList}
-            isMultiple={!isFromPaidBy}
-            onMemberSelect={handleMemberSelect}
-            modalClose={handleClose}
-          />
-          <IonFooter className="stickyFooter hasFooter">
-            <IonButton
-              className="primary-btn rounded"
-              onClick={() => setIsOpen(false)}
-            >
-              Done
-            </IonButton>
-          </IonFooter>
-        </IonGrid>
-      )}
+      <IonGrid className={`custom-modal ${isOpen ? "open" : ""}`}>
+        {isOpen && (
+          <>
+            <SelectMembers
+              title={isFromPaidBy ? "Who paid" : "Choose members"}
+              members={contactsList}
+              isMultiple={!isFromPaidBy}
+              onMemberSelect={handleMemberSelect}
+              modalClose={handleClose}
+            />
+            <IonFooter className="stickyFooter hasFooter">
+              <IonButton
+                className="primary-btn rounded"
+                onClick={() => setIsOpen(false)}
+              >
+                Done
+              </IonButton>
+            </IonFooter>
+          </>
+        )}
+      </IonGrid>
     </>
   );
 };

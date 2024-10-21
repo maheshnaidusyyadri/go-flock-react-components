@@ -874,13 +874,19 @@ input[type="number"] {
 
 .custom-modal {
   position: absolute;
-  left: 0px;
+  left: 100%;
   top: 0px;
   width: 100%;
   height: 100vh;
   display: block;
-  background: #ffffff;
+  background: $white;
+  z-index: 999;
+  padding: 0;
   &.open {
     left: 0px;
+    transition: all 0.4s ease-in-out;
+  }
+  .main-header .header-cnt .page-title {
+    text-align: left;
   }
 }
