@@ -29,6 +29,7 @@ import EqualIcon from "../../images/icons/Equal.svg";
 import DollarIcon from "../../images/icons/Dollar.svg";
 import PercentIcon from "../../images/icons/Percent.svg";
 import ProfileIcon from "../../images/profile.png";
+import unselect from "../../images/icons/remove.svg";
 
 import Header from "../Header/Header";
 import CustomInput from "../Common/CustomInput";
@@ -241,18 +242,25 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                         {selectedMember.map((eventMember: any) => (
                           <div key={eventMember.id} className="profile-item">
                             <IonThumbnail className="profile-avatar-wrapper">
-                              {eventMember.profileImg ? (
-                                <IonAvatar className="profile-avatar">
-                                  <img
-                                    src={eventMember.profileImg}
-                                    alt={eventMember.name}
-                                  />
-                                </IonAvatar>
-                              ) : (
-                                <IonAvatar className="profile-dp">
-                                  {getDisplayName(eventMember?.name)}
-                                </IonAvatar>
-                              )}
+                              <>
+                                {eventMember.profileImg ? (
+                                  <IonAvatar className="profile-avatar">
+                                    <img
+                                      src={eventMember.profileImg}
+                                      alt={eventMember.name}
+                                    />
+                                  </IonAvatar>
+                                ) : (
+                                  <IonAvatar className="profile-dp">
+                                    {getDisplayName(eventMember?.name)}
+                                  </IonAvatar>
+                                )}
+                              </>
+                              <img
+                                src={unselect}
+                                alt="status"
+                                className="remove_user"
+                              />
                             </IonThumbnail>
                             <IonLabel className="profile-name">
                               {eventMember.name}
