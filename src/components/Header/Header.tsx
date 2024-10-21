@@ -1,5 +1,5 @@
 // src/components/Header/Header.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   IonHeader,
@@ -45,7 +45,6 @@ const Header: React.FC<HeaderProps> = ({
   deleteEvent,
   eventRelation,
 }) => {
-  const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
   const actions = [
     { text: "Copy link" },
@@ -72,7 +71,6 @@ const Header: React.FC<HeaderProps> = ({
     }
   });
   const handleBack = () => {
-    console.log(showFirstActionSheet);
     window.history.back(); // Goes back to the previous page
   };
 
@@ -120,8 +118,9 @@ const Header: React.FC<HeaderProps> = ({
           buttons={allowedActions.map((act) => ({
             text: act.text,
             handler: () => {
-              setShowDeleteActionSheet(true);
-              setShowFirstActionSheet(false);
+              if (act.text == "Delete Event") {
+                setShowDeleteActionSheet(true);
+              }
             },
           }))}
         ></IonActionSheet>
