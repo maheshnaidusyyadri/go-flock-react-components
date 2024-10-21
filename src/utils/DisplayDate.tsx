@@ -4,12 +4,14 @@ import React from "react";
 // Define the props type
 interface DisplayDateProps {
   inputDate?: any;
-  isTimeRequired?:boolean
+  isTimeRequired?: boolean;
 }
 
-const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate,isTimeRequired=false }) => {
-  const { startDate, endDate,startTime,endTime } = inputDate;
-  console.log('inputDate-',inputDate)
+const DisplayDate: React.FC<DisplayDateProps> = ({
+  inputDate,
+  isTimeRequired = false,
+}) => {
+  const { startDate, endDate, startTime, endTime } = inputDate;
 
   // Convert the start and end date strings to JavaScript Date objects
   const startDateObj = new Date(startDate);
@@ -29,17 +31,15 @@ const DisplayDate: React.FC<DisplayDateProps> = ({ inputDate,isTimeRequired=fals
   // If the start and end dates are the same, just display one
   return (
     <>
-      {formattedStartDate === formattedEndDate ? (
-        formattedStartDate // Display only start date if both are the same
-      ) : (
-        `${formattedStartDate} - ${formattedEndDate}` // Display both dates
-      )}
+      {formattedStartDate === formattedEndDate
+        ? formattedStartDate // Display only start date if both are the same
+        : `${formattedStartDate} - ${formattedEndDate}` // Display both dates
+      }
       {isTimeRequired && (
         <IonCardSubtitle className="event_subtitle">
-        {startTime} - {endTime}
+          {startTime} - {endTime}
         </IonCardSubtitle>
       )}
-
     </>
   );
 };

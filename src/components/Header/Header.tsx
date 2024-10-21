@@ -1,7 +1,15 @@
 // src/components/Header/Header.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { IonHeader, IonTitle, IonActionSheet, IonThumbnail, IonImg, IonLabel, IonText } from "@ionic/react";
+import {
+  IonHeader,
+  IonTitle,
+  IonActionSheet,
+  IonThumbnail,
+  IonImg,
+  IonLabel,
+  IonText,
+} from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
 import Menu from "../../images/icons/menu.svg";
@@ -10,19 +18,18 @@ import ProfileIcon from "../../images/profile.png";
 import signInIcon from "../../images/icons/signIn.svg";
 import goflockLogo from "../../images/icons/goflock.svg";
 
-
 type HeaderProps = {
   eventId?: string;
   title: string;
   showMenu?: boolean;
   showContactList?: boolean;
-  showProfile? : boolean;
-  showSignIn? : boolean;
-  showLogo? : boolean;
+  showProfile?: boolean;
+  showSignIn?: boolean;
+  showLogo?: boolean;
   className?: string;
-  showGoBack? : boolean;
+  showGoBack?: boolean;
   deleteEvent?: (eventId: string) => void;
-  eventType?:any
+  eventRelation?: any;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -32,17 +39,40 @@ const Header: React.FC<HeaderProps> = ({
   showContactList = false,
   showProfile = false,
   showSignIn = false,
-  className = '',
+  className = "",
   showLogo = false,
   showGoBack = true,
   deleteEvent,
-  eventType
- 
+  eventRelation,
 }) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
-
+  const actions = [
+    { text: "Copy link" },
+    { text: "Edit Event" },
+    { text: "Add Checklist" },
+    { text: "Invite Guest" },
+    { text: "Delete Event" },
+  ];
+  const allowedActions = actions.filter((action) => {
+    switch (eventRelation?.visitType) {
+      case "admin":
+        return [
+          "Copy link",
+          "Edit Event",
+          "Add Checklist",
+          "Delete Event",
+        ].includes(action.text);
+      case "owner":
+        return true;
+      case "member":
+        return ["Copy link"].includes(action.text);
+      default:
+        return false;
+    }
+  });
   const handleBack = () => {
+    console.log(showFirstActionSheet);
     window.history.back(); // Goes back to the previous page
   };
 
@@ -51,56 +81,33 @@ const Header: React.FC<HeaderProps> = ({
       <IonHeader className={`main-header ${className}`}>
         <div className="header-cnt">
           {showGoBack && (
-            <IonImg
-              src={backArrow}
-              alt="Page Back"
-              onClick={handleBack}
-            />
+            <IonImg src={backArrow} alt="Page Back" onClick={handleBack} />
           )}
           {showLogo && (
             <IonThumbnail className="profile_icon">
-              <IonImg
-                src={goflockLogo}
-                alt="ProfileIcon"
-              />
+              <IonImg src={goflockLogo} alt="ProfileIcon" />
             </IonThumbnail>
           )}
-          {title && <IonTitle className="page-title">{title}</IonTitle>} 
+          {title && <IonTitle className="page-title">{title}</IonTitle>}
           {showMenu && (
-            <IonThumbnail
-              id="open-action-sheet"
-              className="menu_icon"
-            >
-              <IonImg
-                src={Menu}
-                alt="More Details"
-              />
+            <IonThumbnail id="open-action-sheet" className="menu_icon">
+              <IonImg src={Menu} alt="More Details" />
             </IonThumbnail>
           )}
           {showContactList && (
             <IonThumbnail className="menu_icon contactList">
-              <IonImg
-                src={ContactListIcon}
-                alt="Contact List"
-              />
+              <IonImg src={ContactListIcon} alt="Contact List" />
             </IonThumbnail>
           )}
           {showProfile && (
             <IonThumbnail className="profile_icon">
-              <IonImg
-                src={ProfileIcon}
-                alt="ProfileIcon"
-              />
+              <IonImg src={ProfileIcon} alt="ProfileIcon" />
             </IonThumbnail>
           )}
           {showSignIn && (
             <IonLabel class="signIn_btn">
-              <IonText class="signin_text">Sign in</IonText>  
-              <IonImg
-                src={signInIcon}
-                alt="ProfileIcon"
-              />
-             
+              <IonText class="signin_text">Sign in</IonText>
+              <IonImg src={signInIcon} alt="ProfileIcon" />
             </IonLabel>
           )}
         </div>
@@ -110,15 +117,11 @@ const Header: React.FC<HeaderProps> = ({
         <IonActionSheet
           trigger="open-action-sheet"
           className="action-menu-end"
-          buttons={eventType && eventType.action && eventType.action.map((act:any) => ({
+          buttons={allowedActions.map((act) => ({
             text: act.text,
-            role: act.role,
             handler: () => {
-              if (act.data.action) {
-                setShowFirstActionSheet(false);
-                setShowDeleteActionSheet(true);
-                console.log(showFirstActionSheet)
-              }
+              setShowDeleteActionSheet(true);
+              setShowFirstActionSheet(false);
             },
           }))}
         ></IonActionSheet>

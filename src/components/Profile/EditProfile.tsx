@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   IonContent,
   IonPage,
@@ -12,6 +12,8 @@ import {
 import ProfileDp from "../../images/profile.png";
 import Header from "../Header/Header";
 import { Profile } from "@goflock/types";
+import { FormProvider, useForm } from "react-hook-form";
+import CustomInput from "../Common/CustomInput";
 
 type EditProfileProps = {
   profile: Profile;
@@ -27,10 +29,25 @@ const EditProfile: React.FC<EditProfileProps> = ({
     profile.prefName || ""
   );
   const [phone, setPhone] = useState<string>(profile.phone || "");
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the hidden file input
   const [image, setImage] = useState<string | null>(null); // State to hold the selected image
+  const methods = useForm();
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    setValue,
+  } = useForm();
+  useEffect(() => {
+    if (profile.prefName) {
+      setValue("name", profile.prefName);
+    }
+    if (profile.phone) {
+      setValue("phone", profile.phone);
+    }
+  }, [profile.prefName, profile.phone]);
+
   const handlePreferredNameChange = async () => {
     setIsLoading(true);
     try {
@@ -68,6 +85,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
     });
   };
 
+  const onError = (err: any) => {
+    console.log(err);
+  };
+
   return (
     <IonPage>
       <Header
@@ -87,10 +108,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
-            <IonImg
-              className="dp"
-              src={image || ProfileDp}
-            ></IonImg>
+            <IonImg className="dp" src={image || ProfileDp}></IonImg>
             <span
               className="dp_edit"
               onClick={() => fileInputRef.current?.click()}
@@ -99,42 +117,51 @@ const EditProfile: React.FC<EditProfileProps> = ({
         </IonCard>
         <div className="profile_info_card">
           <div className="form-container">
-            <IonCardContent className="pad0">
-              <div className="form-group">
-                <IonInput
-                  label="Name"
-                  value={preferredName}
-                  onIonChange={(e) => setPreferredNameState(e.detail.value!)}
-                  labelPlacement="stacked"
-                  placeholder="Enter your name"
-                />
-              </div>
-              <div className="form-group">
-                <IonInput
-                  label="Phone Number"
-                  labelPlacement="stacked"
-                  placeholder="Enter Phone Number"
-                  value={phone}
-                  onIonChange={(e) => setPhone(e.detail.value!)}
-                />
-              </div>
-              <div className="terms">
-                <IonToggle
-                  className="ion-toggle"
-                  labelPlacement="start"
+            <FormProvider {...methods}>
+              <IonCardContent className="pad0">
+                <div className="form-group">
+                  <CustomInput
+                    placeholder={"Enter your name"}
+                    label={"Event Name"}
+                    fieldName={"name"}
+                    isRequired={true}
+                    errors={errors}
+                    defaultValue={preferredName}
+                    errorText={"Name"}
+                    register={register}
+                    onInputChange={(e) =>
+                      setPreferredNameState(e.detail.value!)
+                    }
+                  />
+                </div>
+                <div className="form-group">
+                  <CustomInput
+                    placeholder={"Enter Phone Number"}
+                    label={"Phone Number"}
+                    fieldName={"phone"}
+                    isRequired={true}
+                    errors={errors}
+                    defaultValue={phone}
+                    errorText={"Phone Number"}
+                    inputType={"text"}
+                    register={register}
+                    onInputChange={(e) => setPhone(e.detail.value!)}
+                  />
+                </div>
+                <div className="terms">
+                  <IonToggle className="ion-toggle" labelPlacement="start">
+                    Get remainders, notifications via SMS.
+                  </IonToggle>
+                </div>
+                <IonButton
+                  expand="block"
+                  onClick={handleSubmit(handlePreferredNameChange, onError)}
+                  className="primary-btn rounded"
                 >
-                  Get remainders, notifications via SMS.
-                </IonToggle>
-              </div>
-              <IonButton
-                expand="block"
-                onClick={handlePreferredNameChange}
-                disabled={isLoading || !preferredName}
-                className="primary-btn rounded"
-              >
-                Save
-              </IonButton>
-            </IonCardContent>
+                  Save
+                </IonButton>
+              </IonCardContent>
+            </FormProvider>
           </div>
         </div>
       </IonContent>
