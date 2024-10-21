@@ -94,15 +94,18 @@ body {
     border-radius: 6px;
     border: 1px solid #e4e4e7;
     padding: 0 8px !important;
-    &.prefix .native-wrapper {
-      position: relative;
-      padding-left: 15px;
-      &:after {
-        content: "$";
-        position: absolute;
-        left: 0px;
-        top: 50%;
-        transform: translateY(-50%);
+    &.prefix {
+      width: 110px;
+      .native-wrapper {
+        position: relative;
+        padding-left: 15px;
+        &:after {
+          content: "$";
+          position: absolute;
+          left: 0px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
       }
     }
     &.safix .native-wrapper {
