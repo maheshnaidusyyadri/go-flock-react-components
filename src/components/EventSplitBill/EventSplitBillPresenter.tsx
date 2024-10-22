@@ -3,6 +3,21 @@ import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
 import "./EventSplitBillPresenter.scss";
 
 import Footer from "../Footer/Footer";
+import {
+  IonButton,
+  IonCard,
+  IonContent,
+  IonGrid,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPage,
+  IonText,
+} from "@ionic/react";
+import Header from "../Header/Header";
+import EditIcon from "../../images/icons/Edit.svg";
+import DeleteIcon from "../../images/icons/Delete.svg";
 
 const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   event,
@@ -72,41 +87,94 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   };
 
   return (
-    <div>
+    <IonPage>
+      <Header
+        title={`Split Bill ${event.name}`}
+        showMenu={false}
+        showContactList={false}
+        showProfile={true}
+      />
+      {/* <h2>Split Bill for {event.name}</h2> */}
+      <IonContent className="eventDetails">
+        <IonGrid className="transactions">
+          <IonLabel class="content_title">Transactions</IonLabel>
+          <IonCard className="transactions_cnt">
+            {transactions.length > 0 ? (
+              transactions.map((transaction) => (
+                <IonList key={transaction.id} className="transaction_list">
+                  <IonItem className="transaction_item">
+                    <IonLabel class="transaction_name">
+                      {transaction.description}
+                    </IonLabel>
+                    <IonLabel class="transaction_actions">
+                      <IonButton
+                        className="icon_btn"
+                        onClick={() => handleUpdateTransaction(transaction)}
+                        disabled={isLoading}
+                      >
+                        <IonImg src={EditIcon} />
+                      </IonButton>
+                      <IonButton
+                        className="icon_btn"
+                        onClick={() => handleDeleteTransaction(transaction.id!)}
+                        disabled={isLoading}
+                      >
+                        <IonImg src={DeleteIcon} />
+                      </IonButton>
+                    </IonLabel>
+                  </IonItem>
 
-
-      <h2>Split Bill for {event.name}</h2>
-
-      <h3>Transactions</h3>
-      <ul>
-        {transactions.length > 0 ? (
-          transactions.map((transaction) => (
-            <li key={transaction.id}>
-              <p>
-                {transaction.description} - ${transaction.amount} by{" "}
-                {transaction.paidUserId}
-              </p>
-              <button
-                onClick={() => handleUpdateTransaction(transaction)}
-                disabled={isLoading}
-              >
-                Update
-              </button>
-              <button
-                onClick={() => handleDeleteTransaction(transaction.id!)}
-                disabled={isLoading}
-              >
-                Delete
-              </button>
-            </li>
-          ))
-        ) : (
-          <p>No transactions found</p>
-        )}
-      </ul>
-
-      <h3>Add New Transaction</h3>
-      <input
+                  <IonItem className="contributor_list">
+                    <IonLabel className="contributor_name">
+                      {transaction.paidUserId}
+                    </IonLabel>
+                    <IonText className="contribution">
+                      ${transaction.amount}
+                    </IonText>
+                  </IonItem>
+                </IonList>
+              ))
+            ) : (
+              <IonText className="nodata">No transactions found</IonText>
+            )}
+          </IonCard>
+          <IonButton
+            className="primary-btn rounded"
+            onClick={handleAddTransaction}
+            // disabled={
+            //   isLoading || !newTransaction.description || newTransaction.amount <= 0
+            // }
+          >
+            Add Transaction
+          </IonButton>
+        </IonGrid>
+        <IonGrid className="transactions">
+          <IonLabel class="content_title">Expense Summary</IonLabel>
+          <IonCard className="transactions_cnt">
+            {expenses.length > 0 ? (
+              expenses.map((expense) => (
+                // <IonList key={expense.userId} className="transaction_list">
+                //   <p>
+                //     {expense.name}: ${expense.amount.toFixed(2)}
+                //   </p>
+                // </IonList>
+                <IonItem key={expense.userId} className="contributor_list">
+                  <IonLabel className="contributor_name">
+                    {expense.name}ddssdvdsv
+                  </IonLabel>
+                  <IonText className="contribution">
+                    ${expense.amount.toFixed(2)}100
+                  </IonText>
+                </IonItem>
+              ))
+            ) : (
+              <IonText className="nodata">No expenses found</IonText>
+            )}
+          </IonCard>
+        </IonGrid>
+      </IonContent>
+      {/* <h3>Add New Transaction</h3> */}
+      {/* <input
         type="text"
         placeholder="Description"
         value={newTransaction.description}
@@ -135,35 +203,12 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
         onChange={(e) =>
           setNewTransaction({ ...newTransaction, paidUserId: e.target.value })
         }
-      />
-      <button
-        onClick={handleAddTransaction}
-        disabled={
-          isLoading || !newTransaction.description || newTransaction.amount <= 0
-        }
-      >
-        Add Transaction
-      </button>
+      /> */}
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <h3>Expense Summary</h3>
-      <ul>
-        {expenses.length > 0 ? (
-          expenses.map((expense) => (
-            <li key={expense.userId}>
-              <p>
-                {expense.name}: ${expense.amount.toFixed(2)}
-              </p>
-            </li>
-          ))
-        ) : (
-          <p>No expenses found</p>
-        )}
-      </ul>
-
       <Footer eventId={event.id} activeTab={"bills"} />
-    </div>
+    </IonPage>
   );
 };
 

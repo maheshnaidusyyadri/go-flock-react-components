@@ -923,3 +923,14 @@ input[type="number"] {
     text-align: left;
   }
 }
+
+.content_title {
+  font-family: $GoFlockFont;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  color: $GoFlockColor;
+  margin-bottom: 5px;
+  display: block;
+}

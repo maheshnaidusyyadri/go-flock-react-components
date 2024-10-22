@@ -6,9 +6,9 @@ import {
   EventSplitBillProps,
   Transaction,
 } from "@goflock/types/src/index";
-import EventBillPresenter from "./EventBillPresenter";
-import AddExpensePresenter from "./AddExpensePresenter";
-import ExpensesPresenter from "./ExpensesPresenter";
+import EventBillPresenter from "./EventBill";
+import AddExpense from "./AddExpense";
+import ExpensesPresenter from "./Expenses";
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
@@ -97,10 +97,10 @@ const mockMembers: EventMember[] = [
     profileImg: "https://i.pravatar.cc/150?img=1",
   },
 ];
-export const AddExpense = (
+export const AddExpenseView = (
   args: JSX.IntrinsicAttributes & EventSplitBillProps
 ) => (
-  <AddExpensePresenter
+  <AddExpense
     members={{
       name: "",
       phone: "",
@@ -114,15 +114,15 @@ export const AddExpense = (
     {...args}
   />
 );
-AddExpense.args = {
+AddExpenseView.args = {
   getMembersFromContactList: async () => {
     console.log("Fetching members from contact list...");
     return mockMembers;
   },
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const WithTransactions = Template.bind({});
+WithTransactions.args = {
   event: {
     id: "event_12345",
     owner: "user_001",
@@ -317,48 +317,5 @@ Default.args = {
   deleteTransaction: async (transactionId: string) => {
     console.log("Transaction deleted:", transactionId);
     return true;
-  },
-};
-
-export const LoadingState = Template.bind({});
-LoadingState.args = {
-  ...Default.args,
-  addTransaction: async () => {
-    return new Promise((resolve) =>
-      setTimeout(() => {
-        console.log("Transaction added (loading state)");
-        resolve(Default.args!.transactions![0]);
-      }, 2000)
-    ); // Simulate a loading state
-  },
-  updateTransaction: async () => {
-    return new Promise((resolve) =>
-      setTimeout(() => {
-        console.log("Transaction updated (loading state)");
-        resolve(Default.args!.transactions![0]);
-      }, 2000)
-    ); // Simulate a loading state
-  },
-  deleteTransaction: async () => {
-    return new Promise((resolve) =>
-      setTimeout(() => {
-        console.log("Transaction deleted (loading state)");
-        resolve(true);
-      }, 2000)
-    ); // Simulate a loading state
-  },
-};
-
-export const ErrorState = Template.bind({});
-ErrorState.args = {
-  ...Default.args,
-  addTransaction: async () => {
-    throw new Error("Failed to add transaction");
-  },
-  updateTransaction: async () => {
-    throw new Error("Failed to update transaction");
-  },
-  deleteTransaction: async () => {
-    throw new Error("Failed to delete transaction");
   },
 };
