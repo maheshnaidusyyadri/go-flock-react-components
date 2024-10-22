@@ -3,6 +3,7 @@ import "./EventMediaPresenter.scss";
 import {
   IonButton,
   IonContent,
+  IonFooter,
   IonGrid,
   IonImg,
   IonItem,
@@ -30,13 +31,17 @@ import SelectIcon from "./SelectIcon";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
-import GridIcon from "../../images/icons/all.svg"; 
-import PhotoIcon from "../../images/icons/photos.svg"; 
-import VideoIcon from "../../images/icons/videos.svg"; 
-import DocumentsIcon from "../../images/icons/documents.svg"; 
+import GridIcon from "../../images/icons/all.svg";
+import PhotoIcon from "../../images/icons/photos.svg";
+import VideoIcon from "../../images/icons/videos.svg";
+import VideoType from "../../images/icons/videoType.svg";
+import ImageType from "../../images/icons/imageType.svg";
+import DocumentsIcon from "../../images/icons/documents.svg";
+import { Video } from "yet-another-react-lightbox/plugins";
 
 type SelectablePhoto = Photo & {
   selected?: boolean;
+  type?: String;
 };
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
@@ -97,136 +102,149 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   //   width: 300,
   //   height: 300,
   // }));
- 
 
   return (
     <>
-    <IonContent className="eventMedia">
-       <Header
+      <IonContent className="eventMedia">
+        <Header
           showMenu={false}
           showContactList={false}
           title={"Media"}
           showProfile={true}
         />
-      {/* <h2>Event Media</h2> */}
-      <IonGrid class="media_cnt">
-        <IonSegment className="gallery_tabs">
-          <IonSegmentButton value="all">
-            <IonImg src={GridIcon} />
-          </IonSegmentButton>
-          <IonSegmentButton value="photo">
-            <IonImg src={PhotoIcon} />
-          </IonSegmentButton>
-          <IonSegmentButton value="video">
-            <IonImg src={VideoIcon} />
-          </IonSegmentButton>
-          <IonSegmentButton value="document">
-            <IonImg src={DocumentsIcon} />
-          </IonSegmentButton>
-        </IonSegment>
-        <MasonryPhotoAlbum
-          photos={photos}
-          // targetRowHeight={150}
-          // custom render functions
-          render={{
-            // render custom styled link
-            link: (props) => <StyledLink {...props} />,
-            // render image selection icon
-            extras: (_, { photo: { selected }, index }) => (
-              <SelectIcon
-                selected={selected}
-                onClick={(event) => {
-                  setPhotos((prevPhotos) => {
-                    const newPhotos = [...prevPhotos];
-                    newPhotos[index].selected = !selected;
-                    return newPhotos;
-                  });
+        {/* <h2>Event Media</h2> */}
+        <IonGrid class="media_cnt">
+          <IonSegment className="gallery_tabs">
+            <IonSegmentButton value="all">
+              <IonImg src={GridIcon} />
+            </IonSegmentButton>
+            <IonSegmentButton value="photo">
+              <IonImg src={PhotoIcon} />
+            </IonSegmentButton>
+            <IonSegmentButton value="video">
+              <IonImg src={VideoIcon} />
+            </IonSegmentButton>
+            <IonSegmentButton value="document">
+              <IonImg src={DocumentsIcon} />
+            </IonSegmentButton>
+          </IonSegment>
+          <MasonryPhotoAlbum
+            photos={photos}
+            // targetRowHeight={150}
+            // custom render functions
+            render={{
+              // render custom styled link
+              link: (props) => <StyledLink {...props} />,
+              // render image selection icon
+              extras: (_, { photo: { selected, type }, index }) => (
+                <>
+                  <SelectIcon
+                    selected={selected}
+                    onClick={(event) => {
+                      setPhotos((prevPhotos) => {
+                        const newPhotos = [...prevPhotos];
+                        newPhotos[index].selected = !selected;
+                        return newPhotos;
+                      });
 
-                  // prevent the event from propagating to the parent link element
-                  event.preventDefault();
-                  event.stopPropagation();
-                }}
-              />
-            ),
-          }}
-          // custom components' props
-          componentsProps={{
-            link: ({ photo: { href } }) =>
-              // add target="_blank" and rel="noreferrer noopener" to external links
-              href?.startsWith("http")
-                ? { target: "_blank", rel: "noreferrer noopener" }
-                : undefined,
-          }}
-          // on click callback
-          onClick={({ event, photo }) => {
-            // let a link open in a new tab / new window / download
-            if (event.shiftKey || event.altKey || event.metaKey) return;
+                      // prevent the event from propagating to the parent link element
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }}
+                  />
+                  {type == "video" && (
+                    <>
+                      <IonImg class="type_declaration" src={VideoType} />
+                    </>
+                  )}
+                  {type == "image" && (
+                    <>
+                      <IonImg class="type_declaration" src={ImageType} />
+                    </>
+                  )}
+                </>
+              ),
+            }}
+            // custom components' props
+            componentsProps={{
+              link: ({ photo: { href } }) =>
+                // add target="_blank" and rel="noreferrer noopener" to external links
+                href?.startsWith("http")
+                  ? { target: "_blank", rel: "noreferrer noopener" }
+                  : undefined,
+            }}
+            // on click callback
+            onClick={({ event, photo }) => {
+              // let a link open in a new tab / new window / download
+              if (event.shiftKey || event.altKey || event.metaKey) return;
 
-            // prevent the default link behavior
-            event.preventDefault();
+              // prevent the default link behavior
+              event.preventDefault();
 
-            // open photo in a lightbox
-            setLightboxPhoto(photo);
+              // open photo in a lightbox
+              setLightboxPhoto(photo);
+            }}
+            // describe photo album size in different viewports
+            sizes={{
+              size: "1168px",
+              sizes: [
+                { viewport: "(max-width: 1200px)", size: "calc(100vw - 32px)" },
+              ],
+            }}
+            // re-calculate the layout only at specific breakpoints
+            breakpoints={[220, 360, 480, 600, 900, 1200]}
+          />
+        </IonGrid>
+        <Lightbox
+          open={Boolean(lightboxPhoto)}
+          close={() => setLightboxPhoto(undefined)}
+          slides={photos}
+          carousel={{ finite: true }}
+          render={{ buttonPrev: () => null, buttonNext: () => null }}
+          styles={{ root: { "--yarl__color_backdrop": "rgba(0, 0, 0, .8)" } }}
+          controller={{
+            closeOnBackdropClick: true,
+            closeOnPullUp: true,
+            closeOnPullDown: true,
           }}
-          // describe photo album size in different viewports
-          sizes={{
-            size: "1168px",
-            sizes: [
-              { viewport: "(max-width: 1200px)", size: "calc(100vw - 32px)" },
-            ],
-          }}
-          // re-calculate the layout only at specific breakpoints
-          breakpoints={[220, 360, 480, 600, 900, 1200]}
+          plugins={[Fullscreen, Slideshow, Thumbnails, Zoom, Video]}
         />
-  </IonGrid>
-      <Lightbox
-        open={Boolean(lightboxPhoto)}
-        close={() => setLightboxPhoto(undefined)}
-        slides={photos}
-        carousel={{ finite: true }}
-        render={{ buttonPrev: () => null, buttonNext: () => null }}
-        styles={{ root: { "--yarl__color_backdrop": "rgba(0, 0, 0, .8)" } }}
-        controller={{
-          closeOnBackdropClick: true,
-          closeOnPullUp: true,
-          closeOnPullDown: true,
-        }}
-        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
-      />
 
-      {isLoading && <IonSpinner name="crescent" />}
+        {isLoading && <IonSpinner name="crescent" />}
 
-      {/* Media list with delete option */}
-      <IonList>
-        {galleryPhotos.map((item: Media) => (
-          <IonItem key={item.id}>
-            <IonLabel>{item.createdAt}</IonLabel>
-            <IonButton
-              onClick={() => handleDeleteMedia(item.id)}
-              disabled={isLoading}
-              color="danger"
-            >
-              Delete
-            </IonButton>
-          </IonItem>
-        ))}
-      </IonList>
+        {/* Media list with delete option */}
+        <IonList>
+          {galleryPhotos.map((item: Media) => (
+            <IonItem key={item.id}>
+              <IonLabel>{item.createdAt}</IonLabel>
+              <IonButton
+                onClick={() => handleDeleteMedia(item.id)}
+                disabled={isLoading}
+                color="danger"
+              >
+                Delete
+              </IonButton>
+            </IonItem>
+          ))}
+        </IonList>
 
-      <IonButton className="primary-btn rounded" onClick={handleAddMedia}>Add Media</IonButton>
+        <IonFooter className="stickyFooter hasFooter">
+          <IonButton className="primary-btn rounded" onClick={handleAddMedia}>
+            Add Media
+          </IonButton>
+        </IonFooter>
 
-      {/* Error Toast */}
-      {error && (
-        <IonToast
-          isOpen={!!error}
-          message={error}
-          duration={2000}
-          color="danger"
-          onDidDismiss={() => setError(null)}
-        />
-      )}
-      <Footer
-        activeTab={"home"} eventId={""}     
-      />
+        {/* Error Toast */}
+        {error && (
+          <IonToast
+            isOpen={!!error}
+            message={error}
+            duration={2000}
+            color="danger"
+            onDidDismiss={() => setError(null)}
+          />
+        )}
+        <Footer activeTab={"home"} eventId={""} />
       </IonContent>
     </>
   );
