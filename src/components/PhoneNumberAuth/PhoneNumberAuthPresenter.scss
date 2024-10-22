@@ -394,12 +394,56 @@
   .react-tel-input {
     display: flex;
     flex-direction: column-reverse;
+    .form-control {
+      border-radius: 6px;
+      border: 1px solid #e4e4e7;
+      background: transparent;
+      height: 48px;
+      width: 100%;
+    }
     .flag-dropdown {
       position: static;
       margin-bottom: 30px;
+      background: transparent;
+      border-radius: 6px;
+      border: 1px solid #e4e4e7;
       .selected-flag {
         width: 100%;
-        height: 50px;
+        height: 48px;
+        border-radius: 6px;
+      }
+      .country-list {
+        position: fixed !important; /* Make the dropdown position fixed */
+        top: 0px;
+        left: 0;
+        width: 100vw; /* Full width */
+        height: 100vh; /* Full height */
+        z-index: 9999; /* Ensure it stays on top */
+        overflow-y: auto;
+        max-height: 100vh;
+        transition: all 0.5s ease-in-out;
+        text-align: left;
+        padding: 0px 16px 16px 16px;
+        margin: 0;
+        li {
+          &.search {
+          }
+        }
+      }
+      &.open {
+        // .country-list {
+        //   bottom: 0px;
+        // }
+
+        // &:before {
+        //   content: "";
+        //   width: 100%;
+        //   height: 100vh;
+        //   position: fixed;
+        //   top: 0px;
+        //   left: 0;
+        //   background: rgba($black, 0.5);
+        // }
       }
     }
   }
