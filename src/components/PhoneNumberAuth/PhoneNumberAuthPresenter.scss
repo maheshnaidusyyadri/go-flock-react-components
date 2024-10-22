@@ -388,3 +388,24 @@
     }
   }
 }
+
+.auth_cnt {
+  position: relative;
+  .react-tel-input {
+    display: flex;
+    flex-direction: column-reverse;
+    .flag-dropdown {
+      position: static;
+      margin-bottom: 30px;
+      .selected-flag {
+        width: 100%;
+        height: 50px;
+      }
+    }
+  }
+  .countryname {
+    position: absolute;
+    left: 50px;
+    top: 18px;
+  }
+}

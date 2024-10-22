@@ -24,6 +24,7 @@ import Mobile from "../../images/otp_varification.svg";
 import OtpInput from "./OtpInput";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
+//import CustomPhoneNumber from "../Common/CustomPhone";
 
 type Country = {
   name: string;
@@ -258,6 +259,9 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                     onInputChange={(e) => setPhoneNumber(e.detail.value!)}
                   />
                 </div>
+                {/* <div className="form-group">
+                  <CustomPhoneNumber />
+                </div> */}
               </FormProvider>
             </IonGrid>
             <IonButton
