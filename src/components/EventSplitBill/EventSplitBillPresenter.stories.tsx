@@ -1,6 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventSplitBillPresenter";
 import {
+  Contact,
   EventMember,
   EventSplitBillProps,
   Transaction,
@@ -98,7 +99,21 @@ const mockMembers: EventMember[] = [
 ];
 export const AddExpense = (
   args: JSX.IntrinsicAttributes & EventSplitBillProps
-) => <AddExpensePresenter {...args} />;
+) => (
+  <AddExpensePresenter
+    members={{
+      name: "",
+      phone: "",
+      expanse: "",
+      profileImage: undefined,
+      className: "",
+    }}
+    getMembersFromContactList={function (): Promise<Contact[]> {
+      throw new Error("Function not implemented.");
+    }}
+    {...args}
+  />
+);
 AddExpense.args = {
   getMembersFromContactList: async () => {
     console.log("Fetching members from contact list...");
