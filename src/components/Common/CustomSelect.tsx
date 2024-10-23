@@ -1,6 +1,6 @@
-import React from 'react';
-import { IonLabel, IonSelect, IonSelectOption, IonText } from '@ionic/react';
-import { Controller, FieldErrors ,Control} from 'react-hook-form';
+import React from "react";
+import { IonLabel, IonSelect, IonSelectOption, IonText } from "@ionic/react";
+import { Controller, FieldErrors, Control } from "react-hook-form";
 
 interface CustomSelectProps {
   label?: string;
@@ -25,13 +25,16 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   control,
   onIonChange,
 }) => {
-
   return (
     <>
-      {label && <IonLabel className='form-label'>{isRequired ? label + "*" : label}</IonLabel>}
+      {label && (
+        <IonLabel className="form-label">
+          {isRequired ? label + "*" : label}
+        </IonLabel>
+      )}
       <Controller
-       name={fieldName}
-       control={control}
+        name={fieldName}
+        control={control}
         rules={{ required: isRequired }}
         render={({ field: { onChange, value } }) => (
           <IonSelect
@@ -56,10 +59,10 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           </IonSelect>
         )}
       />
-      
+
       {errors?.[fieldName]?.type === "required" && (
-        <IonText color="danger" className='error' style={{ fontSize: 12 }}>
-          {"* " + errorText + ' is required'}
+        <IonText color="danger" className="error" style={{ fontSize: 12 }}>
+          {"* " + errorText + " is required"}
         </IonText>
       )}
     </>

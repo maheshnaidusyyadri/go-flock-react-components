@@ -24,7 +24,7 @@ import Mobile from "../../images/otp_varification.svg";
 import OtpInput from "./OtpInput";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
-// import CustomPhoneNumber from "../Common/CustomPhone";
+//import CustomPhoneNumber from "../Common/CustomPhone";
 
 type Country = {
   name: string;
@@ -51,6 +51,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     handleSubmit,
     formState: { errors },
     register,
+    control,
   } = useForm();
   const handleGenerateOTP = () => {
     if (phoneNumber.trim()) {
@@ -66,6 +67,9 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     } else {
       console.error("Phone number is empty");
     }
+  };
+  const onError = (error: any) => {
+    console.log("onError", error);
   };
 
   const handleVerifyOTP = () => {
@@ -260,7 +264,16 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                   />
                 </div>
                 {/* <div className="form-group">
-                  <CustomPhoneNumber />
+                  <CustomPhoneNumber
+                    control={control}
+                    fieldName="phone"
+                    label="Phone Number"
+                    isRequired={true}
+                    errors={errors}
+                    register={register}
+                    errorText={"Phone Number"}
+                    onPhoneChange={(e: any) => setPhoneNumber(e)}
+                  />
                 </div> */}
               </FormProvider>
             </IonGrid>
@@ -269,7 +282,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
               shape="round"
               className="primary-btn"
               //onClick={handleGenerateOTP}
-              onClick={handleSubmit(handleGenerateOTP)}
+              onClick={handleSubmit(handleGenerateOTP, onError)}
             >
               Generate OTP
             </IonButton>

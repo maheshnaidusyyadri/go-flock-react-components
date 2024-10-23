@@ -1,49 +1,88 @@
-// import { IonCard, IonGrid, IonLabel } from "@ionic/react";
-// import React, { useState } from "react";
-// import PhoneInput from "react-phone-input-2";
-// import "react-phone-input-2/lib/style.css";
-// import { isValidPhoneNumber } from "react-phone-number-input";
+import { IonGrid, IonLabel, IonText } from "@ionic/react";
+import React, { useState } from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import {
+  UseFormRegister,
+  FieldErrors,
+  Controller,
+  Control,
+} from "react-hook-form";
 
-// const CustomPhoneNumber = () => {
-//   const [phoneNumber, setPhoneNumber] = useState("");
-//   const [isValid, setIsValid] = useState(true);
-//   const [errorMessage, setErrorMessage] = useState("");
-//   const [selectedCountry, setSelectedCountry] = useState(null);
+interface CustomPhoneNumberProps {
+  fieldName: string;
+  label?: string;
+  errorText?: string;
+  isRequired?: boolean;
+  errors: FieldErrors;
+  register: UseFormRegister<any>;
+  control: Control<any>;
+  onPhoneChange?: (e: CustomEvent) => void;
+}
 
-//   const handlePhoneChange = (value: any, country: any) => {
-//     setSelectedCountry(country);
-//     if (value) {
-//       const valid = isValidPhoneNumber("+" + value);
-//       setIsValid(valid);
-//       if (!valid) {
-//         setErrorMessage("Invalid phone number. Please enter a valid number.");
-//       } else {
-//         setErrorMessage("");
-//       }
-//     } else {
-//       setIsValid(true);
-//       setErrorMessage("");
-//     }
-//   };
+const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
+  fieldName,
+  label,
+  isRequired = false,
+  errors,
+  errorText,
+  control,
+  onPhoneChange,
+}) => {
+  const [selectedCountry, setSelectedCountry] = useState<any>(null); // To store selected country info
 
-//   return (
-//     <div>
-//       <IonGrid className="auth_cnt">
-//         <PhoneInput
-//           country={"us"}
-//           value={phoneNumber}
-//           onChange={handlePhoneChange}
-//           placeholder="Enter phone number"
-//           enableSearch={true}
-//           countryCodeEditable={false}
-//         />
-//         {!isValid && <p style={{ color: "red" }}>{errorMessage}</p>}
-//         <IonLabel className="countryname" style={{ color: "black" }}>
-//           {selectedCountry?.name}
-//         </IonLabel>
-//       </IonGrid>
-//     </div>
-//   );
-// };
+  const validateField = (value: string) => {
+    const fullNumber = `+${value}`; // Prepend '+' for validation
+    const valid = isValidPhoneNumber(fullNumber);
+    if (valid) {
+      return true;
+    }
+    return `${errorText || fieldName} is not a valid number`;
+  };
 
-// export default CustomPhoneNumber;
+  return (
+    <IonGrid className="auth_cnt">
+      {label && <IonLabel>{isRequired ? `${label}*` : label}</IonLabel>}
+      {selectedCountry && (
+        <IonText color="black" style={{ fontSize: 12 }}>
+          {selectedCountry.name} ({"+" + selectedCountry.dialCode})
+        </IonText>
+      )}
+      <Controller
+        name={fieldName}
+        control={control}
+        rules={{
+          required: isRequired
+            ? `${errorText || fieldName} is required`
+            : false,
+          validate: validateField,
+        }}
+        render={({ field: { onChange, value } }) => (
+          <PhoneInput
+            country={"us"}
+            value={value} // Ensure the input is controlled
+            placeholder="Enter phone number"
+            enableSearch={true}
+            countryCodeEditable={false}
+            onChange={(phone: any, country) => {
+              setSelectedCountry(country);
+              onChange(phone);
+              if (phone && onPhoneChange) {
+                onPhoneChange(phone);
+              }
+            }}
+          />
+        )}
+      />
+      {/* Display error messages */}
+      {errors?.[fieldName] && (
+        <IonText color="danger" className="error" style={{ fontSize: 12 }}>
+          {"* " + errors[fieldName]?.message}
+        </IonText>
+      )}
+    </IonGrid>
+  );
+};
+
+export default CustomPhoneNumber;
