@@ -7,11 +7,12 @@ import classes from "./StyledLink.module.css";
 export default function StyledLink({
   href,
   className,
+  isEditView,
   ...rest
-}: React.ComponentProps<"a">) {
+}: React.ComponentProps<"a"> & { isEditView?: boolean }) {
   return (
     <a
-      href={href}
+      href={isEditView ? undefined : href} // Set href to undefined if isEditView is true
       className={clsx(classes.link, className)}
       {...rest}
     />

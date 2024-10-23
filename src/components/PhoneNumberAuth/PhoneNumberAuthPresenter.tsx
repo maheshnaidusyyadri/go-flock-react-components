@@ -51,7 +51,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     handleSubmit,
     formState: { errors },
     register,
-    control,
+    // control,
   } = useForm();
   const handleGenerateOTP = () => {
     if (phoneNumber.trim()) {
