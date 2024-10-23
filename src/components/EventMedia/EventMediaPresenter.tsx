@@ -43,6 +43,7 @@ import ShareIcon from "../../images/icons/Share.svg";
 import Download from "../../images/icons/Download.svg";
 import save from "../../images/icons/Love.svg";
 import Delete from "../../images/icons/Delet.svg";
+import CrossIcon from "../../images/icons/Cross.svg";
 
 type SelectablePhoto = Photo & {
   selected?: boolean;
@@ -159,25 +160,29 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           showProfile={true}
         />
         {/* <h2>Event Media</h2> */}
-
         {isEditMode && (
-          <IonLabel
-            onClick={() => {
-              handleDeselectAll();
-              setIsEditMode(false);
-            }}
-          >
-            close
-            {selectedCount > 0
-              ? selectedCount + "item selected"
-              : "Select item"}
+          <IonLabel class="slection_head">
+            {isEditMode && (
+              <IonLabel
+                className="slection_count"
+                onClick={() => {
+                  handleDeselectAll();
+                  setIsEditMode(false);
+                }}
+              >
+                <IonImg src={CrossIcon} />
+                {selectedCount > 0
+                  ? selectedCount + " item selected"
+                  : "Select item"}
+              </IonLabel>
+            )}
+            {selectedCount > 0 && !areAllSelected && (
+              <IonLabel onClick={handleSelectAll}>Select All</IonLabel>
+            )}
+            {selectedCount > 0 && areAllSelected && (
+              <IonLabel onClick={handleDeselectAll}>Deselect All</IonLabel>
+            )}
           </IonLabel>
-        )}
-        {selectedCount > 0 && !areAllSelected && (
-          <IonButton onClick={handleSelectAll}>Select All</IonButton>
-        )}
-        {selectedCount > 0 && areAllSelected && (
-          <IonButton onClick={handleDeselectAll}>Deselect All</IonButton>
         )}
         <IonGrid class="media_cnt">
           <IonSegment
@@ -288,11 +293,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           render={{ buttonPrev: () => null, buttonNext: () => null }}
           styles={{ root: { "--yarl__color_backdrop": "rgba(0, 0, 0, .8)" } }}
           controller={{
-            closeOnBackdropClick: true,
-            closeOnPullUp: true,
-            closeOnPullDown: true,
+            closeOnBackdropClick: false,
+            closeOnPullUp: false,
+            closeOnPullDown: false,
           }}
-          plugins={[Fullscreen, Slideshow, Thumbnails, Zoom, Video]}
+          plugins={[Fullscreen, Slideshow, Zoom, Video]}
           index={lightboxIndex}
         />
 

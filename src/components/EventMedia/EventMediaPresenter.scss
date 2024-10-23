@@ -344,3 +344,28 @@ body {
   top: 10px;
   width: 15px;
 }
+
+.yarl__portal_open {
+  --yarl__color_backdrop: #ffffff !important;
+}
+
+.yarl__toolbar {
+  background: $GoFlockColor;
+  width: 100%;
+}
+.yarl__slide {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.slection_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 0 16px;
+}
+
+.slection_count {
+  display: flex;
+  align-items: center;
+}
