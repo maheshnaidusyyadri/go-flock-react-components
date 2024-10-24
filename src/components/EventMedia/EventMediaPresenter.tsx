@@ -13,13 +13,13 @@ import {
   IonSegmentButton,
   IonSpinner,
   IonToast,
+  SegmentValue,
 } from "@ionic/react";
 import { EventMediaProps, Media } from "@goflock/types";
 import { MasonryPhotoAlbum, Photo } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
-import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import "react-photo-album/styles.css";
@@ -63,7 +63,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [selectedCount, setSelectedCount] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
-  const [selectedSegment, setSelectedTab] = useState("all");
+  const [selectedSegment, setSelectedTab] = useState<SegmentValue>("all");
 
   const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
     allPhotos.map((photo) => ({
@@ -188,7 +188,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           <IonSegment
             className="gallery_tabs"
             value={selectedSegment}
-            onIonChange={(e) => setSelectedTab(e.detail.value)}
+            onIonChange={(e) => setSelectedTab(e.detail.value!)}
           >
             <IonSegmentButton value="all">
               <IonImg src={GridIcon} />
@@ -211,7 +211,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               render={{
                 // render custom styled link
                 link: (props) => (
-                  <StyledLink {...props} isEditView={isEditMode} />
+                  <StyledLink
+                    {...props}
+                    isEditView={isEditMode}
+                  />
                 ),
                 // render image selection icon
                 extras: (_, { photo: { selected, type }, index }) => (
@@ -233,12 +236,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     )}
                     {type == "video" && (
                       <>
-                        <IonImg class="type_declaration" src={VideoType} />
+                        <IonImg
+                          class="type_declaration"
+                          src={VideoType}
+                        />
                       </>
                     )}
                     {type == "image" && (
                       <>
-                        <IonImg class="type_declaration" src={ImageType} />
+                        <IonImg
+                          class="type_declaration"
+                          src={ImageType}
+                        />
                       </>
                     )}
                   </>
@@ -320,7 +329,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         </IonList>
 
         <IonFooter className="stickyFooter hasFooter">
-          <IonButton className="primary-btn rounded" onClick={handleAddMedia}>
+          <IonButton
+            className="primary-btn rounded"
+            onClick={handleAddMedia}
+          >
             Add Media
           </IonButton>
         </IonFooter>
@@ -339,26 +351,50 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink className="link" href="#">
-                    <img src={ShareIcon} alt="Media" />
+                  <StyledLink
+                    className="link"
+                    href="#"
+                  >
+                    <img
+                      src={ShareIcon}
+                      alt="Media"
+                    />
                     <span>Share</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" href="#">
-                    <img src={Download} alt="Split Bill" />
+                  <StyledLink
+                    className="link"
+                    href="#"
+                  >
+                    <img
+                      src={Download}
+                      alt="Split Bill"
+                    />
                     <span>Download</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" href="#">
-                    <img src={save} alt="Chat" />
+                  <StyledLink
+                    className="link"
+                    href="#"
+                  >
+                    <img
+                      src={save}
+                      alt="Chat"
+                    />
                     <span>Save</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" href="#">
-                    <img src={Delete} alt="Settings" />
+                  <StyledLink
+                    className="link"
+                    href="#"
+                  >
+                    <img
+                      src={Delete}
+                      alt="Settings"
+                    />
                     <span>Delete</span>
                   </StyledLink>
                 </li>
@@ -366,7 +402,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </nav>
           </IonFooter>
         ) : (
-          <Footer activeTab={"home"} eventId={""} />
+          <Footer
+            activeTab={"home"}
+            eventId={""}
+          />
         )}
       </IonContent>
     </>
