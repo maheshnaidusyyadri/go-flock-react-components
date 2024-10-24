@@ -45,6 +45,8 @@ import save from "../../images/icons/Love.svg";
 import Delete from "../../images/icons/Delet.svg";
 import CrossIcon from "../../images/icons/Cross.svg";
 
+import { Share } from "@capacitor/share";
+
 type SelectablePhoto = Photo & {
   selected?: boolean;
   type?: String;
@@ -204,6 +206,29 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     // Optionally, you might want to reset the selection count and edit mode
     setIsEditMode(false);
     setSelectedCount(0);
+  };
+
+  const handleShareSelected = async () => {
+    const selectedPhotos = photos.filter((photo) => photo.selected);
+    if (selectedPhotos.length === 0) {
+      console.warn("No photos selected for sharing.");
+      return;
+    }
+
+    try {
+      // Create a message containing the URLs of the selected photos
+      const messageText = `Check out these images!\n\n${selectedPhotos
+        .map((photo) => photo.src)
+        .join("\n")}`;
+
+      await Share.share({
+        title: "Share Images",
+        text: messageText,
+        dialogTitle: "Share these images",
+      });
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
   };
 
   return (
@@ -396,7 +421,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink className="link" href="#">
+                  <StyledLink className="link" onClick={handleShareSelected}>
                     <img src={ShareIcon} alt="Media" />
                     <span>Share</span>
                   </StyledLink>
