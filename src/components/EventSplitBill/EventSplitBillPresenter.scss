@@ -171,6 +171,11 @@ body {
 }
 .transactions {
   padding: 16px;
+  width: 100%;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
   .transaction_list {
     padding: 6px 10px;
     .transaction_item {
@@ -229,6 +234,43 @@ body {
     }
     &:nth-child(even) {
       background: #f6f6f6;
+    }
+  }
+}
+
+.event_transactions {
+  .ion-tabs {
+    .ion-tab-bar {
+      height: 55px;
+      .ion-tab {
+        font-family: $GoFlockFont;
+        font-weight: 600;
+        font-size: 12px;
+        color: $secondaryColor;
+        position: relative;
+        &:after {
+          content: "";
+          width: 100%;
+          height: 2px;
+          background: transparent;
+          display: block;
+          position: absolute;
+          left: 0px;
+          bottom: 0px;
+        }
+        &:hover {
+          color: $GoFlockColor !important;
+        }
+        &.tab-selected {
+          color: $GoFlockColor;
+          &:after {
+            content: "";
+            width: 100%;
+            height: 2px;
+            background: $GoFlockColor;
+          }
+        }
+      }
     }
   }
 }
