@@ -76,9 +76,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     const count = photos.filter((photo) => photo.selected).length;
     setSelectedCount(count);
   }, [photos]);
-  // useEffect(() => {
-  //   console.log("photos-photos", allPhotos);
-  // }, []);
   useEffect(() => {
     if (selectedSegment === "all") {
       setPhotos(allPhotos);
@@ -150,6 +147,65 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     );
   };
 
+  const handleDownloadSelected = () => {
+    const selectedPhotos = photos.filter((photo) => photo.selected);
+    selectedPhotos.forEach((photo: any) => {
+      const link = document.createElement("a");
+      // Determine the href based on the type
+      link.href = photo.type === "image" ? photo.src : photo.sources?.[0]?.src;
+      // Check if href is defined before proceeding
+      if (!link.href) {
+        console.error("File source is undefined for photo:", photo);
+        return; // Skip to the next photo
+      }
+      // Determine the filename based on the type and extension
+      let extension;
+      if (photo.type === "image") {
+        extension = photo.src ? photo.src.split(".").pop() : "jpg"; // Default to 'jpg' if src is undefined
+        link.download = `downloaded_image.${extension}`; // Set the download filename with the extension
+        console.log("extension-image", extension);
+      } else if (photo.type === "video") {
+        extension = photo.sources?.[0]?.src
+          ? photo.sources[0].src.split(".").pop()
+          : "mp4"; // Default to 'mp4' if src is undefined
+        console.log("extension-videos", extension);
+        link.download = `downloaded_video.${extension}`; // Set the download filename with the extracted extension
+      }
+      // Debugging logs
+      console.log(`Attempting to download: ${link.href}`);
+      // Check if the file exists before downloading
+      fetch(link.href)
+        .then((response) => {
+          if (response.ok) {
+            return response.blob(); // Convert to blob
+          } else {
+            console.error(`File not available: ${link.href}`);
+            throw new Error("File not available");
+          }
+        })
+        .then((blob) => {
+          const url = URL.createObjectURL(blob); // Create a Blob URL
+          link.href = url; // Set the href to the Blob URL
+          document.body.appendChild(link);
+          link.click(); // Trigger the download
+          document.body.removeChild(link); // Clean up the DOM
+          URL.revokeObjectURL(url); // Clean up the Blob URL
+        })
+        .catch((error) => {
+          console.error(`Error downloading file: ${error.message}`);
+        });
+    });
+  };
+  const handleDeleteSelected = () => {
+    setPhotos((prevPhotos) => {
+      // Filter out the selected photos
+      return prevPhotos.filter((photo) => !photo.selected);
+    });
+    // Optionally, you might want to reset the selection count and edit mode
+    setIsEditMode(false);
+    setSelectedCount(0);
+  };
+
   return (
     <>
       <IonContent className="eventMedia">
@@ -211,10 +267,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               render={{
                 // render custom styled link
                 link: (props) => (
-                  <StyledLink
-                    {...props}
-                    isEditView={isEditMode}
-                  />
+                  <StyledLink {...props} isEditView={isEditMode} />
                 ),
                 // render image selection icon
                 extras: (_, { photo: { selected, type }, index }) => (
@@ -236,18 +289,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     )}
                     {type == "video" && (
                       <>
-                        <IonImg
-                          class="type_declaration"
-                          src={VideoType}
-                        />
+                        <IonImg class="type_declaration" src={VideoType} />
                       </>
                     )}
                     {type == "image" && (
                       <>
-                        <IonImg
-                          class="type_declaration"
-                          src={ImageType}
-                        />
+                        <IonImg class="type_declaration" src={ImageType} />
                       </>
                     )}
                   </>
@@ -330,10 +377,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         </IonList>
 
         <IonFooter className="stickyFooter hasFooter">
-          <IonButton
-            className="primary-btn rounded"
-            onClick={handleAddMedia}
-          >
+          <IonButton className="primary-btn rounded" onClick={handleAddMedia}>
             Add Media
           </IonButton>
         </IonFooter>
@@ -352,50 +396,26 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink
-                    className="link"
-                    href="#"
-                  >
-                    <img
-                      src={ShareIcon}
-                      alt="Media"
-                    />
+                  <StyledLink className="link" href="#">
+                    <img src={ShareIcon} alt="Media" />
                     <span>Share</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    href="#"
-                  >
-                    <img
-                      src={Download}
-                      alt="Split Bill"
-                    />
+                  <StyledLink className="link" onClick={handleDownloadSelected}>
+                    <img src={Download} alt="Split Bill" />
                     <span>Download</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    href="#"
-                  >
-                    <img
-                      src={save}
-                      alt="Chat"
-                    />
+                  <StyledLink className="link" href="#">
+                    <img src={save} alt="Chat" />
                     <span>Save</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    href="#"
-                  >
-                    <img
-                      src={Delete}
-                      alt="Settings"
-                    />
+                  <StyledLink className="link" onClick={handleDeleteSelected}>
+                    <img src={Delete} alt="Settings" />
                     <span>Delete</span>
                   </StyledLink>
                 </li>
@@ -403,10 +423,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </nav>
           </IonFooter>
         ) : (
-          <Footer
-            activeTab={"home"}
-            eventId={""}
-          />
+          <Footer activeTab={"home"} eventId={""} />
         )}
       </IonContent>
     </>
