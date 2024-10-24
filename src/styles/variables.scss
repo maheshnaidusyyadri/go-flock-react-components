@@ -818,6 +818,9 @@ input[type="number"] {
   }
   &.hasFooter {
     top: calc(100% - 160px);
+    &.bottomSticky {
+      bottom: 60px;
+    }
   }
 }
 

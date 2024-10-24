@@ -401,7 +401,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           ))}
         </IonList>
 
-        <IonFooter className="stickyFooter hasFooter">
+        <IonFooter className="stickyFooter hasFooter bottomSticky">
           <IonButton className="primary-btn rounded" onClick={handleAddMedia}>
             Add Media
           </IonButton>
