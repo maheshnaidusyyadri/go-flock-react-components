@@ -297,6 +297,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         <Lightbox
           open={Boolean(lightboxPhoto)}
           close={() => setLightboxPhoto(undefined)}
+          // @ts-ignore
           slides={photos}
           carousel={{ finite: true }}
           render={{ buttonPrev: () => null, buttonNext: () => null }}
