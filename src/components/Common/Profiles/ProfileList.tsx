@@ -3,10 +3,14 @@ import { IonAvatar, IonLabel, IonThumbnail } from "@ionic/react";
 import "./ProfileList.scss"; // Custom CSS file
 import { EventMember } from "@goflock/types/src";
 import unselect from "../../../images/icons/remove.svg";
+import attendingIcon from "../../../images/icons/Attending.svg";
+import notAttendingIcon from "../../../images/icons/notAttending.svg";
+import notSureIcon from "../../../images/icons/notSure.svg";
 
 interface ProfileListProps {
   eventId: string;
   eventMembers: EventMember[];
+  type?: string;
 }
 
 const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
@@ -15,6 +19,21 @@ const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
     return name.length > 1
       ? name.slice(0, 2).toUpperCase()
       : name.toUpperCase();
+  };
+  const showStatusIcons = (eventMember: any) => {
+    if (eventMember.rsvp && eventMember.rsvp.response) {
+      switch (eventMember.rsvp.response) {
+        case "attending":
+          return attendingIcon;
+        case "not-attending":
+          return notAttendingIcon;
+        case "maybe":
+          return notSureIcon;
+        default:
+          return unselect;
+      }
+    }
+    return unselect;
   };
   return (
     <div className="profile-list">
@@ -30,7 +49,11 @@ const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
                 {getDisplayName(eventMember?.name)}
               </IonAvatar>
             )}
-            <img src={unselect} alt="status" className="remove_user" />
+            <img
+              src={showStatusIcons(eventMember)}
+              alt="status"
+              className="remove_user"
+            />
           </IonThumbnail>
           <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
