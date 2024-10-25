@@ -12,6 +12,7 @@ import {
   IonFooter,
   IonGrid,
   IonImg,
+  IonPage,
 } from "@ionic/react";
 import {
   CreateNewEventProps,
@@ -145,7 +146,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   };
 
   return (
-    <>
+    <IonPage>
       <Header
         title="Create Event"
         showMenu={false}
@@ -210,7 +211,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       />
                     </IonList>
                     {locationError && (
-                      <IonText color="danger" style={{ fontSize: 12 }}>
+                      <IonText
+                        color="danger"
+                        style={{ fontSize: 12 }}
+                      >
                         * Venue is required
                       </IonText>
                     )}
@@ -353,7 +357,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={privateEventIcon} alt="Private Event" />
+                            <img
+                              src={privateEventIcon}
+                              alt="Private Event"
+                            />
                           </span>
                           <p>
                             <strong>Private Event</strong>
@@ -368,7 +375,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={publicEventIcon} alt="Public Event" />
+                            <img
+                              src={publicEventIcon}
+                              alt="Public Event"
+                            />
                           </span>
                           <p>
                             <strong>Public Event</strong>Only users with phone
@@ -413,9 +423,15 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonFooter>
         </FormProvider>
       </IonContent>
-      <IonGrid className="action_screen" style={{ display: "none" }}>
+      <IonGrid
+        className="action_screen"
+        style={{ display: "none" }}
+      >
         <IonGrid className="action_screen_cnt">
-          <IonImg alt="Successfully Created Event" src={Success} />
+          <IonImg
+            alt="Successfully Created Event"
+            src={Success}
+          />
           <IonLabel className="action_title">
             Successfully Created Event
           </IonLabel>
@@ -431,7 +447,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonButton>
         </IonFooter>
       </IonGrid>
-    </>
+    </IonPage>
   );
 };
 

@@ -1,7 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import ProfilePresenter from "./ProfilePresenter";
 import { ProfileProps } from "@goflock/types";
-import EditProfilePresenter from "./EditProfile";
 import PrivacyPolicyPresenter from "./PrivacyPolicy";
 
 export default {
@@ -73,12 +72,12 @@ ErrorState.args = {
 };
 
 export const EditProfile = (args: JSX.IntrinsicAttributes & ProfileProps) => (
-  <EditProfilePresenter {...args} />
+  <ProfilePresenter {...args} />
 );
 EditProfile.args = {
   profile: {
     id: "1",
-    prefName: "John Doe",
+    prefName: "",
     isIntroShown: true,
     pictureUrl: "https://example.com/profile.jpg",
     preferences: {

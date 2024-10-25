@@ -18,11 +18,13 @@ type EditProfileProps = {
   profile: Profile;
   setPreferredName: (prefName: string) => Promise<boolean>;
   setSMSPreference: (smsNotifications: boolean) => Promise<boolean>;
+  setProfileOpen: (close: boolean) => void;
 };
 
 const EditProfile: React.FC<EditProfileProps> = ({
   profile,
   setPreferredName,
+  setProfileOpen,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
@@ -52,8 +54,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
     setIsLoading(true);
     try {
       const success = await setPreferredName(preferredName);
-      if (!success) {
-        throw new Error("Failed to set preferred name");
+      console.log(success);
+
+      if (success) {
+        setProfileOpen(false);
       }
     } catch (err: any) {
     } finally {
@@ -108,7 +112,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
-            <IonImg className="dp" src={image || ProfileDp}></IonImg>
+            <IonImg
+              className="dp"
+              src={image || ProfileDp}
+            ></IonImg>
             <span
               className="dp_edit"
               onClick={() => fileInputRef.current?.click()}
@@ -149,7 +156,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
                   />
                 </div>
                 <div className="terms">
-                  <IonToggle className="ion-toggle" labelPlacement="start">
+                  <IonToggle
+                    className="ion-toggle"
+                    labelPlacement="start"
+                  >
                     Get remainders, notifications via SMS.
                   </IonToggle>
                 </div>
