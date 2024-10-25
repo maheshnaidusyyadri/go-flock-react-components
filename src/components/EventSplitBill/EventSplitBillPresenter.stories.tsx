@@ -6,7 +6,6 @@ import {
   EventSplitBillProps,
   Transaction,
 } from "@goflock/types/src/index";
-import EventBillPresenter from "./EventBill";
 import AddExpense from "./AddExpense";
 
 export default {
@@ -17,11 +16,6 @@ export default {
 const Template: StoryFn<EventSplitBillProps> = (args) => (
   <EventSplitBillPresenter {...args} />
 );
-
-export const EventBill = (
-  args: JSX.IntrinsicAttributes & EventSplitBillProps
-) => <EventBillPresenter {...args} />;
-EventBill.args = {};
 
 const mockMembers: EventMember[] = [
   {

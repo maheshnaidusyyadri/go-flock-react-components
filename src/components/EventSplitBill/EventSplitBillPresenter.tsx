@@ -22,6 +22,7 @@ import {
 import Header from "../Header/Header";
 import EditIcon from "../../images/icons/Edit.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
+import Bill from "../../images/bill.svg";
 
 const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   event,
@@ -150,7 +151,14 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
                     </IonList>
                   ))
                 ) : (
-                  <IonText className="nodata">No transactions found</IonText>
+                  <>
+                    <IonImg
+                      className="ion-img"
+                      alt="Successfully Created Event"
+                      src={Bill}
+                    />
+                    <IonText className="nodata">No transactions found</IonText>
+                  </>
                 )}
               </IonCard>
             </IonContent>
@@ -170,7 +178,14 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
                     </IonItem>
                   ))
                 ) : (
-                  <IonText className="nodata">No expenses found</IonText>
+                  <>
+                    <IonImg
+                      className="ion-img"
+                      alt="Successfully Created Event"
+                      src={Bill}
+                    />
+                    <IonText className="nodata">No expenses found</IonText>
+                  </>
                 )}
               </IonCard>
             </IonContent>
