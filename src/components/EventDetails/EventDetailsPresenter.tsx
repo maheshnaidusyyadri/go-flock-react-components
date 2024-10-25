@@ -215,6 +215,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     <ProfileList
                       eventId={event.id}
                       eventMembers={event.members}
+                      type={"InviteGuests"}
                     />
                   </IonGrid>
                 )}

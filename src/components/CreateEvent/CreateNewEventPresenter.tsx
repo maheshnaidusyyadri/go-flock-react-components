@@ -31,9 +31,6 @@ import CustomInput from "../Common/CustomInput";
 import IonTextarea from "../Common/CustomTextarea";
 import CustomSelect from "../Common/CustomSelect";
 import CustomDateTime from "../Common/CustomDateTime";
-//import CustomDateTime from "../Common/CustomDateTime";
-
-// import Header from '../Header/Header';
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
@@ -42,30 +39,18 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 }) => {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
-  //const [eventName, setEventName] = useState<string>("");
-  const [eventType, setEventType] = useState<EventType>();
-  //const [eventDescription, setEventDescription] = useState<string>("");
-  // @ts-ignore
-  //const [startDate, setStartDate] = useState<Date>(new Date());
-  // @ts-ignore
-  //const [endDate, setEndDate] = useState<Date>(new Date());
-  // @ts-ignore
-  const [startTime, setStartTime] = useState<string>("10:00 AM");
-  // @ts-ignore
-  const [endTime, setEndTime] = useState<string>("12:00 PM");
-
+  //const [eventType, setEventType] = useState<EventType>();
   const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
-
   const [isCreating, setIsCreating] = useState<boolean>(false);
-
   const currentDate = new Date();
   const tomorrow = new Date(currentDate.setDate(currentDate.getDate() + 1));
   const tomorrowISOString = tomorrow.toISOString();
-
   // Date States,
   const [startDate, setStartDate] = useState<string>(tomorrowISOString); // Default to next day
   const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
   const [locationError, setLocationError] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1); // Track the current step
+  const totalSteps = 3; // Define the total number of steps
   const methods = useForm();
   const {
     handleSubmit,
@@ -73,14 +58,27 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     register,
     control,
     setValue,
+    clearErrors,
   } = useForm();
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   useEffect(() => {
-    setValue("endDate", startDate);
-    console.log(eventType);
-  }, [startDate]);
-
+    if (startDate) {
+      setValue("endDate", startDate);
+    }
+    if (startDate && endDate && startTime && startDate == endDate) {
+      const startDateObj = new Date(startDate);
+      const startTimeObj = new Date(startTime);
+      const hours = startTimeObj.getHours();
+      const minutes = startTimeObj.getMinutes();
+      startDateObj.setHours(hours);
+      startDateObj.setMinutes(minutes);
+      setEndTime(startDateObj.toISOString());
+    }
+  }, [startDate, startTime, endDate]);
   // Handle creating an event
   const handleCreateEvent = async (data: any) => {
+    console.log("handleCreateEvent-Data", data);
     if (!selectedLocation || !data.event || data.event.trim() === "") return;
     // if (!selectedLocation || data.event.trim() === "") return;
     setIsCreating(true);
@@ -97,35 +95,15 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
         endTime: data.endTime,
       },
     };
-    // const draftEvent: DraftEvent = {
-    //   name: eventName,
-    //   type: eventType!,
-    //   description: eventDescription,
-    //   location: selectedLocation,
-    //   visibility: eventVisibility,
-    //   time: {
-    //     startDate: startDate || new Date(),
-    //     endDate,
-    //     startTime,
-    //     endTime,
-    //   },
-    // };
-
     try {
       let newEvent: Event = await createEvent(draftEvent);
       goToEvent(newEvent.id);
-      //console.log("goToEvent")
     } catch (error) {
       console.error("Error creating event:", error);
     } finally {
       setIsCreating(false);
-      //console.log("finally")
     }
   };
-  ////////////////
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
-  const totalSteps = 3; // Define the total number of steps
-
   // Function to go to the next step
   const nextStep = () => {
     if (!selectedLocation) {
@@ -163,7 +141,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   };
 
   const handleSelectLocation = (location: LocationInfo) => {
-    console.log("Selected location:", location);
     setSelectedLocation(location);
     setLocationError(false);
   };
@@ -212,7 +189,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         isRequired={true}
                         errors={errors}
                         errorText="Event Type"
-                        onIonChange={(e: any) => setEventType(e)}
+                        //onIonChange={(e: any) => setEventType(e)}
                       />
                     </IonList>
                     <IonList className="form-group">
@@ -292,7 +269,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       isRequired={true}
                       errorText="End Date"
                       errors={errors}
-                      // defaultValue={startDate}
                       formatOptions={{
                         weekday: "short",
                         month: "long",
@@ -313,7 +289,16 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       isRequired={true}
                       errorText="Start Time"
                       errors={errors}
-                      defaultValue={""}
+                      onIonFocus={() => {
+                        const currentTimeUTC = new Date();
+                        const currentTimeIST = new Date(
+                          currentTimeUTC.getTime() + 5.5 * 60 * 60 * 1000
+                        );
+                        setValue("startTime", currentTimeIST.toISOString());
+                        //setValue("endTime", " ");
+                        setStartTime(currentTimeIST.toISOString());
+                        clearErrors("startTime");
+                      }}
                       formatOptions={{
                         time: {
                           hour: "2-digit",
@@ -331,21 +316,23 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       isRequired={true}
                       errorText="End Time"
                       errors={errors}
-                      defaultValue={""}
+                      minDate={endTime}
+                      onIonFocus={() => {
+                        const currentTimeUTC = new Date();
+                        const currentTimeIST = new Date(
+                          currentTimeUTC.getTime() + 5.5 * 60 * 60 * 1000
+                        );
+                        setValue("endTime", currentTimeIST.toISOString());
+                        clearErrors("endTime");
+                      }}
                       formatOptions={{
                         time: {
                           hour: "2-digit",
                           minute: "2-digit",
                         },
                       }}
+                      //disabled={!startTime}
                     />
-                    {/* <IonButton
-              onClick={handleCreateEvent}
-              expand="block"
-              disabled={isCreating || !selectedLocation || !eventName}
-            >
-              {isCreating ? "Creating Event..." : "Create Event"}
-            </IonButton> */}
                   </IonCardContent>
                 </IonGrid>
               </IonGrid>
