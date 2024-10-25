@@ -8,7 +8,6 @@ import {
 } from "@goflock/types/src/index";
 import EventBillPresenter from "./EventBill";
 import AddExpense from "./AddExpense";
-import ExpensesPresenter from "./Expenses";
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
@@ -23,53 +22,6 @@ export const EventBill = (
   args: JSX.IntrinsicAttributes & EventSplitBillProps
 ) => <EventBillPresenter {...args} />;
 EventBill.args = {};
-
-export const Expenses = (
-  args: JSX.IntrinsicAttributes & EventSplitBillProps
-) => (
-  <ExpensesPresenter
-    members={[
-      {
-        name: "Jackson Graham",
-        phone: "",
-        expanse: "+833.33",
-        className: "green",
-      },
-      {
-        name: "Jane Cooper",
-        phone: "",
-        expanse: "$166.67",
-        className: "red",
-      },
-      {
-        name: "Cameron Williamson",
-        phone: "",
-        expanse: "$166.67",
-        className: "red",
-      },
-      {
-        name: "Jenny Wilson",
-        phone: "",
-        expanse: "$166.67",
-        className: "red",
-      },
-      {
-        name: "Kristin Watson",
-        phone: "",
-        expanse: "$166.67",
-        className: "red",
-      },
-      {
-        name: "",
-        phone: "(307) 555-0133",
-        expanse: "$166.67",
-        className: "red",
-      },
-    ]}
-    {...args}
-  />
-);
-Expenses.args = {};
 
 const mockMembers: EventMember[] = [
   {
