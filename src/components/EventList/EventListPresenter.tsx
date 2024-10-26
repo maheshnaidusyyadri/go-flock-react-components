@@ -20,11 +20,10 @@ const EventListPresenter: React.FC<EventListProps> = ({
   return (
     <IonPage>
       <Header
-        //title={event.name}
         title=""
-        showLogo={true}
+        showLogo={false}
         showContactList={false}
-        showGoBack={false}
+        showGoBack={true}
         showProfile={true}
       />
 
