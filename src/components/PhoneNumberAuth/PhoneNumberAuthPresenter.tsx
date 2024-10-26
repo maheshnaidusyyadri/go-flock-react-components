@@ -24,7 +24,7 @@ import Mobile from "../../images/otp_varification.svg";
 import OtpInput from "./OtpInput";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
-//import CustomPhoneNumber from "../Common/CustomPhone";
+// import CustomPhoneNumber from "../Common/CustomPhone";
 
 type Country = {
   name: string;
@@ -164,7 +164,6 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   return (
     <IonPage className="authpage">
       <IonContent
-        scrollY={false}
         className={`generate_cnt ion-padding ${isActive ? "" : "active"}`}
         fullscreen
         hidden
@@ -183,7 +182,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
               </IonCard>
               <FormProvider {...methods}>
                 <div className="country_selection">
-                  <IonContent scrollY={false}>
+                  <IonGrid className="selection_cnt">
                     {/* Display the selected country field that toggles the list */}
                     <label>Country</label>
                     <IonItem button onClick={() => setIsListOpen(!isListOpen)}>
@@ -216,7 +215,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                       onDidDismiss={() => setIsListOpen(false)}
                       className="countries_list"
                     >
-                      <IonContent>
+                      <IonGrid class="country_sec">
                         <h4 className="country-label">Country codes</h4>
                         <IonSearchbar
                           placeholder="Search country"
@@ -247,9 +246,9 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                             </IonItem>
                           ))}
                         </IonList>
-                      </IonContent>
+                      </IonGrid>
                     </IonModal>
-                  </IonContent>
+                  </IonGrid>
                 </div>
                 <div className="form-group">
                   <CustomInput

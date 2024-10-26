@@ -55,7 +55,7 @@
 .country_selection {
   width: 100%;
   padding: 0px;
-  ion-content {
+  .selection_cnt {
     height: 90px;
     label {
       transform: inherit !important;
@@ -152,7 +152,7 @@
       top: 24px;
       z-index: 1;
     }
-    ion-content {
+    .country_sec {
       .country-label {
         font-family: $GoFlockFont;
         font-size: 20px;
