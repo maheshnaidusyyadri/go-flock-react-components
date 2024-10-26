@@ -24,7 +24,7 @@ import Success from "../../images/celebration.svg";
 import privateEventIcon from "../../images/icons/privateEvent.svg";
 import publicEventIcon from "../../images/icons/publicEvent.svg";
 import PlaceSearch from "./PlaceSearch";
-import { EventType, EventVisibility } from "@goflock/types";
+import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
