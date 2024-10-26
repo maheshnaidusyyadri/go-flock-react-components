@@ -6,7 +6,7 @@ import {
   EventSplitBillProps,
   Transaction,
 } from "@goflock/types/src/index";
-import AddExpense from "./AddExpense";
+import AddExpense from "./AddExpensePresenter";
 
 export default {
   title: "GoFlock/Presenters/EventSplitBillPresenter",
