@@ -9,6 +9,7 @@ import {
   IonImg,
   IonLabel,
   IonText,
+  IonRouterLink,
 } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
@@ -79,33 +80,59 @@ const Header: React.FC<HeaderProps> = ({
       <IonHeader className={`main-header ${className}`}>
         <div className="header-cnt">
           {showGoBack && (
-            <IonImg src={backArrow} alt="Page Back" onClick={handleBack} />
+            <IonImg
+              src={backArrow}
+              alt="Page Back"
+              onClick={handleBack}
+            />
           )}
           {showLogo && (
-            <IonThumbnail className="profile_icon">
-              <IonImg src={goflockLogo} alt="ProfileIcon" />
-            </IonThumbnail>
+            <IonRouterLink routerLink="/">
+              <IonThumbnail className="profile_icon">
+                <IonImg
+                  src={goflockLogo}
+                  alt="ProfileIcon"
+                />
+              </IonThumbnail>
+            </IonRouterLink>
           )}
           {title && <IonTitle className="page-title">{title}</IonTitle>}
           {showMenu && (
-            <IonThumbnail id="open-action-sheet" className="menu_icon">
-              <IonImg src={Menu} alt="More Details" />
+            <IonThumbnail
+              id="open-action-sheet"
+              className="menu_icon"
+            >
+              <IonImg
+                src={Menu}
+                alt="More Details"
+              />
             </IonThumbnail>
           )}
           {showContactList && (
             <IonThumbnail className="menu_icon contactList">
-              <IonImg src={ContactListIcon} alt="Contact List" />
+              <IonImg
+                src={ContactListIcon}
+                alt="Contact List"
+              />
             </IonThumbnail>
           )}
           {showProfile && (
-            <IonThumbnail className="profile_icon">
-              <IonImg src={ProfileIcon} alt="ProfileIcon" />
-            </IonThumbnail>
+            <IonRouterLink routerLink="/profile">
+              <IonThumbnail className="profile_icon">
+                <IonImg
+                  src={ProfileIcon}
+                  alt="ProfileIcon"
+                />
+              </IonThumbnail>
+            </IonRouterLink>
           )}
           {showSignIn && (
             <IonLabel class="signIn_btn">
               <IonText class="signin_text">Sign in</IonText>
-              <IonImg src={signInIcon} alt="ProfileIcon" />
+              <IonImg
+                src={signInIcon}
+                alt="ProfileIcon"
+              />
             </IonLabel>
           )}
         </div>
