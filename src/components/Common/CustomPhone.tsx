@@ -43,9 +43,13 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
 
   return (
     <IonGrid className="auth_cnt">
-      {label && <IonLabel>{isRequired ? `${label}*` : label}</IonLabel>}
+      {label && (
+        <IonLabel class="field-label">
+          {isRequired ? `${label}*` : label}
+        </IonLabel>
+      )}
       {selectedCountry && (
-        <IonText color="black" style={{ fontSize: 12 }}>
+        <IonText className="countryname" color="black">
           {selectedCountry.name} ({"+" + selectedCountry.dialCode})
         </IonText>
       )}
