@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EventSplitBillProps, Transaction } from "@goflock/types/src/index";
+import { EventExpenseSummaryProps } from "@goflock/types/src/index";
 import "./EventSplitBillPresenter.scss";
 
 import Footer from "../Footer/Footer";
@@ -22,63 +22,20 @@ import EditIcon from "../../images/icons/Edit.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
 import Bill from "../../images/bill.svg";
 
-const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
+const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   event,
   transactions = [],
-  addTransaction,
-  updateTransaction,
   deleteTransaction,
   expenses = [],
+  onCreateTransaction,
+  onUpdateTransaction,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "transactions" | "expenses"
   >("transactions");
-  const [newTransaction, setNewTransaction] = useState<Transaction>({
-    id: "",
-    eventId: event.id,
-    deleted: false,
-    description: "",
-    amount: 0,
-    date: new Date().toISOString(),
-    paidUserId: "",
-    splitAmongUserIds: [],
-  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const handleAddTransaction = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await addTransaction(newTransaction);
-      setNewTransaction({
-        id: "",
-        eventId: event.id,
-        deleted: false,
-        description: "",
-        amount: 0,
-        date: new Date().toISOString(),
-        paidUserId: "",
-        splitAmongUserIds: [],
-      });
-    } catch (err) {
-      setError("Failed to add transaction");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleUpdateTransaction = async (transaction: Transaction) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await updateTransaction(transaction);
-    } catch (err) {
-      setError("Failed to update transaction");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleDeleteTransaction = async (transactionId: string) => {
     setIsLoading(true);
@@ -128,7 +85,7 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
                       <IonLabel class="transaction_actions">
                         <IonButton
                           className="icon_btn"
-                          onClick={() => handleUpdateTransaction(transaction)}
+                          onClick={() => onUpdateTransaction(transaction.id!)}
                           disabled={isLoading}
                         >
                           <IonImg src={EditIcon} />
@@ -206,7 +163,7 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
       <IonFooter class="stickyFooter hasFooter">
         <IonButton
           className="primary-btn rounded"
-          onClick={handleAddTransaction}
+          onClick={() => onCreateTransaction(event.id)}
         >
           Add Transaction
         </IonButton>
@@ -220,4 +177,4 @@ const EventSplitBillPresenter: React.FC<EventSplitBillProps> = ({
   );
 };
 
-export default EventSplitBillPresenter;
+export default EventExpenseSummaryPresenter;
