@@ -54,9 +54,7 @@ type SelectablePhoto = Photo & {
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
   eventId,
   media,
-  addMedia,
   deleteMedia,
-  showGallary,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -330,12 +328,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -368,7 +372,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               render={{
                 // render custom styled link
                 link: (props) => (
-                  <StyledLink {...props} isEditView={isEditMode} />
+                  <StyledLink
+                    {...props}
+                    isEditView={isEditMode}
+                  />
                 ),
                 // render image selection icon
                 extras: (_, { photo: { selected, type }, index }) => (
@@ -390,12 +397,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     )}
                     {type == "video" && (
                       <>
-                        <IonImg class="type_declaration" src={VideoType} />
+                        <IonImg
+                          class="type_declaration"
+                          src={VideoType}
+                        />
                       </>
                     )}
                     {type == "image" && (
                       <>
-                        <IonImg class="type_declaration" src={ImageType} />
+                        <IonImg
+                          class="type_declaration"
+                          src={ImageType}
+                        />
                       </>
                     )}
                   </>
@@ -507,26 +520,50 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink className="link" onClick={handleShareSelected}>
-                    <img src={ShareIcon} alt="Media" />
+                  <StyledLink
+                    className="link"
+                    onClick={handleShareSelected}
+                  >
+                    <img
+                      src={ShareIcon}
+                      alt="Media"
+                    />
                     <span>Share</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" onClick={handleDownloadSelected}>
-                    <img src={Download} alt="Split Bill" />
+                  <StyledLink
+                    className="link"
+                    onClick={handleDownloadSelected}
+                  >
+                    <img
+                      src={Download}
+                      alt="Split Bill"
+                    />
                     <span>Download</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" href="#">
-                    <img src={save} alt="Chat" />
+                  <StyledLink
+                    className="link"
+                    href="#"
+                  >
+                    <img
+                      src={save}
+                      alt="Chat"
+                    />
                     <span>Save</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" onClick={handleDeleteSelected}>
-                    <img src={Delete} alt="Settings" />
+                  <StyledLink
+                    className="link"
+                    onClick={handleDeleteSelected}
+                  >
+                    <img
+                      src={Delete}
+                      alt="Settings"
+                    />
                     <span>Delete</span>
                   </StyledLink>
                 </li>
@@ -534,7 +571,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </nav>
           </IonFooter>
         ) : (
-          <Footer activeTab={"home"} eventId={eventId} />
+          <Footer
+            activeTab={"home"}
+            eventId={eventId}
+          />
         )}
       </IonContent>
     </>
