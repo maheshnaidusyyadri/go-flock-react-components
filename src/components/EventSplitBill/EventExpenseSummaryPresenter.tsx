@@ -41,7 +41,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      await deleteTransaction(transactionId);
+      await deleteTransaction(event.id, transactionId);
     } catch (err) {
       setError("Failed to delete transaction");
     } finally {
@@ -85,7 +85,9 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                       <IonLabel class="transaction_actions">
                         <IonButton
                           className="icon_btn"
-                          onClick={() => onUpdateTransaction(transaction.id!)}
+                          onClick={() =>
+                            onUpdateTransaction(event.id, transaction.id!)
+                          }
                           disabled={isLoading}
                         >
                           <IonImg src={EditIcon} />

@@ -13,11 +13,9 @@ import {
   IonCardContent,
   IonList,
   IonInput,
-  IonTabs,
-  IonTab,
-  IonTabBar,
-  IonTabButton,
   IonAvatar,
+  IonSegment,
+  IonSegmentButton,
 } from "@ionic/react";
 import { EventVisibility } from "@goflock/types/src/index";
 import { EventAddExpenseProps } from "@goflock/types/src/presenter/";
@@ -46,6 +44,9 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [selectedMember, setSelectedMembers] = useState([]);
   const [selectedPaidBy, setselectedPaidBy] = useState(null);
   const [selectedAmount, setTotalAmount] = useState(null);
+  const [selectedSegment, setSelectedSegment] = useState<
+    "equal" | "amount" | "percentage"
+  >("equal");
 
   // @ts-ignore
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -307,115 +308,123 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             </IonGrid>
 
             <IonGrid className={`step-content ${getStepClass(2)}`}>
-              <IonTabs className="expense_tabs">
-                <IonTabBar slot="top">
-                  <IonTabButton tab="home">
-                    <IonImg src={EqualIcon} />
-                  </IonTabButton>
-                  <IonTabButton tab="radio">
-                    <IonImg src={DollarIcon} />
-                  </IonTabButton>
-                  <IonTabButton tab="library">
-                    <IonImg src={PercentIcon} />
-                  </IonTabButton>
-                </IonTabBar>
-                <IonTab tab="home">
-                  <div id="home-page">
-                    <IonList className="list_wrap">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem
-                          key={index}
-                          className="user_item"
+              <IonSegment
+                value={selectedSegment}
+                onIonChange={(e) =>
+                  setSelectedSegment(
+                    e.detail.value as "equal" | "amount" | "percentage"
+                  )
+                }
+              >
+                <IonSegmentButton value="equal">
+                  <IonImg src={EqualIcon} />
+                </IonSegmentButton>
+                <IonSegmentButton value="amount">
+                  <IonImg src={DollarIcon} />
+                </IonSegmentButton>
+                <IonSegmentButton value="percentage">
+                  <IonImg src={PercentIcon} />
+                </IonSegmentButton>
+              </IonSegment>
+
+              {selectedSegment === "equal" && (
+                <div id="home-page">
+                  <IonList className="list_wrap">
+                    {selectedMember.map((Item: any, index: any) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
                         >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            <IonImg
-                              src={Item.profileImg}
-                              alt={`${Item.name}'s profile`}
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phoneNumber}
-                          </IonLabel>
-                          <IonText class="amout">${Item.amount}</IonText>
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </IonTab>
-                <IonTab tab="radio">
-                  <div id="radio-page">
-                    <IonList className="list_wrap">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem
-                          key={index}
-                          className="user_item"
-                        >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            <IonImg
-                              src={ProfileIcon}
-                              alt={`${Item.name}'s profile`}
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phone}
-                          </IonLabel>
-                          <IonInput
-                            className="ion_input prefix"
-                            value={Item.amount}
-                            label=""
-                            labelPlacement="stacked"
-                            placeholder="0.00"
-                            type="number" // Ensures numeric input
-                            inputmode="decimal"
-                            onIonChange={(e) => setEventName(e.detail.value!)}
+                          <IonImg
+                            src={Item.profileImg}
+                            alt={`${Item.name}'s profile`}
                           />
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </IonTab>
-                <IonTab tab="library">
-                  <div id="library-page">
-                    <IonList className="list_wrap">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem
-                          key={index}
-                          className="user_item"
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phoneNumber}
+                        </IonLabel>
+                        <IonText class="amout">${Item.amount}</IonText>
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </div>
+              )}
+
+              {selectedSegment === "amount" && (
+                <div id="radio-page">
+                  <IonList className="list_wrap">
+                    {selectedMember.map((Item: any, index: any) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
                         >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            <IonImg
-                              src={ProfileIcon}
-                              alt={`${Item.name}'s profile`}
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phone}
-                          </IonLabel>
-                          <IonInput
-                            class="ion_input safix"
-                            value={Item.percentage}
-                            label=""
-                            labelPlacement="stacked"
-                            placeholder="0"
-                            type="number" // Ensures numeric input
-                            inputmode="decimal"
-                            onIonChange={(e) => setEventName(e.detail.value!)}
+                          <IonImg
+                            src={ProfileIcon}
+                            alt={`${Item.name}'s profile`}
                           />
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </IonTab>
-              </IonTabs>
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phone}
+                        </IonLabel>
+                        <IonInput
+                          className="ion_input prefix"
+                          value={Item.amount}
+                          label=""
+                          labelPlacement="stacked"
+                          placeholder="0.00"
+                          type="number" // Ensures numeric input
+                          inputmode="decimal"
+                          onIonChange={(e) => setEventName(e.detail.value!)}
+                        />
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </div>
+              )}
+
+              {selectedSegment === "percentage" && (
+                <div id="library-page">
+                  <IonList className="list_wrap">
+                    {selectedMember.map((Item: any, index: any) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
+                          <IonImg
+                            src={ProfileIcon}
+                            alt={`${Item.name}'s profile`}
+                          />
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phone}
+                        </IonLabel>
+                        <IonInput
+                          class="ion_input safix"
+                          value={Item.percentage}
+                          label=""
+                          labelPlacement="stacked"
+                          placeholder="0"
+                          type="number" // Ensures numeric input
+                          inputmode="decimal"
+                          onIonChange={(e) => setEventName(e.detail.value!)}
+                        />
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </div>
+              )}
             </IonGrid>
 
             <IonGrid className={`step-content ${getStepClass(3)}`}>

@@ -36,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({ eventId }) => {
           <li>
             <a
               className="link"
-              href={`/event-split-bill/${eventId}`}
+              href={`/event-expenses/${eventId}`}
             >
               <img src={splitIcon} />
               <span>Split Bill</span>
