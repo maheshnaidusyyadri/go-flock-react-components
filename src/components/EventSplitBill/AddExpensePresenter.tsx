@@ -13,18 +13,12 @@ import {
   IonCardContent,
   IonList,
   IonInput,
-  IonTabs,
-  IonTab,
-  IonTabBar,
-  IonTabButton,
   IonAvatar,
+  IonSegment,
+  IonSegmentButton,
 } from "@ionic/react";
-import {
-  Contact,
-  // EventSplitBillProps,
-  EventVisibility,
-} from "@goflock/types/src/index"; // Adjust the import based on your file structure
-// import { checkmarkCircle, ellipseOutline } from 'ionicons/icons';
+import { EventVisibility } from "@goflock/types/src/index";
+import { EventAddExpenseProps } from "@goflock/types/src/presenter/";
 import EqualIcon from "../../images/icons/Equal.svg";
 import DollarIcon from "../../images/icons/Dollar.svg";
 import PercentIcon from "../../images/icons/Percent.svg";
@@ -35,29 +29,29 @@ import Header from "../Header/Header";
 import CustomInput from "../Common/CustomInput";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectMembers from "./SelectExpense";
-interface EventSplitBillProps {
-  members: {
-    name: string;
-    phone: string;
-    expanse: string;
-    profileImage?: string;
-    className: string;
-  };
-  getMembersFromContactList: () => Promise<Contact[]>;
-}
+import { EventMember } from "@goflock/types";
 
-const EventBillPresenter: React.FC<EventSplitBillProps> = ({
-  getMembersFromContactList,
+const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
+  event,
+  addTransaction,
 }) => {
   const [] = useState<EventVisibility>();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
-  const [contactsList, setContactsList] = useState<Contact[]>([]);
+  const [contactsList, setContactsList] = useState<EventMember[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
   const [selectedMember, setSelectedMembers] = useState([]);
   const [selectedPaidBy, setselectedPaidBy] = useState(null);
   const [selectedAmount, setTotalAmount] = useState(null);
+  const [selectedSegment, setSelectedSegment] = useState<
+    "equal" | "amount" | "percentage"
+  >("equal");
+
+  // @ts-ignore
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // @ts-ignore
+  const [error, setError] = useState<string | null>(null);
 
   const methods = useForm();
   const {
@@ -69,21 +63,6 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     clearErrors,
     trigger,
   } = useForm();
-
-  // const nextStep = () => {
-  //   const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
-  //   const shareAmount =
-  //     selectedMember.length > 0
-  //       ? (validSelectedAmount / selectedMember.length).toFixed(2)
-  //       : 0;
-  //   selectedMember.forEach((memberItem: any) => {
-  //     memberItem.amount = shareAmount;
-  //     memberItem.percentage = validSelectedAmount > 0
-  //     ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
-  //     : 0;
-  //   });
-  //   if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
-  // };
 
   // Function to go to the previous step
   const nextStep = () => {
@@ -104,13 +83,6 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   };
 
   const prevStep = () => {
-    //if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
-    // const updatedMembers = selectedMember.map((memberItem: any) => ({
-    //   ...memberItem, // Spread existing properties
-    //   amount: shareAmount, // Update the amount
-    // }));
-    // // Update state with the new array
-    // setMemberShares(updatedMembers);
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
 
@@ -140,12 +112,10 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
     console.log("Current Form Data:", formData);
     console.log("onError", error);
   };
+
   useEffect(() => {
-    getMembersFromContactList().then((contacts) => {
-      console.log("InviteMembersProps", contacts);
-      setContactsList(contacts);
-    });
-  }, []);
+    setContactsList(event.members);
+  }, [event]);
 
   const handleMemberSelect = (selected: string[] | string | null | any) => {
     if (isFromPaidBy) {
@@ -203,6 +173,27 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   const handleSave = () => {
     console.log(selectedPaidBy);
     alert("Saved Successfully");
+    handleAddTransaction();
+  };
+
+  const handleAddTransaction = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      await addTransaction({
+        eventId: event.id,
+        deleted: false,
+        description: "",
+        amount: 0,
+        date: new Date().toISOString(),
+        paidUserId: "",
+        splitAmongUserIds: [],
+      });
+    } catch (err) {
+      setError("Failed to add transaction");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -244,7 +235,10 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                       onInputChange={(e) => setTotalAmount(e.detail.value)}
                     />
                   </IonList>
-                  <IonList className="form-group" onClick={handlePaidByClick}>
+                  <IonList
+                    className="form-group"
+                    onClick={handlePaidByClick}
+                  >
                     <CustomInput
                       placeholder={"You"}
                       label={"Paid by"}
@@ -314,104 +308,136 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
             </IonGrid>
 
             <IonGrid className={`step-content ${getStepClass(2)}`}>
-              <IonTabs className="expense_tabs">
-                <IonTabBar slot="top">
-                  <IonTabButton tab="home">
-                    <IonImg src={EqualIcon} />
-                  </IonTabButton>
-                  <IonTabButton tab="radio">
-                    <IonImg src={DollarIcon} />
-                  </IonTabButton>
-                  <IonTabButton tab="library">
-                    <IonImg src={PercentIcon} />
-                  </IonTabButton>
-                </IonTabBar>
-                <IonTab tab="home">
-                  <div id="home-page">
-                    <IonList className="list_wrap">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
-                            <IonImg
-                              src={Item.profileImg}
-                              alt={`${Item.name}'s profile`}
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phoneNumber}
-                          </IonLabel>
-                          <IonText class="amout">${Item.amount}</IonText>
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </IonTab>
-                <IonTab tab="radio">
-                  <div id="radio-page">
-                    <IonList className="list_wrap">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
-                            <IonImg
-                              src={ProfileIcon}
-                              alt={`${Item.name}'s profile`}
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phone}
-                          </IonLabel>
-                          <IonInput
-                            className="ion_input prefix"
-                            value={Item.amount}
-                            label=""
-                            labelPlacement="stacked"
-                            placeholder="0.00"
-                            type="number" // Ensures numeric input
-                            inputmode="decimal"
-                            onIonChange={(e) => setEventName(e.detail.value!)}
+              <IonSegment
+                value={selectedSegment}
+                onIonChange={(e) =>
+                  setSelectedSegment(
+                    e.detail.value as "equal" | "amount" | "percentage"
+                  )
+                }
+              >
+                <IonSegmentButton value="equal">
+                  <IonImg src={EqualIcon} />
+                </IonSegmentButton>
+                <IonSegmentButton value="amount">
+                  <IonImg src={DollarIcon} />
+                </IonSegmentButton>
+                <IonSegmentButton value="percentage">
+                  <IonImg src={PercentIcon} />
+                </IonSegmentButton>
+              </IonSegment>
+
+              {selectedSegment === "equal" && (
+                <div id="home-page">
+                  <IonList className="list_wrap">
+                    {selectedMember.map((Item: any, index: any) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
+                          <IonImg
+                            src={Item.profileImg}
+                            alt={`${Item.name}'s profile`}
                           />
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </IonTab>
-                <IonTab tab="library">
-                  <div id="library-page">
-                    <IonList className="list_wrap">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
-                            <IonImg
-                              src={ProfileIcon}
-                              alt={`${Item.name}'s profile`}
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phone}
-                          </IonLabel>
-                          <IonInput
-                            class="ion_input safix"
-                            value={Item.percentage}
-                            label=""
-                            labelPlacement="stacked"
-                            placeholder="0"
-                            type="number" // Ensures numeric input
-                            inputmode="decimal"
-                            onIonChange={(e) => setEventName(e.detail.value!)}
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phoneNumber}
+                        </IonLabel>
+                        <IonText class="amout">${Item.amount}</IonText>
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </div>
+              )}
+
+              {selectedSegment === "amount" && (
+                <div id="radio-page">
+                  <IonList className="list_wrap">
+                    {selectedMember.map((Item: any, index: any) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
+                          <IonImg
+                            src={ProfileIcon}
+                            alt={`${Item.name}'s profile`}
                           />
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </IonTab>
-              </IonTabs>
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phone}
+                        </IonLabel>
+                        <IonInput
+                          className="ion_input prefix"
+                          value={Item.amount}
+                          label=""
+                          labelPlacement="stacked"
+                          placeholder="0.00"
+                          type="number" // Ensures numeric input
+                          inputmode="decimal"
+                          onIonChange={(e) => setEventName(e.detail.value!)}
+                        />
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </div>
+              )}
+
+              {selectedSegment === "percentage" && (
+                <div id="library-page">
+                  <IonList className="list_wrap">
+                    {selectedMember.map((Item: any, index: any) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
+                          <IonImg
+                            src={ProfileIcon}
+                            alt={`${Item.name}'s profile`}
+                          />
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phone}
+                        </IonLabel>
+                        <IonInput
+                          class="ion_input safix"
+                          value={Item.percentage}
+                          label=""
+                          labelPlacement="stacked"
+                          placeholder="0"
+                          type="number" // Ensures numeric input
+                          inputmode="decimal"
+                          onIonChange={(e) => setEventName(e.detail.value!)}
+                        />
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </div>
+              )}
             </IonGrid>
 
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
                 {selectedMember.map((Item: any, index: any) => (
-                  <IonItem key={index} className="user_item">
-                    <IonThumbnail slot="start" className="dp">
+                  <IonItem
+                    key={index}
+                    className="user_item"
+                  >
+                    <IonThumbnail
+                      slot="start"
+                      className="dp"
+                    >
                       <IonImg
                         src={Item.profileImg}
                         alt={`${Item.name}'s profile`}
@@ -437,7 +463,6 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
             <IonButton
               className="primary-btn actions"
               onClick={handleSubmit(nextStep, onError)}
-              //onClick={nextStep}
               disabled={currentStep === totalSteps}
             >
               Next
@@ -447,7 +472,6 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
                 className="primary-btn save"
                 onClick={() => handleSave()}
                 expand="block"
-                //disabled={isCreating || !selectedLocation || !eventName}
               >
                 Save & Back To Home
               </IonButton>
@@ -481,4 +505,4 @@ const EventBillPresenter: React.FC<EventSplitBillProps> = ({
   );
 };
 
-export default EventBillPresenter;
+export default AddExpensePresenter;

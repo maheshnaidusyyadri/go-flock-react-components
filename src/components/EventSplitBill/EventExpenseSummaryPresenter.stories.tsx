@@ -1,74 +1,18 @@
 import { StoryFn } from "@storybook/react";
-import EventSplitBillPresenter from "./EventSplitBillPresenter";
-import {
-  Contact,
-  EventMember,
-  EventSplitBillProps,
-  Transaction,
-} from "@goflock/types/src/index";
-import AddExpense from "./AddExpensePresenter";
+import EventSplitBillPresenter from "./EventExpenseSummaryPresenter";
+import { EventExpenseSummaryProps } from "@goflock/types/src/index";
 
 export default {
-  title: "GoFlock/Presenters/EventSplitBillPresenter",
+  title: "GoFlock/Presenters/EventExpenseSummaryPresenter",
   component: EventSplitBillPresenter,
 };
 
-const Template: StoryFn<EventSplitBillProps> = (args) => (
+const Template: StoryFn<EventExpenseSummaryProps> = (args) => (
   <EventSplitBillPresenter {...args} />
 );
 
-const mockMembers: EventMember[] = [
-  {
-    id: "member_001",
-    name: "Alice Cooper",
-    phoneNumber: "555-1234",
-    profileImg: "https://i.pravatar.cc/150?img=1",
-  },
-  {
-    id: "member_002",
-    name: "Bob Dylan",
-    phoneNumber: "555-5678",
-    profileImg: "https://i.pravatar.cc/150?img=1",
-  },
-  {
-    id: "member_003",
-    name: "Charlie Brown",
-    phoneNumber: "555-9012",
-    profileImg: "https://i.pravatar.cc/150?img=1",
-  },
-  {
-    id: "member_004",
-    name: "David Bowie",
-    phoneNumber: "555-3456",
-    profileImg: "https://i.pravatar.cc/150?img=1",
-  },
-];
-export const AddExpenseView = (
-  args: JSX.IntrinsicAttributes & EventSplitBillProps
-) => (
-  <AddExpense
-    members={{
-      name: "",
-      phone: "",
-      expanse: "",
-      profileImage: undefined,
-      className: "",
-    }}
-    getMembersFromContactList={function (): Promise<Contact[]> {
-      throw new Error("Function not implemented.");
-    }}
-    {...args}
-  />
-);
-AddExpenseView.args = {
-  getMembersFromContactList: async () => {
-    console.log("Fetching members from contact list...");
-    return mockMembers;
-  },
-};
-
-export const WithTransactions = Template.bind({});
-WithTransactions.args = {
+export const Default = Template.bind({});
+Default.args = {
   event: {
     id: "event_12345",
     owner: "user_001",
@@ -252,16 +196,4 @@ WithTransactions.args = {
       deleted: false,
     },
   ],
-  addTransaction: async (transaction: Transaction) => {
-    console.log("Transaction added:", transaction);
-    return transaction;
-  },
-  updateTransaction: async (transaction: Transaction) => {
-    console.log("Transaction updated:", transaction);
-    return transaction;
-  },
-  deleteTransaction: async (transactionId: string) => {
-    console.log("Transaction deleted:", transactionId);
-    return true;
-  },
 };
