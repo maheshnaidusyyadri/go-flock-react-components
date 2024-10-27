@@ -46,6 +46,7 @@ import Delete from "../../images/icons/Delet.svg";
 import CrossIcon from "../../images/icons/Cross.svg";
 
 import { Share } from "@capacitor/share";
+import { UserMediaMetadata } from "@goflock/types/dist/models/media/UserMediaMetadata";
 type SelectablePhoto = Photo & {
   selected?: boolean;
   type?: String;
@@ -54,6 +55,7 @@ type SelectablePhoto = Photo & {
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
   eventId,
   media,
+  addMedia,
   deleteMedia,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -233,6 +235,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
+    console.log("file", file);
+
     if (file) {
       try {
         const base64 = await convertFileToBase64(file);
@@ -277,13 +281,24 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           href: base64,
           type: file.type.includes("video") ? "video" : "image",
           selected: false,
-          label: "Newly added media",
+          label: file.name,
           width: width,
           height: height,
         };
 
+        console.log("newMedia", newMedia);
+
+        let mediaMetadata: UserMediaMetadata = {
+          lastModifiedDate: file.lastModified?.toString(),
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        };
+
+        await addMedia(base64, mediaMetadata);
+
         // Update state with the new media
-        setPhotos((prevPhotos) => [...prevPhotos, newMedia]);
+        // setPhotos((prevPhotos) => [...prevPhotos, newMedia]);
       } catch (error) {
         console.error("Failed to convert file to base64:", error);
       }

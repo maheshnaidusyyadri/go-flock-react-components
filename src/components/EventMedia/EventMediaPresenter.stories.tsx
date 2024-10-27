@@ -87,6 +87,6 @@ Default.args = {
   // Mock function to delete media
   deleteMedia: async (mediaId: string) => {
     console.log("Deleting media with ID:", mediaId);
-    return mockMedia.find((media) => media.id === mediaId)!;
+    return true;
   },
 };
