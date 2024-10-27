@@ -11,9 +11,13 @@ interface ProfileListProps {
   eventId: string;
   eventMembers: EventMember[];
   type?: string;
+  onSelectMember?: (member: any) => void;
 }
 
-const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
+const ProfileList: React.FC<ProfileListProps> = ({
+  eventMembers,
+  onSelectMember,
+}) => {
   console.log("eventMembers", eventMembers);
   const getDisplayName = (name: any) => {
     return name.length > 1
@@ -38,7 +42,11 @@ const ProfileList: React.FC<ProfileListProps> = ({ eventMembers }) => {
   return (
     <div className="profile-list">
       {eventMembers.map((eventMember) => (
-        <div key={eventMember.id} className="profile-item">
+        <div
+          key={eventMember.id}
+          className="profile-item"
+          onClick={() => onSelectMember && onSelectMember(eventMember)}
+        >
           <IonThumbnail className="profile-avatar-wrapper">
             {eventMember.profileImg ? (
               <IonAvatar className="profile-avatar">

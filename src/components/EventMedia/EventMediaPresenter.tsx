@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./EventMediaPresenter.scss";
 import {
   IonButton,
@@ -46,7 +46,6 @@ import Delete from "../../images/icons/Delet.svg";
 import CrossIcon from "../../images/icons/Cross.svg";
 
 import { Share } from "@capacitor/share";
-
 type SelectablePhoto = Photo & {
   selected?: boolean;
   type?: String;
@@ -67,6 +66,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [selectedCount, setSelectedCount] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
   const [selectedSegment, setSelectedTab] = useState<SegmentValue>("all");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
     allPhotos.map((photo) => ({
@@ -103,21 +103,21 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   }, []);
   const areAllSelected = photos.length > 0 && selectedCount === photos.length;
   // Handle adding media from the gallery
-  const handleAddMedia = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const galleryItems = await showGallary();
-      for (const item of galleryItems) {
-        const addedMedia = await addMedia(item.webviewPath!);
-        setGalleryPhotos((prevPhotos) => [...prevPhotos, addedMedia]);
-      }
-    } catch (err) {
-      setError("Failed to add media");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const handleAddMedia = async () => {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   try {
+  //     const galleryItems = await showGallary();
+  //     for (const item of galleryItems) {
+  //       const addedMedia = await addMedia(item.webviewPath!);
+  //       setGalleryPhotos((prevPhotos) => [...prevPhotos, addedMedia]);
+  //     }
+  //   } catch (err) {
+  //     setError("Failed to add media");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   // Handle deleting media
   const handleDeleteMedia = async (mediaId: string) => {
@@ -231,7 +231,78 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       console.error("Error sharing:", error);
     }
   };
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        const base64 = await convertFileToBase64(file);
+        let width = 0;
+        let height = 0;
 
+        // Get width and height based on file type
+        if (file.type.includes("image")) {
+          // Create an Image element to get dimensions
+          const img = new Image();
+          img.src = base64;
+
+          // Wait for the image to load to access its dimensions
+          await new Promise<void>((resolve, reject) => {
+            img.onload = () => {
+              width = img.width;
+              height = img.height;
+              resolve();
+            };
+            img.onerror = (error) => {
+              reject(error);
+            };
+          });
+        } else if (file.type.includes("video")) {
+          // Create a video element to get dimensions
+          const video = document.createElement("video");
+          video.src = base64;
+
+          // Wait for the video metadata to load
+          await new Promise<void>((resolve) => {
+            video.onloadedmetadata = () => {
+              width = video.videoWidth;
+              height = video.videoHeight;
+              resolve();
+            };
+          });
+        }
+
+        // Create the new media object with dimensions
+        const newMedia: SelectablePhoto = {
+          src: base64,
+          href: base64,
+          type: file.type.includes("video") ? "video" : "image",
+          selected: false,
+          label: "Newly added media",
+          width: width,
+          height: height,
+        };
+
+        // Update state with the new media
+        setPhotos((prevPhotos) => [...prevPhotos, newMedia]);
+      } catch (error) {
+        console.error("Failed to convert file to base64:", error);
+      }
+    } else {
+      console.log("No file selected");
+    }
+  };
+
+  // Function to convert file to base64
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
   return (
     <>
       <IonContent className="eventMedia">
@@ -405,9 +476,19 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </IonItem>
           ))}
         </IonList>
-
+        {/* Hidden file input for image upload */}
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }} // Hide the file input
+          ref={fileInputRef} // Assign ref to the file input
+          onChange={handleFileChange} // Handle file change
+        />
         <IonFooter className="stickyFooter hasFooter bottomSticky">
-          <IonButton className="primary-btn rounded" onClick={handleAddMedia}>
+          <IonButton
+            className="primary-btn rounded"
+            onClick={() => fileInputRef.current?.click()}
+          >
             Add Media
           </IonButton>
         </IonFooter>

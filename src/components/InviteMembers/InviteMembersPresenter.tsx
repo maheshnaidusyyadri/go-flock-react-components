@@ -19,16 +19,17 @@ import Selected from "../../images/icons/selected.svg";
 import GoArrow from "../../images/icons/GoArrow.svg";
 import Header from "../Header/Header";
 import ProfileList from "../Common/Profiles/ProfileList";
+//import unselect from "../../images/icons/remove.svg";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
-  members,
+  // members,
   getMembersFromContactList,
-  addMember,
+  // addMember,
 }) => {
   const [searchText, setSearchText] = useState(""); // State to track search input
   const [contacts, setContacts] = useState<Contact[]>([]); // State to track search input
-
+  const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
   // Filter members based on search text
   const filteredContacts = contacts.filter(
     (contact) =>
@@ -47,6 +48,15 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       ? name.slice(0, 2).toUpperCase()
       : name.toUpperCase();
   };
+  const handleSelectContact = (contact: any) => {
+    if (selectedContacts.includes(contact)) {
+      // Remove if already selected
+      setSelectedContacts(selectedContacts.filter((c) => c !== contact));
+    } else {
+      // Add to selected list
+      setSelectedContacts([...selectedContacts, contact]);
+    }
+  };
   return (
     <>
       <IonContent className="invite_members">
@@ -64,8 +74,46 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
             />
           </IonToolbar>
           <div className="users_list">
-            <ProfileList eventId={eventId} eventMembers={members} />
+            <ProfileList
+              eventId={eventId}
+              eventMembers={selectedContacts}
+              onSelectMember={handleSelectContact}
+            />
           </div>
+          {/* {selectedContacts && selectedContacts.length > 0 && (
+            <div className="profile-list">
+              <IonList className="horizontal_list" style={{ display: "flex" }}>
+                {selectedContacts.map((member, index) => (
+                  <IonItem
+                    key={index}
+                    className="list_item"
+                    onClick={() => handleSelectContact(member)}
+                  >
+                    <IonThumbnail slot="start" className="dp">
+                      {member.profileImg ? (
+                        <IonImg
+                          src={member.profileImg}
+                          alt={`${member.name}'s profile`}
+                        />
+                      ) : (
+                        <IonAvatar class="profile-dp">
+                          {getDisplayName(member.name || "")}
+                        </IonAvatar>
+                      )}
+                      <span className="selection">
+                        <img src={unselect} alt="Selected" />
+                      </span>
+                    </IonThumbnail>
+                    <IonLabel className="member-info">
+                      <h2>{member.name}</h2>
+                      <p>{member.phone}</p>
+                    </IonLabel>
+                  </IonItem>
+                ))}
+              </IonList>
+              <span className="divider"></span>
+            </div>
+          )} */}
           <span className="devider"></span>
           <div className="menbers_list">
             <h6>All Members</h6>
@@ -74,13 +122,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 <IonItem
                   key={index}
                   className="list_item"
-                  onClick={() => addMember(member)}
+                  //onClick={() => addMember(member)}
+                  onClick={() => handleSelectContact(member)}
                 >
                   <IonThumbnail slot="start" className="dp">
-                    {/* <IonImg
-                      src={memberDp}
-                      alt={`${member.name}'s profile`}
-                    /> */}
                     {member.profileImg ? (
                       <IonImg
                         src={member.profileImg}
@@ -91,10 +136,11 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                         {getDisplayName(member.name || "")}
                       </IonAvatar>
                     )}
-
-                    <span className="selection">
-                      <img src={Selected} alt="Select" />
-                    </span>
+                    {selectedContacts.includes(member) && (
+                      <span className="selection">
+                        <img src={Selected} alt="Selected" />
+                      </span>
+                    )}
                   </IonThumbnail>
                   <IonLabel className="member-info">
                     <h2>{member.name}</h2>
