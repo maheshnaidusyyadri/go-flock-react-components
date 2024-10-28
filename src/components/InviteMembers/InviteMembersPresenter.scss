@@ -1,635 +1,656 @@
-@import '../../styles/variables.scss'; 
+@import "../../styles/variables.scss";
 
 body {
-    font-size: 100%;
-    padding: 0px !important;
+  font-size: 100%;
+  padding: 0 !important;
 }
 
 .invite_members {
-    min-height: 100vh;
-    padding: 0px !important;
+  min-height: 100vh;
+  padding: 0 16px !important;
+  .segment_tabs {
+    padding: 16px 16px 0;
+  }
 }
 
 .members_page {
-    padding: 16px;
+  padding: 16px;
 
-    .paragraph {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        font-family: $GoFlockFont;
-        line-height: 22px;
-        color: $secondaryColor;
-        margin: 0px 0 15px 0;
-    }
+  .paragraph {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    font-family: $GoFlockFont;
+    line-height: 22px;
+    color: $secondaryColor;
+    margin: 0px 0 15px 0;
+  }
 
-    .toolbar-searchbar {
-        position: sticky;
-        top: 0px;
-        --background: transparent;
-        ion-searchbar {
-            padding: 0;
-            --box-shadow: none;
+  .toolbar-searchbar {
+    position: sticky;
+    top: 0px;
+    --background: transparent;
+    ion-searchbar {
+      padding: 0;
+      --box-shadow: none;
 
-            .searchbar-input-container {
-                border-radius: 6px;
-                border: 1px solid #E4E4E7;
-                background: $white;
+      .searchbar-input-container {
+        border-radius: 6px;
+        border: 1px solid #e4e4e7;
+        background: $white;
 
-                .searchbar-input {
-                    background: transparent;
-                    font-family: $GoFlockFont;
-                    font-size: 14px;
-                    font-weight: 400;
-                    line-height: 20px;
-                    color: $GoFlockColor;
-                    line-height: 46px;
-                    padding: 0 10px 0 40px !important;
+        .searchbar-input {
+          background: transparent;
+          font-family: $GoFlockFont;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          color: $GoFlockColor;
+          line-height: 46px;
+          padding: 0 10px 0 40px !important;
 
-                    &::placeholder {
-                        color: $secondaryColor;
-                    }
-                }
-            }
+          &::placeholder {
+            color: $secondaryColor;
+          }
         }
+      }
     }
+  }
 
-    .users_list {
-        display: block;
+  .users_list {
+    display: block;
 
-        .list_wrap {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: flex-start;
+    .list_wrap {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: flex-start;
 
-            .list_item {
-                display: flex;
-                flex-direction: column;
+      .list_item {
+        display: flex;
+        flex-direction: column;
 
-                .dp {
-                    margin: 0;
-                    width: 38px;
-                    height: 38px;
-                    display: block;
-                    position: relative;
-                    ion-img {
-                        border-radius: 50%;
-                    }
-                    .selection {
-                        position: absolute;
-                        right: 0px;
-                        bottom: 0px;
+        .dp {
+          margin: 0;
+          width: 38px;
+          height: 38px;
+          display: block;
+          position: relative;
+          ion-img {
+            border-radius: 50%;
+          }
+          .selection {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
 
-                        img {
-                            display: block;
-                        }
-                    }
-                }
-
-                .member-info {
-                    display: block;
-                    padding: 0 0 0 10px;
-                    margin: 0px;
-
-                    h2 {
-                        font-family: $GoFlockFont;
-                        font-size: 12px;
-                        line-height: 18px;
-                        font-weight: 600;
-                        margin: 0 0 2px 0;
-                        color: $secondaryColor;
-                        display: block;
-                    }
-                }
+            img {
+              display: block;
             }
+          }
         }
 
-        ul {
-            display: flex;
-            gap: 12px;
-            padding: 17px 0 0 0;
-            margin: 0;
-            list-style-type: none;
-            width: 100%;
-            overflow: auto;
+        .member-info {
+          display: block;
+          padding: 0 0 0 10px;
+          margin: 0px;
 
-            li {
-                width: 60px;
-                display: block;
-
-                .dp {
-                    margin: 0;
-                    width: 38px;
-                    height: 38px;
-                    position: relative;
-
-                    .selection {
-                        position: absolute;
-                        right: 0px;
-                        bottom: 0px;
-
-                        img {
-                            display: block;
-                        }
-                    }
-                }
-
-                // span {
-                //     width: 30px;
-                //     height: 30px;
-                //     position: relative;
-                //     border-radius: 50%;
-                //     overflow: hidden;
-                //     display: block;
-                //     margin: 0 auto 5px;
-                //     img {
-                //         width: 100%;
-                //         height: 100%;
-                //         border-radius: 50%;
-                //     }
-                //     .selection {
-                //         position: absolute;
-                //         right: 0px;
-                //         bottom: 0px;
-                //         img {
-                //             display: block;
-                //         }
-                //     }
-                // }
-                h2 {
-                    font-family: $GoFlockFont;
-                    font-size: 12px;
-                    color: $secondaryColor;
-                    font-weight: 400;
-                    line-height: 18px;
-                    padding: 0px;
-                    margin: 0;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    width: 100%;
-                    display: block;
-                    text-overflow: ellipsis;
-                }
-            }
-        }
-    }
-
-    .menbers_list {
-        h6 {
+          h2 {
             font-family: $GoFlockFont;
             font-size: 12px;
             line-height: 18px;
             font-weight: 600;
+            margin: 0 0 2px 0;
             color: $secondaryColor;
-            margin: 0 0 10px 0;
-        }
-
-        .list_wrap {
-            margin: 0;
-            padding: 0;
-
-            .list_item {
-                --padding-start: 0;
-                --padding-end: 0;
-                --border-color: transparent;
-                margin-bottom: 5px;
-
-                .item-native {
-                    .item-inner {
-                        padding-right: 0;
-                    }
-                }
-
-                .dp {
-                    margin: 0;
-                    width: 38px;
-                    height: 38px;
-                    position: relative;
-                    ion-img {
-                        border-radius: 50%;
-                    }
-                    .profile-dp {
-                        width: 100%;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        background: #dddddd;
-                        font-family: $GoFlockFont;
-                        font-weight: 600;
-                        font-size: 14px;
-                        color: $GoFlockColor;
-                    }
-                    .selection {
-                        position: absolute;
-                        right: 0px;
-                        bottom: 0px;
-
-                        img {
-                            display: block;
-                        }
-                    }
-                }
-
-                .member-info {
-                    display: block;
-                    padding: 0 0 0 10px;
-                    margin: 0px;
-
-                    h2 {
-                        font-family: $GoFlockFont;
-                        font-size: 12px;
-                        line-height: 18px;
-                        font-weight: 600;
-                        margin: 0 0 2px 0;
-                        color: $secondaryColor;
-                        display: block;
-                    }
-
-                    p {
-                        font-family: $GoFlockFont;
-                        font-size: 12px;
-                        color: $secondaryColor;
-                        font-weight: 400;
-                        line-height: 18px;
-                        padding: 0px;
-                        margin: 0;
-                        display: block;
-                    }
-                }
-            }
-        }
-
-
-        ul {
             display: block;
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-            width: 100%;
-            overflow: auto;
-
-            li {
-                margin: 0 0 24px 0;
-
-                .member {
-                    display: flex;
-                    align-items: center;
-
-                    .dp {
-                        span {
-                            width: 38px;
-                            height: 38px;
-                            position: relative;
-                            border-radius: 50%;
-                            overflow: hidden;
-
-                            img {
-                                width: 100%;
-                                height: 100%;
-                                border-radius: 50%;
-                            }
-                        }
-
-                        em {
-                            width: 12px;
-                            height: 12px;
-                            background: url('../../images/icons/close.svg') no-repeat right bottom;
-                        }
-                    }
-
-                    .member-info {
-                        display: block;
-                        padding: 0 0 0 10px;
-
-                        label {
-                            font-family: $GoFlockFont;
-                            font-size: 12px;
-                            line-height: 18px;
-                            font-weight: 600;
-                            margin-bottom: 2px;
-                            color: $secondaryColor;
-                            display: block;
-                        }
-
-                        small {
-                            font-family: $GoFlockFont;
-                            font-size: 12px;
-                            color: $secondaryColor;
-                            font-weight: 400;
-                            line-height: 18px;
-                            padding: 0px;
-                            margin: 0;
-                            display: block;
-                        }
-                    }
-
-
-
-
-                }
-            }
+          }
         }
+      }
     }
-}
 
+    ul {
+      display: flex;
+      gap: 12px;
+      padding: 17px 0 0 0;
+      margin: 0;
+      list-style-type: none;
+      width: 100%;
+      overflow: auto;
 
-.event_details {
-    padding: 16px;
+      li {
+        width: 60px;
+        display: block;
 
-    .event_info {
-        figure {
-            padding: 0;
-            margin: 0 0 16px 0;
+        .dp {
+          margin: 0;
+          width: 38px;
+          height: 38px;
+          position: relative;
+
+          .selection {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
 
             img {
-                width: 100%;
-                padding: 0px;
-                margin: 0px;
-                display: block;
+              display: block;
             }
+          }
         }
 
-        p {
-            font-family: $GoFlockFont;
-            font-size: 14px;
-            line-height: 24px;
-            color: $secondaryColor;
-            font-weight: 400;
-            padding: 0px;
-            margin: 0px 0 20px 0;
+        // span {
+        //     width: 30px;
+        //     height: 30px;
+        //     position: relative;
+        //     border-radius: 50%;
+        //     overflow: hidden;
+        //     display: block;
+        //     margin: 0 auto 5px;
+        //     img {
+        //         width: 100%;
+        //         height: 100%;
+        //         border-radius: 50%;
+        //     }
+        //     .selection {
+        //         position: absolute;
+        //         right: 0px;
+        //         bottom: 0px;
+        //         img {
+        //             display: block;
+        //         }
+        //     }
+        // }
+        h2 {
+          font-family: $GoFlockFont;
+          font-size: 12px;
+          color: $secondaryColor;
+          font-weight: 400;
+          line-height: 18px;
+          padding: 0px;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 100%;
+          display: block;
+          text-overflow: ellipsis;
         }
+      }
+    }
+  }
 
-        .listitems {
-            padding: 0px;
-            margin: 0px;
-
-            li {
-                list-style-type: none;
-                margin: 0 0 10px 0;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                .venue_info {
-                    display: flex;
-                    align-items: center;
-
-                    .dp {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 6px;
-                        border: 1px solid #E4E4E7;
-                        background: #F6F6F6;
-
-                        img {
-                            display: block;
-                        }
-                    }
-
-                    .event_titles {
-                        padding: 0 0 0 12px;
-
-                        label {
-                            font-family: $GoFlockFont;
-                            font-size: 12px;
-                            line-height: 18px;
-                            padding: 0px;
-                            margin: 0 0 8px 0;
-                            font-weight: 400;
-                            color: $secondaryColor;
-                        }
-
-                        em {
-                            display: block;
-                            font-style: normal;
-                            font-family: $GoFlockFont;
-                            font-size: 12px;
-                            font-weight: 500;
-                            line-height: 18px;
-                            color: $GoFlockColor;
-                        }
-                    }
-                }
-
-                .event_type {
-                    width: 40px;
-                    height: 40px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    border: 1px solid #E4E4E7;
-                    background: $white;
-                }
-
-                &:nth-last-child(1) {
-                    margin-bottom: 0px;
-                }
-            }
-        }
+  .menbers_list {
+    h6 {
+      font-family: $GoFlockFont;
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 600;
+      color: $secondaryColor;
+      margin: 0 0 10px 0;
     }
 
-    .users_info {
-        .users_head {
+    .list_wrap {
+      margin: 0;
+      padding: 0;
+
+      .list_item {
+        --padding-start: 0;
+        --padding-end: 0;
+        --border-color: transparent;
+        margin-bottom: 5px;
+        --inner-padding-end: 0;
+        .item-native {
+          .item-inner {
+            padding-right: 0;
+          }
+        }
+
+        .dp {
+          margin: 0;
+          width: 38px;
+          height: 38px;
+          position: relative;
+          .type {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: auto;
+            &.co {
+              width: 18px;
+              height: auto;
+            }
+          }
+          ion-img {
+            border-radius: 50%;
+          }
+          .profile-dp {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-
-            h6 {
-                font-family: $GoFlockFont;
-                font-size: 14px;
-                color: $GoFlockColor;
-                line-height: 20px;
-                font-weight: 400;
-                padding: 0px;
-                margin: 0px;
-            }
-
-            a {
-                display: block;
-
-                img {
-                    display: block;
-                }
-            }
-        }
-
-        .users_list {
-            display: block;
-
-            ul {
-                display: flex;
-                gap: 12px;
-                padding: 0;
-                margin: 0;
-                list-style-type: none;
-                width: 100%;
-                overflow: auto;
-
-                li {
-                    width: 60px;
-                    display: block;
-
-                    span {
-                        width: 30px;
-                        height: 30px;
-                        position: relative;
-                        border-radius: 50%;
-                        overflow: hidden;
-                        display: block;
-                        margin: 0 auto 5px;
-
-                        img {
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50%;
-                        }
-
-                        em {
-                            width: 12px;
-                            height: 12px;
-                            background: url('../../images/icons/close.svg') no-repeat right bottom;
-                        }
-                    }
-
-                    small {
-                        font-family: $GoFlockFont;
-                        font-size: 12px;
-                        color: $secondaryColor;
-                        font-weight: 400;
-                        line-height: 18px;
-                        padding: 0px;
-                        margin: 0;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        width: 100%;
-                        display: block;
-                        text-overflow: ellipsis;
-                    }
-                }
-            }
-        }
-    }
-
-    .status_sec {
-        margin-bottom: 32px;
-        padding: 0;
-
-        h5 {
+            justify-content: center;
+            background: #dddddd;
             font-family: $GoFlockFont;
-            font-size: 14px;
             font-weight: 600;
+            font-size: 14px;
             color: $GoFlockColor;
-            line-height: 20px;
-            padding: 0px;
-            margin: 0 0 8px 0;
-        }
+          }
+          .selection {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
 
-        .status_cards {
-            display: flex;
-            gap: 10px;
-
-            .status_card {
-                border-radius: 6px;
-                border: 1px solid #C5FBE2;
-                background: #F1FEF8;
-                padding: 15px 10px;
-                width: 100%;
-                text-align: center;
-
-                small {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    margin: 0 auto 5px;
-                    width: 24px;
-                    height: 24px;
-                    background: #12B76A;
-                }
-
-                label {
-                    font-size: 10px;
-                    font-family: $GoFlockFont;
-                    font-weight: 400;
-                    line-height: 18px;
-                    display: block;
-                    margin: 0;
-                    color: $GoFlockColor;
-                    font-size: clamp(9px, 2.4vw, 12px);
-
-
-                }
-
-                .devider {
-                    margin: 10px 0;
-                }
-
-                em {
-                    font-family: $GoFlockFont;
-                    font-size: 12px;
-                    font-weight: 700;
-                    line-height: 18px;
-                    color: $GoFlockColor;
-                    display: block;
-                    font-style: normal;
-                }
-
-                &.success {
-                    small {
-                        background: #12B76A;
-                    }
-                }
-
-                &.error {
-                    small {
-                        background: #DC2626;
-                    }
-                }
-
-                &.warning {
-                    small {
-                        background: #F29126;
-                    }
-                }
+            img {
+              display: block;
             }
+          }
         }
+
+        .member-info {
+          display: block;
+          padding: 0 0 0 10px;
+          margin: 0px;
+
+          h2 {
+            font-family: $GoFlockFont;
+            font-size: 12px;
+            line-height: 18px;
+            font-weight: 600;
+            margin: 0 0 2px 0;
+            color: $secondaryColor;
+            display: block;
+          }
+
+          p {
+            font-family: $GoFlockFont;
+            font-size: 12px;
+            color: $secondaryColor;
+            font-weight: 400;
+            line-height: 18px;
+            padding: 0px;
+            margin: 0;
+            display: block;
+          }
+        }
+      }
+      &.event_members {
+        display: block;
+        .list_item {
+          overflow: visible;
+          padding-top: 15px;
+          margin-bottom: 0px;
+        }
+      }
     }
 
-    .primary-btn {
-        margin-top: 0px;
-        margin-bottom: 16px;
+    ul {
+      display: block;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      width: 100%;
+      overflow: auto;
+
+      li {
+        margin: 0 0 24px 0;
+
+        .member {
+          display: flex;
+          align-items: center;
+
+          .dp {
+            span {
+              width: 38px;
+              height: 38px;
+              position: relative;
+              border-radius: 50%;
+              overflow: hidden;
+
+              img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+              }
+            }
+
+            em {
+              width: 12px;
+              height: 12px;
+              background: url("../../images/icons/close.svg") no-repeat right
+                bottom;
+            }
+          }
+
+          .member-info {
+            display: block;
+            padding: 0 0 0 10px;
+
+            label {
+              font-family: $GoFlockFont;
+              font-size: 12px;
+              line-height: 18px;
+              font-weight: 600;
+              margin-bottom: 2px;
+              color: $secondaryColor;
+              display: block;
+            }
+
+            small {
+              font-family: $GoFlockFont;
+              font-size: 12px;
+              color: $secondaryColor;
+              font-weight: 400;
+              line-height: 18px;
+              padding: 0px;
+              margin: 0;
+              display: block;
+            }
+          }
+        }
+      }
     }
+  }
+}
+
+.event_details {
+  padding: 16px;
+
+  .event_info {
+    figure {
+      padding: 0;
+      margin: 0 0 16px 0;
+
+      img {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        display: block;
+      }
+    }
+
+    p {
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      line-height: 24px;
+      color: $secondaryColor;
+      font-weight: 400;
+      padding: 0px;
+      margin: 0px 0 20px 0;
+    }
+
+    .listitems {
+      padding: 0px;
+      margin: 0px;
+
+      li {
+        list-style-type: none;
+        margin: 0 0 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .venue_info {
+          display: flex;
+          align-items: center;
+
+          .dp {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            border: 1px solid #e4e4e7;
+            background: #f6f6f6;
+
+            img {
+              display: block;
+            }
+          }
+
+          .event_titles {
+            padding: 0 0 0 12px;
+
+            label {
+              font-family: $GoFlockFont;
+              font-size: 12px;
+              line-height: 18px;
+              padding: 0px;
+              margin: 0 0 8px 0;
+              font-weight: 400;
+              color: $secondaryColor;
+            }
+
+            em {
+              display: block;
+              font-style: normal;
+              font-family: $GoFlockFont;
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 18px;
+              color: $GoFlockColor;
+            }
+          }
+        }
+
+        .event_type {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          border: 1px solid #e4e4e7;
+          background: $white;
+        }
+
+        &:nth-last-child(1) {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+
+  .users_info {
+    .users_head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+
+      h6 {
+        font-family: $GoFlockFont;
+        font-size: 14px;
+        color: $GoFlockColor;
+        line-height: 20px;
+        font-weight: 400;
+        padding: 0px;
+        margin: 0px;
+      }
+
+      a {
+        display: block;
+
+        img {
+          display: block;
+        }
+      }
+    }
+
+    .users_list {
+      display: block;
+
+      ul {
+        display: flex;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        width: 100%;
+        overflow: auto;
+
+        li {
+          width: 60px;
+          display: block;
+
+          span {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto 5px;
+
+            img {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+            }
+
+            em {
+              width: 12px;
+              height: 12px;
+              background: url("../../images/icons/close.svg") no-repeat right
+                bottom;
+            }
+          }
+
+          small {
+            font-family: $GoFlockFont;
+            font-size: 12px;
+            color: $secondaryColor;
+            font-weight: 400;
+            line-height: 18px;
+            padding: 0px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            display: block;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+
+  .status_sec {
+    margin-bottom: 32px;
+    padding: 0;
+
+    h5 {
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      font-weight: 600;
+      color: $GoFlockColor;
+      line-height: 20px;
+      padding: 0px;
+      margin: 0 0 8px 0;
+    }
+
+    .status_cards {
+      display: flex;
+      gap: 10px;
+
+      .status_card {
+        border-radius: 6px;
+        border: 1px solid #c5fbe2;
+        background: #f1fef8;
+        padding: 15px 10px;
+        width: 100%;
+        text-align: center;
+
+        small {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          margin: 0 auto 5px;
+          width: 24px;
+          height: 24px;
+          background: #12b76a;
+        }
+
+        label {
+          font-size: 10px;
+          font-family: $GoFlockFont;
+          font-weight: 400;
+          line-height: 18px;
+          display: block;
+          margin: 0;
+          color: $GoFlockColor;
+          font-size: clamp(9px, 2.4vw, 12px);
+        }
+
+        .devider {
+          margin: 10px 0;
+        }
+
+        em {
+          font-family: $GoFlockFont;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 18px;
+          color: $GoFlockColor;
+          display: block;
+          font-style: normal;
+        }
+
+        &.success {
+          small {
+            background: #12b76a;
+          }
+        }
+
+        &.error {
+          small {
+            background: #dc2626;
+          }
+        }
+
+        &.warning {
+          small {
+            background: #f29126;
+          }
+        }
+      }
+    }
+  }
+
+  .primary-btn {
+    margin-top: 0px;
+    margin-bottom: 16px;
+  }
 }
 
 .event_images {
-    img.events {
-        display: block;
-        width: 100%;
-        max-width: 390px;
-        margin-bottom: 10px;
+  img.events {
+    display: block;
+    width: 100%;
+    max-width: 390px;
+    margin-bottom: 10px;
 
-        &:nth-last-child(2) {
-            margin-bottom: 0px;
-        }
+    &:nth-last-child(2) {
+      margin-bottom: 0px;
     }
+  }
 
-    .addmore {
-        width: 32px;
-        height: 32px;
-        display: block;
-        margin: 0 auto;
-        transform: translateY(-50%);
-        background: url('../../images/plus.png') no-repeat center;
-        cursor: pointer;
-    }
+  .addmore {
+    width: 32px;
+    height: 32px;
+    display: block;
+    margin: 0 auto;
+    transform: translateY(-50%);
+    background: url("../../images/plus.png") no-repeat center;
+    cursor: pointer;
+  }
 }
 
+.created_event {
+}
 
-.created_event {}
+.hide {
+  display: none !important;
+}

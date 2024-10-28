@@ -518,7 +518,21 @@ body {
   // }
 }
 
+.action_menu {
+  --padding: 0;
+  --background: transparent;
+  --box-shadow: none;
+  --padding-bottom: 0;
+  --padding-end: 0;
+  --padding-start: 0;
+  --padding-top: 0;
+  margin: 0;
+  width: 30px;
+  height: auto;
+}
+
 .action-sheet-wrapper {
+  display: block;
   .action-sheet-container {
     padding: 0;
     .action-sheet-group {
@@ -526,6 +540,8 @@ body {
       position: relative;
       border-radius: 16px 16px 0 0;
       margin: 0px;
+      padding-top: 50px !important;
+      padding-bottom: 52px !important;
       &:before {
         content: "";
         display: block;
@@ -937,4 +953,29 @@ input[type="number"] {
   color: $GoFlockColor;
   margin-bottom: 5px;
   display: block;
+}
+
+.segment_tabs {
+  .in-segment {
+    min-height: 34px;
+    line-height: normal;
+    --indicator-height: 1px;
+    --indicator-color: #18181b;
+    ion-label {
+      margin: 0px;
+      font-family: $GoFlockFont;
+      font-weight: 400;
+      font-size: 12px;
+      color: $GoFlockColor;
+      text-transform: capitalize;
+    }
+    &.segment-button-checked {
+      ion-label {
+        font-weight: 600;
+      }
+    }
+    &:hover {
+      background: transparent;
+    }
+  }
 }
