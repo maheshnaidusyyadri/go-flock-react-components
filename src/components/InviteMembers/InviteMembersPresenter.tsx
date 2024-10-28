@@ -23,9 +23,8 @@ import ProfileList from "../Common/Profiles/ProfileList";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
-  // members,
   getMembersFromContactList,
-  // addMember,
+  addMember,
 }) => {
   const [searchText, setSearchText] = useState(""); // State to track search input
   const [contacts, setContacts] = useState<Contact[]>([]); // State to track search input
@@ -122,10 +121,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 <IonItem
                   key={index}
                   className="list_item"
-                  //onClick={() => addMember(member)}
-                  onClick={() => handleSelectContact(member)}
+                  onClick={() => addMember(member)}
+                  //onClick={() => handleSelectContact(member)}
                 >
-                  <IonThumbnail slot="start" className="dp">
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
                     {member.profileImg ? (
                       <IonImg
                         src={member.profileImg}
@@ -138,7 +140,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                     )}
                     {selectedContacts.includes(member) && (
                       <span className="selection">
-                        <img src={Selected} alt="Selected" />
+                        <img
+                          src={Selected}
+                          alt="Selected"
+                        />
                       </span>
                     )}
                   </IonThumbnail>

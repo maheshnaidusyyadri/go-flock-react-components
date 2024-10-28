@@ -29,9 +29,10 @@ import Header from "../Header/Header";
 import CustomInput from "../Common/CustomInput";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectMembers from "./SelectExpense";
-import { EventMember } from "@goflock/types";
+import { EventMember, Transaction } from "@goflock/types";
 
 const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
+  profile,
   event,
   addTransaction,
 }) => {
@@ -42,6 +43,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
   const [selectedMember, setSelectedMembers] = useState([]);
+  // @ts-ignore
   const [selectedPaidBy, setselectedPaidBy] = useState(null);
   const [selectedAmount, setTotalAmount] = useState(null);
   const [selectedSegment, setSelectedSegment] = useState<
@@ -171,24 +173,25 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   };
 
   const handleSave = () => {
-    console.log(selectedPaidBy);
-    alert("Saved Successfully");
     handleAddTransaction();
   };
 
   const handleAddTransaction = async () => {
+    console.log("handleAddTransaction");
     setIsLoading(true);
     setError(null);
+    let transaction: Transaction = {
+      eventId: event.id,
+      deleted: false,
+      description: "Sample transaction",
+      amount: 100,
+      date: new Date().toISOString(),
+      paidUserId: profile.id,
+      splitAmongUserIds: [profile.id],
+    };
+
     try {
-      await addTransaction({
-        eventId: event.id,
-        deleted: false,
-        description: "",
-        amount: 0,
-        date: new Date().toISOString(),
-        paidUserId: "",
-        splitAmongUserIds: [],
-      });
+      await addTransaction(transaction);
     } catch (err) {
       setError("Failed to add transaction");
     } finally {
