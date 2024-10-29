@@ -1,7 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import DashboardPresenter from "./DashboardPresenter"; // Adjust the import path based on your project structure
 import { DashboardProps, ListType } from "@goflock/types/src/index";
-
+import EventDp from "../../images/event_DP.png";
 export default {
   title: "GoFlock/Presenters/DashboardPresenter",
   component: DashboardPresenter,
@@ -30,6 +30,7 @@ Default.args = {
       owner: "user_002",
       name: "Team Meeting",
       type: "get_togather",
+      image: EventDp,
       description: "Weekly team sync-up.",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [
@@ -78,6 +79,7 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
+      image: EventDp,
       description: "Celebrating Sarah's birthday!",
       location: {
         name: "Sarah's House",
@@ -117,6 +119,7 @@ Default.args = {
       owner: "user_001",
       name: "Wedding Planning",
       type: "wedding",
+      image: EventDp,
       description: "Planning the big day!",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [

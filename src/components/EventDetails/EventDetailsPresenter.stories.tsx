@@ -1,6 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import EventDetailsPresenter from "./EventDetailsPresenter"; // Adjust the import path based on your project structure
 import { EventProps } from "@goflock/types/src/index";
+import EventDp from "../../images/event_DP.png";
 //import EventGuestViewPresenter from "./EventGuestViewPresenter";
 // import EventGuestViewPresenter from "./EventGuestViewPresenter";
 // import { JSX } from "react/jsx-runtime";
@@ -40,6 +41,7 @@ EventGuestView.args = {
       "alice.smith@example.com",
     ],
     description: "An annual gathering of the extended family.",
+    image: "",
     location: {
       // place:"Astoria Park",
       name: "New York, NY",
@@ -199,6 +201,7 @@ PublicEventHostView.args = {
     ],
     type: "reunion",
     description: "An annual gathering of the extended family.",
+    image: EventDp,
     location: {
       // place:"Astoria Park",
       name: "New York, NY",
@@ -358,6 +361,7 @@ PrivateEventHostView.args = {
       "alice.smith@example.com",
     ],
     description: "An annual gathering of the extended family.",
+    image: EventDp,
     location: {
       //place:"Astoria Park",
       name: "New York, NY",

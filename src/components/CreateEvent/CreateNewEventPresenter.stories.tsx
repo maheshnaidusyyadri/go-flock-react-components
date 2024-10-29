@@ -10,7 +10,7 @@ import { JSX } from "react/jsx-runtime";
 //   CreateNewEventProps,
 //   DraftEvent,
 // } from "@goflock/types/src/index";
-
+import EventDp from "../../images/event_DP.png";
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
   component: CreateNewEventPresenter,
@@ -53,6 +53,7 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
+      image: EventDp,
       description: "An annual gathering of the extended family.",
       location: {
         name: "Grandma's House",
@@ -216,6 +217,7 @@ CreatingEvent.args = {
             "alice.smith@example.com",
           ],
           type: "reunion",
+          image: EventDp,
           description: "An annual gathering of the extended family.",
           location: {
             name: "New York, NY",

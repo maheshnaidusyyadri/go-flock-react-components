@@ -11,7 +11,6 @@ import {
   IonThumbnail,
 } from "@ionic/react";
 import { Event } from "@goflock/types/src/index";
-import EventDP from "../../../images/event_DP.png";
 import menuIcon from "../../../images/icons/menu_icon.svg";
 import DisplayDate from "../../../utils/DisplayDate";
 
@@ -21,18 +20,15 @@ interface EventItemProps {
   onShowActionSheet: () => void; // You may not need this prop if using local state
 }
 
-const EventItem: React.FC<EventItemProps> = ({
-  event,
-  onOpen,
-}) => {
+const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
 
   const handleActionSheetDismiss = () => {
     setShowFirstActionSheet(false);
   };
-  useEffect(()=>{
-    console.log("event-event",event)
-  },[])
+  useEffect(() => {
+    console.log("event-event", event);
+  }, []);
 
   const handleAction = (action: string) => {
     switch (action) {
@@ -53,16 +49,9 @@ const EventItem: React.FC<EventItemProps> = ({
 
   return (
     <>
-      <IonCard
-        className="event_item"
-        onClick={() => onOpen(event.id)}
-      >
+      <IonCard className="event_item" onClick={() => onOpen(event.id)}>
         <IonThumbnail className="display_pic">
-          <IonImg
-            className="events"
-            alt="Events"
-            src={EventDP}
-          />
+          <IonImg className="events" alt="Events" src={event.image} />
         </IonThumbnail>
         <IonCardContent className="event_info">
           <IonCardTitle className="event-name">{event.name}</IonCardTitle>
@@ -77,11 +66,7 @@ const EventItem: React.FC<EventItemProps> = ({
             setShowFirstActionSheet(true);
           }}
         >
-          <IonImg
-            className="events"
-            alt="Event Details"
-            src={menuIcon}
-          />
+          <IonImg className="events" alt="Event Details" src={menuIcon} />
         </IonThumbnail>
       </IonCard>
 
@@ -95,13 +80,13 @@ const EventItem: React.FC<EventItemProps> = ({
             data: { action: "copy" },
             handler: () => handleAction("copy"),
           },
-          { 
-            text: "Edit Event", 
+          {
+            text: "Edit Event",
             data: { action: "edit" },
             handler: () => handleAction("edit"),
           },
-          { 
-            text: "Add Checklist", 
+          {
+            text: "Add Checklist",
             data: { action: "checklist" },
             handler: () => handleAction("checklist"),
           },

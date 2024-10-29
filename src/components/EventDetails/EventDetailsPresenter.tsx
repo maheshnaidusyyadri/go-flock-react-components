@@ -22,7 +22,7 @@ import {
   IonText,
   IonThumbnail,
 } from "@ionic/react";
-import EventDp from "../../images/event_DP.png";
+
 import clockIcon from "../../images/icons/clock.svg";
 import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
@@ -31,6 +31,8 @@ import userTickIcon from "../../images/icons/userTick.svg";
 import userCrossIcon from "../../images/icons/userCross.svg";
 import helpIcon from "../../images/icons/help.svg";
 import ProfileIcon from "../../images/profile.png";
+import noPreview from "../../images/noPreview.svg";
+
 import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
 import Footer from "../Footer/Footer";
@@ -102,23 +104,31 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   return (
     <>
-      <IonContent className="eventDetails">
+      <IonContent className={`eventDetails ${!event.image ? "no-image" : ""}`}>
         <Header
           eventId={event.id}
-          title={event.name}
+          title={!event.image ? "" : event.name}
           showMenu={true}
           showContactList={false}
           deleteEvent={deleteEvent}
           eventRelation={eventRelation}
         />
+        {!event.image && (
+          <IonCard className="nopreview">
+            <IonImg src={noPreview} />
+          </IonCard>
+        )}
+
         <IonGrid className="event_details">
           <IonCard className="event_info">
             {!["admin", "owner"].includes(eventRelation?.visitType) && (
               <IonLabel class="event_title">{event.name}</IonLabel>
             )}
-            <IonThumbnail className="event_dp">
-              <IonImg src={EventDp} alt="Event" />
-            </IonThumbnail>
+            {event.image && (
+              <IonThumbnail className="event_dp">
+                <IonImg src={event.image} alt="Event" />
+              </IonThumbnail>
+            )}
             <IonText className="event_brief">{event.description}</IonText>
             <IonList className="listitems">
               <IonItem className="ion-list">
