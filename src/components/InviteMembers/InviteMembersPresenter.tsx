@@ -32,6 +32,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   getMembersFromContactList,
   addMember,
+  // getMembersList,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Contacts"
@@ -39,6 +40,8 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   const [searchText, setSearchText] = useState(""); // State to track search input
   const [contacts, setContacts] = useState<Contact[]>([]); // State to track search input
   const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
+  const [showAction, setShowAction] = useState(false);
 
   // Filter members based on search text
   const filteredContacts = contacts.filter(
@@ -46,13 +49,6 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       contact.name?.toLowerCase().includes(searchText.toLowerCase()) ||
       contact.phone?.includes(searchText)
   );
-
-  useEffect(() => {
-    getMembersFromContactList().then((contacts) => {
-      setContacts(contacts);
-      //console.log('contactscontacts',contacts)
-    });
-  }, []);
   const getDisplayName = (name: string) => {
     return name.length > 1
       ? name.slice(0, 2).toUpperCase()
@@ -65,8 +61,22 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     } else {
       // Add to selected list
       setSelectedContacts([...selectedContacts, contact]);
+      addMember(contact);
     }
   };
+  const getContactsList = () => {
+    getMembersFromContactList().then((contacts) => {
+      setContacts(contacts);
+    });
+  };
+  const getSelectedMembers = () => {
+    setSelectedMembers(selectedContacts);
+    setSelectedSegment("Members");
+    // getMembersList().then((member) => {
+    //   console.log("member-member", member);
+    // });
+  };
+
   return (
     <>
       <IonPage className="invite_page">
@@ -92,155 +102,146 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
           </IonSegment>
           {selectedSegment === "Members" && (
             <div className="members_page">
-              {/* <div className="users_list">
-                <ProfileList
-                  eventId={eventId}
-                  eventMembers={selectedContacts}
-                  onSelectMember={handleSelectContact}
-                />
-              </div>  */}
               <div className="menbers_list ">
-                <IonList className="list_wrap event_members">
-                  {filteredContacts.map((member, index) => (
-                    <IonItem key={index} className="list_item">
-                      <IonThumbnail slot="start" className="dp">
-                        {/* <IonImg className="type" src={HostIcon} /> */}
-                        {/* <IonImg className="type co" src={CoHostIcon} /> */}
-                        {member.profileImg ? (
-                          <IonImg
-                            src={member.profileImg}
-                            alt={`${member.name}'s profile`}
-                          />
-                        ) : (
-                          <IonAvatar class="profile-dp">
-                            {getDisplayName(member.name || "")}
-                          </IonAvatar>
-                        )}
-                        {selectedContacts.includes(member) && (
-                          <span className="selection">
-                            <img src={Selected} alt="Selected" />
-                          </span>
-                        )}
-                      </IonThumbnail>
-                      <IonLabel className="member-info">
-                        <h2>{member.name}</h2>
-                        <p>{member.phone}</p>
-                      </IonLabel>
-                      <IonAvatar className="action_menu" id="open-action-sheet">
-                        <IonImg src={Menu} alt="More Details" />
-                      </IonAvatar>
-                    </IonItem>
-                  ))}
-                </IonList>
+                {selectedMembers && selectedMembers.length > 0 ? (
+                  <IonList className="list_wrap event_members">
+                    {selectedMembers.map((member, index) => (
+                      <IonItem key={index} className="list_item">
+                        <IonThumbnail slot="start" className="dp">
+                          {/* <IonImg className="type" src={HostIcon} /> */}
+                          {/* <IonImg className="type co" src={CoHostIcon} /> */}
+                          {member.profileImg ? (
+                            <IonImg
+                              src={member.profileImg}
+                              alt={`${member.name}'s profile`}
+                            />
+                          ) : (
+                            <IonAvatar class="profile-dp">
+                              {getDisplayName(member.name || "")}
+                            </IonAvatar>
+                          )}
+                          {selectedContacts.includes(member) && (
+                            <span className="selection">
+                              <img src={Selected} alt="Selected" />
+                            </span>
+                          )}
+                        </IonThumbnail>
+                        <IonLabel className="member-info">
+                          <h2>{member.name}</h2>
+                          <p>{member.phone}</p>
+                        </IonLabel>
+                        <IonAvatar
+                          className="action_menu"
+                          onClick={() => setShowAction(true)}
+                        >
+                          <IonImg src={Menu} alt="More Details" />
+                        </IonAvatar>
+                      </IonItem>
+                    ))}
+                  </IonList>
+                ) : (
+                  <IonLabel> No Members Found</IonLabel>
+                )}
               </div>
             </div>
           )}
           {selectedSegment === "Contacts" && (
             <div className="members_page">
-              <IonToolbar>
-                <IonSearchbar
-                  value={searchText}
-                  onIonInput={(e) => setSearchText(e.detail.value!)} // Update search text
-                  placeholder="Search by name or phone"
-                />
-              </IonToolbar>
-              <div className="users_list">
-                <ProfileList
-                  eventId={eventId}
-                  eventMembers={selectedContacts}
-                  onSelectMember={handleSelectContact}
-                />
-              </div>
-              {/* {selectedContacts && selectedContacts.length > 0 && (
-            <div className="profile-list">
-              <IonList className="horizontal_list" style={{ display: "flex" }}>
-                {selectedContacts.map((member, index) => (
-                  <IonItem
-                    key={index}
-                    className="list_item"
-                    onClick={() => handleSelectContact(member)}
-                  >
-                    <IonThumbnail slot="start" className="dp">
-                      {member.profileImg ? (
-                        <IonImg
-                          src={member.profileImg}
-                          alt={`${member.name}'s profile`}
-                        />
-                      ) : (
-                        <IonAvatar class="profile-dp">
-                          {getDisplayName(member.name || "")}
-                        </IonAvatar>
-                      )}
-                      <span className="selection">
-                        <img src={unselect} alt="Selected" />
-                      </span>
-                    </IonThumbnail>
-                    <IonLabel className="member-info">
-                      <h2>{member.name}</h2>
-                      <p>{member.phone}</p>
-                    </IonLabel>
-                  </IonItem>
-                ))}
-              </IonList>
-              <span className="divider"></span>
-            </div>
-          )} */}
-              <span className="devider"></span>
-              <div className="menbers_list">
-                <h6>All Members</h6>
-                <IonList className="list_wrap">
-                  {filteredContacts.map((member, index) => (
-                    <IonItem
-                      key={index}
-                      className="list_item"
-                      onClick={() => addMember(member)}
-                      //onClick={() => handleSelectContact(member)}
-                    >
-                      <IonThumbnail slot="start" className="dp">
-                        {member.profileImg ? (
-                          <IonImg
-                            src={member.profileImg}
-                            alt={`${member.name}'s profile`}
-                          />
-                        ) : (
-                          <IonAvatar class="profile-dp">
-                            {getDisplayName(member.name || "")}
-                          </IonAvatar>
-                        )}
-                        {selectedContacts.includes(member) && (
-                          <span className="selection">
-                            <img src={Selected} alt="Selected" />
-                          </span>
-                        )}
-                      </IonThumbnail>
-                      <IonLabel className="member-info">
-                        <h2>{member.name}</h2>
-                        <p>{member.phone}</p>
-                      </IonLabel>
-                    </IonItem>
-                  ))}
-                </IonList>
-              </div>
+              {contacts && contacts.length > 0 ? (
+                <div>
+                  <IonToolbar>
+                    <IonSearchbar
+                      value={searchText}
+                      onIonInput={(e) => setSearchText(e.detail.value!)}
+                      placeholder="Search by name or phone"
+                    />
+                  </IonToolbar>
+                  <div className="users_list">
+                    <ProfileList
+                      eventId={eventId}
+                      eventMembers={selectedContacts}
+                      onSelectMember={handleSelectContact}
+                    />
+                  </div>
+                  <span className="devider"></span>
+                  <div className="menbers_list">
+                    <h6>All Members</h6>
+                    <IonList className="list_wrap">
+                      {filteredContacts.map((member, index) => (
+                        <IonItem
+                          key={index}
+                          className="list_item"
+                          //onClick={() => addMember(member)}
+                          onClick={() => handleSelectContact(member)}
+                        >
+                          <IonThumbnail slot="start" className="dp">
+                            {member.profileImg ? (
+                              <IonImg
+                                src={member.profileImg}
+                                alt={`${member.name}'s profile`}
+                              />
+                            ) : (
+                              <IonAvatar class="profile-dp">
+                                {getDisplayName(member.name || "")}
+                              </IonAvatar>
+                            )}
+                            {selectedContacts.includes(member) && (
+                              <span className="selection">
+                                <img src={Selected} alt="Selected" />
+                              </span>
+                            )}
+                          </IonThumbnail>
+                          <IonLabel className="member-info">
+                            <h2>{member.name}</h2>
+                            <p>{member.phone}</p>
+                          </IonLabel>
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </div>
+                </div>
+              ) : (
+                <IonLabel> No Contacts Found</IonLabel>
+              )}
             </div>
           )}
-          <IonFooter class="stickyFooter">
-            <IonButton className="goarrow">
-              <IonImg src={GoArrow} />
-            </IonButton>
-            {/* <IonButton className="secondary-btn rounded">
-            Send Invitation Link
-          </IonButton>
-          <IonButton className="primary-btn rounded">Done</IonButton> */}
+
+          <IonFooter className="stickyFooter hasFooter bottomSticky">
+            {selectedSegment === "Members" && selectedMembers.length == 0 ? (
+              <IonButton
+                className="primary-btn rounded"
+                onClick={() => setSelectedSegment("Contacts")}
+              >
+                Go to Contacts
+              </IonButton>
+            ) : (
+              contacts.length == 0 && (
+                <IonButton
+                  className="primary-btn rounded"
+                  onClick={() => getContactsList()}
+                >
+                  Import contacts
+                </IonButton>
+              )
+            )}
           </IonFooter>
+          {selectedContacts &&
+            selectedContacts.length > 0 &&
+            selectedSegment === "Contacts" && (
+              <IonFooter class="stickyFooter">
+                <IonButton className="goarrow" onClick={getSelectedMembers}>
+                  <IonImg src={GoArrow} />
+                </IonButton>
+              </IonFooter>
+            )}
         </IonContent>
       </IonPage>
       <IonActionSheet
-        trigger="open-action-sheet"
+        isOpen={showAction}
+        onDidDismiss={() => setShowAction(false)}
         className="action-menu-end"
         header="Manage Member"
         subHeader="Make/remove admin or remove the member"
-        // Controls visibility of delete action sheet
-        // Dismiss delete action sheet
         buttons={[
           {
             text: "Make co-host",
