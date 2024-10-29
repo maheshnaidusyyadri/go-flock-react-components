@@ -25,7 +25,7 @@ import "yet-another-react-lightbox/styles.css";
 import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-import allPhotos from "./photos";
+//import allPhotos from "./photos";
 import StyledLink from "./StyledLink";
 import SelectIcon from "./SelectIcon";
 import Footer from "../Footer/Footer";
@@ -68,28 +68,71 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [selectedSegment, setSelectedTab] = useState<SegmentValue>("all");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
+  //   allPhotos.map((photo) => ({
+  //     ...photo,
+  //     href: photo.src,
+  //     label: "Open image in a lightbox",
+  //   }))
+  // );
   const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
-    allPhotos.map((photo) => ({
+    galleryPhotos.map((photo) => ({
       ...photo,
-      href: photo.src,
+      src: photo.path,
       label: "Open image in a lightbox",
+      width: photo.width || 0,
+      height: photo.height || 0,
     }))
   );
+
   useEffect(() => {
     const count = photos.filter((photo) => photo.selected).length;
     setSelectedCount(count);
   }, [photos]);
+
+  // This effect updates selectedCount whenever photos change
   useEffect(() => {
-    if (selectedSegment === "all") {
-      setPhotos(allPhotos);
-    } else if (selectedSegment === "photo") {
-      setPhotos(allPhotos.filter((photo: any) => photo.type === "image"));
-    } else if (selectedSegment === "video") {
-      setPhotos(allPhotos.filter((photo: any) => photo.type === "video"));
-    } else if (selectedSegment === "document") {
-      setPhotos(allPhotos.filter((photo: any) => photo.type === "document"));
-    }
-  }, [selectedSegment]);
+    const count = photos.filter((photo) => photo.selected).length;
+    setSelectedCount(count);
+  }, [photos]);
+
+  // This effect filters photos based on selectedSegment
+  useEffect(() => {
+    // Determine filteredPhotos based on selectedSegment
+    const filteredPhotos =
+      selectedSegment === "all"
+        ? galleryPhotos
+        : galleryPhotos.filter((photo) => {
+            if (selectedSegment === "photo") return photo.type === "image";
+            if (selectedSegment === "video") return photo.type === "video";
+            if (selectedSegment === "document")
+              return photo.type === "document";
+            return false; // Default case (optional)
+          });
+
+    // Update the photos state with the transformed filtered results
+    setPhotos(
+      filteredPhotos.map((photo) => ({
+        ...photo,
+        src: photo.path,
+        label: "Open image in a lightbox",
+        width: photo.width || 0,
+        height: photo.height || 0,
+      }))
+    );
+  }, [selectedSegment, galleryPhotos]);
+
+  // useEffect(() => {
+  //   if (selectedSegment === "all") {
+  //     setPhotos(allPhotos);
+  //   } else if (selectedSegment === "photo") {
+  //     setPhotos(allPhotos.filter((photo: any) => photo.type === "image"));
+  //   } else if (selectedSegment === "video") {
+  //     setPhotos(allPhotos.filter((photo: any) => photo.type === "video"));
+  //   } else if (selectedSegment === "document") {
+  //     setPhotos(allPhotos.filter((photo: any) => photo.type === "document"));
+  //   }
+  // }, [selectedSegment]);
   useEffect(() => {
     const handleContextMenu = (event: any) => {
       event.preventDefault();
@@ -343,18 +386,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleSelectAll}
-              >
+              <IonLabel className="select_action" onClick={handleSelectAll}>
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleDeselectAll}
-              >
+              <IonLabel className="select_action" onClick={handleDeselectAll}>
                 Deselect All
               </IonLabel>
             )}
@@ -387,10 +424,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               render={{
                 // render custom styled link
                 link: (props) => (
-                  <StyledLink
-                    {...props}
-                    isEditView={isEditMode}
-                  />
+                  <StyledLink {...props} isEditView={isEditMode} />
                 ),
                 // render image selection icon
                 extras: (_, { photo: { selected, type }, index }) => (
@@ -412,18 +446,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     )}
                     {type == "video" && (
                       <>
-                        <IonImg
-                          class="type_declaration"
-                          src={VideoType}
-                        />
+                        <IonImg class="type_declaration" src={VideoType} />
                       </>
                     )}
                     {type == "image" && (
                       <>
-                        <IonImg
-                          class="type_declaration"
-                          src={ImageType}
-                        />
+                        <IonImg class="type_declaration" src={ImageType} />
                       </>
                     )}
                   </>
@@ -535,50 +563,26 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink
-                    className="link"
-                    onClick={handleShareSelected}
-                  >
-                    <img
-                      src={ShareIcon}
-                      alt="Media"
-                    />
+                  <StyledLink className="link" onClick={handleShareSelected}>
+                    <img src={ShareIcon} alt="Media" />
                     <span>Share</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    onClick={handleDownloadSelected}
-                  >
-                    <img
-                      src={Download}
-                      alt="Split Bill"
-                    />
+                  <StyledLink className="link" onClick={handleDownloadSelected}>
+                    <img src={Download} alt="Split Bill" />
                     <span>Download</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    href="#"
-                  >
-                    <img
-                      src={save}
-                      alt="Chat"
-                    />
+                  <StyledLink className="link" href="#">
+                    <img src={save} alt="Chat" />
                     <span>Save</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    onClick={handleDeleteSelected}
-                  >
-                    <img
-                      src={Delete}
-                      alt="Settings"
-                    />
+                  <StyledLink className="link" onClick={handleDeleteSelected}>
+                    <img src={Delete} alt="Settings" />
                     <span>Delete</span>
                   </StyledLink>
                 </li>
@@ -586,10 +590,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </nav>
           </IonFooter>
         ) : (
-          <Footer
-            activeTab={"home"}
-            eventId={eventId}
-          />
+          <Footer activeTab={"home"} eventId={eventId} />
         )}
       </IonContent>
     </>

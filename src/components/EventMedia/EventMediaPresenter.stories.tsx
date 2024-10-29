@@ -13,6 +13,8 @@ const mockMedia: Media[] = [
     downloadUrl: "https://via.placeholder.com/200",
     createdAt: new Date().toISOString(),
     isDeleted: false,
+    width: 1080,
+    height: 780,
   },
   {
     id: "media_002",
@@ -23,7 +25,30 @@ const mockMedia: Media[] = [
     downloadUrl: "https://via.placeholder.com/300",
     createdAt: new Date().toISOString(),
     isDeleted: false,
+    width: 1080,
+    height: 1620,
   },
+  {
+    id: "media_002",
+    uploadedBy: "user_002",
+    eventId: "event_001",
+    type: "video",
+    path: "https://via.placeholder.com/300",
+    downloadUrl: "https://via.placeholder.com/300",
+    createdAt: new Date().toISOString(),
+    isDeleted: false,
+    width: 1080,
+    height: 1620,
+  },
+  // {
+  //   id: "media_003",
+  //   uploadedBy: "user_003",
+  //   eventId: "event_001",
+  //   type: "video",
+  //   path: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  //   width: 1080,
+  //   height: 1620,
+  // },
 ];
 
 // Mock gallery items
