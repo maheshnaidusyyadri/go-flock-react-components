@@ -16,6 +16,8 @@ import {
   IonSegmentButton,
   IonPage,
   IonActionSheet,
+  IonCard,
+  IonText,
 } from "@ionic/react";
 import { Contact, InviteMembersProps } from "@goflock/types/src/index";
 //import memberDp from "../../images/member.png";
@@ -27,6 +29,8 @@ import Menu from "../../images/icons/menu.svg";
 // import HostIcon from "../../images/icons/host.svg";
 // import CoHostIcon from "../../images/icons/co-host.svg";
 //import unselect from "../../images/icons/remove.svg";
+import noContacts from "../../images/no-contacts.svg";
+import noMembers from "../../images/no-members.svg";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
@@ -140,7 +144,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                     ))}
                   </IonList>
                 ) : (
-                  <IonLabel> No Members Found</IonLabel>
+                  <IonCard className="nodata">
+                    <IonImg src={noMembers} />
+                    <IonLabel class="title">No invitees</IonLabel>
+                    <IonText class="subtitle">
+                      Go to contacts and add members
+                    </IonText>
+                  </IonCard>
                 )}
               </div>
             </div>
@@ -201,7 +211,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                   </div>
                 </div>
               ) : (
-                <IonLabel> No Contacts Found</IonLabel>
+                <IonCard className="nodata">
+                  <IonImg src={noContacts} />
+                  <IonLabel className="title">No Contacts Found</IonLabel>
+                  <IonText className="subtitle">
+                    Import contacts and add members
+                  </IonText>
+                </IonCard>
               )}
             </div>
           )}

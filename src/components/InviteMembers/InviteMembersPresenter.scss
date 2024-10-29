@@ -651,6 +651,33 @@ body {
 .created_event {
 }
 
-.hide {
-  display: none !important;
+.nodata {
+  padding: 50px 0 0 0;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  text-align: center;
+  ion-img {
+    display: block;
+    margin: 0 auto 50px;
+    max-width: 75%;
+  }
+  .title {
+    font-family: $GoFlockFont;
+    font-size: 16px;
+    color: $GoFlockColor;
+    font-weight: 500;
+    line-height: 24px;
+    display: block;
+    margin: 0 auto 8px;
+  }
+  .subtitle {
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    color: $secondaryColor;
+    font-weight: 400;
+    line-height: 24px;
+    display: block;
+    margin: 0 auto;
+  }
 }
