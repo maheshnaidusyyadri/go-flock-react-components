@@ -39,9 +39,10 @@ const mockMembers: EventMember[] = [
     id: "member_004",
     name: "David Bowie",
     phoneNumber: "555-3456",
-    //profileImg:"https://i.pravatar.cc/150?img=1"
   },
 ];
+
+let members: EventMember[] = [];
 
 export default {
   title: "GoFlock/Presenters/InviteMembersPresenter",
@@ -80,12 +81,19 @@ Default.args = {
     console.log("Removing admin:", member);
     return true;
   },
-  addMember: async (member) => {
-    console.log("Adding member:", member);
-    return member;
+  addMember: async (newMember: any): Promise<EventMember> => {
+    const exists = members.some((m) => m.id === newMember.id);
+    if (!exists) {
+      members.push(newMember);
+      console.log("Added member:", newMember);
+    } else {
+      members = members.filter((m) => m.id !== newMember.id);
+      console.log("Removed member:", newMember);
+    }
+    console.log("Updated Members List:", members);
+    return newMember;
   },
-  removeMember: async (member) => {
-    console.log("Removing member:", member);
-    return true;
+  getMembersList: async () => {
+    return members;
   },
 };

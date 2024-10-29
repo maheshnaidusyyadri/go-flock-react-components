@@ -36,7 +36,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   getMembersFromContactList,
   addMember,
-  // getMembersList,
+  getMembersList,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Contacts"
@@ -58,27 +58,35 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       ? name.slice(0, 2).toUpperCase()
       : name.toUpperCase();
   };
-  const handleSelectContact = (contact: any) => {
-    if (selectedContacts.includes(contact)) {
-      // Remove if already selected
-      setSelectedContacts(selectedContacts.filter((c) => c !== contact));
-    } else {
-      // Add to selected list
-      setSelectedContacts([...selectedContacts, contact]);
-      addMember(contact);
+  const getMembers = async () => {
+    const members = await getMembersList();
+    setSelectedContacts(members);
+    // getMembersList().then((contacts) => {
+    //   setSelectedContacts(contacts);
+    // });
+  };
+
+  const handleSelectContact = async (item: Contact) => {
+    try {
+      console.log("before-call");
+      await addMember(item);
+      console.log("after-call");
+      await getMembers();
+      console.log("close-call");
+    } catch (error) {
+      console.error("Error occurred:", error);
     }
   };
+
   const getContactsList = () => {
     getMembersFromContactList().then((contacts) => {
       setContacts(contacts);
     });
   };
-  const getSelectedMembers = () => {
-    setSelectedMembers(selectedContacts);
+  const getSelectedMembers = async () => {
+    const memberItem = await getMembersList();
+    setSelectedMembers(memberItem);
     setSelectedSegment("Members");
-    // getMembersList().then((member) => {
-    //   console.log("member-member", member);
-    // });
   };
 
   return (
