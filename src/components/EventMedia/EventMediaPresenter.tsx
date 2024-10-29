@@ -25,7 +25,6 @@ import "yet-another-react-lightbox/styles.css";
 import "react-photo-album/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 
-//import allPhotos from "./photos";
 import StyledLink from "./StyledLink";
 import SelectIcon from "./SelectIcon";
 import Footer from "../Footer/Footer";
@@ -67,83 +66,96 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [lightboxIndex, setLightboxIndex] = useState<number>(0);
   const [selectedSegment, setSelectedTab] = useState<SegmentValue>("all");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  // const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
-  //   allPhotos.map((photo) => ({
-  //     ...photo,
-  //     href: photo.src,
-  //     label: "Open image in a lightbox",
-  //   }))
-  // );
-  const [photos, setPhotos] = useState<SelectablePhoto[]>(() =>
-    galleryPhotos.map((photo) => ({
-      ...photo,
-      src: photo.path,
-      label: "Open image in a lightbox",
-      width: photo.width || 0,
-      height: photo.height || 0,
-    }))
-  );
+  const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
+  const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
 
   useEffect(() => {
-    const count = photos.filter((photo) => photo.selected).length;
-    setSelectedCount(count);
-  }, [photos]);
-
-  // This effect updates selectedCount whenever photos change
-  useEffect(() => {
-    const count = photos.filter((photo) => photo.selected).length;
-    setSelectedCount(count);
-  }, [photos]);
-
-  // This effect filters photos based on selectedSegment
-  useEffect(() => {
-    // Determine filteredPhotos based on selectedSegment
-    const filteredPhotos =
-      selectedSegment === "all"
-        ? galleryPhotos
-        : galleryPhotos.filter((photo) => {
-            if (selectedSegment === "photo") return photo.type === "image";
-            if (selectedSegment === "video") return photo.type === "video";
-            if (selectedSegment === "document")
-              return photo.type === "document";
-            return false; // Default case (optional)
-          });
-
-    // Update the photos state with the transformed filtered results
-    setPhotos(
-      filteredPhotos.map((photo) => ({
+    // Combine both filtering and additional properties in a single effect
+    const filteredPhotos = galleryPhotos
+      .filter((photo) => {
+        if (selectedSegment === "all") return true;
+        if (selectedSegment === "photo") return photo.type === "image";
+        if (selectedSegment === "video") return photo.type === "video";
+        if (selectedSegment === "document") return photo.type === "document";
+        return false;
+      })
+      .map((photo: any) => ({
         ...photo,
         src: photo.path,
         label: "Open image in a lightbox",
         width: photo.width || 0,
         height: photo.height || 0,
-      }))
-    );
-  }, [selectedSegment, galleryPhotos]);
+        ...(photo.type === "video"
+          ? {
+              sources: [
+                {
+                  src: photo.path,
+                  type: "video/mp4",
+                },
+              ],
+              srcSet: breakpoints.map((breakpoint) => ({
+                src: photo.thumbnail,
+                width: breakpoint,
+                height: Math.round((photo.height / photo.width) * breakpoint),
+              })),
+            }
+          : {
+              srcSet: breakpoints.map((breakpoint) => ({
+                src: photo.path,
+                width: breakpoint,
+                height: Math.round((photo.height / photo.width) * breakpoint),
+              })),
+            }),
+      }));
 
-  // useEffect(() => {
-  //   if (selectedSegment === "all") {
-  //     setPhotos(allPhotos);
-  //   } else if (selectedSegment === "photo") {
-  //     setPhotos(allPhotos.filter((photo: any) => photo.type === "image"));
-  //   } else if (selectedSegment === "video") {
-  //     setPhotos(allPhotos.filter((photo: any) => photo.type === "video"));
-  //   } else if (selectedSegment === "document") {
-  //     setPhotos(allPhotos.filter((photo: any) => photo.type === "document"));
-  //   }
-  // }, [selectedSegment]);
+    setPhotos(filteredPhotos);
+  }, [selectedSegment]);
+
   useEffect(() => {
+    let results = galleryPhotos.map((photo: any) => ({
+      ...photo,
+      ...(photo.type == "video"
+        ? {
+            src: photo.path,
+            type: photo.type,
+            sources: [
+              {
+                src: photo.path,
+                type: "video/mp4",
+              },
+            ],
+            srcSet: breakpoints.map((breakpoint) => ({
+              src: photo.thumbnail,
+              width: breakpoint,
+              height: Math.round((photo.height / photo.width) * breakpoint),
+            })),
+          }
+        : {
+            ...photo,
+            ...{
+              src: photo.path,
+              type: photo.type,
+              srcSet: breakpoints.map((breakpoint) => ({
+                src: photo.path,
+                width: breakpoint,
+                height: Math.round((photo.height / photo.width) * breakpoint),
+              })),
+            },
+          }),
+    }));
+    setPhotos(results);
     const handleContextMenu = (event: any) => {
       event.preventDefault();
     };
-
     window.addEventListener("contextmenu", handleContextMenu);
-
     return () => {
       window.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
+  useEffect(() => {
+    const count = photos?.filter((photo) => photo.selected).length;
+    setSelectedCount(count);
+  }, [photos]);
   const areAllSelected = photos.length > 0 && selectedCount === photos.length;
   // Handle adding media from the gallery
   // const handleAddMedia = async () => {
@@ -178,21 +190,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     }
   };
   const handleEditMode = () => {
-    console.log("handleEditMode");
     setIsEditMode(true);
   };
   const handleSelectAll = () => {
-    setPhotos((prevPhotos) =>
-      prevPhotos.map((photo) => ({ ...photo, selected: true }))
+    setPhotos((prevPhotos: any) =>
+      prevPhotos.map((photo: any) => ({ ...photo, selected: true }))
     );
   };
-
   const handleDeselectAll = () => {
-    setPhotos((prevPhotos) =>
-      prevPhotos.map((photo) => ({ ...photo, selected: false }))
+    setPhotos((prevPhotos: any) =>
+      prevPhotos.map((photo: any) => ({ ...photo, selected: false }))
     );
   };
-
   const handleDownloadSelected = () => {
     const selectedPhotos = photos.filter((photo) => photo.selected);
     selectedPhotos.forEach((photo: any) => {
@@ -419,8 +428,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           <div onContextMenu={handleEditMode}>
             <MasonryPhotoAlbum
               photos={photos}
-              // targetRowHeight={150}
-              // custom render functions
               render={{
                 // render custom styled link
                 link: (props) => (
@@ -518,20 +525,22 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         {isLoading && <IonSpinner name="crescent" />}
 
         {/* Media list with delete option */}
-        <IonList>
-          {galleryPhotos.map((item: Media) => (
-            <IonItem key={item.id}>
-              <IonLabel>{item.createdAt}</IonLabel>
-              <IonButton
-                onClick={() => handleDeleteMedia(item.id)}
-                disabled={isLoading}
-                color="danger"
-              >
-                Delete
-              </IonButton>
-            </IonItem>
-          ))}
-        </IonList>
+        {false && (
+          <IonList>
+            {galleryPhotos.map((item: Media) => (
+              <IonItem key={item.id}>
+                <IonLabel>{item.createdAt}</IonLabel>
+                <IonButton
+                  onClick={() => handleDeleteMedia(item.id)}
+                  disabled={isLoading}
+                  color="danger"
+                >
+                  Delete
+                </IonButton>
+              </IonItem>
+            ))}
+          </IonList>
+        )}
         {/* Hidden file input for image upload */}
         <input
           type="file"
