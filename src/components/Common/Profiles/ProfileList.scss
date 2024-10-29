@@ -51,4 +51,7 @@
       text-overflow: ellipsis;
     }
   }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

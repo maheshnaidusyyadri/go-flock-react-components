@@ -1,7 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import EventListPresenter from "./EventListPresenter"; // Adjust the import path based on your project structure
 import { EventListProps } from "@goflock/types/src/index";
-
+import EventDp from "../../images/event_DP.png";
 export default {
   title: "GoFlock/Presenters/EventListPresenter",
   component: EventListPresenter,
@@ -30,6 +30,7 @@ Default.args = {
       owner: "user_001",
       name: "Family Gathering",
       type: "family_event",
+      image: EventDp,
       description: "Annual family gathering at the park.",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [
@@ -80,6 +81,7 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
+      image: EventDp,
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
@@ -123,6 +125,7 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
+      image: EventDp,
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
@@ -177,6 +180,7 @@ SingleEvent.args = {
       owner: "user_003",
       name: "Birthday Party",
       type: "birthday",
+      image: EventDp,
       description: "Celebrating my 30th birthday!",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [

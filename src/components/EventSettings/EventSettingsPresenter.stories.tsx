@@ -7,7 +7,6 @@ import {
   EventSettings,
   Event,
 } from "@goflock/types/src/index";
-
 export default {
   title: "GoFlock/Presenters/EventSettingsPresenter",
   component: EventSettingsPresenter,
@@ -31,6 +30,7 @@ const mockEvent: Event = {
   owner: "user_001",
   name: "Family Gathering",
   type: "anniversary",
+  image: "",
   description: "Annual family gathering at the park.",
   hostedBy: "Me & Family",
   counters: {

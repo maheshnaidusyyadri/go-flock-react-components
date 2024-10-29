@@ -1,7 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import EventSplitBillPresenter from "./EventExpenseSummaryPresenter";
 import { EventExpenseSummaryProps } from "@goflock/types/src/index";
-
+import EventDp from "../../images/event_DP.png";
 export default {
   title: "GoFlock/Presenters/EventExpenseSummaryPresenter",
   component: EventSplitBillPresenter,
@@ -18,6 +18,7 @@ Default.args = {
     owner: "user_001",
     name: "Annual Family Reunion",
     type: "reunion",
+    image: EventDp,
     description: "An annual gathering of the extended family.",
     hostedBy: "Me & Family",
     memberInvitationContactReference: [

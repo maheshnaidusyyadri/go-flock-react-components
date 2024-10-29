@@ -46,19 +46,16 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   return (
     <IonPage>
       <Header
-          showGoBack={false}
-          showLogo={true}
-          title={""}
-          showProfile={true}
-        />
+        showGoBack={false}
+        showLogo={true}
+        title={""}
+        showProfile={true}
+      />
       <IonContent className="dashboard">
         <IonCard className="db_profile">
           <IonCardHeader className="db_profile_head">
             <IonAvatar slot="start">
-              <IonImg
-                src={profile.pictureUrl}
-                alt="Profile"
-              />
+              <IonImg src={profile.pictureUrl} alt="Profile" />
             </IonAvatar>
             <IonCardTitle className="profile-name">
               Welcome, {profile.prefName}
@@ -90,24 +87,15 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           </IonCardHeader>
           <IonCardContent className="events_cnt">
             <IonRow className="event_actions">
-              <IonCol
-                size="4"
-                className="icon-col"
-              >
-                <IonCard
-                  className="icon-card create"
-                  onClick={createNewEvent}
-                >
+              <IonCol size="4" className="icon-col">
+                <IonCard className="icon-card create" onClick={createNewEvent}>
                   <IonThumbnail className="icon-thumb">
                     <IonImg src={AddIcon}></IonImg>
                   </IonThumbnail>
                 </IonCard>
                 <IonText className="card-title">Add events</IonText>
               </IonCol>
-              <IonCol
-                size="4"
-                className="icon-col"
-              >
+              <IonCol size="4" className="icon-col">
                 <IonCard className="icon-card">
                   <IonThumbnail className="icon-thumb">
                     <IonImg src={birthdayIcon}></IonImg>
@@ -115,10 +103,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                 </IonCard>
                 <IonText className="card-title">Birthdays</IonText>
               </IonCol>
-              <IonCol
-                size="4"
-                className="icon-col"
-              >
+              <IonCol size="4" className="icon-col">
                 <IonCard className="icon-card">
                   <IonThumbnail className="icon-thumb">
                     <IonImg src={vacationIcon}></IonImg>
@@ -126,10 +111,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                 </IonCard>
                 <IonText className="card-title">Vacation trips</IonText>
               </IonCol>
-              <IonCol
-                size="4"
-                className="icon-col"
-              >
+              <IonCol size="4" className="icon-col">
                 <IonCard className="icon-card">
                   <IonThumbnail className="icon-thumb">
                     <IonImg src={marriageIcon}></IonImg>
@@ -137,10 +119,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                 </IonCard>
                 <IonText className="card-title">Marriage</IonText>
               </IonCol>
-              <IonCol
-                size="4"
-                className="icon-col"
-              >
+              <IonCol size="4" className="icon-col">
                 <IonCard className="icon-card">
                   <IonThumbnail className="icon-thumb">
                     <IonImg src={graduationIcon}></IonImg>
@@ -148,10 +127,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
                 </IonCard>
                 <IonText className="card-title">Graduation</IonText>
               </IonCol>
-              <IonCol
-                size="4"
-                className="icon-col"
-              >
+              <IonCol size="4" className="icon-col">
                 <IonCard className="icon-card">
                   <IonThumbnail className="icon-thumb">
                     <IonImg src={moreIcon}></IonImg>
