@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react";
 import EventMediaPresenter from "./EventMediaPresenter";
-import { Media, UserGallaryItem } from "@goflock/types";
-
+//import { Media, UserGallaryItem } from "@goflock/types";
+import { Media, UserGallaryItem } from "@goflock/types/src";
 // Mock media data
 const mockMedia: Media[] = [
   {
@@ -13,8 +13,14 @@ const mockMedia: Media[] = [
     downloadUrl: "https://via.placeholder.com/200",
     createdAt: new Date().toISOString(),
     isDeleted: false,
-    width: 1080,
-    height: 780,
+    metadata: {
+      name: "Vacation Video",
+      lastModifiedDate: "2024-10-25T15:00:00Z",
+      size: 10485760,
+      type: "image",
+      width: 1080,
+      height: 780,
+    },
   },
   {
     id: "media_002",
@@ -25,8 +31,14 @@ const mockMedia: Media[] = [
     downloadUrl: "https://via.placeholder.com/300",
     createdAt: new Date().toISOString(),
     isDeleted: false,
-    width: 1080,
-    height: 780,
+    metadata: {
+      name: "Vacation Video",
+      lastModifiedDate: "2024-10-25T15:00:00Z",
+      size: 10485760,
+      type: "image",
+      width: 1080,
+      height: 780,
+    },
   },
   {
     id: "media_002",
@@ -40,8 +52,14 @@ const mockMedia: Media[] = [
       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
     createdAt: new Date().toISOString(),
     isDeleted: false,
-    width: 1080,
-    height: 1420,
+    metadata: {
+      name: "Vacation Video",
+      lastModifiedDate: "2024-10-25T15:00:00Z",
+      size: 10485760,
+      type: "video",
+      width: 1080,
+      height: 1420,
+    },
   },
   {
     id: "media_002",
@@ -52,8 +70,14 @@ const mockMedia: Media[] = [
     downloadUrl: "https://via.placeholder.com/300",
     createdAt: new Date().toISOString(),
     isDeleted: false,
-    width: 1080,
-    height: 780,
+    metadata: {
+      name: "Vacation Video",
+      lastModifiedDate: "2024-10-25T15:00:00Z",
+      size: 10485760,
+      type: "image",
+      width: 1080,
+      height: 780,
+    },
   },
 ];
 

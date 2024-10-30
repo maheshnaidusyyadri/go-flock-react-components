@@ -72,7 +72,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect
     const filteredPhotos = galleryPhotos
-      .filter((photo) => {
+      .filter((photo: any) => {
         if (selectedSegment === "all") return true;
         if (selectedSegment === "photo") return photo.type === "image";
         if (selectedSegment === "video") return photo.type === "video";
@@ -112,7 +112,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   }, [selectedSegment]);
 
   useEffect(() => {
-    let results = galleryPhotos.map((photo) => ({
+    let results = galleryPhotos.map((photo: any) => ({
       ...photo,
       ...(photo.type == "video"
         ? {
@@ -180,8 +180,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     setError(null);
     try {
       await deleteMedia(mediaId);
-      setGalleryPhotos((prevPhotos) =>
-        prevPhotos.filter((photo) => photo.id !== mediaId)
+      setGalleryPhotos((prevPhotos: any) =>
+        prevPhotos.filter((photo: any) => photo.id !== mediaId)
       );
     } catch (err) {
       setError("Failed to delete media");

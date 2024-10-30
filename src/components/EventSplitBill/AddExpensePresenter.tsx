@@ -29,7 +29,8 @@ import Header from "../Header/Header";
 import CustomInput from "../Common/CustomInput";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectMembers from "./SelectExpense";
-import { EventMember, Transaction } from "@goflock/types";
+//import { EventMember, Transaction } from "@goflock/types";
+import { EventMember, Transaction } from "@goflock/types/src/index";
 
 const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   profile,
@@ -187,7 +188,15 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       amount: 100,
       date: new Date().toISOString(),
       paidUserId: profile.id,
-      splitAmongUserIds: [profile.id],
+      //splitAmongUserIds: [profile.id],
+      splitAmongUserIds: [
+        {
+          userId: profile.id,
+          amount: 120,
+          currency: "USD",
+        },
+      ],
+      currency: "USD",
     };
 
     try {
@@ -238,10 +247,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                       onInputChange={(e) => setTotalAmount(e.detail.value)}
                     />
                   </IonList>
-                  <IonList
-                    className="form-group"
-                    onClick={handlePaidByClick}
-                  >
+                  <IonList className="form-group" onClick={handlePaidByClick}>
                     <CustomInput
                       placeholder={"You"}
                       label={"Paid by"}
@@ -334,14 +340,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="home-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="user_item">
+                        <IonThumbnail slot="start" className="dp">
                           <IonImg
                             src={Item.profileImg}
                             alt={`${Item.name}'s profile`}
@@ -361,14 +361,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="radio-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="user_item">
+                        <IonThumbnail slot="start" className="dp">
                           <IonImg
                             src={ProfileIcon}
                             alt={`${Item.name}'s profile`}
@@ -397,14 +391,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="library-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="user_item">
+                        <IonThumbnail slot="start" className="dp">
                           <IonImg
                             src={ProfileIcon}
                             alt={`${Item.name}'s profile`}
@@ -433,14 +421,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
                 {selectedMember.map((Item: any, index: any) => (
-                  <IonItem
-                    key={index}
-                    className="user_item"
-                  >
-                    <IonThumbnail
-                      slot="start"
-                      className="dp"
-                    >
+                  <IonItem key={index} className="user_item">
+                    <IonThumbnail slot="start" className="dp">
                       <IonImg
                         src={Item.profileImg}
                         alt={`${Item.name}'s profile`}

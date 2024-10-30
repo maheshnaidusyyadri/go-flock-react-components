@@ -4,18 +4,18 @@ import { EventMember } from "@goflock/types/src/index";
 import { useState } from "react";
 
 // Mock data
-const mockAdmins: EventMember[] = [
-  {
-    id: "admin_001",
-    name: "John Doe",
-    phoneNumber: "1234567890",
-  },
-  {
-    id: "admin_002",
-    name: "Jane Smith",
-    phoneNumber: "0987654321",
-  },
-];
+// const mockAdmins: EventMember[] = [
+//   {
+//     id: "admin_001",
+//     name: "John Doe",
+//     phoneNumber: "1234567890",
+//   },
+//   {
+//     id: "admin_002",
+//     name: "Jane Smith",
+//     phoneNumber: "0987654321",
+//   },
+// ];
 
 const mockMembers: EventMember[] = [
   {
@@ -79,7 +79,7 @@ Default.args = {
     },
   },
   eventId: "event_001",
-  admins: mockAdmins,
+  // admins: mockAdmins,
   getMembersFromContactList: async () => {
     console.log("Fetching members from contact list...");
     return mockMembers;

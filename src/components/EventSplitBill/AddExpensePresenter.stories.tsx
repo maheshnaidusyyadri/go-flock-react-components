@@ -1,8 +1,9 @@
 import { StoryFn } from "@storybook/react";
 import AddExpensePresenter from "./AddExpensePresenter";
-import { EventAddExpenseProps, Event, Transaction } from "@goflock/types";
+//import { EventAddExpenseProps, Event, Transaction } from "@goflock/types";
 import ProfileIcon from "../../images/profile.png";
 import EventDp from "../../images/event_DP.png";
+import { EventAddExpenseProps, Event, Transaction } from "@goflock/types/src";
 
 // Mock data for the story
 const mockEvent: Event = {
@@ -49,7 +50,19 @@ const transaction: Transaction = {
   amount: 150,
   date: new Date().toISOString(),
   paidUserId: "XX",
-  splitAmongUserIds: ["m1", "m2"],
+  splitAmongUserIds: [
+    {
+      userId: "m1",
+      amount: 125,
+      currency: "USD",
+    },
+    {
+      userId: "m2",
+      amount: 125,
+      currency: "USD",
+    },
+  ],
+  currency: "USD",
   deleted: false,
 };
 
