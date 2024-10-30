@@ -36,14 +36,14 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   getMembersFromContactList,
   addMember,
-  getMembersList,
+  members,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Contacts"
   >("Members");
   const [searchText, setSearchText] = useState(""); // State to track search input
   const [contacts, setContacts] = useState<Contact[]>([]); // State to track search input
-  const [selectedContacts, setSelectedContacts] = useState<any[]>([]);
+  const [selectedContacts, setSelectedContacts] = useState<any>([]);
   const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
   const [showAction, setShowAction] = useState(false);
 
@@ -58,23 +58,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       ? name.slice(0, 2).toUpperCase()
       : name.toUpperCase();
   };
-  const getMembers = async () => {
-    const members = await getMembersList();
-    setSelectedContacts(members);
-    // getMembersList().then((contacts) => {
-    //   setSelectedContacts(contacts);
-    // });
-  };
-
-  const handleSelectContact = async (item: Contact) => {
-    try {
-      console.log("before-call");
-      await addMember(item);
-      console.log("after-call");
-      await getMembers();
-      console.log("close-call");
-    } catch (error) {
-      console.error("Error occurred:", error);
+  const handleSelectContact = (contact: any) => {
+    if (selectedContacts.includes(contact)) {
+      // Remove if already selected
+      setSelectedContacts(selectedContacts.filter((c: any) => c !== contact));
+    } else {
+      // Add to selected list
+      setSelectedContacts([...selectedContacts, contact]);
     }
   };
 
@@ -84,8 +74,8 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     });
   };
   const getSelectedMembers = async () => {
-    const memberItem = await getMembersList();
-    setSelectedMembers(memberItem);
+    setSelectedMembers(selectedContacts);
+    await addMember(selectedContacts);
     setSelectedSegment("Members");
   };
 
@@ -115,9 +105,9 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
           {selectedSegment === "Members" && (
             <div className="members_page">
               <div className="menbers_list ">
-                {selectedMembers && selectedMembers.length > 0 ? (
+                {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
-                    {selectedMembers.map((member, index) => (
+                    {members.map((member, index) => (
                       <IonItem key={index} className="list_item">
                         <IonThumbnail slot="start" className="dp">
                           {/* <IonImg className="type" src={HostIcon} /> */}
@@ -132,15 +122,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               {getDisplayName(member.name || "")}
                             </IonAvatar>
                           )}
-                          {selectedContacts.includes(member) && (
-                            <span className="selection">
-                              <img src={Selected} alt="Selected" />
-                            </span>
-                          )}
+                          <span className="selection">
+                            <img src={Selected} alt="Selected" />
+                          </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
                           <h2>{member.name}</h2>
-                          <p>{member.phone}</p>
+                          <p>{member.phoneNumber}</p>
                         </IonLabel>
                         <IonAvatar
                           className="action_menu"
