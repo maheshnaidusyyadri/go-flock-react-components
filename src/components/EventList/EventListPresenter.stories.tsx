@@ -30,7 +30,6 @@ Default.args = {
       owner: "user_001",
       name: "Family Gathering",
       type: "family_event",
-      image: EventDp,
       description: "Annual family gathering at the park.",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [
@@ -53,7 +52,7 @@ Default.args = {
       invitationCard: {
         id: "card_001",
         cardType: "image",
-        path: "/cards/invitation_card_001.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },
@@ -81,7 +80,6 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
-      image: EventDp,
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
@@ -97,7 +95,7 @@ Default.args = {
       invitationCard: {
         id: "card_002",
         cardType: "image",
-        path: "/cards/invitation_card_002.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },
@@ -125,7 +123,6 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
-      image: EventDp,
       description: "End of year office party.",
       location: {
         name: "Office Headquarters",
@@ -141,7 +138,7 @@ Default.args = {
       invitationCard: {
         id: "card_002",
         cardType: "image",
-        path: "/cards/invitation_card_002.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },
@@ -180,7 +177,6 @@ SingleEvent.args = {
       owner: "user_003",
       name: "Birthday Party",
       type: "birthday",
-      image: EventDp,
       description: "Celebrating my 30th birthday!",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [
@@ -201,7 +197,7 @@ SingleEvent.args = {
       invitationCard: {
         id: "card_003",
         cardType: "image",
-        path: "/cards/invitation_card_003.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },

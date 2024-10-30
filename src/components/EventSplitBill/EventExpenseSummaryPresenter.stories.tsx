@@ -106,7 +106,7 @@ Default.args = {
     invitationCard: {
       id: "card_001",
       cardType: "image",
-      path: "/cards/invitation_card_001.jpg",
+      url: EventDp,
       configuration: "default",
       shared: true,
     },

@@ -36,7 +36,7 @@ const mockMedia: Media[] = [
     path: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     downloadUrl:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    thumbnail:
+    thumbnailUrl:
       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
     createdAt: new Date().toISOString(),
     isDeleted: false,

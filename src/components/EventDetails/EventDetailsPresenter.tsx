@@ -114,16 +114,20 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   return (
     <>
-      <IonContent className={`eventDetails ${!event.image ? "no-image" : ""}`}>
+      <IonContent
+        className={`eventDetails ${
+          !event.invitationCard.url ? "no-image" : ""
+        }`}
+      >
         <Header
           eventId={event.id}
-          title={!event.image ? "" : event.name}
+          title={!event.invitationCard ? "" : event.name}
           showMenu={true}
           showContactList={false}
           deleteEvent={deleteEvent}
           eventRelation={eventRelation}
         />
-        {!event.image && (
+        {!event.invitationCard.url && (
           <IonCard className="nopreview">
             <IonImg src={noPreview} />
           </IonCard>
@@ -134,9 +138,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             {!["admin", "owner"].includes(eventRelation?.visitType) && (
               <IonLabel class="event_title">{event.name}</IonLabel>
             )}
-            {event.image && (
+            {event.invitationCard.url && (
               <IonThumbnail className="event_dp">
-                <IonImg src={event.image} alt="Event" />
+                <IonImg src={event.invitationCard.url} alt="Event" />
               </IonThumbnail>
             )}
             <IonText className="event_brief">{event.description}</IonText>

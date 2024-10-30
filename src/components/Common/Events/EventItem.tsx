@@ -51,7 +51,11 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
     <>
       <IonCard className="event_item" onClick={() => onOpen(event.id)}>
         <IonThumbnail className="display_pic">
-          <IonImg className="events" alt="Events" src={event.image} />
+          <IonImg
+            className="events"
+            alt="Events"
+            src={event.invitationCard.url}
+          />
         </IonThumbnail>
         <IonCardContent className="event_info">
           <IonCardTitle className="event-name">{event.name}</IonCardTitle>

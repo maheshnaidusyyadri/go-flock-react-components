@@ -41,7 +41,6 @@ EventGuestView.args = {
       "alice.smith@example.com",
     ],
     description: "An annual gathering of the extended family.",
-    image: "",
     location: {
       // place:"Astoria Park",
       name: "New York, NY",
@@ -115,7 +114,7 @@ EventGuestView.args = {
     invitationCard: {
       id: "card_001",
       cardType: "image",
-      path: "/cards/invitation_card_001.jpg",
+      url: "",
       configuration: "default",
       shared: true,
     },
@@ -201,7 +200,6 @@ PublicEventHostView.args = {
     ],
     type: "reunion",
     description: "An annual gathering of the extended family.",
-    image: EventDp,
     location: {
       // place:"Astoria Park",
       name: "New York, NY",
@@ -275,7 +273,7 @@ PublicEventHostView.args = {
     invitationCard: {
       id: "card_001",
       cardType: "image",
-      path: "/cards/invitation_card_001.jpg",
+      url: EventDp,
       configuration: "default",
       shared: true,
     },
@@ -435,7 +433,7 @@ PrivateEventHostView.args = {
     invitationCard: {
       id: "card_001",
       cardType: "image",
-      path: "/cards/invitation_card_001.jpg",
+      url: EventDp,
       configuration: "default",
       shared: true,
     },

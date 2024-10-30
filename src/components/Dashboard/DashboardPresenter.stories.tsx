@@ -30,7 +30,6 @@ Default.args = {
       owner: "user_002",
       name: "Team Meeting",
       type: "get_togather",
-      image: EventDp,
       description: "Weekly team sync-up.",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [
@@ -51,7 +50,7 @@ Default.args = {
       invitationCard: {
         id: "card_001",
         cardType: "image",
-        path: "/cards/invitation_card_001.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },
@@ -79,7 +78,6 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
-      image: EventDp,
       description: "Celebrating Sarah's birthday!",
       location: {
         name: "Sarah's House",
@@ -94,7 +92,7 @@ Default.args = {
       invitationCard: {
         id: "card_002",
         cardType: "image",
-        path: "/cards/invitation_card_002.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },
@@ -119,7 +117,6 @@ Default.args = {
       owner: "user_001",
       name: "Wedding Planning",
       type: "wedding",
-      image: EventDp,
       description: "Planning the big day!",
       hostedBy: "Me & Family",
       memberInvitationContactReference: [
@@ -139,7 +136,7 @@ Default.args = {
       invitationCard: {
         id: "card_003",
         cardType: "image",
-        path: "/cards/invitation_card_003.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },

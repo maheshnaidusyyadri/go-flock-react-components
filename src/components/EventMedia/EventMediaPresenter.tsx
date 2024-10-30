@@ -94,7 +94,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 },
               ],
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.thumbnail,
+                src: photo.thumbnailUrl,
                 width: breakpoint,
                 height: Math.round((photo.height / photo.width) * breakpoint),
               })),
@@ -112,7 +112,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   }, [selectedSegment]);
 
   useEffect(() => {
-    let results = galleryPhotos.map((photo: any) => ({
+    let results = galleryPhotos.map((photo) => ({
       ...photo,
       ...(photo.type == "video"
         ? {
@@ -125,7 +125,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               },
             ],
             srcSet: breakpoints.map((breakpoint) => ({
-              src: photo.thumbnail,
+              src: photo.thumbnailUrl,
               width: breakpoint,
               height: Math.round((photo.height / photo.width) * breakpoint),
             })),

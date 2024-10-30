@@ -53,7 +53,6 @@ Default.args = {
         "+1234567890",
         "alice.smith@example.com",
       ],
-      image: EventDp,
       description: "An annual gathering of the extended family.",
       location: {
         name: "Grandma's House",
@@ -136,7 +135,7 @@ Default.args = {
       invitationCard: {
         id: "card_001",
         cardType: "image",
-        path: "/cards/invitation_card_001.jpg",
+        url: EventDp,
         configuration: "default",
         shared: true,
       },
@@ -217,7 +216,6 @@ CreatingEvent.args = {
             "alice.smith@example.com",
           ],
           type: "reunion",
-          image: EventDp,
           description: "An annual gathering of the extended family.",
           location: {
             name: "New York, NY",
@@ -291,7 +289,7 @@ CreatingEvent.args = {
           invitationCard: {
             id: "card_001",
             cardType: "image",
-            path: "/cards/invitation_card_001.jpg",
+            url: EventDp,
             configuration: "default",
             shared: true,
           },

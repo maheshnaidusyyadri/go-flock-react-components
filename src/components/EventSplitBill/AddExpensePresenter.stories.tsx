@@ -2,6 +2,7 @@ import { StoryFn } from "@storybook/react";
 import AddExpensePresenter from "./AddExpensePresenter";
 import { EventAddExpenseProps, Event, Transaction } from "@goflock/types";
 import ProfileIcon from "../../images/profile.png";
+import EventDp from "../../images/event_DP.png";
 
 // Mock data for the story
 const mockEvent: Event = {
@@ -19,7 +20,7 @@ const mockEvent: Event = {
   invitationCard: {
     id: "card1",
     cardType: "image",
-    path: "/cards/card1.jpg",
+    url: EventDp,
     configuration: "",
     shared: false,
   },

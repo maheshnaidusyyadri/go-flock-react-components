@@ -11,7 +11,7 @@ export default {
   title: "GoFlock/Presenters/EventSettingsPresenter",
   component: EventSettingsPresenter,
 } as Meta<typeof EventSettingsPresenter>;
-
+import EventDp from "../../images/event_DP.png";
 // Mock data
 const mockProfile: Profile = {
   id: "profile_001",
@@ -30,7 +30,6 @@ const mockEvent: Event = {
   owner: "user_001",
   name: "Family Gathering",
   type: "anniversary",
-  image: "",
   description: "Annual family gathering at the park.",
   hostedBy: "Me & Family",
   counters: {
@@ -50,7 +49,7 @@ const mockEvent: Event = {
   invitationCard: {
     id: "card_001",
     cardType: "image",
-    path: "/cards/invitation_card_001.jpg",
+    url: EventDp,
     configuration: "default",
     shared: true,
   },
