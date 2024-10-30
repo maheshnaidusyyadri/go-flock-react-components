@@ -11,6 +11,7 @@ import {
   IonContent,
   IonFooter,
   IonGrid,
+  IonHeader,
   IonImg,
   IonItem,
   IonItemDivider,
@@ -44,6 +45,9 @@ import CustomInput from "../Common/CustomInput";
 import InviteIcon from "../../images/icons/UserPlus.svg";
 import CopyIcon from "../../images/icons/copy.svg";
 import Copy from "../../images/icons/copy_white.svg";
+import kidsIcon from "../../images/Kids.svg";
+import adultsIcon from "../../images/Adults.svg";
+import backArrow from "../../images/icons/back-arrow.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
@@ -100,6 +104,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   const onError = (error: any) => {
     console.log("error", error);
+  };
+
+  const [activeOption, setActiveOption] = useState("yes"); // default active
+
+  const handleClick = (option: React.SetStateAction<string>) => {
+    setActiveOption(option);
   };
 
   return (
@@ -342,9 +352,29 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         )}
         {!["admin", "owner"].includes(eventRelation?.visitType) && (
           <IonFooter className="stickyFooter">
-            <IonButton onClick={toggleClass} className="primary-btn rounded">
+            {/* <IonButton onClick={toggleClass} className="primary-btn rounded">
               Submit your response
-            </IonButton>
+            </IonButton> */}
+            <IonCard className="rsvp_card">
+              <IonLabel className="rsvp_title">Are you going?</IonLabel>
+              <IonList class="rsvp_actions" onClick={toggleClass}>
+                <IonItem className="ionitem">
+                  <IonText class="yes" className="iontext">
+                    Yes
+                  </IonText>
+                </IonItem>
+                <IonItem className="ionitem">
+                  <IonText class="no" className="iontext">
+                    No
+                  </IonText>
+                </IonItem>
+                <IonItem className="ionitem">
+                  <IonText class="notSure" className="iontext">
+                    Not sure
+                  </IonText>
+                </IonItem>
+              </IonList>
+            </IonCard>
           </IonFooter>
         )}
         {["admin", "owner"].includes(eventRelation?.visitType) && (
@@ -352,7 +382,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         )}
       </IonContent>
 
-      <IonGrid className={`popover_action ${isActive ? "active" : ""}`}>
+      <IonGrid className={`popover_action ${isActive ? " " : ""}`}>
         <IonCardContent class="overlay" onClick={toggleClass}></IonCardContent>
         <IonCard className="action_cnt">
           <IonImg class="img_icon" src={MessageIcon} />
@@ -379,7 +409,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         </IonCard>
       </IonGrid>
 
-      <IonGrid className={`popover_action ${isOpen ? "active" : ""}`}>
+      <IonGrid className={`popover_action ${isOpen ? " " : ""}`}>
         <IonCardContent class="overlay" onClick={toggleClass2}></IonCardContent>
         <IonCard className="action_cnt">
           <IonImg class="img_icon" src={MessageIcon} />
@@ -420,6 +450,56 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             Complete
           </IonButton> */}
         </IonCard>
+      </IonGrid>
+
+      <IonGrid className={`rsvp_modal ${isActive ? "active" : ""}`}>
+        <IonHeader class="modal_header">
+          <IonImg src={backArrow} alt="Page Back" onClick={toggleClass} />
+          <IonLabel>Are you going?</IonLabel>
+        </IonHeader>
+        <IonList className="rsvp_actions">
+          <IonItem className="ionitem" onClick={() => handleClick("yes")}>
+            <IonText
+              className={`iontext yes ${activeOption === "" ? "active" : ""}`}
+            >
+              Yes
+            </IonText>
+          </IonItem>
+          <IonItem className="ionitem" onClick={() => handleClick("no")}>
+            <IonText
+              className={`iontext no ${activeOption === "" ? "active" : ""}`}
+            >
+              No
+            </IonText>
+          </IonItem>
+          <IonItem className="ionitem" onClick={() => handleClick("notSure")}>
+            <IonText
+              className={`iontext notSure ${
+                activeOption === "" ? "active" : ""
+              }`}
+            >
+              Not sure
+            </IonText>
+          </IonItem>
+        </IonList>
+        <IonGrid className="guest_section">
+          <IonCard className="guest_info">
+            <IonCard className="card_cnt">
+              <IonThumbnail>
+                <IonImg src={adultsIcon} />
+              </IonThumbnail>
+              <IonLabel class="guest_type">Adults</IonLabel>
+            </IonCard>
+          </IonCard>
+          <IonCard className="guest_info">
+            <IonCard className="card_cnt">
+              <IonThumbnail>
+                <IonImg src={kidsIcon} />
+              </IonThumbnail>
+              <IonLabel class="guest_type">Kids</IonLabel>
+            </IonCard>
+          </IonCard>
+        </IonGrid>
       </IonGrid>
     </>
   );

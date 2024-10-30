@@ -338,3 +338,137 @@ body {
     left: 0px;
   }
 }
+
+.rsvp_card {
+  border-radius: 16px;
+  border: 1px solid #e4e4e7;
+  background: #f6f6f6;
+  padding: 16px;
+  box-shadow: none;
+  margin: 0;
+  .rsvp_title {
+    display: block;
+    text-align: center;
+    color: $GoFlockColor;
+    text-align: center;
+    font-family: $GoFlockFont;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.rsvp_actions {
+  display: flex;
+  background: transparent !important;
+  padding-bottom: 0;
+  .ionitem {
+    width: 100%;
+    --border-color: transparent;
+    --padding-start: 4px;
+    --inner-padding-end: 4px;
+    --background: transparent;
+
+    .iontext {
+      display: flex;
+      align-items: center;
+      height: 34px;
+      border-radius: 24px;
+      justify-content: center;
+      width: 100%;
+      border: 1px solid #ddd;
+      background: $white;
+      &.active {
+        color: $white;
+      }
+      &.yes {
+        border-color: #12b76a;
+        &.active {
+          background: #12b76a;
+        }
+      }
+      &.no {
+        border-color: #fc0005;
+        &.active {
+          background: #fc0005;
+        }
+      }
+      &.notSure {
+        border-color: #f29126;
+        &.active {
+          background: #f29126;
+        }
+      }
+    }
+  }
+}
+
+.rsvp_modal {
+  position: fixed;
+  right: -100%;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  background: $white;
+  transition: all 0.25s ease-in-out;
+  padding: 8px;
+
+  &.active {
+    right: 0px;
+  }
+  .rsvp_actions {
+    padding: 0 8px;
+  }
+  .modal_header {
+    display: flex;
+    align-items: center;
+    box-shadow: none;
+    height: 50px;
+    padding: 0 8px;
+    ion-label {
+      color: $GoFlockColor;
+      text-align: center;
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      width: 100%;
+    }
+  }
+  .guest_section {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    .guest_info {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+      padding: 8px;
+      .card_cnt {
+        border-radius: 6px;
+        border: 1px solid #e4e4e7;
+        background: #f6f6f6;
+        padding: 24px 0;
+        margin: 0;
+        display: block;
+        text-align: center;
+        box-shadow: none;
+        ion-thumbnail {
+          --size: 80px;
+          margin: 0 auto 12px;
+        }
+        .guest_type {
+          font-family: $GoFlockFont;
+          font-size: 20px;
+          color: $GoFlockColor;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
