@@ -979,3 +979,170 @@ input[type="number"] {
     }
   }
 }
+
+.contact_section {
+  position: relative;
+  .field-label {
+    text-align: left;
+    display: block;
+    transform: inherit !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #18181b !important;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .react-tel-input {
+    display: flex;
+    flex-direction: column-reverse;
+    padding-bottom: 16px;
+    .form-control {
+      border-radius: 6px;
+      border: 1px solid #e4e4e7;
+      background: transparent;
+      height: 48px;
+      width: 100%;
+      padding: 0 15px;
+    }
+    .flag-dropdown {
+      position: static;
+      margin-bottom: 30px;
+      background: transparent;
+      border-radius: 6px;
+      padding-left: 15px;
+      padding-right: 10px;
+      border: 1px solid #e4e4e7;
+      .selected-flag {
+        width: 100%;
+        height: 48px;
+        border-radius: 6px;
+        padding-left: 0px;
+        background: url("../../images/icons/DownArrow.svg") no-repeat right
+          center;
+        .flag .arrow {
+          display: none;
+        }
+      }
+      .country-list {
+        position: fixed !important; /* Make the dropdown position fixed */
+        bottom: 0px;
+        left: 0;
+        width: 100vw; /* Full width */
+        height: 75vh; /* Full height */
+        z-index: 9999; /* Ensure it stays on top */
+        overflow-y: auto;
+        max-height: 100vh;
+        transition: all 0.5s ease-in-out;
+        text-align: left;
+        padding: 0px;
+        margin: 0;
+        border-radius: 16px 16px 0 0;
+        padding-top: 0px;
+        // &:before {
+        //   content: "Country codes";
+        //   position: absolute;
+        //   left: 0px;
+        //   top: 0px;
+        //   width: 100%;
+        //   font-family: $GoFlockFont;
+        //   font-size: 20px;
+        //   line-height: 30px;
+        //   color: $GoFlockColor;
+        // }
+        li {
+          &.search {
+            padding: 16px 16px 10px 16px;
+            .search-emoji {
+              display: none;
+            }
+            .search-box {
+              border-radius: 12px;
+              border: 1px solid #e4e4e7;
+              height: 48px;
+              width: 100%;
+              margin: 0;
+              background: url("../../images/icons/search.svg") no-repeat 14px
+                center #f6f6f6;
+              padding-left: 42px;
+              font-family: $GoFlockFont;
+              font-size: 14px;
+              font-weight: 400;
+              color: $GoFlockColor;
+            }
+          }
+          &.no-entries-message {
+            text-align: center;
+            font-family: $GoFlockFont;
+            font-size: 14px;
+            color: $GoFlockColor;
+          }
+          .flag {
+            margin-right: 10px;
+            margin-top: 0;
+          }
+          &.country {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            &:nth-child(2):before {
+              content: "";
+              width: 100%;
+              height: 30vh;
+              background: rgba($black, 0.4);
+              display: block;
+              position: fixed;
+              top: 0px;
+              left: 0px;
+              z-index: -1;
+            }
+            .country-name {
+              color: #18181b;
+              font-family: "Poppins", sans-serif;
+              line-height: 20px;
+              padding: 0;
+              margin: 0;
+              font-size: clamp(13px, 3.38vw, 14px);
+            }
+            .dial-code {
+              color: #18181b;
+              font-family: "Poppins", sans-serif;
+              line-height: 20px;
+              padding: 0;
+              margin: 0;
+              font-size: clamp(13px, 3.38vw, 14px);
+            }
+          }
+        }
+      }
+      &.open {
+        z-index: 9;
+        // .country-list {
+        //   bottom: 0px;
+        // }
+
+        // &:before {
+        //   content: "";
+        //   width: 100%;
+        //   height: 100vh;
+        //   position: fixed;
+        //   top: 0px;
+        //   left: 0;
+        //   background: rgba($black, 0.5);
+        // }
+      }
+    }
+  }
+  .countryname {
+    position: absolute;
+    left: 50px;
+    top: 40px;
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    line-height: 20px;
+    color: $GoFlockColor;
+    font-weight: 400;
+  }
+}

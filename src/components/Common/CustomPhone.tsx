@@ -42,7 +42,7 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
   };
 
   return (
-    <IonGrid className="auth_cnt">
+    <IonGrid className="contact_section">
       {label && (
         <IonLabel class="field-label">
           {isRequired ? `${label}*` : label}

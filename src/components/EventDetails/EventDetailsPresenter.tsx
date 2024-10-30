@@ -47,8 +47,11 @@ import CopyIcon from "../../images/icons/copy.svg";
 import Copy from "../../images/icons/copy_white.svg";
 import kidsIcon from "../../images/Kids.svg";
 import adultsIcon from "../../images/Adults.svg";
+import plusIcon from "../../images/icons/Plus.svg";
+import minusIcon from "../../images/icons/Minus.svg";
 import backArrow from "../../images/icons/back-arrow.svg";
 import AddressDisplay from "../Common/AddressDisplay";
+import CustomPhoneNumber from "../Common/CustomPhone";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -69,6 +72,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     handleSubmit,
     formState: { errors },
     register,
+    control,
   } = useForm();
   const toggleClass = () => {
     setIsActive(!isActive); // Toggle the class
@@ -492,7 +496,16 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonThumbnail>
                 <IonImg src={adultsIcon} />
               </IonThumbnail>
-              <IonLabel class="guest_type">Adults</IonLabel>
+              <IonLabel className="guest_type">Adults</IonLabel>
+              <IonCard className="counter_sec">
+                <IonButton className="counter_btn">
+                  <IonImg src={minusIcon} />
+                </IonButton>
+                <IonLabel className="counter_value">0</IonLabel>
+                <IonButton className="counter_btn">
+                  <IonImg src={plusIcon} />
+                </IonButton>
+              </IonCard>
             </IonCard>
           </IonCard>
           <IonCard className="guest_info">
@@ -501,8 +514,51 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 <IonImg src={kidsIcon} />
               </IonThumbnail>
               <IonLabel class="guest_type">Kids</IonLabel>
+              <IonCard className="counter_sec">
+                <IonButton className="counter_btn">
+                  <IonImg src={minusIcon} />
+                </IonButton>
+                <IonLabel className="counter_value">0</IonLabel>
+                <IonButton className="counter_btn">
+                  <IonImg src={plusIcon} />
+                </IonButton>
+              </IonCard>
             </IonCard>
           </IonCard>
+        </IonGrid>
+        <IonGrid className="guest_form">
+          <div className="form-container">
+            <FormProvider {...methods}>
+              <IonCardContent className="pad0">
+                <div className="form-group">
+                  <CustomInput
+                    placeholder={"Enter your name"}
+                    label={"Event Name"}
+                    fieldName={"name"}
+                    isRequired={true}
+                    errors={errors}
+                    // defaultValue={preferredName}
+                    errorText={"Name"}
+                    register={register}
+                    // onInputChange={(e) =>
+                    //   setPreferredNameState(e.detail.value!)
+                    // }
+                  />
+                </div>
+                <div className="form-group">
+                  <CustomPhoneNumber
+                    control={control}
+                    fieldName="phone"
+                    label="Phone Number"
+                    isRequired={true}
+                    errors={errors}
+                    register={register}
+                    errorText={"Phone Number"}
+                  />
+                </div>
+              </IonCardContent>
+            </FormProvider>
+          </div>
         </IonGrid>
       </IonGrid>
     </>

@@ -420,7 +420,7 @@ body {
     right: 0px;
   }
   .rsvp_actions {
-    padding: 0 8px;
+    padding: 0 4px;
   }
   .modal_header {
     display: flex;
@@ -467,6 +467,32 @@ body {
           font-size: 20px;
           color: $GoFlockColor;
           font-weight: 500;
+        }
+        .counter_sec {
+          box-shadow: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 44px;
+          border: 1px solid #e4e4e7;
+          border-radius: 12px;
+          margin: 16px 16px 0;
+          .counter_btn {
+            padding: 0;
+            margin: 0;
+            --background: transparent;
+            --box-shadow: none;
+          }
+          .counter_value {
+            color: $GoFlockColor;
+            text-align: center;
+            font-family: $GoFlockFont;
+            font-size: 12px;
+            font-weight: 500;
+          }
+        }
+        .guest_form {
+          padding: 20px 8px;
         }
       }
     }
