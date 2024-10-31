@@ -66,7 +66,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
 
       {error && <p>{error}</p>}
 
-      {locations.length > 0 && (
+      {locations?.length > 0 && (
         <IonList>
           {locations.map((location, index) => (
             <IonItem
