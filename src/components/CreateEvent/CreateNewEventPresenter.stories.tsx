@@ -5,11 +5,6 @@ import EventCreatedPresenter from "./EventCreatedPresenter";
 import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
 import { JSX } from "react/jsx-runtime";
-// import {
-//   LocationInfo,
-//   CreateNewEventProps,
-//   DraftEvent,
-// } from "@goflock/types/src/index";
 import EventDp from "../../images/event_DP.png";
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
@@ -66,7 +61,7 @@ Default.args = {
         endTime: "4:00 PM",
       },
       visibility: "private",
-      admins: [
+      members: [
         {
           id: "admin_001",
           eventId: "event_12345",
@@ -79,8 +74,6 @@ Default.args = {
           name: "Bob Johnson",
           email: "bob.johnson@example.com",
         },
-      ],
-      members: [
         {
           id: "member_001",
           eventId: "event_12345",
@@ -156,35 +149,86 @@ Default.args = {
           eventId: "event_12345",
           paidUserId: "member_001",
           splitAmongUserIds: [
-            "member_002",
-            "member_003",
-            "member_004",
-            "member_005",
+            {
+              userId: "member_002",
+              amount: 125,
+              currency: "USD",
+            },
+            {
+              userId: "member_003",
+              amount: 125,
+              currency: "USD",
+            },
+            {
+              userId: "member_004",
+              amount: 125,
+              currency: "USD",
+            },
+            {
+              userId: "member_005",
+              amount: 125,
+              currency: "USD",
+            },
           ],
           description: "Catering service",
           amount: 500,
           date: "2024-12-01T00:00:00Z",
           deleted: false,
+          currency: "USD",
         },
         {
           id: "txn_002",
           eventId: "event_12345",
           paidUserId: "admin_001",
-          splitAmongUserIds: ["admin_002", "member_001", "member_002"],
+          splitAmongUserIds: [
+            {
+              userId: "member_002",
+              amount: 125,
+              currency: "USD",
+            },
+            {
+              userId: "member_003",
+              amount: 125,
+              currency: "USD",
+            },
+            {
+              userId: "member_004",
+              amount: 125,
+              currency: "USD",
+            },
+            {
+              userId: "member_005",
+              amount: 125,
+              currency: "USD",
+            },
+          ],
           description: "Venue booking",
           amount: 300,
           date: "2024-11-25T00:00:00Z",
           deleted: false,
+          currency: "USD",
         },
         {
           id: "txn_003",
           eventId: "event_12345",
           paidUserId: "member_003",
-          splitAmongUserIds: ["member_004", "member_005"],
+          splitAmongUserIds: [
+            {
+              userId: "member_004",
+              amount: 75,
+              currency: "USD",
+            },
+            {
+              userId: "member_005",
+              amount: 75,
+              currency: "USD",
+            },
+          ],
           description: "Decorations",
           amount: 150,
           date: "2024-12-20T00:00:00Z",
           deleted: false,
+          currency: "USD",
         },
       ],
       deleted: false,
