@@ -19,7 +19,7 @@ import {
   IonCard,
   IonText,
 } from "@ionic/react";
-import { Contact, InviteMembersProps } from "@goflock/types/src/index";
+import { InviteMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
 import GoArrow from "../../images/icons/GoArrow.svg";
 import Header from "../Header/Header";
@@ -33,14 +33,14 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   importContactsFromDevice,
   addMembers,
   members,
+  contacts,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Contacts"
   >("Members");
   const [searchText, setSearchText] = useState(""); // State to track search input
-  const [contacts, setContacts] = useState<Contact[]>([]); // State to track search input
   const [selectedContacts, setSelectedContacts] = useState<any>([]);
-  const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
+  const [selectedMembers, _] = useState<any[]>([]);
   const [showAction, setShowAction] = useState(false);
 
   // Filter members based on search text
@@ -49,6 +49,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       contact.name?.toLowerCase().includes(searchText.toLowerCase()) ||
       contact.phone?.includes(searchText)
   );
+
   const getDisplayName = (name: string) => {
     return name.length > 1
       ? name.slice(0, 2).toUpperCase()
@@ -65,13 +66,14 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   };
 
   const getContactsList = () => {
-    importContactsFromDevice().then((contacts) => {
-      setContacts(contacts);
+    importContactsFromDevice().then(() => {
+      console.log("Contacts imported");
     });
   };
-  const getSelectedMembers = async () => {
-    setSelectedMembers(selectedContacts);
+  const addSelectedContactsToEvent = async () => {
     await addMembers(selectedContacts);
+    setShowAction(false);
+    setSelectedContacts([]);
     setSelectedSegment("Members");
   };
 
@@ -257,7 +259,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
               <IonFooter class="stickyFooter">
                 <IonButton
                   className="goarrow"
-                  onClick={getSelectedMembers}
+                  onClick={addSelectedContactsToEvent}
                 >
                   <IonImg src={GoArrow} />
                 </IonButton>

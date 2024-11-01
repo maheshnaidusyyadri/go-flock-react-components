@@ -18,7 +18,6 @@ const ProfileList: React.FC<ProfileListProps> = ({
   eventMembers,
   onSelectMember,
 }) => {
-  console.log("eventMembers", eventMembers);
   const getDisplayName = (name: any) => {
     return name.length > 1
       ? name.slice(0, 2).toUpperCase()
@@ -50,7 +49,10 @@ const ProfileList: React.FC<ProfileListProps> = ({
           <IonThumbnail className="profile-avatar-wrapper">
             {eventMember.profileImg ? (
               <IonAvatar className="profile-avatar">
-                <img src={eventMember.profileImg} alt={eventMember.name} />
+                <img
+                  src={eventMember.profileImg}
+                  alt={eventMember.name}
+                />
               </IonAvatar>
             ) : (
               <IonAvatar className="profile-dp">
