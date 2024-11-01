@@ -35,7 +35,7 @@ import ProfileIcon from "../../images/profile.png";
 import noPreview from "../../images/noPreview.svg";
 
 import Header from "../Header/Header";
-import { EventProps } from "@goflock/types/src";
+import { EventProps, RSVP } from "@goflock/types/src";
 import Footer from "../Footer/Footer";
 import DisplayDate from "../../utils/DisplayDate";
 import ProfileList from "../Common/Profiles/ProfileList";
@@ -113,7 +113,26 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [activeOption, setActiveOption] = useState("yes"); // default active
 
   const handleClick = (option: React.SetStateAction<string>) => {
+    console.log("handleClick", option);
+
+    let response: "attending" | "not-attending" | "maybe" | "not-answered" =
+      "attending";
+    if (option === "no") {
+      response = "not-attending";
+    } else if (option === "notSure") {
+      response = "maybe";
+    }
+
     setActiveOption(option);
+    let rsvp: RSVP = {
+      response: response,
+      count: 4,
+      comment: "Happy birthday!!",
+      kidsCount: 2,
+      adultsCount: 2,
+    };
+
+    submitRSVP(event.id, rsvp);
   };
 
   return (
