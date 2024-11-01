@@ -49,7 +49,7 @@ export default {
 } as Meta<typeof InviteMembersPresenter>;
 
 const Template: StoryFn<typeof InviteMembersPresenter> = (args) => {
-  const [selectedMembers, setSelectedMembers] = useState([]);
+  const [_, setSelectedMembers] = useState([]);
 
   const handleAddMembers = async (members: any) => {
     setSelectedMembers(members);
@@ -59,7 +59,7 @@ const Template: StoryFn<typeof InviteMembersPresenter> = (args) => {
   return (
     <InviteMembersPresenter
       {...args}
-      members={selectedMembers}
+      members={mockMembers}
       addMembers={handleAddMembers}
     />
   );
@@ -80,9 +80,9 @@ Default.args = {
   },
   eventId: "event_001",
   // admins: mockAdmins,
-  getMembersFromContactList: async () => {
+  importContactsFromDevice: async () => {
     console.log("Fetching members from contact list...");
-    return mockMembers;
+    return;
   },
   addAdmin: async (member) => {
     console.log("Adding admin:", member);
