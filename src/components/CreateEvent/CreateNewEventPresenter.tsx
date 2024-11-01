@@ -364,9 +364,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           </span>
                           <p>
                             <strong>Private Event</strong>
-                            Only users with phone numbers invited can access.
-                            This is highly secure. You can change this option
-                            later.
+                            Exclusively invite your guests by their phone
+                            numbers. You can change this option later.
                           </p>
                         </IonRadio>
                         <IonRadio
@@ -381,9 +380,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             />
                           </span>
                           <p>
-                            <strong>Public Event</strong>Only users with phone
-                            numbers invited can access. This is highly secure.
-                            You can change this option later.
+                            <strong>Open Event</strong>Allow anyone to join the
+                            Event. You can change this option later.
                           </p>
                         </IonRadio>
                       </IonRadioGroup>

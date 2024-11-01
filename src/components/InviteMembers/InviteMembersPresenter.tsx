@@ -20,22 +20,18 @@ import {
   IonText,
 } from "@ionic/react";
 import { Contact, InviteMembersProps } from "@goflock/types/src/index";
-//import memberDp from "../../images/member.png";
 import Selected from "../../images/icons/selected.svg";
 import GoArrow from "../../images/icons/GoArrow.svg";
 import Header from "../Header/Header";
 import ProfileList from "../Common/Profiles/ProfileList";
 import Menu from "../../images/icons/menu.svg";
-// import HostIcon from "../../images/icons/host.svg";
-// import CoHostIcon from "../../images/icons/co-host.svg";
-//import unselect from "../../images/icons/remove.svg";
 import noContacts from "../../images/no-contacts.svg";
 import noMembers from "../../images/no-members.svg";
 
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
-  getMembersFromContactList,
-  addMember,
+  importContactsFromDevice,
+  addMembers,
   members,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
@@ -69,13 +65,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   };
 
   const getContactsList = () => {
-    getMembersFromContactList().then((contacts) => {
+    importContactsFromDevice().then((contacts) => {
       setContacts(contacts);
     });
   };
   const getSelectedMembers = async () => {
     setSelectedMembers(selectedContacts);
-    await addMember(selectedContacts);
+    await addMembers(selectedContacts);
     setSelectedSegment("Members");
   };
 
@@ -108,8 +104,14 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {members.map((member, index) => (
-                      <IonItem key={index} className="list_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="list_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {/* <IonImg className="type" src={HostIcon} /> */}
                           {/* <IonImg className="type co" src={CoHostIcon} /> */}
                           {member.profileImg ? (
@@ -123,7 +125,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img src={Selected} alt="Selected" />
+                            <img
+                              src={Selected}
+                              alt="Selected"
+                            />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -134,7 +139,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                           className="action_menu"
                           onClick={() => setShowAction(true)}
                         >
-                          <IonImg src={Menu} alt="More Details" />
+                          <IonImg
+                            src={Menu}
+                            alt="More Details"
+                          />
                         </IonAvatar>
                       </IonItem>
                     ))}
@@ -180,7 +188,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                           //onClick={() => addMember(member)}
                           onClick={() => handleSelectContact(member)}
                         >
-                          <IonThumbnail slot="start" className="dp">
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {member.profileImg ? (
                               <IonImg
                                 src={member.profileImg}
@@ -193,7 +204,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             )}
                             {selectedContacts.includes(member) && (
                               <span className="selection">
-                                <img src={Selected} alt="Selected" />
+                                <img
+                                  src={Selected}
+                                  alt="Selected"
+                                />
                               </span>
                             )}
                           </IonThumbnail>
@@ -241,7 +255,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
             selectedContacts.length > 0 &&
             selectedSegment === "Contacts" && (
               <IonFooter class="stickyFooter">
-                <IonButton className="goarrow" onClick={getSelectedMembers}>
+                <IonButton
+                  className="goarrow"
+                  onClick={getSelectedMembers}
+                >
                   <IonImg src={GoArrow} />
                 </IonButton>
               </IonFooter>

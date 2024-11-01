@@ -51,16 +51,16 @@ export default {
 const Template: StoryFn<typeof InviteMembersPresenter> = (args) => {
   const [selectedMembers, setSelectedMembers] = useState([]);
 
-  const handleAddMember = async (member: any) => {
-    setSelectedMembers(member);
-    console.log("Adding member:", member);
-    return member;
+  const handleAddMembers = async (members: any) => {
+    setSelectedMembers(members);
+    console.log("Adding members:", members);
+    return members;
   };
   return (
     <InviteMembersPresenter
       {...args}
       members={selectedMembers}
-      addMember={handleAddMember}
+      addMembers={handleAddMembers}
     />
   );
 };
