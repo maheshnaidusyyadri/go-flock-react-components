@@ -97,7 +97,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     };
     try {
       let newEvent: Event = await createEvent(draftEvent);
-      goToEvent(newEvent.id);
+      if (newEvent.id) {
+        goToEvent(newEvent.id);
+      }
     } catch (error) {
       console.error("Error creating event:", error);
     } finally {

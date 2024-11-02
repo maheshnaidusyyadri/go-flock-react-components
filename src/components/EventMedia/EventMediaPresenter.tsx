@@ -81,7 +81,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       })
       .map((photo: any) => ({
         ...photo,
-        src: photo.path,
+        src: photo.downloadUrl,
         label: "Open image in a lightbox",
         width: photo.width || 0,
         height: photo.height || 0,
@@ -89,19 +89,19 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           ? {
               sources: [
                 {
-                  src: photo.path,
+                  src: photo.downloadUrl,
                   type: "video/mp4",
                 },
               ],
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.thumbnailUrl,
+                src: photo.downloadUrl,
                 width: breakpoint,
                 height: Math.round((photo.height / photo.width) * breakpoint),
               })),
             }
           : {
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.path,
+                src: photo.downloadUrl,
                 width: breakpoint,
                 height: Math.round((photo.height / photo.width) * breakpoint),
               })),
@@ -112,15 +112,22 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   }, [selectedSegment]);
 
   useEffect(() => {
-    let results = galleryPhotos.map((photo: any) => ({
+    if (!media) {
+      return;
+    }
+
+    console.log("using media");
+    console.log(media);
+
+    let results = media.map((photo: any) => ({
       ...photo,
       ...(photo.type == "video"
         ? {
-            src: photo.path,
+            src: photo.downloadUrl,
             type: photo.type,
             sources: [
               {
-                src: photo.path,
+                src: photo.downloadUrl,
                 type: "video/mp4",
               },
             ],
@@ -133,16 +140,19 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         : {
             ...photo,
             ...{
-              src: photo.path,
+              src: photo.downloadUrl,
               type: photo.type,
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.path,
+                src: photo.downloadUrl,
                 width: breakpoint,
                 height: Math.round((photo.height / photo.width) * breakpoint),
               })),
             },
           }),
     }));
+
+    console.log(results);
+
     setPhotos(results);
     const handleContextMenu = (event: any) => {
       event.preventDefault();
@@ -151,11 +161,13 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     return () => {
       window.removeEventListener("contextmenu", handleContextMenu);
     };
-  }, []);
+  }, [media]);
+
   useEffect(() => {
     const count = photos?.filter((photo) => photo.selected).length;
     setSelectedCount(count);
   }, [photos]);
+
   const areAllSelected = photos.length > 0 && selectedCount === photos.length;
   // Handle adding media from the gallery
   // const handleAddMedia = async () => {
@@ -189,19 +201,23 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       setIsLoading(false);
     }
   };
+
   const handleEditMode = () => {
     setIsEditMode(true);
   };
+
   const handleSelectAll = () => {
     setPhotos((prevPhotos: any) =>
       prevPhotos.map((photo: any) => ({ ...photo, selected: true }))
     );
   };
+
   const handleDeselectAll = () => {
     setPhotos((prevPhotos: any) =>
       prevPhotos.map((photo: any) => ({ ...photo, selected: false }))
     );
   };
+
   const handleDownloadSelected = () => {
     const selectedPhotos = photos.filter((photo) => photo.selected);
     selectedPhotos.forEach((photo: any) => {
@@ -395,12 +411,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -431,7 +453,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               render={{
                 // render custom styled link
                 link: (props) => (
-                  <StyledLink {...props} isEditView={isEditMode} />
+                  <StyledLink
+                    {...props}
+                    isEditView={isEditMode}
+                  />
                 ),
                 // render image selection icon
                 extras: (_, { photo: { selected, type }, index }) => (
@@ -453,12 +478,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     )}
                     {type == "video" && (
                       <>
-                        <IonImg class="type_declaration" src={VideoType} />
+                        <IonImg
+                          class="type_declaration"
+                          src={VideoType}
+                        />
                       </>
                     )}
                     {type == "image" && (
                       <>
-                        <IonImg class="type_declaration" src={ImageType} />
+                        <IonImg
+                          class="type_declaration"
+                          src={ImageType}
+                        />
                       </>
                     )}
                   </>
@@ -572,26 +603,50 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink className="link" onClick={handleShareSelected}>
-                    <img src={ShareIcon} alt="Media" />
+                  <StyledLink
+                    className="link"
+                    onClick={handleShareSelected}
+                  >
+                    <img
+                      src={ShareIcon}
+                      alt="Media"
+                    />
                     <span>Share</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" onClick={handleDownloadSelected}>
-                    <img src={Download} alt="Split Bill" />
+                  <StyledLink
+                    className="link"
+                    onClick={handleDownloadSelected}
+                  >
+                    <img
+                      src={Download}
+                      alt="Split Bill"
+                    />
                     <span>Download</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" href="#">
-                    <img src={save} alt="Chat" />
+                  <StyledLink
+                    className="link"
+                    href="#"
+                  >
+                    <img
+                      src={save}
+                      alt="Chat"
+                    />
                     <span>Save</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink className="link" onClick={handleDeleteSelected}>
-                    <img src={Delete} alt="Settings" />
+                  <StyledLink
+                    className="link"
+                    onClick={handleDeleteSelected}
+                  >
+                    <img
+                      src={Delete}
+                      alt="Settings"
+                    />
                     <span>Delete</span>
                   </StyledLink>
                 </li>
@@ -599,7 +654,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </nav>
           </IonFooter>
         ) : (
-          <Footer activeTab={"home"} eventId={eventId} />
+          <Footer
+            activeTab={"home"}
+            eventId={eventId}
+          />
         )}
       </IonContent>
     </>
