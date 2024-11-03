@@ -4,4 +4,5 @@ declare const _default: {
     component: import('react').FC<EventExpenseSummaryProps>;
 };
 export default _default;
-export declare const Default: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventExpenseSummaryProps>;
+export declare const EventWithTransactionsAndSummary: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventExpenseSummaryProps>;
+export declare const EventWithNoTransactionsAndSummary: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventExpenseSummaryProps>;

@@ -66,6 +66,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [selectedEventValue, setSelectedEventValue] = useState<
     "attending" | "not-attending" | "maybe" | "not-answered"
   >("not-answered");
+
+  console.log(event);
+
   const [eventErrorMessage, setErrorMessage] = useState<string>("");
   const methods = useForm();
   const {
@@ -139,7 +142,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     <>
       <IonContent
         className={`eventDetails ${
-          !event.invitationCard?.url ? "no-image" : ""
+          !event?.invitationCard?.url ? "no-image" : ""
         }`}
       >
         <Header

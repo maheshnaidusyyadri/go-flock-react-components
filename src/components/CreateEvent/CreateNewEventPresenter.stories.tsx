@@ -1,23 +1,21 @@
 import { StoryFn } from "@storybook/react";
 import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
-import NoEventPresenter from "./NoEventPresenter";
-import EventCreatedPresenter from "./EventCreatedPresenter";
 import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
-import { JSX } from "react/jsx-runtime";
-import EventDp from "../../images/event_DP.png";
+import { EventWithMembers } from "../Common/MockData";
+import { action } from "@storybook/addon-actions";
+
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
   component: CreateNewEventPresenter,
-  NoEventPresenter,
 };
 
 const Template: StoryFn<CreateNewEventProps> = (args) => (
   <CreateNewEventPresenter {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const CreateEventFlow = Template.bind({});
+CreateEventFlow.args = {
   profile: {
     id: "user_001",
     prefName: "John Doe",
@@ -37,417 +35,24 @@ Default.args = {
     ] as LocationInfo[];
   },
   createEvent: async (draftEvent: DraftEvent) => {
-    console.log("Creating event:", draftEvent);
-    return {
-      id: "event_12345",
-      owner: "user_001",
-      name: "Annual Family Reunion",
-      type: "reunion",
-      hostedBy: "Me & Family",
-      memberInvitationContactReference: [
-        "+1234567890",
-        "alice.smith@example.com",
-      ],
-      description: "An annual gathering of the extended family.",
-      location: {
-        name: "Grandma's House",
-        place: "New York, NY",
-        lat: 40.712776,
-        long: -74.005974,
-      },
-      time: {
-        startDate: new Date("2024-12-25T00:00:00Z"),
-        startTime: "12:00 PM",
-        endTime: "4:00 PM",
-      },
-      visibility: "private",
-      members: [
-        {
-          id: "admin_001",
-          eventId: "event_12345",
-          name: "Alice Smith",
-          email: "alice.smith@example.com",
-        },
-        {
-          id: "admin_002",
-          eventId: "event_12345",
-          name: "Bob Johnson",
-          email: "bob.johnson@example.com",
-        },
-        {
-          id: "member_001",
-          eventId: "event_12345",
-          name: "Charlie Brown",
-          phoneNumber: "+1234567890",
-          rsvp: {
-            response: "attending",
-            count: 2,
-          },
-        },
-        {
-          id: "member_002",
-          eventId: "event_12345",
-          name: "David Clark",
-          phoneNumber: "+1987654321",
-          rsvp: {
-            response: "maybe",
-            count: 1,
-          },
-        },
-        {
-          id: "member_003",
-          eventId: "event_12345",
-          name: "Eve Davis",
-          email: "eve.davis@example.com",
-          rsvp: {
-            response: "not-attending",
-            count: 1,
-          },
-        },
-        {
-          id: "member_004",
-          eventId: "event_12345",
-          name: "Frank Miller",
-          email: "frank.miller@example.com",
-          rsvp: {
-            response: "attending",
-            count: 3,
-          },
-        },
-        {
-          id: "member_005",
-          eventId: "event_12345",
-          name: "Grace Lee",
-          email: "grace.lee@example.com",
-          rsvp: {
-            response: "not-answered",
-            count: 0,
-          },
-        },
-      ],
-      invitationCard: {
-        id: "card_001",
-        cardType: "image",
-        url: EventDp,
-        configuration: "default",
-        shared: true,
-      },
-      settings: {
-        shareMedia: true,
-        splitBills: true,
-        enableChats: true,
-        allowCheckList: true,
-        currency: "USD",
-        eventVisibility: "private",
-      },
-      checkListQuestions: [],
-      checkListResponses: [],
-      media: [],
-      transactions: [
-        {
-          id: "txn_001",
-          eventId: "event_12345",
-          paidUserId: "member_001",
-          splitAmongUserIds: [
-            {
-              userId: "member_002",
-              amount: 125,
-              currency: "USD",
-            },
-            {
-              userId: "member_003",
-              amount: 125,
-              currency: "USD",
-            },
-            {
-              userId: "member_004",
-              amount: 125,
-              currency: "USD",
-            },
-            {
-              userId: "member_005",
-              amount: 125,
-              currency: "USD",
-            },
-          ],
-          description: "Catering service",
-          amount: 500,
-          date: "2024-12-01T00:00:00Z",
-          deleted: false,
-          currency: "USD",
-        },
-        {
-          id: "txn_002",
-          eventId: "event_12345",
-          paidUserId: "admin_001",
-          splitAmongUserIds: [
-            {
-              userId: "member_002",
-              amount: 125,
-              currency: "USD",
-            },
-            {
-              userId: "member_003",
-              amount: 125,
-              currency: "USD",
-            },
-            {
-              userId: "member_004",
-              amount: 125,
-              currency: "USD",
-            },
-            {
-              userId: "member_005",
-              amount: 125,
-              currency: "USD",
-            },
-          ],
-          description: "Venue booking",
-          amount: 300,
-          date: "2024-11-25T00:00:00Z",
-          deleted: false,
-          currency: "USD",
-        },
-        {
-          id: "txn_003",
-          eventId: "event_12345",
-          paidUserId: "member_003",
-          splitAmongUserIds: [
-            {
-              userId: "member_004",
-              amount: 75,
-              currency: "USD",
-            },
-            {
-              userId: "member_005",
-              amount: 75,
-              currency: "USD",
-            },
-          ],
-          description: "Decorations",
-          amount: 150,
-          date: "2024-12-20T00:00:00Z",
-          deleted: false,
-          currency: "USD",
-        },
-      ],
-      deleted: false,
-    };
+    action("createEvent")(draftEvent);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(EventWithMembers);
+        console.log("Event created (after delay)");
+      }, 5000);
+    });
   },
   goToEvent: (eventId: string) => {
     console.log("Navigating to event:", eventId);
   },
 };
 
-export const NoEvent = (
-  args: JSX.IntrinsicAttributes & CreateNewEventProps
-) => <NoEventPresenter {...args} />;
-NoEvent.args = {};
-
-export const CreatingEvent = Template.bind({});
-CreatingEvent.args = {
-  ...Default.args,
-  createEvent: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          id: "event_12345",
-          owner: "user_001",
-          name: "Annual Family Reunion",
-          hostedBy: "Me & Family",
-          memberInvitationContactReference: [
-            "+1234567890",
-            "alice.smith@example.com",
-          ],
-          type: "reunion",
-          description: "An annual gathering of the extended family.",
-          location: {
-            name: "New York, NY",
-            // place:"",
-            lat: 40.712776,
-            long: -74.005974,
-          },
-          time: {
-            startDate: new Date("2024-12-25T00:00:00Z"),
-            startTime: "12:00 PM",
-            endTime: "4:00 PM",
-          },
-          visibility: "private",
-          members: [
-            {
-              id: "member_001",
-              eventId: "event_12345",
-              name: "Charlie Brown",
-              phoneNumber: "+1234567890",
-              roles: ["admin"],
-              rsvp: {
-                response: "attending",
-                count: 2,
-              },
-            },
-            {
-              id: "member_002",
-              eventId: "event_12345",
-              name: "David Clark",
-              phoneNumber: "+1987654321",
-              roles: ["member"],
-              rsvp: {
-                response: "maybe",
-                count: 1,
-              },
-            },
-            {
-              id: "member_003",
-              eventId: "event_12345",
-              name: "Eve Davis",
-              email: "eve.davis@example.com",
-              roles: ["member"],
-              rsvp: {
-                response: "not-attending",
-                count: 1,
-              },
-            },
-            {
-              id: "member_004",
-              eventId: "event_12345",
-              name: "Frank Miller",
-              email: "frank.miller@example.com",
-              roles: ["member"],
-              rsvp: {
-                response: "attending",
-                count: 3,
-              },
-            },
-            {
-              id: "member_005",
-              eventId: "event_12345",
-              name: "Grace Lee",
-              email: "grace.lee@example.com",
-              roles: ["member"],
-              rsvp: {
-                response: "not-answered",
-                count: 0,
-              },
-            },
-          ],
-          invitationCard: {
-            id: "card_001",
-            cardType: "image",
-            url: EventDp,
-            configuration: "default",
-            shared: true,
-          },
-          settings: {
-            shareMedia: true,
-            splitBills: true,
-            enableChats: true,
-            allowCheckList: true,
-            currency: "USD",
-            eventVisibility: "private",
-          },
-          checkListQuestions: [],
-          checkListResponses: [],
-          media: [],
-          transactions: [
-            {
-              id: "txn_001",
-              eventId: "event_12345",
-              paidUserId: "member_001",
-              splitAmongUserIds: [
-                {
-                  userId: "member_002",
-                  amount: 125,
-                  currency: "USD",
-                },
-                {
-                  userId: "member_003",
-                  amount: 125,
-                  currency: "USD",
-                },
-                {
-                  userId: "member_004",
-                  amount: 125,
-                  currency: "USD",
-                },
-                {
-                  userId: "member_005",
-                  amount: 125,
-                  currency: "USD",
-                },
-              ],
-              description: "Catering service",
-              amount: 500,
-              date: "2024-12-01T00:00:00Z",
-              deleted: false,
-              currency: "USD",
-            },
-            {
-              id: "txn_002",
-              eventId: "event_12345",
-              paidUserId: "admin_001",
-              splitAmongUserIds: [
-                {
-                  userId: "admin_002",
-                  amount: 125,
-                  currency: "USD",
-                },
-                {
-                  userId: "member_001",
-                  amount: 125,
-                  currency: "USD",
-                },
-                {
-                  userId: "member_002",
-                  amount: 125,
-                  currency: "USD",
-                },
-              ],
-              description: "Venue booking",
-              amount: 300,
-              date: "2024-11-25T00:00:00Z",
-              deleted: false,
-              currency: "USD",
-            },
-            {
-              id: "txn_003",
-              eventId: "event_12345",
-              paidUserId: "member_003",
-              splitAmongUserIds: [
-                {
-                  userId: "member_004",
-                  amount: 125,
-                  currency: "USD",
-                },
-                {
-                  userId: "member_005",
-                  amount: 125,
-                  currency: "USD",
-                },
-              ],
-              description: "Decorations",
-              amount: 150,
-              date: "2024-12-20T00:00:00Z",
-              deleted: false,
-              currency: "USD",
-            },
-          ],
-          deleted: false,
-        });
-        console.log("Event created (after delay)");
-      }, 2000);
-    });
-  },
-};
-
 export const ErrorState = Template.bind({});
 ErrorState.args = {
-  ...Default.args,
-  createEvent: async () => {
+  ...CreateEventFlow.args,
+  createEvent: async (draftEvent: DraftEvent) => {
+    action("createEvent failed for")(draftEvent);
     throw new Error("Failed to create event");
   },
 };
-
-export const EventCreated = (
-  args: JSX.IntrinsicAttributes & CreateNewEventProps
-) => <EventCreatedPresenter {...args} />;
-EventCreated.args = {};

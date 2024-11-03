@@ -4,6 +4,7 @@ declare const _default: {
     component: import('react').FC<DashboardProps>;
 };
 export default _default;
-export declare const Default: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
+export declare const WithActiveAndMyEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
 export declare const NoActiveEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
 export declare const NoMyEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
+export declare const NoActiveOrMyEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;

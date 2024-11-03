@@ -4,6 +4,6 @@ declare const _default: {
     component: import('react').FC<EventListProps>;
 };
 export default _default;
-export declare const Default: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventListProps>;
+export declare const MultipleEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventListProps>;
 export declare const EmptyState: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventListProps>;
 export declare const SingleEvent: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventListProps>;
