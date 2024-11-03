@@ -1,4 +1,4 @@
-import { Event, Profile } from '@goflock/types/src/index';
+import { Event, Media, Profile } from '@goflock/types/src/index';
 import { EventRelation } from '@goflock/types/src/models/event/EventRelation';
 export declare const HalloweenEvent: Event;
 export declare const BirthdayEvent: Event;
@@ -13,3 +13,5 @@ export declare const ownerEventRelation: EventRelation;
 export declare const cohostEventRelation: EventRelation;
 export declare const guestEventRelation: EventRelation;
 export declare const rsvpGuestEventRelation: EventRelation;
+export declare const ImagesMedia: Media[];
+export declare const ImageAndVideosMixedMedia: Media[];

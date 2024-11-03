@@ -355,6 +355,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           type: file.type,
           uploadedBy: profile.id,
           eventId: eventId,
+          width: width,
+          height: height,
         };
 
         // Add base64 string and metadata to arrays
