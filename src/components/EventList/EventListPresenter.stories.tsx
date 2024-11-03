@@ -1,11 +1,13 @@
 import { StoryFn } from "@storybook/react";
-import EventListPresenter from "./EventListPresenter"; // Adjust the import path based on your project structure
+import { action } from "@storybook/addon-actions";
+import EventListPresenter from "./EventListPresenter";
 import { EventListProps } from "@goflock/types/src/index";
 import {
   BirthdayEvent,
   HalloweenEvent,
   OwnerProfile,
 } from "../Common/MockData";
+
 export default {
   title: "GoFlock/Presenters/EventListPresenter",
   component: EventListPresenter,
@@ -20,7 +22,7 @@ MultipleEvents.args = {
   profile: OwnerProfile,
   events: [BirthdayEvent, HalloweenEvent, BirthdayEvent, HalloweenEvent],
   openEvent: (eventId: string) => {
-    console.log("Opening event:", eventId);
+    action("openEvent")(`Opening event with ID: ${eventId}`);
   },
 };
 

@@ -1,3 +1,4 @@
+import { DeviceContext } from "@goflock/types";
 import { Event, Media, Profile } from "@goflock/types/src/index";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
 
@@ -616,3 +617,21 @@ export const ImageAndVideosMixedMedia: Media[] = [
     },
   },
 ];
+
+export const IphoneDeviceContext: DeviceContext = {
+  model: "iPhone 13",
+  platform: "iOS",
+  uuid: "unique-uuid-for-iphone-13", // Typically a unique identifier
+  operatingSystem: "iOS",
+  osVersion: "15.0", // Replace with the specific OS version if needed
+  manufacturer: "Apple",
+};
+
+export const AndroidDeviceContext: DeviceContext = {
+  model: "Pixel 6",
+  platform: "Android",
+  uuid: "123e4567-e89b-12d3-a456-426614174000",
+  operatingSystem: "Android",
+  osVersion: "12.0",
+  manufacturer: "Google",
+};

@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import EventDetailsPresenter from "./EventDetailsPresenter"; // Adjust the import path based on your project structure
+import EventDetailsPresenter from "./EventDetailsPresenter";
 import { EventProps } from "@goflock/types/src/index";
 import {
   cohostEventRelation,
@@ -7,6 +7,7 @@ import {
   EventWithMembers,
   EventWithOneMember,
   guestEventRelation,
+  IphoneDeviceContext,
   ownerEventRelation,
   OwnerProfile,
 } from "../Common/MockData";
@@ -24,97 +25,81 @@ const Template: StoryFn<EventProps> = (args) => (
 export const PublicEventHostViewWithInvitation = Template.bind({});
 PublicEventHostViewWithInvitation.args = {
   profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
+  deviceContext: IphoneDeviceContext,
   event: EventWithInvitation,
   eventRelation: ownerEventRelation,
+  submitRSVP: (eventId, rsvp) => {
+    action("submitRSVP")(`Event ID: ${eventId}`, rsvp);
+    return Promise.resolve();
+  },
+  inviteMembers: (eventId) => action("inviteMembers")(`Event ID: ${eventId}`),
+  editEvent: (eventId) => action("editEvent")(`Event ID: ${eventId}`),
+  copyEventLink: (eventId) => action("copyEventLink")(`Event ID: ${eventId}`),
+  navigateToEventLocation: (eventId) =>
+    action("navigateToEventLocation")(`Event ID: ${eventId}`),
+  deleteEvent: (eventId) => action("deleteEvent")(`Event ID: ${eventId}`),
+  sendOTP: async (phoneNumber) => {
+    action("sendOTP")(`Sending OTP to ${phoneNumber}`);
+    return true;
+  },
+  verifyOTP: async (phoneNumber, otp) => {
+    action("verifyOTP")(`Verifying OTP: ${otp} for ${phoneNumber}`);
+    return true;
+  },
 };
 
 export const PublicEventHostViewWithoutInvitation = Template.bind({});
 PublicEventHostViewWithoutInvitation.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
+  ...PublicEventHostViewWithInvitation.args,
   event: EventWithMembers,
-  eventRelation: ownerEventRelation,
 };
 
 export const PrivateEventHostViewWithInvitation = Template.bind({});
 PrivateEventHostViewWithInvitation.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
+  ...PublicEventHostViewWithInvitation.args,
   event: EventWithInvitation,
-  eventRelation: ownerEventRelation,
 };
 
 export const PrivateEventHostViewWithoutInvitation = Template.bind({});
 PrivateEventHostViewWithoutInvitation.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
+  ...PublicEventHostViewWithInvitation.args,
   event: EventWithMembers,
-  eventRelation: ownerEventRelation,
 };
 
 export const PrivateEventHostViewWithSingleMember = Template.bind({});
 PrivateEventHostViewWithSingleMember.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
+  ...PublicEventHostViewWithInvitation.args,
   event: EventWithOneMember,
-  eventRelation: ownerEventRelation,
 };
 
 export const PrivateEventCoHostViewWithoutInvitation = Template.bind({});
 PrivateEventCoHostViewWithoutInvitation.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
-  event: EventWithMembers,
+  ...PublicEventHostViewWithInvitation.args,
   eventRelation: cohostEventRelation,
 };
 
 export const EventGuestViewUnAuth = Template.bind({});
 EventGuestViewUnAuth.args = {
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
-  event: EventWithMembers,
+  ...PublicEventHostViewWithInvitation.args,
   eventRelation: guestEventRelation,
+  profile: undefined,
 };
 
 export const EventGuestViewAuthRSVPFlow = Template.bind({});
 EventGuestViewAuthRSVPFlow.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
-  event: EventWithInvitation,
+  ...PublicEventHostViewWithInvitation.args,
   eventRelation: guestEventRelation,
 };
 
 export const EventGuestViewUnAuthRSVPFlow = Template.bind({});
 EventGuestViewUnAuthRSVPFlow.args = {
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
-  sendOTP: async (phoneNumberWithCountryCode: string) => {
-    action("sendOTP")(`Sending OTP to ${phoneNumberWithCountryCode}`);
-    return true;
-  },
-  verifyOTP: async (phoneNumberWithCountryCode: string, otp: string) => {
-    action("verifyOTP")(
-      `Verifying OTP ${otp} for ${phoneNumberWithCountryCode}`
-    );
-    return true;
-  },
-  event: EventWithMembers,
+  ...PublicEventHostViewWithInvitation.args,
   eventRelation: guestEventRelation,
+  profile: undefined,
 };
 
 export const EventGuestViewPostRSVP = Template.bind({});
 EventGuestViewPostRSVP.args = {
-  profile: OwnerProfile,
-  deleteEvent: () => {},
-  submitRSVP: () => Promise.resolve(),
-  event: EventWithMembers,
+  ...PublicEventHostViewWithInvitation.args,
   eventRelation: guestEventRelation,
 };

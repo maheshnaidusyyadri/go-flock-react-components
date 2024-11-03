@@ -1,11 +1,14 @@
 import { StoryFn } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import DashboardPresenter from "./DashboardPresenter";
-import { DashboardProps, ListType } from "@goflock/types/src/index";
+import { DashboardProps } from "@goflock/types/src/index";
 import {
   OwnerProfile,
   HalloweenEvent,
   BirthdayEvent,
+  IphoneDeviceContext,
 } from "../Common/MockData";
+
 export default {
   title: "GoFlock/Presenters/DashboardPresenter",
   component: DashboardPresenter,
@@ -18,21 +21,14 @@ const Template: StoryFn<DashboardProps> = (args) => (
 export const WithActiveAndMyEvents = Template.bind({});
 WithActiveAndMyEvents.args = {
   profile: OwnerProfile,
+  deviceContext: IphoneDeviceContext,
   activeEvents: [HalloweenEvent, BirthdayEvent],
   myEvents: [BirthdayEvent],
 
-  createNewEvent: () => {
-    console.log("Creating a new event...");
-  },
-  openEvent: (eventId: string) => {
-    console.log("Opening event:", eventId);
-  },
-  seeAllMyEvents: () => {
-    console.log("Seeing all my events...");
-  },
-  seeAllEvents: (listType: ListType) => {
-    console.log("Seeing all events of type:", listType);
-  },
+  createNewEvent: action("createNewEvent"),
+  openEvent: (eventId) => action("openEvent")(eventId),
+  seeAllMyEvents: action("seeAllMyEvents"),
+  seeAllEvents: (listType) => action("seeAllEvents")(listType),
 };
 
 export const NoActiveEvents = Template.bind({});
