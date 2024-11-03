@@ -192,7 +192,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      await deleteMedia(mediaId);
+      await deleteMedia([mediaId]);
       setGalleryPhotos((prevPhotos: any) =>
         prevPhotos.filter((photo: any) => photo.id !== mediaId)
       );

@@ -35,8 +35,8 @@ WithNoMedia.args = {
   },
 
   // Mock function to delete media
-  deleteMedia: async (mediaId: string) => {
-    action("deleteMedia")(mediaId);
+  deleteMedia: async (mediaIds: string[]) => {
+    action("deleteMedia")(mediaIds);
 
     return true;
   },
