@@ -1,8 +1,8 @@
 import { StoryFn } from "@storybook/react";
-import CreateNewEventPresenter from "./CreateNewEventPresenter"; // Adjust the import path based on your project structure
+import CreateNewEventPresenter from "./CreateNewEventPresenter";
 import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
-import { EventWithMembers } from "../Common/MockData";
+import { EventWithMembers, OwnerProfile } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
 
 export default {
@@ -16,17 +16,7 @@ const Template: StoryFn<CreateNewEventProps> = (args) => (
 
 export const CreateEventFlow = Template.bind({});
 CreateEventFlow.args = {
-  profile: {
-    id: "user_001",
-    prefName: "John Doe",
-    isIntroShown: true,
-    pictureUrl: "https://via.placeholder.com/150",
-    preferences: {
-      smsNotifications: true,
-      emailNotifications: true,
-      pushNotifications: false,
-    },
-  },
+  profile: OwnerProfile,
   searchLocation: async (query: string) => {
     console.log(`Searching for location: ${query}`);
     return [
@@ -44,7 +34,7 @@ CreateEventFlow.args = {
     });
   },
   goToEvent: (eventId: string) => {
-    console.log("Navigating to event:", eventId);
+    action("goToEvent")(eventId);
   },
 };
 

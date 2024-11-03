@@ -39,13 +39,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 }) => {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
-  //const [eventType, setEventType] = useState<EventType>();
   const [eventVisibility, setEventVisibility] = useState<EventVisibility>();
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const currentDate = new Date();
   const tomorrow = new Date(currentDate.setDate(currentDate.getDate() + 1));
   const tomorrowISOString = tomorrow.toISOString();
-  // Date States,
   const [startDate, setStartDate] = useState<string>(tomorrowISOString); // Default to next day
   const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
   const [locationError, setLocationError] = useState(false);

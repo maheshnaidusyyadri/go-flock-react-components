@@ -193,7 +193,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       splitAmongUserIds: [
         {
           userId: profile.id,
-          amount: 120,
+          amount: 100,
           currency: "USD",
         },
       ],
