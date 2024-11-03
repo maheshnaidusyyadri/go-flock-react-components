@@ -20,8 +20,8 @@ const Template: StoryFn<PhoneNumberAuthProps> = (args) => (
   </IonApp>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const SuccessfulVerification = Template.bind({});
+SuccessfulVerification.args = {
   sendOTP: async (phoneNumberWithCountryCode: string) => {
     action("sendOTP")(`Sending OTP to ${phoneNumberWithCountryCode}`);
     return true;
@@ -32,15 +32,43 @@ Default.args = {
     );
     return true;
   },
-  onSuccessfulVerification: async () => {},
+  onSuccessfulVerification: async () => {
+    action("onSuccessfulVerification");
+  },
 };
 
- 
- 
+export const OtpSendingFailed = Template.bind({});
+OtpSendingFailed.args = {
+  sendOTP: async (phoneNumberWithCountryCode: string) => {
+    action("sendOTP")(`Failed Sending OTP for ${phoneNumberWithCountryCode}`);
+    return false;
+  },
+  verifyOTP: async (phoneNumberWithCountryCode: string, otp: string) => {
+    action("verifyOTP")(
+      `Verifying OTP ${otp} for ${phoneNumberWithCountryCode}`
+    );
+    return true;
+  },
+  onSuccessfulVerification: async () => {
+    action("onSuccessfulVerification");
+  },
+};
 
-export const Welcome = (args: JSX.IntrinsicAttributes & PhoneNumberAuthProps) => (
-  <WelcomePresenter {...args} />
-);
-Welcome.args = {
-  
-}
+export const OtpVerificationFailed = Template.bind({});
+OtpVerificationFailed.args = {
+  sendOTP: async (phoneNumberWithCountryCode: string) => {
+    action("sendOTP")(
+      `Succesful Sending OTP for ${phoneNumberWithCountryCode}`
+    );
+    return true;
+  },
+  verifyOTP: async (phoneNumberWithCountryCode: string, otp: string) => {
+    action("verifyOTP")(
+      `Failed Verifying OTP ${otp} for ${phoneNumberWithCountryCode}`
+    );
+    return false;
+  },
+  onSuccessfulVerification: async () => {
+    action("onSuccessfulVerification");
+  },
+};
