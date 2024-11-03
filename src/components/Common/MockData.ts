@@ -377,6 +377,20 @@ export const EventWithTransactions: Event = {
     configuration: "default",
     shared: true,
   },
+  expenseSummary: [
+    {
+      userId: "admin_001",
+      name: "Admin Doe",
+      amount: 10,
+      currency: "USD",
+    },
+    {
+      userId: "member_001",
+      name: "Member Doe",
+      amount: -10,
+      currency: "USD",
+    },
+  ],
   transactions: [
     {
       id: "txn_001",

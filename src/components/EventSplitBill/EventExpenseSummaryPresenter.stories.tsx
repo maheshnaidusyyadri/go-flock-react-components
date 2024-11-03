@@ -15,6 +15,7 @@ export const EventWithTransactionsAndSummary = Template.bind({});
 EventWithTransactionsAndSummary.args = {
   event: EventWithTransactions,
   transactions: EventWithTransactions.transactions,
+  expenses: EventWithTransactions.expenseSummary,
 };
 
 export const EventWithNoTransactionsAndSummary = Template.bind({});
