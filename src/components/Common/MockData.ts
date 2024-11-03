@@ -1,4 +1,4 @@
-import { Event, Profile } from "@goflock/types/src/index";
+import { Event, Media, Profile } from "@goflock/types/src/index";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
 
 export const HalloweenEvent: Event = {
@@ -495,3 +495,124 @@ export const rsvpGuestEventRelation: EventRelation = {
   roles: ["member"],
   visitType: "member",
 };
+
+export const ImagesMedia: Media[] = [
+  {
+    id: "8fT3MMJseTpFPKup6gaw",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "image/png",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/8fT3MMJseTpFPKup6gaw/envelopeBody.png",
+    createdAt: "2024-11-03T16:53:22.660Z",
+    isDeleted: false,
+    downloadUrl: "https://picsum.photos/200/200",
+    metadata: {
+      lastModifiedDate: "1728792187163",
+      name: "envelopeBody.png",
+      size: 148916,
+      type: "image/png",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "8fT3MMJseTpFPKup6gaw",
+    },
+  },
+  {
+    id: "mCtamZsxf7DSpOd1PfnM",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "image/png",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/mCtamZsxf7DSpOd1PfnM/R2A_Diwali_Poster_2024.png",
+    createdAt: "2024-11-03T16:51:45.041Z",
+    isDeleted: false,
+    downloadUrl: "https://picsum.photos/300/300",
+    metadata: {
+      lastModifiedDate: "1730175441482",
+      name: "R2A_Diwali_Poster_2024.png",
+      size: 5462063,
+      type: "image/png",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "mCtamZsxf7DSpOd1PfnM",
+    },
+  },
+  {
+    id: "oovT3ZHhfVlnGG1TLcmy",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "image/png",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/oovT3ZHhfVlnGG1TLcmy/envelopeFlap.png",
+    createdAt: "2024-11-03T17:09:34.672Z",
+    isDeleted: false,
+    downloadUrl: "https://picsum.photos/400/300",
+    metadata: {
+      lastModifiedDate: "1728792201801",
+      name: "envelopeFlap.png",
+      size: 148916,
+      type: "image/png",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "oovT3ZHhfVlnGG1TLcmy",
+    },
+  },
+];
+
+export const ImageAndVideosMixedMedia: Media[] = [
+  {
+    id: "8fT3MMJseTpFPKup6gaw",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "video",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/8fT3MMJseTpFPKup6gaw/BigBuckBunny.mp4",
+    createdAt: "2024-11-03T16:53:22.660Z",
+    isDeleted: false,
+    downloadUrl:
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    metadata: {
+      lastModifiedDate: "1728792187163",
+      name: "BigBuckBunny.mp4",
+      size: 148916,
+      type: "video/mp4",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "8fT3MMJseTpFPKup6gaw",
+    },
+  },
+  {
+    id: "mCtamZsxf7DSpOd1PfnM",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "image/png",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/mCtamZsxf7DSpOd1PfnM/R2A_Diwali_Poster_2024.png",
+    createdAt: "2024-11-03T16:51:45.041Z",
+    isDeleted: false,
+    downloadUrl: "https://picsum.photos/400/300",
+    metadata: {
+      lastModifiedDate: "1730175441482",
+      name: "R2A_Diwali_Poster_2024.png",
+      size: 5462063,
+      type: "image/png",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "mCtamZsxf7DSpOd1PfnM",
+    },
+  },
+  {
+    id: "oovT3ZHhfVlnGG1TLcmy",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "image/png",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/oovT3ZHhfVlnGG1TLcmy/envelopeFlap.png",
+    createdAt: "2024-11-03T17:09:34.672Z",
+    isDeleted: false,
+    downloadUrl: "https://picsum.photos/400/400",
+    metadata: {
+      lastModifiedDate: "1728792201801",
+      name: "envelopeFlap.png",
+      size: 148916,
+      type: "image/png",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "oovT3ZHhfVlnGG1TLcmy",
+    },
+  },
+];

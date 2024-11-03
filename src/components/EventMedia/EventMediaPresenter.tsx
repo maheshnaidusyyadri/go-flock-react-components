@@ -54,6 +54,7 @@ type SelectablePhoto = Photo & {
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
   eventId,
   media,
+  profile,
   addMedia,
   deleteMedia,
 }) => {
@@ -72,7 +73,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect
     const filteredPhotos = galleryPhotos
-      .filter((photo: any) => {
+      ?.filter((photo: any) => {
         if (selectedSegment === "all") return true;
         if (selectedSegment === "photo") return photo.type === "image";
         if (selectedSegment === "video") return photo.type === "video";
@@ -168,7 +169,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     setSelectedCount(count);
   }, [photos]);
 
-  const areAllSelected = photos.length > 0 && selectedCount === photos.length;
+  const areAllSelected = photos?.length > 0 && selectedCount === photos.length;
   // Handle adding media from the gallery
   // const handleAddMedia = async () => {
   //   setIsLoading(true);
@@ -299,25 +300,31 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       console.error("Error sharing:", error);
     }
   };
+
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file = event.target.files?.[0];
-    console.log("file", file);
+    const files = event.target.files;
+    if (!files || files.length === 0) {
+      console.log("No files selected");
+      return;
+    }
 
-    if (file) {
-      try {
+    try {
+      // Initialize arrays to hold base64 strings and metadata for each file
+      const base64Strings: string[] = [];
+      const metadataList: UserMediaMetadata[] = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         const base64 = await convertFileToBase64(file);
         let width = 0;
         let height = 0;
 
-        // Get width and height based on file type
+        // Determine dimensions based on file type
         if (file.type.includes("image")) {
-          // Create an Image element to get dimensions
           const img = new Image();
           img.src = base64;
-
-          // Wait for the image to load to access its dimensions
           await new Promise<void>((resolve, reject) => {
             img.onload = () => {
               width = img.width;
@@ -329,11 +336,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             };
           });
         } else if (file.type.includes("video")) {
-          // Create a video element to get dimensions
           const video = document.createElement("video");
           video.src = base64;
-
-          // Wait for the video metadata to load
           await new Promise<void>((resolve) => {
             video.onloadedmetadata = () => {
               width = video.videoWidth;
@@ -343,35 +347,25 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           });
         }
 
-        // Create the new media object with dimensions
-        const newMedia: SelectablePhoto = {
-          src: base64,
-          href: base64,
-          type: file.type.includes("video") ? "video" : "image",
-          selected: false,
-          label: file.name,
-          width: width,
-          height: height,
-        };
-
-        console.log("newMedia", newMedia);
-
-        let mediaMetadata: UserMediaMetadata = {
+        // Create media metadata for the current file
+        const mediaMetadata: UserMediaMetadata = {
           lastModifiedDate: file.lastModified?.toString(),
           name: file.name,
           size: file.size,
           type: file.type,
+          uploadedBy: profile.id,
+          eventId: eventId,
         };
 
-        await addMedia(base64, mediaMetadata);
-
-        // Update state with the new media
-        // setPhotos((prevPhotos) => [...prevPhotos, newMedia]);
-      } catch (error) {
-        console.error("Failed to convert file to base64:", error);
+        // Add base64 string and metadata to arrays
+        base64Strings.push(base64);
+        metadataList.push(mediaMetadata);
       }
-    } else {
-      console.log("No file selected");
+
+      // Call addMedia with arrays of base64 strings and metadata
+      await addMedia(base64Strings, metadataList);
+    } catch (error) {
+      console.error("Failed to convert files to base64:", error);
     }
   };
 
