@@ -1,6 +1,7 @@
 import { StoryFn } from "@storybook/react";
 import OnboardingPresenter from "./OnboardingPresenter"; // Adjust the import path based on your project structure
 import { IntroductionProps } from "@goflock/types/src";
+import { action } from "@storybook/addon-actions";
 export default {
   title: "GoFlock/Presenters/Onboarding",
   component: OnboardingPresenter,
@@ -24,6 +25,6 @@ Default.args = {
     },
   },
   introCompleted: () => {
-    console.log("User logged out");
+    action("introCompleted")(`Introduction was completed`);
   },
 };
