@@ -49,12 +49,15 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
 
   return (
     <>
-      <IonCard className="event_item" onClick={() => onOpen(event.id)}>
+      <IonCard
+        className="event_item"
+        onClick={() => onOpen(event.id)}
+      >
         <IonThumbnail className="display_pic">
           <IonImg
             className="events"
             alt="Events"
-            src={event.invitationCard.url}
+            src={event.invitationCard?.url}
           />
         </IonThumbnail>
         <IonCardContent className="event_info">
@@ -70,7 +73,11 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
             setShowFirstActionSheet(true);
           }}
         >
-          <IonImg className="events" alt="Event Details" src={menuIcon} />
+          <IonImg
+            className="events"
+            alt="Event Details"
+            src={menuIcon}
+          />
         </IonThumbnail>
       </IonCard>
 
