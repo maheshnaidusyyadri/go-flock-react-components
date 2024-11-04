@@ -22,8 +22,6 @@ type VerificationSectionProps = {
 const VerificationSection: React.FC<VerificationSectionProps> = ({
   countryCode,
   phoneNumber,
-  verificationError,
-  handleOtpChange,
   resendOTP,
   handleVerifyOTP,
 }) => {
@@ -78,7 +76,11 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
     <IonGrid className="varification_sec">
       <IonCard className="auth_cnt">
         <IonLabel className="auth-title">Verify Account</IonLabel>
-        <IonImg className="mobile" alt="Go Flock" src={Mobile} />
+        <IonImg
+          className="mobile"
+          alt="Go Flock"
+          src={Mobile}
+        />
         <IonText className="vatification-title">Mobile Verification</IonText>
         <IonText className="subtitle">
           To continue, please enter the OTP we just sent to{" "}
@@ -104,7 +106,10 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
           </div>
         </div>
 
-        <IonText className="otp_resend" onClick={resendOTP}>
+        <IonText
+          className="otp_resend"
+          onClick={resendOTP}
+        >
           Didn't receive the code? <a>Resend</a>
         </IonText>
       </IonCard>
