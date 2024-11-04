@@ -11,12 +11,7 @@ import backArrow from "../.././images/icons/back-arrow.svg";
 const PrivacyPolicy: React.FC = ({}) => {
   const modal = useRef<HTMLIonModalElement>(null);
 
-  // function onWillDismiss(_ev: IonModalCustomEvent<OverlayEventDetail<any>>): void {
-  //   console.log("Modal will dismiss");
-  // }
-
   function onDismiss() {
-    // Close the modal
     modal.current?.dismiss();
   }
 
@@ -24,7 +19,11 @@ const PrivacyPolicy: React.FC = ({}) => {
     <>
       <IonHeader className="main-header">
         <div className="header-cnt">
-          <img src={backArrow} alt="Page Back" onClick={onDismiss} />
+          <img
+            src={backArrow}
+            alt="Page Back"
+            onClick={onDismiss}
+          />
           <IonTitle className="page-title">Privacy Policy</IonTitle>
         </div>
       </IonHeader>
