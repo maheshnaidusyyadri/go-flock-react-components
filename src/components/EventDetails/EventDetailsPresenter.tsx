@@ -17,8 +17,6 @@ import {
   IonItemDivider,
   IonLabel,
   IonList,
-  IonRadio,
-  IonRadioGroup,
   IonRow,
   IonText,
   IonThumbnail,
@@ -40,7 +38,6 @@ import { EventProps, RSVP } from "@goflock/types/src";
 import Footer from "../Footer/Footer";
 import DisplayDate from "../../utils/DisplayDate";
 import ProfileList from "../Common/Profiles/ProfileList";
-import MessageIcon from "../../images/icons/message_icon.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
 import InviteIcon from "../../images/icons/UserPlus.svg";
@@ -64,20 +61,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   submitRSVP,
   profile,
 }) => {
-  const [isActive, setIsActive] = useState(false); // State to manage the class toggle
   const [isInviteActive, setIsInviteActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
   const [adultCount, setAdultCount] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [activeOption, setActiveOption] = useState("yes");
-  const [selectedEventValue, setSelectedEventValue] = useState<
-    "attending" | "not-attending" | "maybe" | "not-answered"
-  >("not-answered");
-
-  //console.log("profile-profile", profile);
-
-  const [eventErrorMessage, setErrorMessage] = useState<string>("");
   const methods = useForm();
   const {
     handleSubmit,
@@ -85,49 +74,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     register,
     control,
   } = useForm();
-  const toggleClass = () => {
-    setIsActive(!isActive); // Toggle the class
-    setIsOpen(false);
-  };
+
   const toggleGogingClass = () => {
     setIsInviteActive(!isInviteActive);
   };
 
-  const toggleClass2 = () => {
-    console.log("toggleClass2", selectedEventValue);
-    if (!selectedEventValue) {
-      setErrorMessage("Please select an option.");
-      return;
-    }
-    setIsActive(false);
-    setIsOpen(!isOpen); // Toggle the class
-  };
-
   const successRSVP = () => {
-    setIsActive(!isInviteActive);
     setIsOpen(!isOpen);
   };
 
-  const handleRadioChange = (event: CustomEvent) => {
-    setSelectedEventValue(event.detail.value);
-    setErrorMessage("");
-    console.log("Selected value: ", event.detail.value);
-  };
-  const handleOnSubmit = (formData: any) => {
-    console.log("handleOnSubmit", formData);
-    //setIsActive(false);
-    setIsOpen(!isOpen);
-
-    submitRSVP(event.id, {
-      response: selectedEventValue,
-      comment: "",
-      count: formData.totalMembers,
-    });
-  };
-
-  const onError = (error: any) => {
-    console.log("error", error);
-  };
   const handleClick = (option: React.SetStateAction<string>) => {
     console.log("handleClick", option);
     setShowValidation(false);
@@ -183,7 +138,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     } else {
       setShowValidation(false);
     }
-    setIsActive(false);
     setIsOpen(!isOpen);
     console.log("handleGenerateOtp", formData);
   };
