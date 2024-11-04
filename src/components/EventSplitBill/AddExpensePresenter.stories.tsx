@@ -1,60 +1,25 @@
 import { StoryFn } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import AddExpensePresenter from "./AddExpensePresenter";
 import { EventAddExpenseProps, Transaction } from "@goflock/types/src";
-import { EventWithMembers } from "../Common/MockData";
+import {
+  EventWithMembers,
+  IphoneDeviceContext,
+  OwnerProfile,
+} from "../Common/MockData";
 
-const transaction: Transaction = {
-  id: "txn1",
-  eventId: EventWithMembers.id,
-  description: "Dinner expenses",
-  amount: 150,
-  date: new Date().toISOString(),
-  paidUserId: "XX",
-  splitAmongUserIds: [
-    {
-      userId: "m1",
-      amount: 125,
-      currency: "USD",
-    },
-    {
-      userId: "m2",
-      amount: 125,
-      currency: "USD",
-    },
-  ],
-  currency: "USD",
-  deleted: false,
-};
-
-// Mock functions for interactions
-const mockAddTransaction = async (): Promise<Transaction> => {
-  console.log("Transaction added");
-  return transaction;
-};
-const mockUpdateTransaction = async (): Promise<Transaction> => {
-  console.log("Transaction updated");
-  return transaction;
-};
-
-// Mock props
+// Mock props with actions for addTransaction and updateTransaction
 const mockProps: EventAddExpenseProps = {
+  profile: OwnerProfile,
+  deviceContext: IphoneDeviceContext,
   event: EventWithMembers,
-  addTransaction: mockAddTransaction,
-  updateTransaction: mockUpdateTransaction,
-  profile: {
-    id: "",
-    prefName: "",
-    isIntroShown: false,
-    pictureUrl: "",
-    preferences: {},
+  addTransaction: async (transaction: Transaction) => {
+    action("addTransaction")("Transaction added:", transaction);
+    return transaction;
   },
-  deviceContext: {
-    model: "",
-    platform: "",
-    uuid: "",
-    operatingSystem: "",
-    osVersion: "",
-    manufacturer: "",
+  updateTransaction: async (transaction: Transaction) => {
+    action("updateTransaction")("Transaction updated:", transaction);
+    return transaction;
   },
 };
 
@@ -76,5 +41,4 @@ const Template: StoryFn<EventAddExpenseProps> = (args) => (
 export const AddExpense = Template.bind({});
 AddExpense.args = {
   ...mockProps,
-  event: EventWithMembers,
 };

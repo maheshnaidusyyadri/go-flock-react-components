@@ -1,5 +1,9 @@
-import { Meta } from '@storybook/react';
-import { default as InviteMembersPresenter } from './InviteMembersPresenter';
-declare const _default: Meta<typeof InviteMembersPresenter>;
+import { InviteMembersProps } from '@goflock/types/src/index';
+declare const _default: {
+    title: string;
+    component: import('react').FC<InviteMembersProps>;
+};
 export default _default;
-export declare const Default: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, import('@goflock/types/src/presenter').InviteMembersProps>;
+export declare const EmptyContacts: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, InviteMembersProps>;
+export declare const WithValidNumberOfContacts: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, InviteMembersProps>;
+export declare const WithEmptyMembersAndContacts: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, InviteMembersProps>;

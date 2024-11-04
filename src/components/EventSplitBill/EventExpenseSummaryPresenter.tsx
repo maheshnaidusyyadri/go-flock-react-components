@@ -74,7 +74,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
             <IonCard className="transactions_cnt">
               {transactions.length > 0 ? (
                 transactions.map((transaction) => (
-                  <IonList key={transaction.id} className="transaction_list">
+                  <IonList
+                    key={transaction.id}
+                    className="transaction_list"
+                  >
                     <IonItem className="transaction_item">
                       <IonLabel class="transaction_name">
                         {transaction.description}
@@ -130,9 +133,12 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
             <IonCard className="transactions_cnt">
               {expenses.length > 0 ? (
                 expenses.map((expense) => (
-                  <IonItem key={expense.userId} className="contributor_list">
+                  <IonItem
+                    key={expense.userId}
+                    className="contributor_list"
+                  >
                     <IonLabel className="contributor_name">
-                      {expense.name}
+                      {expense.userId}
                     </IonLabel>
                     <IonText className="contribution">
                       ${expense.amount.toFixed(2)}
@@ -165,7 +171,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         </IonButton>
       </IonFooter>
 
-      <Footer eventId={event.id} activeTab={"bills"} />
+      <Footer
+        eventId={event.id}
+        activeTab={"bills"}
+      />
     </IonPage>
   );
 };

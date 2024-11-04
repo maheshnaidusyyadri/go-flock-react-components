@@ -44,7 +44,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   const [showAction, setShowAction] = useState(false);
 
   // Filter members based on search text
-  const filteredContacts = contacts.filter(
+  const filteredContacts = contacts?.filter(
     (contact) =>
       contact.name?.toLowerCase().includes(searchText.toLowerCase()) ||
       contact.phone?.includes(searchText)
@@ -243,7 +243,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 Go to Contacts
               </IonButton>
             ) : (
-              contacts.length == 0 && (
+              contacts?.length == 0 && (
                 <IonButton
                   className="primary-btn rounded"
                   onClick={() => getContactsList()}

@@ -1,5 +1,5 @@
 import { DeviceContext } from "@goflock/types";
-import { Event, Media, Profile } from "@goflock/types/src/index";
+import { Contact, Event, Media, Profile } from "@goflock/types/src/index";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
 
 export const HalloweenEvent: Event = {
@@ -381,13 +381,11 @@ export const EventWithTransactions: Event = {
   expenseSummary: [
     {
       userId: "admin_001",
-      name: "Admin Doe",
       amount: 10,
       currency: "USD",
     },
     {
       userId: "member_001",
-      name: "Member Doe",
       amount: -10,
       currency: "USD",
     },
@@ -635,3 +633,20 @@ export const AndroidDeviceContext: DeviceContext = {
   osVersion: "12.0",
   manufacturer: "Google",
 };
+
+export const MockContacts: Contact[] = [
+  {
+    name: "Eve Adams",
+    phone: "+1555-7890",
+    email: "eve.adams@example.com",
+  },
+  {
+    name: "Frank Zappa",
+    phone: "+1555-6789",
+  },
+  {
+    name: "Gina Torres",
+    phone: "+1555-3456",
+    email: "gina.torres@example.com",
+  },
+];

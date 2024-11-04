@@ -1,15 +1,17 @@
 import { Meta, StoryFn } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import EventSettingsPresenter from "./EventSettingsPresenter";
 import {
   Currency,
   EventVisibility,
   EventSettings,
 } from "@goflock/types/src/index";
+import { BirthdayEvent, OwnerProfile } from "../Common/MockData";
+
 export default {
   title: "GoFlock/Presenters/EventSettingsPresenter",
   component: EventSettingsPresenter,
 } as Meta<typeof EventSettingsPresenter>;
-import { BirthdayEvent, OwnerProfile } from "../Common/MockData";
 
 const mockEventSettings: EventSettings = {
   shareMedia: true,
@@ -30,28 +32,36 @@ Default.args = {
   profile: OwnerProfile,
   event: BirthdayEvent,
   eventSettings: mockEventSettings,
-  enableMediaSharing: async () => {
-    console.log("Enabling media sharing...");
+
+  enableMediaSharing: async (eventId: string) => {
+    action("enableMediaSharing")(`Enabling media sharing for event ${eventId}`);
     return true;
   },
-  disableMediaSharing: async () => {
-    console.log("Disabling media sharing...");
+  disableMediaSharing: async (eventId: string) => {
+    action("disableMediaSharing")(
+      `Disabling media sharing for event ${eventId}`
+    );
     return true;
   },
-  enableSplitBills: async () => {
-    console.log("Enabling split bills...");
+
+  enableSplitBills: async (eventId: string) => {
+    action("enableSplitBills")(`Enabling split bills for event ${eventId}`);
     return true;
   },
-  disableSplitBills: async () => {
-    console.log("Disabling split bills...");
+  disableSplitBills: async (eventId: string) => {
+    action("disableSplitBills")(`Disabling split bills for event ${eventId}`);
     return true;
   },
+
   updateCurrency: async (currency: Currency) => {
-    console.log(`Updating currency to ${currency}...`);
+    action("updateCurrency")(`Updating currency to ${currency}`);
     return true;
   },
+
   updateEventVisibility: async (visibility: EventVisibility) => {
-    console.log(`Updating event visibility to ${visibility}...`);
+    action("updateEventVisibility")(
+      `Updating event visibility to ${visibility}`
+    );
     return true;
   },
 };
