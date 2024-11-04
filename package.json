@@ -41,6 +41,8 @@
     "vite-plugin-dts": "^4.0.3"
   },
   "dependencies": {
+    "@capacitor/filesystem": "^6.0.1",
+    "@capacitor/http": "^0.0.2",
     "@capacitor/share": "^6.0.2",
     "@goflock/types": "github:maheshnaidusyyadri/GoFlockTypes",
     "@storybook/addon-viewport": "^8.3.5",
