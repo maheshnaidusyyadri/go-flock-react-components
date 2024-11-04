@@ -428,6 +428,7 @@ body {
     box-shadow: none;
     height: 50px;
     padding: 0 8px;
+    z-index: 9;
     ion-label {
       color: $GoFlockColor;
       text-align: center;
@@ -491,10 +492,12 @@ body {
             font-weight: 500;
           }
         }
-        .guest_form {
-          padding: 20px 8px;
-        }
       }
     }
+  }
+  .guest_form {
+    padding: 20px 8px;
+    z-index: 99;
+    position: relative;
   }
 }

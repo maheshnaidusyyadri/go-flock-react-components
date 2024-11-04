@@ -982,6 +982,7 @@ input[type="number"] {
 
 .contact_section {
   position: relative;
+  padding: 0px;
   .field-label {
     text-align: left;
     display: block;
@@ -1070,6 +1071,7 @@ input[type="number"] {
               font-size: 14px;
               font-weight: 400;
               color: $GoFlockColor;
+              padding-top: 6px;
             }
           }
           &.no-entries-message {
@@ -1087,17 +1089,7 @@ input[type="number"] {
             display: flex;
             align-items: center;
             padding: 0 16px;
-            &:nth-child(2):before {
-              content: "";
-              width: 100%;
-              height: 30vh;
-              background: rgba($black, 0.4);
-              display: block;
-              position: fixed;
-              top: 0px;
-              left: 0px;
-              z-index: -1;
-            }
+
             .country-name {
               color: #18181b;
               font-family: "Poppins", sans-serif;
@@ -1115,6 +1107,17 @@ input[type="number"] {
               font-size: clamp(13px, 3.38vw, 14px);
             }
           }
+          // &:nth-child(2):before {
+          //   content: "";
+          //   width: 100%;
+          //   height: 30vh;
+          //   background: rgba($black, 0.4);
+          //   display: block;
+          //   position: fixed;
+          //   top: 0px;
+          //   left: 0px;
+          //   z-index: -1;
+          // }
         }
       }
       &.open {
@@ -1123,15 +1126,17 @@ input[type="number"] {
         //   bottom: 0px;
         // }
 
-        // &:before {
-        //   content: "";
-        //   width: 100%;
-        //   height: 100vh;
-        //   position: fixed;
-        //   top: 0px;
-        //   left: 0;
-        //   background: rgba($black, 0.5);
-        // }
+        &:before {
+          content: "";
+          width: 100%;
+          height: 30vh;
+          background: rgba($black, 0.4);
+          display: block;
+          position: fixed;
+          top: 0px;
+          left: 0px;
+          z-index: -1;
+        }
       }
     }
   }
