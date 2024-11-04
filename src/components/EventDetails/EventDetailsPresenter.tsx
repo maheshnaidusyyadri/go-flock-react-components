@@ -51,6 +51,7 @@ import backArrow from "../../images/icons/back-arrow.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
+import VerificationSection from "../Common/VerficationSection";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -582,13 +583,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         </IonGrid>
       )}
       <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
-        <IonCard className="rsvp_success">
+        {/* <IonCard className="rsvp_success">
           <IonImg src={RSVPSuccess} />
           <IonLabel className="success_label">RSVP Submitted!</IonLabel>
         </IonCard>
         <IonButton className="primary-btn rounded" onClick={successRSVP}>
           Go back to invitation page
-        </IonButton>
+        </IonButton> */}
+        <VerificationSection />
       </IonGrid>
     </>
   );
