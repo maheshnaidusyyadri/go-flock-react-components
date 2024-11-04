@@ -33,6 +33,7 @@ import userCrossIcon from "../../images/icons/userCross.svg";
 import helpIcon from "../../images/icons/help.svg";
 import ProfileIcon from "../../images/profile.png";
 import noPreview from "../../images/noPreview.svg";
+import RSVPSuccess from "../../images/RSVP_success.svg";
 
 import Header from "../Header/Header";
 import { EventProps, RSVP } from "@goflock/types/src";
@@ -102,6 +103,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setIsOpen(!isOpen); // Toggle the class
   };
 
+  const successRSVP = () => {
+    setIsActive(!isInviteActive);
+    setIsOpen(!isOpen);
+  };
+
   const handleRadioChange = (event: CustomEvent) => {
     setSelectedEventValue(event.detail.value);
     setErrorMessage("");
@@ -109,7 +115,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   };
   const handleOnSubmit = (formData: any) => {
     console.log("handleOnSubmit", formData);
-    setIsActive(false);
+    //setIsActive(false);
     setIsOpen(!isOpen);
 
     submitRSVP(event.id, {
@@ -177,6 +183,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     } else {
       setShowValidation(false);
     }
+    setIsActive(false);
+    setIsOpen(!isOpen);
     console.log("handleGenerateOtp", formData);
   };
   const onGenerateError = (error: any) => {
@@ -655,26 +663,30 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     </div>
                   )}
                   {!profile && (
-                    <div className="form-group">
-                      <CustomInput
-                        placeholder={"Enter your name"}
-                        label={"Name"}
-                        fieldName={"name"}
-                        isRequired={true}
-                        errors={errors}
-                        errorText={"Name"}
-                        register={register}
-                      />
-                      <CustomPhoneNumber
-                        control={control}
-                        fieldName="phone"
-                        label="Phone Number"
-                        isRequired={true}
-                        errors={errors}
-                        register={register}
-                        errorText={"Phone Number"}
-                      />
-                    </div>
+                    <>
+                      <div className="form-group">
+                        <CustomInput
+                          placeholder={"Enter your name"}
+                          label={"Name"}
+                          fieldName={"name"}
+                          isRequired={true}
+                          errors={errors}
+                          errorText={"Name"}
+                          register={register}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <CustomPhoneNumber
+                          control={control}
+                          fieldName="phone"
+                          label="Phone Number"
+                          isRequired={true}
+                          errors={errors}
+                          register={register}
+                          errorText={"Phone Number"}
+                        />
+                      </div>
+                    </>
                   )}
                 </IonCardContent>
               </div>
@@ -690,6 +702,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           </FormProvider>
         </IonGrid>
       )}
+      <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
+        <IonCard className="rsvp_success">
+          <IonImg src={RSVPSuccess} />
+          <IonLabel className="success_label">RSVP Submitted!</IonLabel>
+        </IonCard>
+        <IonButton className="primary-btn rounded" onClick={successRSVP}>
+          Go back to invitation page
+        </IonButton>
+      </IonGrid>
     </>
   );
 };
