@@ -583,8 +583,13 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           </div>
         </IonGrid>
         <IonFooter className="stickyFooter">
-          <IonButton className="primary-btn rounded">GENERATE OTP</IonButton>
+          <IonButton className="primary-btn rounded" onClick={toggleClass2}>
+            GENERATE OTP
+          </IonButton>
         </IonFooter>
+      </IonGrid>
+      <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
+        Generate OTP
       </IonGrid>
     </>
   );
