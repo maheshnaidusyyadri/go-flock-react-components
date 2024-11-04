@@ -122,6 +122,18 @@ export const GuestProfile: Profile = {
   },
 };
 
+export const NewProfileWithNoName: Profile = {
+  id: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+  prefName: "",
+  isIntroShown: true,
+  pictureUrl: "https://via.placeholder.com/150",
+  preferences: {
+    smsNotifications: true,
+    emailNotifications: true,
+    pushNotifications: false,
+  },
+};
+
 export const EventWithMembers: Event = {
   id: "event_12345",
   owner: "user_001",

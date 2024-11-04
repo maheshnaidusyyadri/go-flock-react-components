@@ -6,6 +6,7 @@ export declare const BirthdayEvent: Event;
 export declare const OwnerProfile: Profile;
 export declare const CohostProfile: Profile;
 export declare const GuestProfile: Profile;
+export declare const NewProfileWithNoName: Profile;
 export declare const EventWithMembers: Event;
 export declare const EventWithOneMember: Event;
 export declare const EventWithInvitation: Event;
