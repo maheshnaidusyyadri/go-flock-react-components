@@ -60,6 +60,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   deleteEvent,
   submitRSVP,
   profile,
+  sendOTP,
+  verifyOTP,
 }) => {
   const [isInviteActive, setIsInviteActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -82,32 +84,27 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setIsInviteActive(!isInviteActive);
   };
 
-  // const successRSVP = () => {
-  //   setIsOpen(!isOpen);
-  // };
-
   const handleClick = (option: React.SetStateAction<string>) => {
     console.log("handleClick", option);
     setShowValidation(false);
-
-    let response: "attending" | "not-attending" | "maybe" | "not-answered" =
-      "attending";
-    if (option === "no") {
-      response = "not-attending";
-    } else if (option === "notSure") {
-      response = "maybe";
-    }
-
+    setAdultCount(0);
+    setKidsCount(0);
+    // let response: "attending" | "not-attending" | "maybe" | "not-answered" =
+    //   "attending";
+    // if (option === "no") {
+    //   response = "not-attending";
+    // } else if (option === "notSure") {
+    //   response = "maybe";
+    // }
     setActiveOption(option);
-    let rsvp: RSVP = {
-      response: response,
-      count: 4,
-      comment: "Happy birthday!!",
-      kidsCount: 2,
-      adultsCount: 2,
-    };
-
-    submitRSVP(event.id, rsvp);
+    // let rsvp: RSVP = {
+    //   response: response,
+    //   count: 4,
+    //   comment: "Happy birthday!!",
+    //   kidsCount: 2,
+    //   adultsCount: 2,
+    // };
+    //submitRSVP(event.id, rsvp);
   };
   const incrementAdults = () => {
     setShowValidation(false);
@@ -142,9 +139,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       setShowValidation(false);
     }
     if (profile) {
-      setShowSuccess(!showSuccess);
+      handleSubmitRSVP(formData);
+      //setShowSuccess(!showSuccess);
     } else {
-      setIsOpen(!isOpen);
+      console.log("formData", formData);
+      let phoneNumber = formData.phone;
+      sendOTP(phoneNumber).then((result) => {
+        console.log("Send-Otp-res", result);
+        setIsOpen(!isOpen);
+      });
     }
     console.log("handleGenerateOtp", formData);
   };
@@ -158,8 +161,39 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     }
   };
   const handleVerifyOTP = (formData: any) => {
-    console.log("handleVerifyOTP-formData", formData);
-    setShowSuccess(!showSuccess);
+    console.log("handleVerifyOTP-Data", formData);
+    verifyOTP(formData.phone, formData.otp).then((result) => {
+      console.log("veifyOtp-res", result);
+      if (result) {
+        handleSubmitRSVP(formData);
+      }
+    });
+  };
+  const handleSubmitRSVP = (formData: any) => {
+    console.log("handleSubmitRSVP", formData);
+    let response: "attending" | "not-attending" | "maybe" | "not-answered" =
+      "attending";
+    if (activeOption === "no") {
+      response = "not-attending";
+    } else if (activeOption === "notSure") {
+      response = "maybe";
+    } else if (activeOption === "yes") {
+      response = "attending";
+    }
+
+    let rsvp: RSVP = {
+      response: response,
+      count: kidsCount + adultCount,
+      comment: formData.note || "",
+      kidsCount: kidsCount,
+      adultsCount: adultCount,
+    };
+    submitRSVP(event.id, rsvp).then((res) => {
+      console.log("submitRSVP-res", res);
+      //if (res) {
+      setShowSuccess(!showSuccess);
+      // }
+    });
   };
   const successRSVP = () => {
     reset();
