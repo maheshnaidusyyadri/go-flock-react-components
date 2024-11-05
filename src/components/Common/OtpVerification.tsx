@@ -33,15 +33,15 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
             {phoneNumber ? "+" + phoneNumber : ""}
           </IonText>
         </IonText>
-        <div style={{ padding: "20px" }}>
+        <IonCard className="otp_fields">
           <Controller
             name={fieldName}
             control={control}
             rules={{
               required: isRequired ? "Please enter a complete OTP." : false,
               minLength: {
-                value: 4,
-                message: "OTP must be 4 digits.",
+                value: 6,
+                message: "OTP must be 6 digits.",
               },
             }}
             render={({ field: { onChange, value } }) => (
@@ -50,11 +50,11 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
                   value={value}
                   onChange={(otp) => {
                     onChange(otp);
-                    if (otp.length === 4) {
+                    if (otp.length === 6) {
                       //setValue(fieldName, otp);
                     }
                   }}
-                  numInputs={4}
+                  numInputs={6}
                   renderInput={(props) => (
                     <input
                       {...props}
@@ -63,24 +63,22 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
                         height: "40px",
                         textAlign: "center",
                         fontSize: "20px",
-                        border: "1px solid #ccc",
-                        borderRadius: "4px",
+                        border: "0px solid #ccc",
+                        borderRadius: "0px",
                         margin: "0 5px",
                       }}
                     />
                   )}
                 />
                 {errors[fieldName] && (
-                  <span
-                    style={{ color: "red", fontSize: "12px", marginTop: "5px" }}
-                  >
+                  <IonText className="otp_error">
                     {errors[fieldName].message}
-                  </span>
+                  </IonText>
                 )}
               </>
             )}
           />
-        </div>
+        </IonCard>
         <IonText className="otp_resend">
           Didn't receive the code? <a>Resend</a>
         </IonText>

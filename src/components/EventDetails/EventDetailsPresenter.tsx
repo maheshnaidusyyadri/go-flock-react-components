@@ -50,7 +50,7 @@ import backArrow from "../../images/icons/back-arrow.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
-import RSVPSuccess from "../../images/Adults.svg";
+import RSVPSuccess from "../../images/RSVP_success.svg";
 import OtpVerification from "../Common/OtpVerification";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -379,7 +379,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         </IonLabel>
                         <span className="devider"></span>
                         <IonLabel className="count">
-                          {status?.rsvp?.count}
+                          {status?.rsvp?.count ? status?.rsvp?.count : 0}
                         </IonLabel>
                       </IonCol>
                     ))}
@@ -645,19 +645,23 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               fieldName="otp"
               isRequired={true}
             />
-            <IonButton
-              expand="block"
-              shape="round"
-              className="primary-btn"
-              onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
-            >
-              {"Verify OTP"}
-            </IonButton>
+            <IonFooter className="stickyFooter">
+              <IonButton
+                expand="block"
+                shape="round"
+                className="primary-btn"
+                onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
+              >
+                {"Verify OTP"}
+              </IonButton>
+            </IonFooter>
           </FormProvider>
         </IonGrid>
       )}
       {showSuccess && (
-        <IonGrid className={`rsvp_modal ${showSuccess ? "active" : ""}`}>
+        <IonGrid
+          className={`rsvp_modal success_modal ${showSuccess ? "active" : ""}`}
+        >
           <IonCard className="rsvp_success">
             <IonImg src={RSVPSuccess} />
             <IonLabel className="success_label">RSVP Submitted!</IonLabel>

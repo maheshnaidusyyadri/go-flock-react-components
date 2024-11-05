@@ -1225,4 +1225,42 @@ input[type="number"] {
       text-align: center;
     }
   }
+  .otp_fields {
+    box-shadow: none;
+    display: block;
+    div {
+      justify-content: center;
+      input {
+        border-bottom: 1px solid $GoFlockColor !important;
+        &:focus-visible {
+          outline: none;
+        }
+      }
+    }
+    .otp_error {
+      display: inline-block;
+      margin-top: 5px;
+    }
+  }
+}
+
+.otp_error {
+  color: #dc2626;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  font-family: $GoFlockFont;
+}
+.otp_resend {
+  font-family: $GoFlockFont;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: $secondaryColor;
+  a {
+    color: #0d1a26;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
