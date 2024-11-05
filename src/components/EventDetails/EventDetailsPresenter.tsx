@@ -51,7 +51,7 @@ import AddressDisplay from "../Common/AddressDisplay";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
 import VerificationSection from "../Common/VerficationSection";
-
+import RSVPSuccess from "../../images/Adults.svg";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
@@ -67,12 +67,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [adultCount, setAdultCount] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [activeOption, setActiveOption] = useState("yes");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
   const methods = useForm();
   const {
     handleSubmit,
     formState: { errors },
     register,
     control,
+    reset,
   } = useForm();
 
   const toggleGogingClass = () => {
@@ -138,8 +141,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     } else {
       setShowValidation(false);
     }
-    setIsOpen(!isOpen);
-    //  setShowVerification(!showVerification);
+    if (profile) {
+      setShowSuccess(!showSuccess);
+    } else {
+      setIsOpen(!isOpen);
+    }
     console.log("handleGenerateOtp", formData);
   };
   const onGenerateError = (error: any) => {
@@ -153,6 +159,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   };
   const handleVerifyOTP = (formData: any) => {
     console.log("handleVerifyOTP-formData", formData);
+    setShowSuccess(!showSuccess);
+  };
+  const successRSVP = () => {
+    reset();
+    setShowSuccess(false);
+    setIsOpen(false);
+    setIsInviteActive(false);
+    setKidsCount(0);
+    setAdultCount(0);
   };
 
   return (
@@ -567,6 +582,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                           errors={errors}
                           register={register}
                           errorText={"Mobile Number"}
+                          onPhoneChange={(e: any) => setPhoneNumber(e)}
                         />
                       </div>
                     </>
@@ -579,7 +595,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
             >
               <IonButton className="primary-btn rounded">
-                GENERATE OTP
+                {profile ? "Submit" : "GENERATE OTP"}
               </IonButton>
             </IonFooter>
           </FormProvider>
@@ -587,32 +603,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       )}
       {isOpen && (
         <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
-          {/* <IonCard className="rsvp_success">
-          <IonImg src={RSVPSuccess} />
-          <IonLabel className="success_label">RSVP Submitted!</IonLabel>
-        </IonCard>
-        <IonButton className="primary-btn rounded" onClick={successRSVP}>
-          Go back to invitation page
-        </IonButton> */}
-          {/* <VerificationSection
-            length={4}
-            fieldName={"verification"}
-            isRequired={true}
-            errors={errors}
-            errorText={"Name"}
-            register={register}
-          /> */}
           <FormProvider {...methods}>
             <VerificationSection
-              length={1} // Number of OTP inputs
+              //length={1}
               fieldName="verification"
               isRequired={true}
-              errorText="OTP" // Error message text
-              errors={errors} // Form errors for validation
-              register={register} // Register from useForm
-              phoneNumber="1234567890" // Example phone number
-              countryCode="+1" // Example country code
-              // resendOTP={resendOTP} // Resend OTP handler
+              errorText="OTP"
+              errors={errors}
+              register={register}
+              phoneNumber={phoneNumber}
+              //countryCode="+1"
+              // resendOTP={resendOTP}
             />
             <IonButton
               expand="block"
@@ -620,9 +621,20 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               className="primary-btn"
               onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
             >
-              Verify OTP
+              {"Verify OTP"}
             </IonButton>
           </FormProvider>
+        </IonGrid>
+      )}
+      {showSuccess && (
+        <IonGrid className={`rsvp_modal ${showSuccess ? "active" : ""}`}>
+          <IonCard className="rsvp_success">
+            <IonImg src={RSVPSuccess} />
+            <IonLabel className="success_label">RSVP Submitted!</IonLabel>
+          </IonCard>
+          <IonButton className="primary-btn rounded" onClick={successRSVP}>
+            Go back to invitation page
+          </IonButton>
         </IonGrid>
       )}
     </>

@@ -5,56 +5,35 @@ import {
   IonLabel,
   IonImg,
   IonText,
-  IonButton,
   IonInput,
 } from "@ionic/react";
-
-import {
-  UseFormRegister,
-  FieldErrors,
-  FormProvider,
-  useForm,
-} from "react-hook-form";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 import Mobile from "../../images/otp_varification.svg";
-//import { useForm } from "react-hook-form";
+
 type VerificationSectionProps = {
   length?: number;
   countryCode?: string;
   phoneNumber?: string;
   verificationError?: string | null;
   handleOtpChange?: (otp: string) => void;
-  resendOTP?: () => void;
   handleVerifyOTP?: () => void;
   fieldName: string;
   isRequired?: boolean;
-  // errors: FieldErrors;
   errorText?: string;
-
   errors: FieldErrors;
   register: UseFormRegister<any>;
-  // register: UseFormRegister<any>;
 };
 
 const VerificationSection: React.FC<VerificationSectionProps> = ({
-  countryCode,
   phoneNumber,
-  resendOTP,
-  handleVerifyOTP,
-  length = 4,
+  length = 1,
   fieldName,
   isRequired = false,
   errors,
   errorText,
   register,
 }) => {
-  // const {
-  //     handleSubmit,
-  //     formState: { errors },
-  //     register,
-  //     control,
-  //   } = useForm();
   const inputsRef = useRef<(HTMLIonInputElement | null)[]>([]);
-
   // Focus the next input on key entry
   const handleInputChange = (e: CustomEvent, index: number) => {
     const input = e.target as HTMLInputElement;
@@ -66,14 +45,6 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
       inputsRef.current[index - 1]?.setFocus();
     }
   };
-
-  // Collect all input values and pass to the parent component
-  // const handleOtpChange = () => {
-  //   const otpValue = inputsRef.current.map(input => input?.value || '').join('');
-  //   if (onChange) {
-  //     onChange(otpValue);
-  //   }
-  // };
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const pastedData = e.clipboardData.getData("Text");
     if (pastedData.length === length) {
@@ -86,7 +57,6 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
       e.preventDefault();
     }
   };
-
   // Focus on the previous input on backspace
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLIonInputElement>,
@@ -100,6 +70,11 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
       inputsRef.current[index - 1]?.setFocus();
     }
   };
+  const resendOTP = () => {
+    alert(
+      `OTP has been sent successfully to your registered number:  ${phoneNumber}`
+    );
+  };
   return (
     <IonGrid className="varification_sec">
       <IonCard className="auth_cnt">
@@ -109,7 +84,7 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
         <IonText className="subtitle">
           To continue, please enter the OTP we just sent to{" "}
           <IonText className="mobile_number">
-            {countryCode} {phoneNumber}
+            {phoneNumber ? "+" + phoneNumber : ""}
           </IonText>
         </IonText>
         <div className="otp_section">
@@ -118,7 +93,7 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
               <IonInput
                 key={index}
                 type="tel"
-                maxlength={1}
+                maxlength={4}
                 // ref={(el) => (inputsRef.current[index] = el)}
                 className="otp-input"
                 onIonInput={(e) => {
@@ -136,7 +111,9 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
                     isRequired && !value
                       ? errorText || `${fieldName} is required`
                       : true,
-                  onChange: (e) => {},
+                  onChange: (e) => {
+                    console.log(e);
+                  },
                 })}
               />
             ))}
@@ -149,7 +126,6 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
               )}
           </div>
         </div>
-
         <IonText className="otp_resend" onClick={resendOTP}>
           Didn't receive the code? <a>Resend</a>
         </IonText>
