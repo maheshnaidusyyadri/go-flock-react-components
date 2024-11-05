@@ -50,8 +50,8 @@ import backArrow from "../../images/icons/back-arrow.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
-import VerificationSection from "../Common/VerficationSection";
 import RSVPSuccess from "../../images/Adults.svg";
+import OtpVerification from "../Common/OtpVerification";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
@@ -604,16 +604,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       {isOpen && (
         <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
           <FormProvider {...methods}>
-            <VerificationSection
-              //length={1}
-              fieldName="verification"
-              isRequired={true}
-              errorText="OTP"
-              errors={errors}
-              register={register}
+            <OtpVerification
+              control={control}
               phoneNumber={phoneNumber}
-              //countryCode="+1"
-              // resendOTP={resendOTP}
+              errors={errors}
+              fieldName="otp"
+              isRequired={true}
             />
             <IonButton
               expand="block"
