@@ -210,24 +210,56 @@ body {
       margin: 0 0 8px 0;
     }
     .status_cards {
-      display: flex;
-      gap: 10px;
+      display: block;
       .status_card {
         border-radius: 6px;
-        border: 1px solid #c5fbe2;
-        background: #f1fef8;
-        padding: 15px 10px;
+        border: 1px solid #e4e4e7;
+        background: $white;
+        padding: 0px 12px;
         width: 100%;
         text-align: center;
+        display: flex;
+        align-items: center;
+        height: 44px;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        border-left: 6px solid #12b76a;
+        .rvsp_info {
+          --background: transparent;
+          --border-color: transparent;
+          --padding-start: 0;
+          --inner-padding-end: 0;
+          --min-height: auto;
+          .ion-label {
+            color: $GoFlockColor;
+            font-family: $GoFlockFont;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 18px;
+            display: flex;
+            align-items: center;
+            .rsvp_response {
+              color: $secondaryColor;
+              text-align: center;
+              font-family: $GoFlockFont;
+              font-size: 10px;
+              font-weight: 400;
+              padding: 0 0 0 4px;
+              text-transform: capitalize;
+              display: inline-block;
+            }
+          }
+        }
         .avatar {
           display: flex;
           align-items: center;
           justify-content: center;
           border-radius: 50%;
-          margin: 0 auto 5px;
+          margin: 0px;
           width: 24px;
           height: 24px;
           background: #12b76a;
+          margin-right: 5px;
           .ion-img {
             width: 16px;
             height: auto;
@@ -247,14 +279,24 @@ body {
         .devider {
           margin: 10px 0;
         }
-        .count {
+        .guests_count {
+          color: $secondaryColor;
+          text-align: center;
           font-family: $GoFlockFont;
-          font-size: 12px;
-          font-weight: 700;
-          line-height: 18px;
-          color: $GoFlockColor;
-          display: block;
-          font-style: normal;
+          font-size: 10px;
+          font-weight: 400;
+          display: flex;
+          align-items: center;
+          .count {
+            font-family: $GoFlockFont;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 18px;
+            color: $GoFlockColor;
+            display: block;
+            font-style: normal;
+            padding: 0 4px;
+          }
         }
         &.success {
           .avatar {
@@ -262,11 +304,13 @@ body {
           }
         }
         &.error {
+          border-left: 6px solid #dc2626;
           .avatar {
             background: #dc2626;
           }
         }
         &.warning {
+          border-left: 6px solid #f29126;
           .avatar {
             background: #f29126;
           }

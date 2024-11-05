@@ -197,69 +197,69 @@ body {
       padding: 0px;
       margin: 0 0 8px 0;
     }
-    .status_cards {
-      display: flex;
-      gap: 10px;
-      .status_card {
-        border-radius: 6px;
-        border: 1px solid #c5fbe2;
-        background: #f1fef8;
-        padding: 15px 10px;
-        width: 100%;
-        text-align: center;
-        .avatar {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 50%;
-          margin: 0 auto 5px;
-          width: 24px;
-          height: 24px;
-          background: #12b76a;
-          .ion-img {
-            width: 16px;
-            height: auto;
-          }
-        }
-        .ion-label {
-          font-size: 10px;
-          font-family: $GoFlockFont;
-          font-weight: 400;
-          line-height: 18px;
-          display: block;
-          margin: 0;
-          color: $GoFlockColor;
-          font-size: clamp(9px, 2.4vw, 12px);
-        }
-        .devider {
-          margin: 10px 0;
-        }
-        .count {
-          font-family: $GoFlockFont;
-          font-size: 12px;
-          font-weight: 700;
-          line-height: 18px;
-          color: $GoFlockColor;
-          display: block;
-          font-style: normal;
-        }
-        &.success {
-          .avatar {
-            background: #12b76a;
-          }
-        }
-        &.error {
-          .avatar {
-            background: #dc2626;
-          }
-        }
-        &.warning {
-          .avatar {
-            background: #f29126;
-          }
-        }
-      }
-    }
+    // .status_cards {
+    //   display: flex;
+    //   gap: 10px;
+    //   .status_card {
+    //     border-radius: 6px;
+    //     border: 1px solid #c5fbe2;
+    //     background: #f1fef8;
+    //     padding: 15px 10px;
+    //     width: 100%;
+    //     text-align: center;
+    //     .avatar {
+    //       display: flex;
+    //       align-items: center;
+    //       justify-content: center;
+    //       border-radius: 50%;
+    //       margin: 0 auto 5px;
+    //       width: 24px;
+    //       height: 24px;
+    //       background: #12b76a;
+    //       .ion-img {
+    //         width: 16px;
+    //         height: auto;
+    //       }
+    //     }
+    //     .ion-label {
+    //       font-size: 10px;
+    //       font-family: $GoFlockFont;
+    //       font-weight: 400;
+    //       line-height: 18px;
+    //       display: block;
+    //       margin: 0;
+    //       color: $GoFlockColor;
+    //       font-size: clamp(9px, 2.4vw, 12px);
+    //     }
+    //     .devider {
+    //       margin: 10px 0;
+    //     }
+    //     .count {
+    //       font-family: $GoFlockFont;
+    //       font-size: 12px;
+    //       font-weight: 700;
+    //       line-height: 18px;
+    //       color: $GoFlockColor;
+    //       display: block;
+    //       font-style: normal;
+    //     }
+    //     &.success {
+    //       .avatar {
+    //         background: #12b76a;
+    //       }
+    //     }
+    //     &.error {
+    //       .avatar {
+    //         background: #dc2626;
+    //       }
+    //     }
+    //     &.warning {
+    //       .avatar {
+    //         background: #f29126;
+    //       }
+    //     }
+    //   }
+    // }
   }
   .primary-btn {
     margin-top: 0px;

@@ -45,8 +45,11 @@ import Copy from "../../images/icons/copy_white.svg";
 import kidsIcon from "../../images/Kids.svg";
 import adultsIcon from "../../images/Adults.svg";
 import plusIcon from "../../images/icons/Plus.svg";
+import goingIcon from "../../images/icons/going.svg";
+
 import minusIcon from "../../images/icons/Minus.svg";
 import backArrow from "../../images/icons/back-arrow.svg";
+import reUpdateIcon from "../../images/icons/reUpdate.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
@@ -237,6 +240,28 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             )}
             <IonText className="event_brief">{event.description}</IonText>
             <IonList className="listitems">
+              {!["admin", "owner"].includes(eventRelation?.visitType) && (
+                <IonItem className="ion-list">
+                  <IonCard className="venue_info">
+                    <IonThumbnail className="dp">
+                      <IonImg src={goingIcon} alt=" " />
+                    </IonThumbnail>
+                    <IonCardContent className="event_titles">
+                      <IonCardTitle className="event_title">Going</IonCardTitle>
+                      <IonCardSubtitle className="event_subtitle">
+                        2 Adults, 3 children
+                      </IonCardSubtitle>
+                    </IonCardContent>
+                  </IonCard>
+                  <IonThumbnail className="event_type">
+                    <IonImg
+                      src={reUpdateIcon}
+                      alt=""
+                      onClick={toggleGogingClass}
+                    />
+                  </IonThumbnail>
+                </IonItem>
+              )}
               <IonItem className="ion-list">
                 <IonCard className="venue_info">
                   <IonThumbnail className="dp">
@@ -359,27 +384,35 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                             : "status_card"
                         }
                       >
-                        <IonAvatar className="avatar">
-                          <IonImg
-                            className="ion-img"
-                            src={
-                              index == 0
-                                ? userTickIcon
-                                : index == 1
-                                ? userCrossIcon
-                                : index == 2
-                                ? helpIcon
-                                : userCrossIcon
-                            }
-                            alt="Event"
-                          />
-                        </IonAvatar>
-                        <IonLabel className="ion-label">
-                          {status?.rsvp?.response}
-                        </IonLabel>
-                        <span className="devider"></span>
-                        <IonLabel className="count">
-                          {status?.rsvp?.count ? status?.rsvp?.count : 0}
+                        <IonItem className="rvsp_info">
+                          <IonAvatar className="avatar">
+                            <IonImg
+                              className="ion-img"
+                              src={
+                                index == 0
+                                  ? userTickIcon
+                                  : index == 1
+                                  ? userCrossIcon
+                                  : index == 2
+                                  ? helpIcon
+                                  : userCrossIcon
+                              }
+                              alt="Event"
+                            />
+                          </IonAvatar>
+                          <IonLabel className="ion-label">
+                            10
+                            <IonText className="rsvp_response">
+                              {status?.rsvp?.response}
+                            </IonText>
+                          </IonLabel>
+                        </IonItem>
+                        {/* <span className="devider"></span> */}
+                        <IonLabel className="guests_count">
+                          {/* {status?.rsvp?.count ? status?.rsvp?.count : 0} */}
+                          ( <IonText className="count">50</IonText>Adults &{" "}
+                          <IonText className="count">100</IonText>
+                          Children )
                         </IonLabel>
                       </IonCol>
                     ))}
