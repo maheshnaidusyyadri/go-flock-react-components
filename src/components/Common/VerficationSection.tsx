@@ -9,14 +9,30 @@ import {
   IonInput,
 } from "@ionic/react";
 
+import {
+  UseFormRegister,
+  FieldErrors,
+  FormProvider,
+  useForm,
+} from "react-hook-form";
 import Mobile from "../../images/otp_varification.svg";
+//import { useForm } from "react-hook-form";
 type VerificationSectionProps = {
+  length?: number;
   countryCode?: string;
   phoneNumber?: string;
   verificationError?: string | null;
   handleOtpChange?: (otp: string) => void;
   resendOTP?: () => void;
   handleVerifyOTP?: () => void;
+  fieldName: string;
+  isRequired?: boolean;
+  // errors: FieldErrors;
+  errorText?: string;
+
+  errors: FieldErrors;
+  register: UseFormRegister<any>;
+  // register: UseFormRegister<any>;
 };
 
 const VerificationSection: React.FC<VerificationSectionProps> = ({
@@ -24,7 +40,19 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
   phoneNumber,
   resendOTP,
   handleVerifyOTP,
+  length = 4,
+  fieldName,
+  isRequired = false,
+  errors,
+  errorText,
+  register,
 }) => {
+  // const {
+  //     handleSubmit,
+  //     formState: { errors },
+  //     register,
+  //     control,
+  //   } = useForm();
   const inputsRef = useRef<(HTMLIonInputElement | null)[]>([]);
 
   // Focus the next input on key entry
@@ -76,11 +104,7 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
     <IonGrid className="varification_sec">
       <IonCard className="auth_cnt">
         <IonLabel className="auth-title">Verify Account</IonLabel>
-        <IonImg
-          className="mobile"
-          alt="Go Flock"
-          src={Mobile}
-        />
+        <IonImg className="mobile" alt="Go Flock" src={Mobile} />
         <IonText className="vatification-title">Mobile Verification</IonText>
         <IonText className="subtitle">
           To continue, please enter the OTP we just sent to{" "}
@@ -95,32 +119,41 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
                 key={index}
                 type="tel"
                 maxlength={1}
-                ref={(el) => (inputsRef.current[index] = el)}
+                // ref={(el) => (inputsRef.current[index] = el)}
                 className="otp-input"
-                onIonInput={(e) => handleInputChange(e, index)}
+                onIonInput={(e) => {
+                  handleInputChange(e, index);
+                  if (e.detail.value !== undefined) {
+                    register(`${fieldName}[${index}]`).onChange(e);
+                  }
+                }}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onPaste={(e: any) => handlePaste(e)}
                 inputmode="numeric"
+                {...register(fieldName, {
+                  required: isRequired,
+                  validate: (value) =>
+                    isRequired && !value
+                      ? errorText || `${fieldName} is required`
+                      : true,
+                  onChange: (e) => {},
+                })}
               />
             ))}
+            {errors?.[fieldName] &&
+              errors?.[fieldName].type &&
+              errors?.[fieldName].type === "required" && (
+                <IonText class="error" color="danger" style={{ fontSize: 12 }}>
+                  {"* " + errorText + " is required"}
+                </IonText>
+              )}
           </div>
         </div>
 
-        <IonText
-          className="otp_resend"
-          onClick={resendOTP}
-        >
+        <IonText className="otp_resend" onClick={resendOTP}>
           Didn't receive the code? <a>Resend</a>
         </IonText>
       </IonCard>
-      <IonButton
-        expand="block"
-        shape="round"
-        className="primary-btn"
-        onClick={handleVerifyOTP}
-      >
-        Verify OTP
-      </IonButton>
     </IonGrid>
   );
 };

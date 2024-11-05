@@ -30,7 +30,12 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
   control,
   onPhoneChange,
 }) => {
-  const [selectedCountry, setSelectedCountry] = useState<any>(null); // To store selected country info
+  const [selectedCountry, setSelectedCountry] = useState<any>({
+    name: "United States",
+    dialCode: "1",
+    countryCode: "us",
+    format: "+. (...) ...-....",
+  }); // To store selected country info
 
   const validateField = (value: string) => {
     const fullNumber = `+${value}`; // Prepend '+' for validation
