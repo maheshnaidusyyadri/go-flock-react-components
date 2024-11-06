@@ -43,6 +43,7 @@ import Download from "../../images/icons/Download.svg";
 import save from "../../images/icons/Love.svg";
 import Delete from "../../images/icons/Delet.svg";
 import CrossIcon from "../../images/icons/Cross.svg";
+import NoMedia from "../../images/noMedia.svg";
 
 import { Share } from "@capacitor/share";
 import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
@@ -75,7 +76,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     const filteredPhotos = galleryPhotos
       ?.filter((photo: any) => {
         if (selectedSegment === "all") return true;
-        if (selectedSegment === "photo") return photo.type === "image";
+        if (selectedSegment === "photo") return photo.type === "image/png";
         if (selectedSegment === "video") return photo.type === "video";
         if (selectedSegment === "document") return photo.type === "document";
         return false;
@@ -88,6 +89,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         height: photo.height || 0,
         ...(photo.type === "video"
           ? {
+              type: photo.type,
               sources: [
                 {
                   src: photo.downloadUrl,
@@ -95,12 +97,13 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 },
               ],
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.downloadUrl,
+                src: photo.thumbnailUrl,
                 width: breakpoint,
                 height: Math.round((photo.height / photo.width) * breakpoint),
               })),
             }
           : {
+              type: photo.type.startsWith("image") ? "image" : "",
               srcSet: breakpoints.map((breakpoint) => ({
                 src: photo.downloadUrl,
                 width: breakpoint,
@@ -142,7 +145,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             ...photo,
             ...{
               src: photo.downloadUrl,
-              type: photo.type,
+              //  type: photo.type,
+              type: photo.type.startsWith("image") ? "image" : "",
               srcSet: breakpoints.map((breakpoint) => ({
                 src: photo.downloadUrl,
                 width: breakpoint,
@@ -407,18 +411,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleSelectAll}
-              >
+              <IonLabel className="select_action" onClick={handleSelectAll}>
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleDeselectAll}
-              >
+              <IonLabel className="select_action" onClick={handleDeselectAll}>
                 Deselect All
               </IonLabel>
             )}
@@ -443,94 +441,93 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               <IonImg src={DocumentsIcon} />
             </IonSegmentButton>
           </IonSegment>
-          <div onContextMenu={handleEditMode}>
-            <MasonryPhotoAlbum
-              photos={photos}
-              render={{
-                // render custom styled link
-                link: (props) => (
-                  <StyledLink
-                    {...props}
-                    isEditView={isEditMode}
-                  />
-                ),
-                // render image selection icon
-                extras: (_, { photo: { selected, type }, index }) => (
-                  <>
-                    {isEditMode && (
-                      <SelectIcon
-                        selected={!selected}
-                        onClick={(event) => {
-                          setPhotos((prevPhotos) => {
-                            const newPhotos = [...prevPhotos];
-                            newPhotos[index].selected = !selected;
-                            return newPhotos;
-                          });
-                          // prevent the event from propagating to the parent link element
-                          event.preventDefault();
-                          event.stopPropagation();
-                        }}
-                      />
-                    )}
-                    {type == "video" && (
-                      <>
-                        <IonImg
-                          class="type_declaration"
-                          src={VideoType}
+
+          {photos && photos.length > 0 ? (
+            <div onContextMenu={handleEditMode}>
+              <MasonryPhotoAlbum
+                photos={photos}
+                // @ts-ignore
+                // layout="rows"
+                // spacing={10}
+                render={{
+                  // render custom styled link
+                  link: (props) => (
+                    <StyledLink {...props} isEditView={isEditMode} />
+                  ),
+                  // render image selection icon
+                  extras: (_, { photo: { selected, type }, index }) => (
+                    <>
+                      {isEditMode && (
+                        <SelectIcon
+                          selected={!selected}
+                          onClick={(event) => {
+                            setPhotos((prevPhotos) => {
+                              const newPhotos = [...prevPhotos];
+                              newPhotos[index].selected = !selected;
+                              return newPhotos;
+                            });
+                            // prevent the event from propagating to the parent link element
+                            event.preventDefault();
+                            event.stopPropagation();
+                          }}
                         />
-                      </>
-                    )}
-                    {type == "image" && (
-                      <>
-                        <IonImg
-                          class="type_declaration"
-                          src={ImageType}
-                        />
-                      </>
-                    )}
-                  </>
-                ),
-              }}
-              // custom components' props
-              componentsProps={{
-                link: ({ photo: { href } }) =>
-                  // add target="_blank" and rel="noreferrer noopener" to external links
-                  href?.startsWith("http")
-                    ? { target: "_blank", rel: "noreferrer noopener" }
-                    : undefined,
-              }}
-              // on click callback
-              onClick={({ event, photo, index }) => {
-                setLightboxIndex(index);
-                if (!isEditMode) {
-                  // let a link open in a new tab / new window / download
-                  if (event.shiftKey || event.altKey || event.metaKey) return;
-                  // prevent the default link behavior
-                  event.preventDefault();
-                  // open photo in a lightbox
-                  setLightboxPhoto(photo);
-                } else {
-                  setPhotos((prevPhotos) => {
-                    const newPhotos = [...prevPhotos];
-                    newPhotos[index].selected = !newPhotos[index].selected;
-                    return newPhotos;
-                  });
-                }
-              }}
-              // describe photo album size in different viewports
-              sizes={{
-                size: "1168px",
-                sizes: [
-                  {
-                    viewport: "(max-width: 1200px)",
-                    size: "calc(100vw - 32px)",
-                  },
-                ],
-              }}
-              // re-calculate the layout only at specific breakpoints
-              breakpoints={[220, 360, 480, 600, 900, 1200]}
-            />
-          </div>
+                      )}
+                      {type == "video" && (
+                        <>
+                          <IonImg class="type_declaration" src={VideoType} />
+                        </>
+                      )}
+                      {type == "image" && (
+                        <>
+                          <IonImg class="type_declaration" src={ImageType} />
+                        </>
+                      )}
+                    </>
+                  ),
+                }}
+                // custom components' props
+                componentsProps={{
+                  link: ({ photo: { href } }) =>
+                    // add target="_blank" and rel="noreferrer noopener" to external links
+                    href?.startsWith("http")
+                      ? { target: "_blank", rel: "noreferrer noopener" }
+                      : undefined,
+                }}
+                // on click callback
+                onClick={({ event, photo, index }) => {
+                  setLightboxIndex(index);
+                  if (!isEditMode) {
+                    // let a link open in a new tab / new window / download
+                    if (event.shiftKey || event.altKey || event.metaKey) return;
+                    // prevent the default link behavior
+                    event.preventDefault();
+                    // open photo in a lightbox
+                    setLightboxPhoto(photo);
+                  } else {
+                    setPhotos((prevPhotos) => {
+                      const newPhotos = [...prevPhotos];
+                      newPhotos[index].selected = !newPhotos[index].selected;
+                      return newPhotos;
+                    });
+                  }
+                }}
+                // describe photo album size in different viewports
+                sizes={{
+                  size: "1168px",
+                  sizes: [
+                    {
+                      viewport: "(max-width: 1200px)",
+                      size: "calc(100vw - 32px)",
+                    },
+                  ],
+                }}
+                // re-calculate the layout only at specific breakpoints
+                breakpoints={[220, 360, 480, 600, 900, 1200]}
+              />
+            </div>
+          ) : (
+            <IonImg src={NoMedia} />
+          )}
         </IonGrid>
         <Lightbox
           open={Boolean(lightboxPhoto)}
@@ -599,50 +596,26 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <nav>
               <ul>
                 <li>
-                  <StyledLink
-                    className="link"
-                    onClick={handleShareSelected}
-                  >
-                    <img
-                      src={ShareIcon}
-                      alt="Media"
-                    />
+                  <StyledLink className="link" onClick={handleShareSelected}>
+                    <img src={ShareIcon} alt="Media" />
                     <span>Share</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    onClick={handleDownloadSelected}
-                  >
-                    <img
-                      src={Download}
-                      alt="Split Bill"
-                    />
+                  <StyledLink className="link" onClick={handleDownloadSelected}>
+                    <img src={Download} alt="Split Bill" />
                     <span>Download</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    href="#"
-                  >
-                    <img
-                      src={save}
-                      alt="Chat"
-                    />
+                  <StyledLink className="link" href="#">
+                    <img src={save} alt="Chat" />
                     <span>Save</span>
                   </StyledLink>
                 </li>
                 <li>
-                  <StyledLink
-                    className="link"
-                    onClick={handleDeleteSelected}
-                  >
-                    <img
-                      src={Delete}
-                      alt="Settings"
-                    />
+                  <StyledLink className="link" onClick={handleDeleteSelected}>
+                    <img src={Delete} alt="Settings" />
                     <span>Delete</span>
                   </StyledLink>
                 </li>
@@ -650,10 +623,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </nav>
           </IonFooter>
         ) : (
-          <Footer
-            activeTab={"home"}
-            eventId={eventId}
-          />
+          <Footer activeTab={"home"} eventId={eventId} />
         )}
       </IonContent>
     </>

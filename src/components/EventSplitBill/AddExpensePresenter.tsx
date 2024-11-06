@@ -43,6 +43,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [contactsList, setContactsList] = useState<EventMember[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
+  //const [selectedMember, setSelectedMembers] = useState<EventMember[]>([]);
   const [selectedMember, setSelectedMembers] = useState([]);
   // @ts-ignore
   const [selectedPaidBy, setselectedPaidBy] = useState(null);
@@ -69,19 +70,21 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
   // Function to go to the previous step
   const nextStep = () => {
-    const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
-    const shareAmount: string =
-      selectedMember.length > 0
-        ? (validSelectedAmount / selectedMember.length).toFixed(2)
-        : "0";
-    selectedMember.forEach((memberItem: any) => {
-      memberItem.amount = shareAmount;
-      memberItem.percentage =
-        validSelectedAmount > 0
-          ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
+    console.log("currentStep", currentStep);
+    if (currentStep == 1) {
+      const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
+      const shareAmount: string =
+        selectedMember.length > 0
+          ? (validSelectedAmount / selectedMember.length).toFixed(2)
           : "0";
-    });
-
+      selectedMember.forEach((memberItem: any) => {
+        memberItem.amount = shareAmount;
+        memberItem.percentage =
+          validSelectedAmount > 0
+            ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
+            : "0";
+      });
+    }
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
 
@@ -106,9 +109,9 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     return "";
   };
 
-  function setEventName(_arg0: string): void {
-    throw new Error("Function not implemented.");
-  }
+  // function setEventName(_arg0: string): void {
+  //   throw new Error("Function not implemented.");
+  // }
 
   const onError = (error: any) => {
     const formData = getValues(); // Get current form values
@@ -209,6 +212,35 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     }
   };
 
+  // Function to handle changes in the dollar amount input
+  const handleAmountChange = (value: string, index: number) => {
+    const amount = parseFloat(value) || 0;
+    const updatedPercentage = (amount / (selectedAmount ?? 1)) * 100;
+    const updatedMembers = [...selectedMember];
+    // @ts-ignore
+    updatedMembers[index] = {
+      // @ts-ignore
+      ...updatedMembers[index],
+      amount: amount,
+      percentage: updatedPercentage.toFixed(2),
+    };
+    setSelectedMembers(updatedMembers);
+  };
+  // Function to handle changes in the percentage input
+  const handlePercentageChange = (value: string, index: number) => {
+    const percentage = parseFloat(value) || 0;
+    const updatedAmount = ((selectedAmount ?? 1) * percentage) / 100;
+    const updatedMembers = [...selectedMember];
+    // @ts-ignore
+    updatedMembers[index] = {
+      // @ts-ignore
+      ...updatedMembers[index],
+      percentage: percentage.toFixed(2),
+      amount: updatedAmount,
+    };
+    setSelectedMembers(updatedMembers);
+  };
+
   return (
     <>
       <Header
@@ -248,10 +280,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                       onInputChange={(e) => setTotalAmount(e.detail.value)}
                     />
                   </IonList>
-                  <IonList
-                    className="form-group"
-                    onClick={handlePaidByClick}
-                  >
+                  <IonList className="form-group" onClick={handlePaidByClick}>
                     <CustomInput
                       placeholder={"You"}
                       label={"Paid by"}
@@ -344,14 +373,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="home-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="user_item">
+                        <IonThumbnail slot="start" className="dp">
                           <IonImg
                             src={Item.profileImg}
                             alt={`${Item.name}'s profile`}
@@ -367,18 +390,12 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 </div>
               )}
 
-              {selectedSegment === "amount" && (
+              {selectedSegment === "amount" && true && (
                 <div id="radio-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="user_item">
+                        <IonThumbnail slot="start" className="dp">
                           <IonImg
                             src={ProfileIcon}
                             alt={`${Item.name}'s profile`}
@@ -395,7 +412,9 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                           placeholder="0.00"
                           type="number" // Ensures numeric input
                           inputmode="decimal"
-                          onIonChange={(e) => setEventName(e.detail.value!)}
+                          onIonInput={(e) =>
+                            handleAmountChange(e.detail.value || "", index)
+                          }
                         />
                       </IonItem>
                     ))}
@@ -407,14 +426,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="library-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="user_item">
+                        <IonThumbnail slot="start" className="dp">
                           <IonImg
                             src={ProfileIcon}
                             alt={`${Item.name}'s profile`}
@@ -431,7 +444,9 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                           placeholder="0"
                           type="number" // Ensures numeric input
                           inputmode="decimal"
-                          onIonChange={(e) => setEventName(e.detail.value!)}
+                          onIonInput={(e) =>
+                            handlePercentageChange(e.detail.value || "", index)
+                          }
                         />
                       </IonItem>
                     ))}
@@ -443,14 +458,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
                 {selectedMember.map((Item: any, index: any) => (
-                  <IonItem
-                    key={index}
-                    className="user_item"
-                  >
-                    <IonThumbnail
-                      slot="start"
-                      className="dp"
-                    >
+                  <IonItem key={index} className="user_item">
+                    <IonThumbnail slot="start" className="dp">
                       <IonImg
                         src={Item.profileImg}
                         alt={`${Item.name}'s profile`}

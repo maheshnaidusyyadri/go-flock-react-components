@@ -576,6 +576,8 @@ export const ImageAndVideosMixedMedia: Media[] = [
     path: "media/Lz0XqK6sLWl7icDEWQ8b/8fT3MMJseTpFPKup6gaw/BigBuckBunny.mp4",
     createdAt: "2024-11-03T16:53:22.660Z",
     isDeleted: false,
+    thumbnailUrl:
+      "https://img.freepik.com/free-vector/modern-music-event-poster-template_1361-1292.jpg",
     downloadUrl:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     metadata: {
