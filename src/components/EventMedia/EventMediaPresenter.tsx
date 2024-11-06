@@ -45,7 +45,7 @@ import Delete from "../../images/icons/Delet.svg";
 import CrossIcon from "../../images/icons/Cross.svg";
 
 import { Share } from "@capacitor/share";
-import { UserMediaMetadata } from "@goflock/types/dist/models/media/UserMediaMetadata";
+import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
 type SelectablePhoto = Photo & {
   selected?: boolean;
   type?: String;
