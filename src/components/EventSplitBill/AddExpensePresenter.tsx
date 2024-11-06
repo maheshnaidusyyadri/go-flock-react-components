@@ -44,7 +44,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
   //const [selectedMember, setSelectedMembers] = useState<EventMember[]>([]);
-  const [selectedMember, setSelectedMembers] = useState([]);
+  const [selectedMember, setSelectedMembers] = useState<any>([]);
   // @ts-ignore
   const [selectedPaidBy, setselectedPaidBy] = useState(null);
   const [selectedAmount, setTotalAmount] = useState(null);
@@ -71,9 +71,32 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   // Function to go to the previous step
   const nextStep = () => {
     console.log("currentStep", currentStep);
-    if (currentStep == 1) {
+    if (currentStep === 2) {
+      let totalSelectedAmount = selectedMember.map((total: any) => {
+        return parseInt(total.amount, 10);
+      });
+      console.log("totalSelectedAmount (as integers)", totalSelectedAmount);
+      // Calculate the sum of the amounts
+      let sumOfSelectedAmount = totalSelectedAmount.reduce(
+        (acc: any, curr: any) => acc + curr,
+        0
+      );
+      console.log("sumOfSelectedAmount", sumOfSelectedAmount);
+      let selectedAmountInt = parseInt(selectedAmount || "0", 10);
+      console.log("selectedAmountInt", selectedAmountInt);
+      // Check if the total matches selectedAmount
+      if (sumOfSelectedAmount !== selectedAmountInt) {
+        alert(
+          `The total amount does not match the entered ${
+            selectedSegment === "amount" ? "dollar amount" : "percentage"
+          }.`
+        );
+        return; // Prevent moving to the next step
+      }
+    }
+    if (currentStep === 1) {
       const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
-      const shareAmount: string =
+      const shareAmount =
         selectedMember.length > 0
           ? (validSelectedAmount / selectedMember.length).toFixed(2)
           : "0";
@@ -211,32 +234,27 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       setIsLoading(false);
     }
   };
-
   // Function to handle changes in the dollar amount input
   const handleAmountChange = (value: string, index: number) => {
     const amount = parseFloat(value) || 0;
-    const updatedPercentage = (amount / (selectedAmount ?? 1)) * 100;
+    const updatedPercentage = (amount / (selectedAmount || 0)) * 100;
     const updatedMembers = [...selectedMember];
-    // @ts-ignore
     updatedMembers[index] = {
-      // @ts-ignore
       ...updatedMembers[index],
       amount: amount,
-      percentage: updatedPercentage.toFixed(2),
+      percentage: updatedPercentage.toFixed(2), // Update corresponding percentage
     };
     setSelectedMembers(updatedMembers);
   };
   // Function to handle changes in the percentage input
   const handlePercentageChange = (value: string, index: number) => {
     const percentage = parseFloat(value) || 0;
-    const updatedAmount = ((selectedAmount ?? 1) * percentage) / 100;
+    const updatedAmount = ((selectedAmount || 0) * percentage) / 100;
     const updatedMembers = [...selectedMember];
-    // @ts-ignore
     updatedMembers[index] = {
-      // @ts-ignore
       ...updatedMembers[index],
-      percentage: percentage.toFixed(2),
-      amount: updatedAmount,
+      percentage: percentage,
+      amount: updatedAmount.toFixed(2), // Update corresponding dollar amount
     };
     setSelectedMembers(updatedMembers);
   };
