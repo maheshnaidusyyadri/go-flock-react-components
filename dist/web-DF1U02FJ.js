@@ -1,4 +1,4 @@
-import { W as a } from "./index-BK0jkQ1u.js";
+import { W as a } from "./index-CmdgzDMG.js";
 class n extends a {
   async canShare() {
     return typeof navigator > "u" || !navigator.share ? { value: !1 } : { value: !0 };
@@ -16,4 +16,4 @@ class n extends a {
 export {
   n as ShareWeb
 };
-//# sourceMappingURL=web-B7o0theB.js.map
+//# sourceMappingURL=web-DF1U02FJ.js.map
