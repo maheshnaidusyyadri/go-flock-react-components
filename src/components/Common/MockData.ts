@@ -561,6 +561,8 @@ export const ImagesMedia: Media[] = [
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "8fT3MMJseTpFPKup6gaw",
+      width: 1080,
+      height: 720,
     },
   },
   {
@@ -580,6 +582,8 @@ export const ImagesMedia: Media[] = [
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "mCtamZsxf7DSpOd1PfnM",
+      width: 1080,
+      height: 1620,
     },
   },
   {
@@ -599,6 +603,8 @@ export const ImagesMedia: Media[] = [
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "oovT3ZHhfVlnGG1TLcmy",
+      width: 1080,
+      height: 607,
     },
   },
 ];
@@ -624,6 +630,8 @@ export const ImageAndVideosMixedMedia: Media[] = [
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "8fT3MMJseTpFPKup6gaw",
+      width: 1080,
+      height: 780,
     },
   },
   {
@@ -643,6 +651,8 @@ export const ImageAndVideosMixedMedia: Media[] = [
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "mCtamZsxf7DSpOd1PfnM",
+      width: 1080,
+      height: 720,
     },
   },
   {
@@ -662,6 +672,8 @@ export const ImageAndVideosMixedMedia: Media[] = [
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "oovT3ZHhfVlnGG1TLcmy",
+      width: 1080,
+      height: 720,
     },
   },
 ];

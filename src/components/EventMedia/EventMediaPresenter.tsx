@@ -88,8 +88,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         ...mediaItem,
         src: mediaItem.downloadUrl,
         label: "Open image in a lightbox",
-        width: mediaItem.width || 0,
-        height: mediaItem.height || 0,
+        width: mediaItem.metadata.width || 0,
+        height: mediaItem.metadata.height || 0,
         ...(mediaItem.metadata.type.includes("video")
           ? {
               type: mediaItem.metadata.type.includes("video") ? "video" : "",
@@ -132,6 +132,9 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
 
     let results = media.map((photo: any) => ({
       ...photo,
+      src: photo.downloadUrl,
+      width: photo.metadata.width || 0,
+      height: photo.metadata.height || 0,
       ...(photo.metadata.type.includes("video")
         ? {
             src: photo.downloadUrl,
