@@ -31,9 +31,8 @@ import SelectMembers from "./SelectExpense";
 //import { EventMember, Transaction } from "@goflock/types";
 import { EventMember, Transaction } from "@goflock/types/src/index";
 import { getDisplayName } from "../../utils/utils";
-
 const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
-  profile,
+  //profile,
   event,
   addTransaction,
 }) => {
@@ -47,7 +46,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [selectedMember, setSelectedMembers] = useState<any>([]);
   const [selectedEqallAmount, setSelectedEqallAmount] = useState<any>([]);
   // @ts-ignore
-  const [selectedPaidBy, setselectedPaidBy] = useState(null);
+  const [selectedPaidBy, setselectedPaidBy] = useState<any>(null);
   const [selectedAmount, setTotalAmount] = useState(null);
   const [selectedSegment, setSelectedSegment] = useState<
     "equal" | "amount" | "percentage"
@@ -196,31 +195,46 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
   const handleSave = (formData: any) => {
     console.log("handleSave-Data", formData);
-    handleAddTransaction();
+    handleAddTransaction(formData);
   };
 
-  const handleAddTransaction = async () => {
-    console.log("handleAddTransaction");
+  const handleAddTransaction = async (formData: any) => {
     setIsLoading(true);
     setError(null);
+    // let transaction: Transaction = {
+    //   eventId: event.id,
+    //   deleted: false,
+    //   description: "Sample transaction",
+    //   amount: 100,
+    //   date: new Date().toISOString(),
+    //   paidUserId: profile.id,
+    //   //splitAmongUserIds: [profile.id],
+    //   splitAmongUserIds: [
+    //     {
+    //       userId: profile.id,
+    //       amount: 100,
+    //       currency: "USD",
+    //     },
+    //   ],
+    //   currency: "USD",
+    // };
     let transaction: Transaction = {
       eventId: event.id,
       deleted: false,
-      description: "Sample transaction",
-      amount: 100,
+      description: formData.billName,
+      amount: formData.totalAmount,
       date: new Date().toISOString(),
-      paidUserId: profile.id,
-      //splitAmongUserIds: [profile.id],
-      splitAmongUserIds: [
-        {
-          userId: profile.id,
-          amount: 100,
-          currency: "USD",
-        },
-      ],
+      paidUserId: selectedPaidBy.id,
+      splitAmongUserIds: [],
       currency: "USD",
     };
-
+    if (selectedMember && selectedMember.length > 0) {
+      transaction.splitAmongUserIds = selectedMember.map((member: any) => ({
+        userId: member.id,
+        amount: member.amount,
+        currency: "USD",
+      }));
+    }
     try {
       await addTransaction(transaction);
     } catch (err) {
