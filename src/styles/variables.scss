@@ -713,12 +713,15 @@ body {
     transition: all 0.4s ease-in-out;
     &.prev {
       left: -100%;
+      opacity: 0;
     }
     &.next {
       left: 100%;
+      opacity: 0;
     }
     &.current {
       left: 0px;
+      opacity: 1;
     }
     .form-container {
       width: 100%;
@@ -941,6 +944,12 @@ input[type="number"] {
   }
   .main-header .header-cnt .page-title {
     text-align: left;
+    position: static;
+    padding-left: 12px;
+  }
+  .user_item .dp {
+    --size: 40px;
+    margin: 0 12px 0 0;
   }
 }
 
@@ -1263,4 +1272,13 @@ input[type="number"] {
     text-decoration: underline;
     cursor: pointer;
   }
+}
+
+.members_cnt {
+  height: calc(100vh - 140px);
+  min-height: auto;
+}
+
+.aroundspace {
+  padding: 16px !important;
 }

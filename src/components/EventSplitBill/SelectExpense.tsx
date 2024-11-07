@@ -12,9 +12,11 @@ import {
   IonHeader,
   IonTitle,
   IonAvatar,
+  IonContent,
 } from "@ionic/react";
 import backArrow from "../../images/icons/back-arrow.svg";
 import { getDisplayName } from "../../utils/utils";
+import selected from "../../images/icons/checked.svg";
 
 interface SelectMembersProps {
   members: any[];
@@ -70,50 +72,51 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
           <IonTitle className="page-title">{title}</IonTitle>
         </div>
       </IonHeader>
-      <IonGrid className="pageCnt bill_cnt">
-        <IonCardHeader className="card_header">
-          <IonLabel className="ion-title">Members</IonLabel>
-          {isMultiple && (
-            <IonText className="list-action" onClick={handleSelectAll}>
-              {selectedMembers.length === members.length
-                ? "Deselect All"
-                : "Select All"}
-            </IonText>
-          )}
-        </IonCardHeader>
+      <IonContent className="members_cnt">
+        <IonGrid className="aroundspace">
+          <IonCardHeader className="card_header">
+            <IonLabel className="ion-title">Members</IonLabel>
+            {isMultiple && (
+              <IonText className="list-action" onClick={handleSelectAll}>
+                {selectedMembers.length === members.length
+                  ? "Deselect All"
+                  : "Select All"}
+              </IonText>
+            )}
+          </IonCardHeader>
 
-        <IonList className="list_wrap">
-          {members.map((member: any, index: number) => (
-            <IonItem
-              key={index}
-              className="user_item"
-              onClick={() => handleSelectMember(member)}
-            >
-              {((isMultiple &&
-                selectedMembers.some((m) => m.id === member.id)) ||
-                (!isMultiple && selectedMember?.id === member.id)) && (
-                <IonLabel>Selected</IonLabel>
-              )}
-              <IonThumbnail slot="start" className="dp">
-                {member.profileImg ? (
-                  <IonImg
-                    src={member.profileImg}
-                    alt={`${member.name}'s profile`}
-                  />
-                ) : (
-                  <IonAvatar className="profile-dp">
-                    {getDisplayName(member?.name)}
-                  </IonAvatar>
+          <IonList className="list_wrap">
+            {members.map((member: any, index: number) => (
+              <IonItem
+                key={index}
+                className="user_item"
+                onClick={() => handleSelectMember(member)}
+              >
+                <IonThumbnail slot="start" className="dp">
+                  {member.profileImg ? (
+                    <IonImg
+                      src={member.profileImg}
+                      alt={`${member.name}'s profile`}
+                    />
+                  ) : (
+                    <IonAvatar className="profile-dp">
+                      {getDisplayName(member?.name)}
+                    </IonAvatar>
+                  )}
+                </IonThumbnail>
+                <IonLabel className="user_name">
+                  {member.name || member.phone}
+                </IonLabel>
+                {((isMultiple &&
+                  selectedMembers.some((m) => m.id === member.id)) ||
+                  (!isMultiple && selectedMember?.id === member.id)) && (
+                  <IonImg src={selected} />
                 )}
-              </IonThumbnail>
-              <IonLabel className="user_name">
-                {member.name}
-                {member.phone}
-              </IonLabel>
-            </IonItem>
-          ))}
-        </IonList>
-      </IonGrid>
+              </IonItem>
+            ))}
+          </IonList>
+        </IonGrid>
+      </IonContent>
     </>
   );
 };
