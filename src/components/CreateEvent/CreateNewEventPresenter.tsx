@@ -196,7 +196,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       />
                     </IonList>
                     <IonList className="form-group">
-                      <IonLabel className="form-label">Location</IonLabel>
+                      <IonLabel className="form-label">Location*</IonLabel>
                       <PlaceSearch
                         searchLocation={searchLocation}
                         onSelectLocation={handleSelectLocation}

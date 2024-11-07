@@ -349,7 +349,6 @@ body {
   .ion-searchbar {
     margin: 0;
     padding: 0;
-    background: url("../images/plus.png") no-repeat 0 0;
     min-height: auto;
     .searchbar-input-container {
       // .label-text-wrapper {
@@ -361,9 +360,8 @@ body {
       //     color: $GoFlockColor !important;
       //     margin-bottom: 4px;
       // }
-      background: url("../images/plus.png") no-repeat 0 0;
       .searchbar-input {
-        padding: 0 15px 0 40px !important;
+        padding: 0 40px 0 15px !important;
         color: $GoFlockColor;
         font-family: $GoFlockFont;
         font-weight: 400;
@@ -384,7 +382,8 @@ body {
         }
       }
       .searchbar-search-icon {
-        inset-inline-start: 10px;
+        inset-inline-end: 10px;
+        inset-inline-start: auto;
       }
       .input-highlight {
         display: none;

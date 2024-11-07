@@ -7,6 +7,7 @@ import {
   IonSearchbar,
 } from "@ionic/react";
 import { LocationInfo } from "@goflock/types/src/models/event/LocationInfo";
+import { locationOutline } from "ionicons/icons";
 
 interface PlaceSearchProps {
   searchLocation: (query: string) => Promise<LocationInfo[]>;
@@ -59,7 +60,8 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
         value={query}
         debounce={700}
         onIonInput={(e) => setQuery(e.detail.value!)}
-        placeholder="Search for a place"
+        placeholder="Enter location"
+        searchIcon={locationOutline}
       />
 
       {loading && <IonSpinner name="crescent" />}
@@ -69,11 +71,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
       {locations?.length > 0 && (
         <IonList>
           {locations.map((location, index) => (
-            <IonItem
-              key={index}
-              button
-              onClick={() => handleSelect(location)}
-            >
+            <IonItem key={index} button onClick={() => handleSelect(location)}>
               <IonLabel>{location.name}</IonLabel>
             </IonItem>
           ))}
