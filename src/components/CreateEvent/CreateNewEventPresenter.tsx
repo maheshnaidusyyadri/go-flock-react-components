@@ -23,6 +23,9 @@ import {
 import Success from "../../images/celebration.svg";
 import privateEventIcon from "../../images/icons/privateEvent.svg";
 import publicEventIcon from "../../images/icons/publicEvent.svg";
+import mediaIcon from "../../images/icons/media_circle.svg";
+import recordsIcon from "../../images/icons/record_circle.svg";
+
 import PlaceSearch from "./PlaceSearch";
 import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
@@ -48,7 +51,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
   const [locationError, setLocationError] = useState(false);
   const [currentStep, setCurrentStep] = useState(1); // Track the current step
-  const totalSteps = 3; // Define the total number of steps
+  const totalSteps = 5; // Define the total number of steps
   const methods = useForm();
   const {
     handleSubmit,
@@ -62,7 +65,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [endTime, setEndTime] = useState("");
   useEffect(() => {
     if (startDate) {
-      setValue("endDate", startDate);
+      // setValue("endDate", startDate);
     }
     if (startDate && endDate && startTime && startDate == endDate) {
       const startDateObj = new Date(startDate);
@@ -193,40 +196,37 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       />
                     </IonList>
                     <IonList className="form-group">
-                      <IonTextarea
-                        placeholder={"Description"}
-                        label={"Description"}
-                        fieldName={"description"}
-                        isRequired={true}
-                        errors={errors}
-                        errorText={"Description"}
-                        register={register}
-                      />
-                    </IonList>
-                    <IonList className="form-group mb-0 pb-0">
-                      <IonLabel className="form-label">Venue</IonLabel>
+                      <IonLabel className="form-label">Location</IonLabel>
                       <PlaceSearch
                         searchLocation={searchLocation}
                         onSelectLocation={handleSelectLocation}
                       />
-                    </IonList>
-                    {locationError && (
-                      <IonText
-                        color="danger"
-                        style={{ fontSize: 12 }}
-                      >
-                        * Venue is required
-                      </IonText>
-                    )}
-                    {selectedLocation && (
-                      <IonLabel className="location_selection">
-                        Selected Location:
-                        <IonText className="location">
-                          {" "}
-                          {selectedLocation.name}
+                      {locationError && (
+                        <IonText className="error">
+                          *Location is required
                         </IonText>
-                      </IonLabel>
-                    )}
+                      )}
+                      {selectedLocation && (
+                        <IonLabel className="location_selection">
+                          Selected Location:
+                          <IonText className="location">
+                            {" "}
+                            {selectedLocation.name}
+                          </IonText>
+                        </IonLabel>
+                      )}
+                    </IonList>
+                    <IonList className="form-group">
+                      <CustomInput
+                        placeholder={"Hosted by"}
+                        label={"Hosted by"}
+                        fieldName={"event"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Hosted by"}
+                        register={register}
+                      />
+                    </IonList>
                   </IonCardContent>
                 </IonGrid>
               </IonGrid>
@@ -241,11 +241,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       className={"ion-datetime-button date"}
                       presentation={"date"}
                       control={control}
-                      label={"Start Date"}
+                      label={"Date"}
                       fieldName="startDate"
                       minDate={tomorrowISOString}
                       isRequired={true}
-                      errorText="Start Date"
+                      errorText="Date"
                       errors={errors}
                       defaultValue={startDate}
                       onDateChange={(value: any) => {
@@ -259,35 +259,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       }}
                     />
                     <CustomDateTime
-                      placeHolder={"Select Date"}
-                      className={"ion-datetime-button date"}
-                      presentation={"date"}
-                      control={control}
-                      label={"End Date"}
-                      fieldName="endDate"
-                      minDate={startDate}
-                      isRequired={true}
-                      errorText="End Date"
-                      errors={errors}
-                      formatOptions={{
-                        weekday: "short",
-                        month: "long",
-                        day: "2-digit",
-                      }}
-                      defaultValue={endDate}
-                      onDateChange={(value: any) => {
-                        setEndDate(value);
-                      }}
-                    />
-                    <CustomDateTime
                       placeHolder={"Select Time"}
                       className={"ion-datetime-button time"}
                       presentation={"time"}
                       control={control}
-                      label={"Start Time"}
+                      label={"Time"}
                       fieldName="startTime"
                       isRequired={true}
-                      errorText="Start Time"
+                      errorText="Time"
                       errors={errors}
                       onIonFocus={() => {
                         const currentTimeUTC = new Date();
@@ -307,13 +286,35 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       }}
                     />
                     <CustomDateTime
+                      placeHolder={"Select Date"}
+                      className={"ion-datetime-button date"}
+                      presentation={"date"}
+                      control={control}
+                      label={"End Date"}
+                      fieldName="endDate"
+                      minDate={startDate}
+                      isRequired={false}
+                      errorText="End Date"
+                      errors={errors}
+                      formatOptions={{
+                        weekday: "short",
+                        month: "long",
+                        day: "2-digit",
+                      }}
+                      //  defaultValue={endDate}
+                      onDateChange={(value: any) => {
+                        setEndDate(value);
+                      }}
+                    />
+
+                    <CustomDateTime
                       placeHolder={"Select Time"}
                       className={"ion-datetime-button time"}
                       presentation={"time"}
                       control={control}
                       label={"End Time"}
                       fieldName="endTime"
-                      isRequired={true}
+                      isRequired={false}
                       errorText="End Time"
                       errors={errors}
                       minDate={endTime}
@@ -337,9 +338,29 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-
             {currentStep == 3 && (
               <IonGrid className={`step-content ${getStepClass(3)}`}>
+                <IonGrid className="form-container">
+                  <IonCardContent className="pad0">
+                    <IonList className="form-group">
+                      <IonTextarea
+                        placeholder={"Description"}
+                        label={"Description"}
+                        fieldName={"description"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Description"}
+                        register={register}
+                      />
+                    </IonList>
+                  </IonCardContent>
+                </IonGrid>
+              </IonGrid>
+            )}
+
+            {currentStep == 4 && (
+              <IonGrid className={`step-content ${getStepClass(4)}`}>
+                <IonLabel className="step_title">Event Category*</IonLabel>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
                     <IonList className="form-group">
@@ -357,10 +378,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img
-                              src={privateEventIcon}
-                              alt="Private Event"
-                            />
+                            <img src={privateEventIcon} alt="Private Event" />
                           </span>
                           <p>
                             <strong>Private Event</strong>
@@ -374,14 +392,58 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img
-                              src={publicEventIcon}
-                              alt="Public Event"
-                            />
+                            <img src={publicEventIcon} alt="Public Event" />
                           </span>
                           <p>
-                            <strong>Open Event</strong>Allow anyone to join the
-                            Event. You can change this option later.
+                            <strong>Public Event</strong>Anyone with the link
+                            can access. There is no restriction. You can change
+                            this option later.
+                          </p>
+                        </IonRadio>
+                      </IonRadioGroup>
+                    </IonList>
+                  </IonCardContent>
+                </IonGrid>
+              </IonGrid>
+            )}
+            {currentStep == 5 && (
+              <IonGrid className={`step-content ${getStepClass(5)}`}>
+                <IonLabel className="step_title">Settings*</IonLabel>
+                <IonGrid className="form-container">
+                  <IonCardContent className="pad0">
+                    <IonList className="form-group">
+                      <IonRadioGroup
+                        className="ion-radio-group"
+                        allowEmptySelection={true}
+                        //value="turtles
+                        {...register("eventVisibility", { required: false })}
+                        value={eventVisibility}
+                        onIonChange={(e) => setEventVisibility(e.detail.value)}
+                      >
+                        <IonRadio
+                          className="ion-radio"
+                          value={"media"}
+                          justify="space-between"
+                        >
+                          <span>
+                            <img src={mediaIcon} alt="Media" />
+                          </span>
+                          <p>
+                            <strong>Media</strong>
+                            Securely share pictures with the event attendees.
+                          </p>
+                        </IonRadio>
+                        <IonRadio
+                          class="ion-radio"
+                          value="record"
+                          justify="space-between"
+                        >
+                          <span>
+                            <img src={recordsIcon} alt="Record expenses" />
+                          </span>
+                          <p>
+                            <strong>Record expenses</strong>Securely maintain
+                            the expenses between hosts & co-hosts
                           </p>
                         </IonRadio>
                       </IonRadioGroup>
@@ -421,15 +483,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonFooter>
         </FormProvider>
       </IonContent>
-      <IonGrid
-        className="action_screen"
-        style={{ display: "none" }}
-      >
+      <IonGrid className="action_screen" style={{ display: "none" }}>
         <IonGrid className="action_screen_cnt">
-          <IonImg
-            alt="Successfully Created Event"
-            src={Success}
-          />
+          <IonImg alt="Successfully Created Event" src={Success} />
           <IonLabel className="action_title">
             Successfully Created Event
           </IonLabel>

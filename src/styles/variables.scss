@@ -711,6 +711,12 @@ body {
     top: 0;
     padding: 0 16px;
     transition: all 0.4s ease-in-out;
+    .step_title {
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
     &.prev {
       left: -100%;
       opacity: 0;
