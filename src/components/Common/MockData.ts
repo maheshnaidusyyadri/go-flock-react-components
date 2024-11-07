@@ -217,13 +217,26 @@ export const EventWithMembers: Event = {
     },
   ],
   counters: {
-    totalRsvpCount: 4,
-    totalAttendingCount: 5,
-    totalMaybeCount: 1,
-    totalDeclinedCount: 1,
-    totalInvitedCount: 7,
-    totalAdultsCount: 4,
-    totalChildrenCount: 1,
+    attendingRSVP: {
+      total: 10,
+      adults: 6,
+      kids: 4,
+    },
+    maybeRSVP: {
+      total: 10,
+      adults: 6,
+      kids: 4,
+    },
+    declinedRSVP: {
+      total: 10,
+      adults: 6,
+      kids: 4,
+    },
+    totalRSVP: {
+      total: 10,
+      adults: 6,
+      kids: 4,
+    },
   },
   settings: {
     shareMedia: true,
@@ -505,6 +518,25 @@ export const guestEventRelation: EventRelation = {
 export const rsvpGuestEventRelation: EventRelation = {
   roles: ["member"],
   visitType: "member",
+  rsvp: {
+    response: "attending",
+    count: 3,
+    comment: "",
+    kidsCount: 2,
+    adultsCount: 1,
+  },
+};
+
+export const rsvpNotAttendingGuestEventRelation: EventRelation = {
+  roles: ["member"],
+  visitType: "member",
+  rsvp: {
+    response: "not-attending",
+    count: 3,
+    comment: "",
+    kidsCount: 2,
+    adultsCount: 1,
+  },
 };
 
 export const ImagesMedia: Media[] = [
