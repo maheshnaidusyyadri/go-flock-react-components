@@ -337,42 +337,42 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                         />
                       </IonLabel>
                     </>
-                    <IonGrid class="profile-list">
-                      {selectedMember.map((eventMember: any) => (
-                        <div
-                          key={eventMember.id}
-                          className="profile-item"
-                          onClick={() => handleRemove(eventMember)}
-                        >
-                          <IonThumbnail className="profile-avatar-wrapper">
-                            <>
-                              {eventMember.profileImg ? (
-                                <IonAvatar className="profile-avatar">
-                                  <img
-                                    src={eventMember.profileImg}
-                                    alt={eventMember.name}
-                                  />
-                                </IonAvatar>
-                              ) : (
-                                <IonAvatar className="profile-dp">
-                                  {getDisplayName(eventMember?.name)}
-                                </IonAvatar>
-                              )}
-                            </>
-                            <img
-                              src={unselect}
-                              alt="status"
-                              className="remove_user"
-                            />
-                          </IonThumbnail>
-                          <IonLabel className="profile-name">
-                            {eventMember.name}
-                          </IonLabel>
-                        </div>
-                      ))}
-                    </IonGrid>
                   </IonList>
                 </IonCardContent>
+                <IonGrid class="profile-list">
+                  {selectedMember.map((eventMember: any) => (
+                    <div
+                      key={eventMember.id}
+                      className="profile-item"
+                      onClick={() => handleRemove(eventMember)}
+                    >
+                      <IonThumbnail className="profile-avatar-wrapper">
+                        <>
+                          {eventMember.profileImg ? (
+                            <IonAvatar className="profile-avatar">
+                              <img
+                                src={eventMember.profileImg}
+                                alt={eventMember.name}
+                              />
+                            </IonAvatar>
+                          ) : (
+                            <IonAvatar className="profile-dp">
+                              {getDisplayName(eventMember?.name)}
+                            </IonAvatar>
+                          )}
+                        </>
+                        <img
+                          src={unselect}
+                          alt="status"
+                          className="remove_user"
+                        />
+                      </IonThumbnail>
+                      <IonLabel className="profile-name">
+                        {eventMember.name}
+                      </IonLabel>
+                    </div>
+                  ))}
+                </IonGrid>
               </IonGrid>
             </IonGrid>
 
@@ -427,13 +427,13 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
               {selectedSegment === "amount" && (
                 <div id="radio-page">
-                  <IonList className="list_wrap">
+                  <IonList className="list_wrap expense_tabs">
                     {selectedMember.map((Item: any, index: any) => (
                       <IonItem key={index} className="user_item">
                         <IonThumbnail slot="start" className="dp">
                           {Item.profileImg ? (
                             <IonAvatar className="profile-avatar">
-                              <img
+                              <IonImg
                                 src={Item.profileImg}
                                 alt={`${Item.name}'s profile`}
                               />
@@ -467,7 +467,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
               {selectedSegment === "percentage" && (
                 <div id="library-page">
-                  <IonList className="list_wrap">
+                  <IonList className="list_wrap expense_tabs">
                     {selectedMember.map((Item: any, index: any) => (
                       <IonItem key={index} className="user_item">
                         <IonThumbnail slot="start" className="dp">
@@ -502,6 +502,10 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                       </IonItem>
                     ))}
                   </IonList>
+                  <IonLabel className="contribution_alert">
+                    $0.00 of $1000
+                    <IonText className="balance">($1000 left)</IonText>
+                  </IonLabel>
                 </div>
               )}
             </IonGrid>
