@@ -42,12 +42,13 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [contactsList, setContactsList] = useState<EventMember[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
-  //const [selectedMember, setSelectedMembers] = useState<EventMember[]>([]);
+  const [showError, setShowError] = useState(false);
   const [selectedMember, setSelectedMembers] = useState<any>([]);
   const [selectedEqallAmount, setSelectedEqallAmount] = useState<any>([]);
   // @ts-ignore
   const [selectedPaidBy, setselectedPaidBy] = useState<any>(null);
-  const [selectedAmount, setTotalAmount] = useState(null);
+  const [selectedAmount, setTotalAmount] = useState<any>(null);
+  const [sumOfSelectedAmt, setSumOfSelectedAmt] = useState<any>(null);
   const [selectedSegment, setSelectedSegment] = useState<
     "equal" | "amount" | "percentage"
   >("equal");
@@ -72,6 +73,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const nextStep = (formData: any) => {
     console.log("nextStep-Data", formData);
     console.log("currentStep", currentStep);
+    setShowError(false);
     if (currentStep === 2) {
       let totalSelectedAmount = selectedMember.map((total: any) => {
         return parseFloat(total.amount);
@@ -79,18 +81,23 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       console.log("totalSelectedAmount (as integers)", totalSelectedAmount);
       // Calculate the sum of the amounts
       let sumOfSelectedAmount = totalSelectedAmount.reduce(
-        (acc: any, curr: any) => acc + curr
+        (acc: any, curr: any) => acc + curr,
+        0
       );
-      console.log("sumOfSelectedAmount", sumOfSelectedAmount);
+      console.log("sumOfSelectedAmount (before rounding)", sumOfSelectedAmount);
+      // Apply rounding based on the decimal part
+      let roundedSumOfSelectedAmount =
+        sumOfSelectedAmount % 1 >= 0.5
+          ? Math.ceil(sumOfSelectedAmount)
+          : Math.floor(sumOfSelectedAmount);
+      console.log("roundedSumOfSelectedAmount", roundedSumOfSelectedAmount);
+      // Parse the selected amount as an integer for comparison
       let selectedAmountInt = parseFloat(selectedAmount || "0");
       console.log("selectedAmountInt", selectedAmountInt);
-      // Check if the total matches selectedAmount
-      if (sumOfSelectedAmount !== selectedAmountInt) {
-        alert(
-          `The total amount does not match the entered ${
-            selectedSegment === "amount" ? "dollar amount" : "percentage"
-          }.`
-        );
+      // Set the rounded sum and check if it matches the selected amount
+      setSumOfSelectedAmt(roundedSumOfSelectedAmount);
+      if (roundedSumOfSelectedAmount !== selectedAmountInt) {
+        setShowError(true);
         return; // Prevent moving to the next step
       }
     }
@@ -502,11 +509,45 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                       </IonItem>
                     ))}
                   </IonList>
-                  <IonLabel className="contribution_alert">
-                    $0.00 of $1000
-                    <IonText className="balance">($1000 left)</IonText>
-                  </IonLabel>
                 </div>
+              )}
+              {showError && (
+                <>
+                  {selectedSegment === "amount" && (
+                    <IonLabel className="contribution_alert">
+                      ${sumOfSelectedAmt} of ${selectedAmount}
+                      <IonText className="balance">
+                        ($
+                        {Math.abs(selectedAmount - sumOfSelectedAmt).toFixed(
+                          2
+                        )}{" "}
+                        {selectedAmount - sumOfSelectedAmt < 0
+                          ? "exceeded"
+                          : "left"}
+                        )
+                      </IonText>
+                    </IonLabel>
+                  )}
+
+                  {selectedSegment === "percentage" && (
+                    <IonLabel className="contribution_alert">
+                      {((sumOfSelectedAmt / selectedAmount) * 100).toFixed(2)}%
+                      of 100%
+                      <IonText className="balance">
+                        (%
+                        {Math.abs(
+                          ((selectedAmount - sumOfSelectedAmt) /
+                            selectedAmount) *
+                            100
+                        ).toFixed(2)}{" "}
+                        {selectedAmount - sumOfSelectedAmt < 0
+                          ? "exceeded"
+                          : "left"}
+                        )
+                      </IonText>
+                    </IonLabel>
+                  )}
+                </>
               )}
             </IonGrid>
 
