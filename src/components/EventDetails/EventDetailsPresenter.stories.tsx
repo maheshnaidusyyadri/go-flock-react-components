@@ -10,6 +10,7 @@ import {
   IphoneDeviceContext,
   ownerEventRelation,
   OwnerProfile,
+  rsvpGuestEventRelation,
 } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
 
@@ -101,5 +102,5 @@ EventGuestViewUnAuthRSVPFlow.args = {
 export const EventGuestViewPostRSVP = Template.bind({});
 EventGuestViewPostRSVP.args = {
   ...PublicEventHostViewWithInvitation.args,
-  eventRelation: guestEventRelation,
+  eventRelation: rsvpGuestEventRelation,
 };

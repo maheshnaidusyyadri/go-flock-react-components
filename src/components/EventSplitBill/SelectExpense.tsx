@@ -11,9 +11,10 @@ import {
   IonText,
   IonHeader,
   IonTitle,
+  IonAvatar,
 } from "@ionic/react";
-import ProfileIcon from "../../images/profile.png";
 import backArrow from "../../images/icons/back-arrow.svg";
+import { getDisplayName } from "../../utils/utils";
 
 interface SelectMembersProps {
   members: any[];
@@ -32,32 +33,30 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
 }) => {
   const [selectedMembers, setSelectedMembers] = useState<any[]>([]);
   const [selectedMember, setSelectedMember] = useState<any | null>(null);
-  // Handle member selection
   const handleSelectMember = (member: any) => {
     if (isMultiple) {
       setSelectedMembers((prevSelectedMembers) => {
         const updatedSelectedMembers = prevSelectedMembers.includes(member)
-          ? prevSelectedMembers.filter((m) => m.id !== member.id) // Deselect if already selected
-          : [...prevSelectedMembers, member]; // Select if not selected
+          ? prevSelectedMembers.filter((m) => m.id !== member.id)
+          : [...prevSelectedMembers, member];
 
-        onMemberSelect(updatedSelectedMembers); // Pass selected members to parent
+        onMemberSelect(updatedSelectedMembers);
         return updatedSelectedMembers;
       });
     } else {
       const newSelectedMember =
         selectedMember?.id === member.id ? null : member;
       setSelectedMember(newSelectedMember);
-      onMemberSelect(newSelectedMember); // Pass selected member to parent
+      onMemberSelect(newSelectedMember);
     }
   };
-  // Handle "Select All" or "Deselect All" for multiple selection
   const handleSelectAll = () => {
     if (selectedMembers.length === members.length) {
-      setSelectedMembers([]); // Deselect all
-      onMemberSelect([]); // Pass deselected state to parent
+      setSelectedMembers([]);
+      onMemberSelect([]);
     } else {
-      setSelectedMembers(members); // Select all members
-      onMemberSelect(members); // Pass all selected members to parent
+      setSelectedMembers(members);
+      onMemberSelect(members);
     }
   };
   const handleBack = () => {
@@ -87,20 +86,25 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
           {members.map((member: any, index: number) => (
             <IonItem
               key={index}
-              className={`user_item ${
-                (isMultiple &&
-                  selectedMembers.some((m) => m.id === member.id)) ||
-                (!isMultiple && selectedMember?.id === member.id)
-                  ? "selected"
-                  : ""
-              }`} // Conditional class for selection
-              onClick={() => handleSelectMember(member)} // Handle selection
+              className="user_item"
+              onClick={() => handleSelectMember(member)}
             >
+              {((isMultiple &&
+                selectedMembers.some((m) => m.id === member.id)) ||
+                (!isMultiple && selectedMember?.id === member.id)) && (
+                <IonLabel>Selected</IonLabel>
+              )}
               <IonThumbnail slot="start" className="dp">
-                <IonImg
-                  src={member.profileImage || ProfileIcon}
-                  alt={`${member.name}'s profile`}
-                />
+                {member.profileImg ? (
+                  <IonImg
+                    src={member.profileImg}
+                    alt={`${member.name}'s profile`}
+                  />
+                ) : (
+                  <IonAvatar className="profile-dp">
+                    {getDisplayName(member?.name)}
+                  </IonAvatar>
+                )}
               </IonThumbnail>
               <IonLabel className="user_name">
                 {member.name}

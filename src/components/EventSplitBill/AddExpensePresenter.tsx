@@ -22,7 +22,6 @@ import { EventAddExpenseProps } from "@goflock/types/src/presenter/";
 import EqualIcon from "../../images/icons/Equal.svg";
 import DollarIcon from "../../images/icons/Dollar.svg";
 import PercentIcon from "../../images/icons/Percent.svg";
-import ProfileIcon from "../../images/profile.png";
 import unselect from "../../images/icons/remove.svg";
 
 import Header from "../Header/Header";
@@ -31,6 +30,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import SelectMembers from "./SelectExpense";
 //import { EventMember, Transaction } from "@goflock/types";
 import { EventMember, Transaction } from "@goflock/types/src/index";
+import { getDisplayName } from "../../utils/utils";
 
 const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   profile,
@@ -45,6 +45,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
   //const [selectedMember, setSelectedMembers] = useState<EventMember[]>([]);
   const [selectedMember, setSelectedMembers] = useState<any>([]);
+  const [selectedEqallAmount, setSelectedEqallAmount] = useState<any>([]);
   // @ts-ignore
   const [selectedPaidBy, setselectedPaidBy] = useState(null);
   const [selectedAmount, setTotalAmount] = useState(null);
@@ -69,20 +70,20 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   } = useForm();
 
   // Function to go to the previous step
-  const nextStep = () => {
+  const nextStep = (formData: any) => {
+    console.log("nextStep-Data", formData);
     console.log("currentStep", currentStep);
     if (currentStep === 2) {
       let totalSelectedAmount = selectedMember.map((total: any) => {
-        return parseInt(total.amount, 10);
+        return parseFloat(total.amount);
       });
       console.log("totalSelectedAmount (as integers)", totalSelectedAmount);
       // Calculate the sum of the amounts
       let sumOfSelectedAmount = totalSelectedAmount.reduce(
-        (acc: any, curr: any) => acc + curr,
-        0
+        (acc: any, curr: any) => acc + curr
       );
       console.log("sumOfSelectedAmount", sumOfSelectedAmount);
-      let selectedAmountInt = parseInt(selectedAmount || "0", 10);
+      let selectedAmountInt = parseFloat(selectedAmount || "0");
       console.log("selectedAmountInt", selectedAmountInt);
       // Check if the total matches selectedAmount
       if (sumOfSelectedAmount !== selectedAmountInt) {
@@ -107,6 +108,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
             : "0";
       });
+      setSelectedEqallAmount(selectedMember);
+      console.log("selectedMember", selectedMember);
     }
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
@@ -132,10 +135,6 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     return "";
   };
 
-  // function setEventName(_arg0: string): void {
-  //   throw new Error("Function not implemented.");
-  // }
-
   const onError = (error: any) => {
     const formData = getValues(); // Get current form values
     console.log("Current Form Data:", formData);
@@ -143,7 +142,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   };
 
   useEffect(() => {
-    console.log("event", event);
+    console.log("event.members", event);
     setContactsList(event.members);
   }, [event]);
 
@@ -170,11 +169,6 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     setIsFromPaidBy(false);
     setIsOpen(true);
   };
-  const getDisplayName = (name: any) => {
-    return name.length > 1
-      ? name.slice(0, 2).toUpperCase()
-      : name.toUpperCase();
-  };
   const handleClose = () => {
     if (isFromPaidBy) {
       setValue("paidBy", null);
@@ -200,7 +194,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     trigger();
   };
 
-  const handleSave = () => {
+  const handleSave = (formData: any) => {
+    console.log("handleSave-Data", formData);
     handleAddTransaction();
   };
 
@@ -390,13 +385,21 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
               {selectedSegment === "equal" && (
                 <div id="home-page">
                   <IonList className="list_wrap">
-                    {selectedMember.map((Item: any, index: any) => (
+                    {selectedEqallAmount.map((Item: any, index: any) => (
                       <IonItem key={index} className="user_item">
                         <IonThumbnail slot="start" className="dp">
-                          <IonImg
-                            src={Item.profileImg}
-                            alt={`${Item.name}'s profile`}
-                          />
+                          {Item.profileImg ? (
+                            <IonAvatar className="profile-avatar">
+                              <img
+                                src={Item.profileImg}
+                                alt={`${Item.name}'s profile`}
+                              />
+                            </IonAvatar>
+                          ) : (
+                            <IonAvatar className="profile-dp">
+                              {getDisplayName(Item?.name)}
+                            </IonAvatar>
+                          )}
                         </IonThumbnail>
                         <IonLabel className="user_name">
                           {Item.name || Item.phoneNumber}
@@ -408,16 +411,24 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 </div>
               )}
 
-              {selectedSegment === "amount" && true && (
+              {selectedSegment === "amount" && (
                 <div id="radio-page">
                   <IonList className="list_wrap">
                     {selectedMember.map((Item: any, index: any) => (
                       <IonItem key={index} className="user_item">
                         <IonThumbnail slot="start" className="dp">
-                          <IonImg
-                            src={ProfileIcon}
-                            alt={`${Item.name}'s profile`}
-                          />
+                          {Item.profileImg ? (
+                            <IonAvatar className="profile-avatar">
+                              <img
+                                src={Item.profileImg}
+                                alt={`${Item.name}'s profile`}
+                              />
+                            </IonAvatar>
+                          ) : (
+                            <IonAvatar className="profile-dp">
+                              {getDisplayName(Item?.name)}
+                            </IonAvatar>
+                          )}
                         </IonThumbnail>
                         <IonLabel className="user_name">
                           {Item.name || Item.phone}
@@ -446,10 +457,18 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                     {selectedMember.map((Item: any, index: any) => (
                       <IonItem key={index} className="user_item">
                         <IonThumbnail slot="start" className="dp">
-                          <IonImg
-                            src={ProfileIcon}
-                            alt={`${Item.name}'s profile`}
-                          />
+                          {Item.profileImg ? (
+                            <IonAvatar className="profile-avatar">
+                              <img
+                                src={Item.profileImg}
+                                alt={`${Item.name}'s profile`}
+                              />
+                            </IonAvatar>
+                          ) : (
+                            <IonAvatar className="profile-dp">
+                              {getDisplayName(Item?.name)}
+                            </IonAvatar>
+                          )}
                         </IonThumbnail>
                         <IonLabel className="user_name">
                           {Item.name || Item.phone}
@@ -478,10 +497,18 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 {selectedMember.map((Item: any, index: any) => (
                   <IonItem key={index} className="user_item">
                     <IonThumbnail slot="start" className="dp">
-                      <IonImg
-                        src={Item.profileImg}
-                        alt={`${Item.name}'s profile`}
-                      />
+                      {Item.profileImg ? (
+                        <IonAvatar className="profile-avatar">
+                          <img
+                            src={Item.profileImg}
+                            alt={`${Item.name}'s profile`}
+                          />
+                        </IonAvatar>
+                      ) : (
+                        <IonAvatar className="profile-dp">
+                          {getDisplayName(Item?.name)}
+                        </IonAvatar>
+                      )}
                     </IonThumbnail>
                     <IonLabel className="user_name">
                       {Item.name || Item.phoneNumber}
@@ -510,7 +537,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             {currentStep === totalSteps && (
               <IonButton
                 className="primary-btn save"
-                onClick={() => handleSave()}
+                // onClick={() => handleSave()}
+                onClick={handleSubmit(handleSave, onError)}
                 expand="block"
               >
                 Save & Back To Home

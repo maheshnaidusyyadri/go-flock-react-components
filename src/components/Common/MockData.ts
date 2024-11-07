@@ -158,12 +158,16 @@ export const EventWithMembers: Event = {
       eventId: "event_12345",
       name: "Alice Smith",
       email: "alice.smith@example.com",
+      profileImg:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5q9GlWCAoQHPpOiDOECuYUeXW9MQP7Ddt-Q&s",
     },
     {
       id: "admin_002",
       eventId: "event_12345",
       name: "Bob Johnson",
       email: "bob.johnson@example.com",
+      profileImg:
+        "https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg",
     },
     {
       id: "member_001",
