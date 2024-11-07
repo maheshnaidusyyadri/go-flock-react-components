@@ -73,46 +73,53 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
 
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect
-    const filteredPhotos = galleryPhotos
+    const filteredMedia = media
       ?.filter((photo: any) => {
         if (selectedSegment === "all") return true;
-        if (selectedSegment === "photo") return photo.type === "image/png";
-        if (selectedSegment === "video") return photo.type === "video";
-        if (selectedSegment === "document") return photo.type === "document";
+        if (selectedSegment === "photo")
+          return photo.metadata.type.includes("image");
+        if (selectedSegment === "video")
+          return photo.metadata.type.includes("video");
+        if (selectedSegment === "document")
+          return photo.metadata.type.includes("document");
         return false;
       })
-      .map((photo: any) => ({
-        ...photo,
-        src: photo.downloadUrl,
+      .map((mediaItem: any) => ({
+        ...mediaItem,
+        src: mediaItem.downloadUrl,
         label: "Open image in a lightbox",
-        width: photo.width || 0,
-        height: photo.height || 0,
-        ...(photo.type === "video"
+        width: mediaItem.width || 0,
+        height: mediaItem.height || 0,
+        ...(mediaItem.metadata.type.includes("video")
           ? {
-              type: photo.type,
+              type: mediaItem.metadata.type.includes("video") ? "video" : "",
               sources: [
                 {
-                  src: photo.downloadUrl,
-                  type: "video/mp4",
+                  src: mediaItem.downloadUrl,
+                  type: mediaItem.metadata.type,
                 },
               ],
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.thumbnailUrl,
+                src: mediaItem.thumbnailUrl,
                 width: breakpoint,
-                height: Math.round((photo.height / photo.width) * breakpoint),
+                height: Math.round(
+                  (mediaItem.height / mediaItem.width) * breakpoint
+                ),
               })),
             }
           : {
-              type: photo.type.startsWith("image") ? "image" : "",
+              type: mediaItem.type.includes("image") ? "image" : "",
               srcSet: breakpoints.map((breakpoint) => ({
-                src: photo.downloadUrl,
+                src: mediaItem.downloadUrl,
                 width: breakpoint,
-                height: Math.round((photo.height / photo.width) * breakpoint),
+                height: Math.round(
+                  (mediaItem.height / mediaItem.width) * breakpoint
+                ),
               })),
             }),
       }));
 
-    setPhotos(filteredPhotos);
+    setPhotos(filteredMedia);
   }, [selectedSegment]);
 
   useEffect(() => {
@@ -125,14 +132,14 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
 
     let results = media.map((photo: any) => ({
       ...photo,
-      ...(photo.type == "video"
+      ...(photo.metadata.type.includes("video")
         ? {
             src: photo.downloadUrl,
-            type: photo.type,
+            type: photo.metadata.type.includes("video") ? "video" : "",
             sources: [
               {
                 src: photo.downloadUrl,
-                type: "video/mp4",
+                type: photo.metadata.type,
               },
             ],
             srcSet: breakpoints.map((breakpoint) => ({
@@ -145,8 +152,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             ...photo,
             ...{
               src: photo.downloadUrl,
-              //  type: photo.type,
-              type: photo.type.startsWith("image") ? "image" : "",
+              type: photo.type.includes("image") ? "image" : "",
               srcSet: breakpoints.map((breakpoint) => ({
                 src: photo.downloadUrl,
                 width: breakpoint,
