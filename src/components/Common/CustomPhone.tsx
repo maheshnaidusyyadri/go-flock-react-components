@@ -23,7 +23,6 @@ interface CustomPhoneNumberProps {
 
 const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
   fieldName,
-  label,
   isRequired = false,
   errors,
   errorText,
