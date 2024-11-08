@@ -90,12 +90,14 @@ export const OwnerProfile: Profile = {
   id: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
   prefName: "Jane Doe",
   isIntroShown: true,
-  pictureUrl: "https://via.placeholder.com/150",
+  pictureUrl:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5q9GlWCAoQHPpOiDOECuYUeXW9MQP7Ddt-Q&s",
   preferences: {
     smsNotifications: true,
     emailNotifications: true,
     pushNotifications: false,
   },
+  phone: "19999955555",
 };
 
 export const CohostProfile: Profile = {

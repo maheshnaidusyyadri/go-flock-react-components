@@ -45,12 +45,12 @@ const EditProfile: React.FC<EditProfileProps> = ({
       setValue("name", profile.prefName);
     }
     if (profile.phone) {
-      setValue("phone", profile.phone);
+      setValue("phone", "+" + profile.phone);
     }
   }, [profile.prefName, profile.phone]);
 
   const handlePreferredNameChange = async () => {
-    console.log(isLoading);
+    console.log("formData,", isLoading);
     setIsLoading(true);
     try {
       const success = await setPreferredName(preferredName);
@@ -112,7 +112,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
-            <IonImg className="dp" src={image || ProfileDp}></IonImg>
+            <IonImg
+              className="dp"
+              src={image || profile.pictureUrl || ProfileDp}
+            ></IonImg>
             <span
               className="dp_edit"
               onClick={() => fileInputRef.current?.click()}
@@ -143,13 +146,14 @@ const EditProfile: React.FC<EditProfileProps> = ({
                     placeholder={"Enter Phone Number"}
                     label={"Phone Number"}
                     fieldName={"phone"}
-                    isRequired={true}
+                    isRequired={false}
                     errors={errors}
                     defaultValue={phone}
                     errorText={"Phone Number"}
                     inputType={"text"}
                     register={register}
                     onInputChange={(e) => setPhone(e.detail.value!)}
+                    readOnly={true}
                   />
                 </div>
                 <div className="terms">

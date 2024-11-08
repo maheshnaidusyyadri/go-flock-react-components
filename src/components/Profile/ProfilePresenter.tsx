@@ -13,11 +13,9 @@ import {
   IonList,
   IonActionSheet,
   IonGrid,
-  IonModal,
 } from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
-import ProfileDp from "../../images/profile.png";
 import ProfileIcon from "../../images/icons/profile-circle.svg";
 import PrivacyIcon from "../../images/icons/shield-tick.svg";
 import LogOutIcon from "../../images/icons/logOut.svg";
@@ -51,9 +49,9 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
         />
         <IonContent className="ion-padding">
           <IonCard className="profile_card">
-            <IonImg className="dp" src={ProfileDp}></IonImg>
+            <IonImg className="dp" src={profile.pictureUrl}></IonImg>
             <IonTitle className="name">{profile.prefName}</IonTitle>
-            <IonText className="number">{profile.phone}</IonText>
+            <IonText className="number">{"+" + profile.phone}</IonText>
           </IonCard>
 
           <IonGrid className="pad0 profile_settings">
@@ -165,15 +163,12 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           >
             <img src={backArrow} alt="Page Back" />
           </IonLabel>
-
-          <IonModal isOpen={isProfileOpen}>
-            <EditProfile
-              profile={profile}
-              setPreferredName={setPreferredName}
-              setSMSPreference={setSMSPreference}
-              setProfileOpen={setProfileOpen}
-            />
-          </IonModal>
+          <EditProfile
+            profile={profile}
+            setPreferredName={setPreferredName}
+            setSMSPreference={setSMSPreference}
+            setProfileOpen={setProfileOpen}
+          />
         </>
       )}
       {isOpen && (
@@ -181,10 +176,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           <IonLabel className="modal_close" onClick={() => setIsOpen(false)}>
             <img src={backArrow} alt="Page Back" />
           </IonLabel>
-
-          <IonModal isOpen={isOpen}>
-            <PrivacyPolicy />
-          </IonModal>
+          <PrivacyPolicy />
         </>
       )}
     </>

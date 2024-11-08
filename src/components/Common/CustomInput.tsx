@@ -23,8 +23,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
   isRequired = false,
   errors,
   errorText,
-  readonly,
   inputType = "text",
+  readOnly,
   register,
   onInputChange,
 }) => {
@@ -37,7 +37,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
       )}
       <IonInput
         placeholder={placeholder}
-        readonly={readonly}
+        readonly={readOnly}
         type={inputType}
         {...register(fieldName, {
           required: isRequired,
