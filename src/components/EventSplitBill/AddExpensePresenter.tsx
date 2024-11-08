@@ -69,7 +69,13 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     trigger,
   } = useForm();
 
-  // Function to go to the previous step
+  function getDecimalValue(value: any) {
+    if (value % 1 === 0) {
+      return value.toFixed(2);
+    } else {
+      return Math.floor(value * 100) / 100;
+    }
+  }
   const nextStep = (formData: any) => {
     console.log("nextStep-Data", formData);
     console.log("currentStep", currentStep);
@@ -78,48 +84,104 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       let totalSelectedAmount = selectedMember.map((total: any) => {
         return parseFloat(total.amount);
       });
-      console.log("totalSelectedAmount (as integers)", totalSelectedAmount);
-      // Calculate the sum of the amounts
+      console.log("totalSelectedAmount (as floats)", totalSelectedAmount);
+      // Calculate the sum of the amounts without rounding
       let sumOfSelectedAmount = totalSelectedAmount.reduce(
-        (acc: any, curr: any) => acc + curr,
+        (acc: number, curr: number) => acc + curr,
         0
       );
-      console.log("sumOfSelectedAmount (before rounding)", sumOfSelectedAmount);
-      // Apply rounding based on the decimal part
-      let roundedSumOfSelectedAmount =
-        sumOfSelectedAmount % 1 >= 0.5
-          ? Math.ceil(sumOfSelectedAmount)
-          : Math.floor(sumOfSelectedAmount);
-      console.log("roundedSumOfSelectedAmount", roundedSumOfSelectedAmount);
-      // Parse the selected amount as an integer for comparison
+      console.log(
+        "sumOfSelectedAmount (without rounding)",
+        sumOfSelectedAmount
+      );
+      // Parse the selected amount for comparison
       let selectedAmountInt = parseFloat(selectedAmount || "0");
       console.log("selectedAmountInt", selectedAmountInt);
-      // Set the rounded sum and check if it matches the selected amount
-      setSumOfSelectedAmt(roundedSumOfSelectedAmount);
-      if (roundedSumOfSelectedAmount !== selectedAmountInt) {
+      setSumOfSelectedAmt(sumOfSelectedAmount);
+      // const tolerance = 0.01;
+      // if (Math.abs(sumOfSelectedAmount - selectedAmountInt) > tolerance) {
+      //   setShowError(true);
+      //   return;
+      // }
+      if (sumOfSelectedAmount !== selectedAmountInt) {
         setShowError(true);
-        return; // Prevent moving to the next step
+        return;
       }
     }
+
     if (currentStep === 1) {
-      const validSelectedAmount = selectedAmount !== null ? selectedAmount : 0;
+      const validSelectedAmount =
+        selectedAmount !== null ? parseFloat(selectedAmount) : 0;
+
       const shareAmount =
         selectedMember.length > 0
-          ? (validSelectedAmount / selectedMember.length).toFixed(2)
-          : "0";
+          ? validSelectedAmount / selectedMember.length
+          : 0;
+
       selectedMember.forEach((memberItem: any) => {
-        memberItem.amount = shareAmount;
+        memberItem.amount = getDecimalValue(shareAmount);
         memberItem.percentage =
           validSelectedAmount > 0
-            ? ((parseFloat(shareAmount) / validSelectedAmount) * 100).toFixed(2)
-            : "0";
+            ? getDecimalValue((shareAmount / validSelectedAmount) * 100)
+            : 0;
       });
-      setSelectedEqallAmount(selectedMember);
-      console.log("selectedMember", selectedMember);
+      const sumOfSelectedAmount = selectedMember.reduce(
+        (acc: number, curr: any) => acc + parseFloat(curr.amount),
+        0
+      );
+
+      console.log("shareAmount", shareAmount);
+      console.log("selectedMember after distribution", selectedMember);
+      console.log(
+        "sumOfSelectedAmount after distribution",
+        sumOfSelectedAmount
+      );
+
+      const remainingAmount = validSelectedAmount - sumOfSelectedAmount;
+
+      console.log("remainingAmount to be adjusted", remainingAmount);
+
+      const isSelectedPaidByInList = selectedMember.some(
+        (member: any) => member.id === selectedPaidBy?.id
+      );
+
+      let updatedSelectedMember = [...selectedMember];
+
+      if (isSelectedPaidByInList) {
+        updatedSelectedMember = selectedMember.map((member: any) => {
+          if (member.id === selectedPaidBy?.id) {
+            const updatedAmount = parseFloat(member.amount) + remainingAmount;
+            const updatedPercentage =
+              (updatedAmount / validSelectedAmount) * 100;
+            return {
+              ...member,
+              amount: updatedAmount.toFixed(2),
+              percentage: getDecimalValue(updatedPercentage),
+            };
+          }
+          return member;
+        });
+      } else {
+        updatedSelectedMember[0].amount = (
+          parseFloat(updatedSelectedMember[0].amount) + remainingAmount
+        ).toFixed(2);
+        const updatedFirstMemberPercentage =
+          (parseFloat(updatedSelectedMember[0].amount) / validSelectedAmount) *
+          100;
+        updatedSelectedMember[0].percentage = getDecimalValue(
+          updatedFirstMemberPercentage
+        );
+      }
+      setSelectedEqallAmount(updatedSelectedMember);
+      setSelectedMembers(updatedSelectedMember);
+      console.log(
+        "updatedSelectedMember after adjustment",
+        updatedSelectedMember
+      );
     }
+
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
-
   const prevStep = () => {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
