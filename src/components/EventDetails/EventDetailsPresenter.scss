@@ -488,6 +488,7 @@ body {
     display: flex;
     padding: 0;
     margin: 0;
+    position: relative;
     .guest_info {
       width: 100%;
       padding: 0;
@@ -538,9 +539,13 @@ body {
         }
       }
     }
+    .form-error {
+      left: 8px;
+      bottom: -10px;
+    }
   }
   .guest_form {
-    padding: 20px 8px;
+    padding: 10px 8px;
     z-index: 99;
     position: relative;
   }

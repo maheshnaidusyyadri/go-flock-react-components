@@ -604,12 +604,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     </IonCard>
                   </IonCard>
                 </IonCard>
+                {showValidation && (
+                  <IonText class="form-error">
+                    {"* At least one adult or kid is required"}
+                  </IonText>
+                )}
               </IonGrid>
-            )}
-            {showValidation && (
-              <IonText class="error" color="danger" style={{ fontSize: 12 }}>
-                {"* At least one adult or kid is required"}
-              </IonText>
             )}
 
             <IonGrid className="guest_form">
@@ -644,7 +644,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         <CustomPhoneNumber
                           control={control}
                           fieldName="phone"
-                          label="Country"
                           isRequired={true}
                           errors={errors}
                           register={register}
