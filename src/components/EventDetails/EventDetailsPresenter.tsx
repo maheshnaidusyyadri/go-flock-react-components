@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EventDetailsPresenter.scss";
 import {
   IonAvatar,
@@ -206,6 +206,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setKidsCount(0);
     setAdultCount(0);
   };
+  useEffect(() => {
+    console.log("event", event);
+  }, []);
 
   return (
     <>
@@ -370,88 +373,66 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonGrid className="status_sec">
                 <IonLabel className="status-title">RSVP Status</IonLabel>
                 <IonRow className="status_cards success">
-                  {event.members &&
-                    event.members.slice(0, 3).map((status, index) => (
-                      <IonCol
-                        key={status.name}
-                        className={
-                          index == 0
-                            ? "status_card"
-                            : index == 1
-                            ? "status_card error"
-                            : index == 2
-                            ? "status_card warning"
-                            : "status_card"
-                        }
-                      >
-                        <IonItem className="rvsp_info">
-                          <IonAvatar className="avatar">
-                            <IonImg
-                              className="ion-img"
-                              src={
-                                index == 0
-                                  ? userTickIcon
-                                  : index == 1
-                                  ? userCrossIcon
-                                  : index == 2
-                                  ? helpIcon
-                                  : userCrossIcon
-                              }
-                              alt="Event"
-                            />
-                          </IonAvatar>
-                          <IonLabel className="ion-label">
-                            10
-                            <IonText className="rsvp_response">
-                              {status?.rsvp?.response}
-                            </IonText>
+                  {Object.entries(event?.counters || {})
+                    .filter(([statusName]) =>
+                      ["attendingRSVP", "maybeRSVP", "declinedRSVP"].includes(
+                        statusName
+                      )
+                    )
+                    .map(([statusName, statusData]) => {
+                      return (
+                        <IonCol
+                          key={statusName}
+                          className={
+                            statusName === "attendingRSVP"
+                              ? "status_card"
+                              : statusName === "declinedRSVP"
+                              ? "status_card error"
+                              : statusName === "maybeRSVP"
+                              ? "status_card warning"
+                              : ""
+                          }
+                        >
+                          <IonItem className="rvsp_info">
+                            <IonAvatar className="avatar">
+                              <IonImg
+                                className="ion-img"
+                                src={
+                                  statusName === "attendingRSVP"
+                                    ? userTickIcon
+                                    : statusName === "maybeRSVP"
+                                    ? helpIcon
+                                    : userCrossIcon
+                                }
+                                alt="Event"
+                              />
+                            </IonAvatar>
+                            <IonLabel className="ion-label">
+                              {statusData.total}
+                              <IonText className="rsvp_response">
+                                {statusName === "attendingRSVP"
+                                  ? "Attending"
+                                  : statusName === "maybeRSVP"
+                                  ? "Maybe"
+                                  : "Declined"}
+                              </IonText>
+                            </IonLabel>
+                          </IonItem>
+
+                          <IonLabel className="guests_count">
+                            (
+                            <IonText className="count">
+                              {statusData.adults}
+                            </IonText>{" "}
+                            Adults &{" "}
+                            <IonText className="count">
+                              {statusData.kids}
+                            </IonText>{" "}
+                            Children)
                           </IonLabel>
-                        </IonItem>
-                        {/* <span className="devider"></span> */}
-                        <IonLabel className="guests_count">
-                          {/* {status?.rsvp?.count ? status?.rsvp?.count : 0} */}
-                          ( <IonText className="count">50</IonText>Adults &{" "}
-                          <IonText className="count">100</IonText>
-                          Children )
-                        </IonLabel>
-                      </IonCol>
-                    ))}
-                  {/* <IonCol className="status_card">
-                    <IonAvatar className="avatar">
-                      <IonImg
-                        className="ion-img"
-                        src={userCrossIcon}
-                        alt="Event"
-                      />
-                    </IonAvatar>
-                    <IonLabel className="ion-label">Attending</IonLabel>
-                    <span className="devider"></span>
-                    <IonLabel className="count">0</IonLabel>
-                  </IonCol>
-                  <IonCol className="status_card error">
-                    <IonAvatar className="avatar">
-                      <IonImg
-                        className="ion-img"
-                        src={userTickIcon}
-                        alt="Event"
-                      />
-                    </IonAvatar>
-                    <IonLabel className="ion-label">Not Attending</IonLabel>
-                    <span className="devider"></span>
-                    <IonLabel className="count">0</IonLabel>
-                  </IonCol>
-                  <IonCol className="status_card warning">
-                    <IonAvatar className="avatar">
-                      <IonImg
-                        className="ion-img"
-                        src={helpIcon}
-                        alt="Event"
-                      />
-                    </IonAvatar>
-                    <IonLabel className="ion-label">Not Sure</IonLabel>
-                    <span className="devider"></span>
-                    <IonLabel className="count">0</IonLabel>
-                  </IonCol> */}
+                        </IonCol>
+                      );
+                    })}
                 </IonRow>
               </IonGrid>
             </>
