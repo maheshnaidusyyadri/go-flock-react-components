@@ -92,8 +92,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       } else {
         setActiveOption("notSure");
       }
-      setAdultCount(eventRelation.rsvp.kidsCount || 0);
-      setKidsCount(eventRelation.rsvp.adultsCount || 0);
+      setAdultCount(eventRelation.rsvp.adultsCount || 0);
+      setKidsCount(eventRelation.rsvp.kidsCount || 0);
     }
     setIsInviteActive(!isInviteActive);
   };
