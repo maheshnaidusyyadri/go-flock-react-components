@@ -55,6 +55,7 @@ import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
 import RSVPSuccess from "../../images/RSVP_success.svg";
 import OtpVerification from "../Common/OtpVerification";
+import { getDisplayNamewithchr } from "../../utils/utils";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
@@ -320,22 +321,27 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 <>
                   <IonItemDivider className="devider"></IonItemDivider>
                   <IonItem className="ion-list">
-                    <IonCard className="venue_info">
-                      <IonThumbnail
-                        className="dp"
-                        //onClick={() => navigateToEventLocation(event.id)}
-                      >
-                        <IonImg src={ProfileIcon} alt=" " />
-                      </IonThumbnail>
-                      <IonCardContent className="event_titles">
-                        <IonCardTitle className="event_title">
-                          Hosted by
-                        </IonCardTitle>
-                        <IonCardSubtitle className="event_hostname">
-                          {event.hostedBy}
-                        </IonCardSubtitle>
-                      </IonCardContent>
-                    </IonCard>
+                    {event.hostedBy && (
+                      <IonCard className="venue_info">
+                        <IonThumbnail
+                          className="dp"
+                          //onClick={() => navigateToEventLocation(event.id)}
+                        >
+                          {/* <IonImg src={ProfileIcon} alt=" " /> */}
+                          <IonAvatar className="profile-dp">
+                            {getDisplayNamewithchr(event.hostedBy)}
+                          </IonAvatar>
+                        </IonThumbnail>
+                        <IonCardContent className="event_titles">
+                          <IonCardTitle className="event_title">
+                            Hosted by
+                          </IonCardTitle>
+                          <IonCardSubtitle className="event_hostname">
+                            {event.hostedBy}
+                          </IonCardSubtitle>
+                        </IonCardContent>
+                      </IonCard>
+                    )}
                   </IonItem>
                 </>
               )}

@@ -13,7 +13,12 @@ import {
 import { Event } from "@goflock/types/src/index";
 import menuIcon from "../../../images/icons/menu_icon.svg";
 import DisplayDate from "../../../utils/DisplayDate";
-
+import birthdayIcon from "../../../images/icons/birthday.svg";
+import vacationIcon from "../../../images/icons/vacation.svg";
+import marriageIcon from "../../../images/icons/marriage.svg";
+import graduationIcon from "../../../images/icons/graduation.svg";
+import moreIcon from "../../../images/icons/more.svg";
+import defaultEvent from "../../../images/icons/default.png";
 interface EventItemProps {
   event: Event;
   onOpen: (eventId: string) => void;
@@ -46,20 +51,51 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
     }
     handleActionSheetDismiss(); // Dismiss the action sheet after an action is taken
   };
+  const showIcons = (eventType: any) => {
+    if (eventType === "birthday") {
+      return birthdayIcon;
+    } else if (eventType === "vacation") {
+      return vacationIcon;
+    } else if (eventType === "marriage") {
+      return marriageIcon;
+    } else if (eventType === "graduation") {
+      return graduationIcon;
+    } else if (eventType === "Others") {
+      return moreIcon;
+    }
+    return defaultEvent;
+  };
+  const getBackGround = (eventType: string) => {
+    if (eventType === "birthday") {
+      return "#6764fd";
+    } else if (eventType === "vacation") {
+      return "#fd6612";
+    } else if (eventType === "marriage") {
+      return "#ea4335";
+    } else if (eventType === "graduation") {
+      return "#f7b20f";
+    }
+    return "#34a853";
+  };
 
   return (
     <>
-      <IonCard
-        className="event_item"
-        onClick={() => onOpen(event.id)}
-      >
-        <IonThumbnail className="display_pic">
-          <IonImg
-            className="events"
-            alt="Events"
-            src={event.invitationCard?.url}
-          />
-        </IonThumbnail>
+      <IonCard className="event_item" onClick={() => onOpen(event.id)}>
+        {event.invitationCard?.url ? (
+          <IonThumbnail className="display_pic">
+            <IonImg
+              className="events"
+              alt="Events"
+              src={event.invitationCard?.url}
+            />
+          </IonThumbnail>
+        ) : (
+          <IonCard style={{ background: getBackGround(event.type) }}>
+            <IonThumbnail className="icon-thumb">
+              <IonImg src={showIcons(event.type)}></IonImg>
+            </IonThumbnail>
+          </IonCard>
+        )}
         <IonCardContent className="event_info">
           <IonCardTitle className="event-name">{event.name}</IonCardTitle>
           <IonLabel className="event-date">
@@ -73,11 +109,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
             setShowFirstActionSheet(true);
           }}
         >
-          <IonImg
-            className="events"
-            alt="Event Details"
-            src={menuIcon}
-          />
+          <IonImg className="events" alt="Event Details" src={menuIcon} />
         </IonThumbnail>
       </IonCard>
 
