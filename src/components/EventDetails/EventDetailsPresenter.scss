@@ -43,7 +43,10 @@ body {
       padding: 0;
       margin: 0 0 16px 0;
       width: 100%;
-      height: auto;
+      height: 200px;
+      ion-img {
+        border-radius: 12px;
+      }
     }
     .event_brief {
       font-family: $GoFlockFont;
@@ -89,6 +92,15 @@ body {
               color: $secondaryColor;
               display: block;
               text-align: left;
+              &.going {
+                color: #12b76a;
+              }
+              &.not-going {
+                color: #fc0005;
+              }
+              &.not-sure {
+                color: #f29126;
+              }
             }
             .event_subtitle {
               display: block;
