@@ -287,6 +287,7 @@ export const EventWithMembers: Event = {
       date: "2024-12-01T00:00:00Z",
       deleted: false,
       currency: "USD",
+      addedByUserId: "",
     },
     {
       id: "txn_002",
@@ -319,6 +320,7 @@ export const EventWithMembers: Event = {
       date: "2024-11-25T00:00:00Z",
       deleted: false,
       currency: "USD",
+      addedByUserId: "",
     },
     {
       id: "txn_003",
@@ -341,6 +343,7 @@ export const EventWithMembers: Event = {
       date: "2024-12-20T00:00:00Z",
       deleted: false,
       currency: "USD",
+      addedByUserId: "",
     },
   ],
   deleted: false,
@@ -453,6 +456,7 @@ export const EventWithTransactions: Event = {
       date: "2024-12-01T00:00:00Z",
       deleted: false,
       currency: "USD",
+      addedByUserId: "member_001",
     },
     {
       id: "txn_002",
@@ -480,6 +484,7 @@ export const EventWithTransactions: Event = {
       date: "2024-11-25T00:00:00Z",
       deleted: false,
       currency: "USD",
+      addedByUserId: "member_001",
     },
     {
       id: "txn_003",
@@ -502,6 +507,7 @@ export const EventWithTransactions: Event = {
       date: "2024-12-20T00:00:00Z",
       deleted: false,
       currency: "USD",
+      addedByUserId: "member_001",
     },
   ],
 };
