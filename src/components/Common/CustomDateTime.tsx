@@ -6,9 +6,12 @@ import {
   IonDatetimeButton,
   IonModal,
   IonText,
+  IonImg,
 } from "@ionic/react";
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import calanderIcon from "../../images/calendar.svg";
+import clockIcon from "../../images/Clock.svg";
 
 interface CustomStartDateProps {
   control: any;
@@ -66,6 +69,10 @@ const CustomDateTime: React.FC<CustomStartDateProps> = ({
           {isRequired ? label + "*" : label}
         </IonLabel>
       )}
+      <IonImg
+        className="picker_icon"
+        src={presentation == "date" ? calanderIcon : clockIcon}
+      />
       <Controller
         defaultValue={defaultValue}
         name={fieldName}

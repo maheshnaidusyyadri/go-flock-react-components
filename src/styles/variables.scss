@@ -262,14 +262,6 @@ body {
     --padding-top: 10px; /* Padding on the top */
     --padding-bottom: 10px; /* Padding on the bottom */
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    &.date {
-      background: url("../../images/calendar.svg") no-repeat calc(100% - 14px)
-        center;
-    }
-    &.time {
-      background: url("../../images/Clock.svg") no-repeat calc(100% - 14px)
-        center;
-    }
   }
   .ion-datetime-button::part(native) {
     background-color: transparent; /* Set a custom background color */
@@ -345,7 +337,12 @@ body {
     color: $GoFlockColor !important;
     margin-bottom: 4px;
   }
-
+  .picker_icon {
+    position: absolute;
+    right: 15px;
+    top: 46px;
+    z-index: -1;
+  }
   .ion-searchbar {
     margin: 0;
     padding: 0;
