@@ -32,7 +32,7 @@ import SelectMembers from "./SelectExpense";
 import { EventMember, Transaction } from "@goflock/types/src/index";
 import { getDisplayName } from "../../utils/utils";
 const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
-  //profile,
+  profile,
   event,
   addTransaction,
 }) => {
@@ -296,6 +296,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       paidUserId: selectedPaidBy.id,
       splitAmongUserIds: [],
       currency: "USD",
+      addedByUserId: profile.id,
     };
     if (selectedMember && selectedMember.length > 0) {
       transaction.splitAmongUserIds = selectedMember.map((member: any) => ({
@@ -376,7 +377,10 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                       onInputChange={(e) => setTotalAmount(e.detail.value)}
                     />
                   </IonList>
-                  <IonList className="form-group" onClick={handlePaidByClick}>
+                  <IonList
+                    className="form-group"
+                    onClick={handlePaidByClick}
+                  >
                     <CustomInput
                       placeholder={"You"}
                       label={"Paid by"}
@@ -469,8 +473,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="home-page">
                   <IonList className="list_wrap">
                     {selectedEqallAmount.map((Item: any, index: any) => (
-                      <IonItem key={index} className="user_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {Item.profileImg ? (
                             <IonAvatar className="profile-avatar">
                               <img
@@ -498,8 +508,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="radio-page">
                   <IonList className="list_wrap expense_tabs">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem key={index} className="user_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {Item.profileImg ? (
                             <IonAvatar className="profile-avatar">
                               <IonImg
@@ -538,8 +554,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <div id="library-page">
                   <IonList className="list_wrap expense_tabs">
                     {selectedMember.map((Item: any, index: any) => (
-                      <IonItem key={index} className="user_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {Item.profileImg ? (
                             <IonAvatar className="profile-avatar">
                               <img
@@ -616,8 +638,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
                 {selectedMember.map((Item: any, index: any) => (
-                  <IonItem key={index} className="user_item">
-                    <IonThumbnail slot="start" className="dp">
+                  <IonItem
+                    key={index}
+                    className="user_item"
+                  >
+                    <IonThumbnail
+                      slot="start"
+                      className="dp"
+                    >
                       {Item.profileImg ? (
                         <IonAvatar className="profile-avatar">
                           <img

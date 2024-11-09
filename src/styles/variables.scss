@@ -1157,6 +1157,9 @@ input[type="number"] {
               font-size: clamp(13px, 3.38vw, 14px);
             }
           }
+          &.divider {
+            display: none;
+          }
           // &:nth-child(2):before {
           //   content: "";
           //   width: 100%;
