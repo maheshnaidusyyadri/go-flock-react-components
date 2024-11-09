@@ -84,6 +84,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   } = useForm();
 
   const toggleGogingClass = () => {
+    if (eventRelation.rsvp) {
+      if (eventRelation.rsvp.response == "attending") {
+        setActiveOption("yes");
+      } else if (eventRelation.rsvp.response == "not-attending") {
+        setActiveOption("no");
+      } else {
+        setActiveOption("notSure");
+      }
+      setAdultCount(eventRelation.rsvp.kidsCount || 0);
+      setKidsCount(eventRelation.rsvp.adultsCount || 0);
+    }
     setIsInviteActive(!isInviteActive);
   };
 
@@ -191,7 +202,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setAdultCount(0);
   };
   useEffect(() => {
-    console.log("event", event);
+    console.log("eventRelation", eventRelation.rsvp);
   }, []);
 
   return (
@@ -227,28 +238,48 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             )}
             <IonText className="event_brief">{event.description}</IonText>
             <IonList className="listitems">
-              {!["admin", "owner"].includes(eventRelation?.visitType) && (
-                <IonItem className="ion-list">
-                  <IonCard className="venue_info">
-                    <IonThumbnail className="dp">
-                      <IonImg src={goingIcon} alt=" " />
+              {!["admin", "owner"].includes(eventRelation?.visitType) &&
+                eventRelation.rsvp && (
+                  <IonItem className="ion-list">
+                    <IonCard className="venue_info">
+                      <IonThumbnail className="dp">
+                        <IonImg src={goingIcon} alt=" " />
+                      </IonThumbnail>
+                      <IonCardContent className="event_titles">
+                        <IonCardTitle
+                          className={`event_title ${
+                            eventRelation.rsvp.response === "attending"
+                              ? "going"
+                              : eventRelation.rsvp.response === "not-attending"
+                              ? "not-going"
+                              : eventRelation.rsvp.response === "maybe"
+                              ? "not-sure"
+                              : ""
+                          }`}
+                        >
+                          {eventRelation.rsvp.response == "attending"
+                            ? "Going"
+                            : eventRelation.rsvp.response == "not-attending"
+                            ? "Not Going"
+                            : eventRelation.rsvp.response == "maybe"
+                            ? "Not sure"
+                            : ""}
+                        </IonCardTitle>
+                        <IonCardSubtitle className="event_subtitle">
+                          {eventRelation.rsvp.adultsCount} Adults,{" "}
+                          {eventRelation.rsvp.kidsCount} children
+                        </IonCardSubtitle>
+                      </IonCardContent>
+                    </IonCard>
+                    <IonThumbnail className="event_type">
+                      <IonImg
+                        src={reUpdateIcon}
+                        alt=""
+                        onClick={toggleGogingClass}
+                      />
                     </IonThumbnail>
-                    <IonCardContent className="event_titles">
-                      <IonCardTitle className="event_title">Going</IonCardTitle>
-                      <IonCardSubtitle className="event_subtitle">
-                        2 Adults, 3 children
-                      </IonCardSubtitle>
-                    </IonCardContent>
-                  </IonCard>
-                  <IonThumbnail className="event_type">
-                    <IonImg
-                      src={reUpdateIcon}
-                      alt=""
-                      onClick={toggleGogingClass}
-                    />
-                  </IonThumbnail>
-                </IonItem>
-              )}
+                  </IonItem>
+                )}
               <IonItem className="ion-list">
                 <IonCard className="venue_info">
                   <IonThumbnail className="dp">
