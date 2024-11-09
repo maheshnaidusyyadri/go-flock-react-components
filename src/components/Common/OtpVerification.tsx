@@ -3,6 +3,7 @@ import OtpInput from "react-otp-input";
 import { Controller } from "react-hook-form";
 import { IonCard, IonGrid, IonImg, IonLabel, IonText } from "@ionic/react";
 import Mobile from "../../images/otp_varification.svg";
+import PropTypes from "prop-types";
 
 type OtpVerificationProps = {
   control?: any;
@@ -30,7 +31,11 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
     <IonGrid className="varification_sec">
       <IonCard className="auth_cnt">
         <IonLabel className="auth-title">Verify Account</IonLabel>
-        <IonImg className="mobile" alt="Go Flock" src={Mobile} />
+        <IonImg
+          className="mobile"
+          alt="Go Flock"
+          src={Mobile}
+        />
         <IonText className="vatification-title">Mobile Verification</IonText>
         <IonText className="subtitle">
           To continue, please enter the OTP we just sent to{" "}
@@ -84,7 +89,10 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
             )}
           />
         </IonCard>
-        <IonText className="otp_resend" onClick={resendOTP}>
+        <IonText
+          className="otp_resend"
+          onClick={resendOTP}
+        >
           Didn't receive the code? <a>Resend</a>
         </IonText>
       </IonCard>

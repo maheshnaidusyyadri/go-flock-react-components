@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { IonGrid, IonLabel, IonText } from "@ionic/react";
 import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
@@ -51,7 +52,10 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
       <IonLabel class="field-label phonenumber">Phone Number*</IonLabel>
 
       {selectedCountry && (
-        <IonText className="countryname" color="black">
+        <IonText
+          className="countryname"
+          color="black"
+        >
           {selectedCountry.name} ({"+" + selectedCountry.dialCode})
         </IonText>
       )}
@@ -84,7 +88,11 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
       />
       {/* Display error messages */}
       {errors?.[fieldName] && (
-        <IonText color="danger" className="error" style={{ fontSize: 12 }}>
+        <IonText
+          color="danger"
+          className="error"
+          style={{ fontSize: 12 }}
+        >
           {"* " + errors[fieldName]?.message}
         </IonText>
       )}
