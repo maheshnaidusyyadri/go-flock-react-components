@@ -940,6 +940,12 @@ input[type="number"] {
       display: block;
     }
   }
+  .default_event_dp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+  }
 }
 .firebase-emulator-warning {
   display: none;

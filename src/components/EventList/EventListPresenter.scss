@@ -45,7 +45,7 @@ body {
       display: flex;
       flex-wrap: wrap;
       gap: 16px;
-      padding: 5px 0 0 0;
+      padding: 5px 0;
       .event_item {
         width: calc(50% - 8px);
         border: 1px solid #e4e4e7;
@@ -95,27 +95,6 @@ body {
 
 .pad16 {
   padding: 16px !important ;
-}
-
-.event_images {
-  img.events {
-    display: block;
-    width: 100%;
-    max-width: 390px;
-    margin-bottom: 10px;
-    &:nth-last-child(2) {
-      margin-bottom: 0px;
-    }
-  }
-  .addmore {
-    width: 32px;
-    height: 32px;
-    display: block;
-    margin: 0 auto;
-    transform: translateY(-50%);
-    background: url("../../images/plus.png") no-repeat center;
-    cursor: pointer;
-  }
 }
 
 .event_actions {
