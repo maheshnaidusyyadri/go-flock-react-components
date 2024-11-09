@@ -13,6 +13,9 @@ import {
   IonGrid,
   IonImg,
   IonPage,
+  IonSelect,
+  IonItem,
+  IonSelectOption,
 } from "@ionic/react";
 import {
   CreateNewEventProps,
@@ -108,14 +111,18 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     }
   };
   // Function to go to the next step
-  const nextStep = () => {
+  const nextStep = (formData: any) => {
+    console.log("nextStep-currentStep", currentStep);
+    console.log("nextStep-formData", formData);
     if (!selectedLocation) {
       setLocationError(true);
       return;
     }
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
-  const onError = () => {
+  const onError = (err: any) => {
+    console.log("onError-currentStep", currentStep);
+    console.log("onError-err", err);
     if (!selectedLocation) {
       setLocationError(true);
     }
@@ -147,6 +154,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     setSelectedLocation(location);
     setLocationError(false);
   };
+  const [selectedOption, setSelectedOption] = useState(""); // Local state for radio button selection
+  const [selectedCurrency, setSelectedCurrency] = useState(""); // Local state for currency dropdown selection
 
   return (
     <IonPage>
@@ -158,7 +167,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       />
       <IonContent className="create_event">
         <IonList className="stepper-container">{renderSteps()}</IonList>
-
         <FormProvider {...methods}>
           <IonGrid className="stepper-content">
             {/* Step content with prev, current, and next classes */}
@@ -220,7 +228,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       <CustomInput
                         placeholder={"Hosted by"}
                         label={"Hosted by"}
-                        fieldName={"event"}
+                        fieldName={"hostedBy"}
                         isRequired={true}
                         errors={errors}
                         errorText={"Hosted by"}
@@ -357,7 +365,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-
             {currentStep == 4 && (
               <IonGrid className={`step-content ${getStepClass(4)}`}>
                 <IonLabel className="step_title">Event Category*</IonLabel>
@@ -366,15 +373,19 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     <IonList className="form-group">
                       <IonRadioGroup
                         className="ion-radio-group"
-                        allowEmptySelection={true}
-                        //value="turtles
-                        {...register("eventVisibility", { required: false })}
+                        allowEmptySelection={false}
+                        onIonChange={(e) => {
+                          register("eventVisibility").onChange(e);
+                          setEventVisibility(e.detail.value);
+                        }}
                         value={eventVisibility}
-                        onIonChange={(e) => setEventVisibility(e.detail.value)}
+                        {...register("eventVisibility", {
+                          required: "Event Category is required",
+                        })}
                       >
                         <IonRadio
                           className="ion-radio"
-                          value={"private"}
+                          value="private"
                           justify="space-between"
                         >
                           <span>
@@ -395,12 +406,20 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             <img src={publicEventIcon} alt="Public Event" />
                           </span>
                           <p>
-                            <strong>Public Event</strong>Anyone with the link
+                            <strong>Public Event</strong> Anyone with the link
                             can access. There is no restriction. You can change
                             this option later.
                           </p>
                         </IonRadio>
                       </IonRadioGroup>
+                      {errors?.eventVisibility && (
+                        <IonText color="danger" style={{ fontSize: 12 }}>
+                          *{" "}
+                          {typeof errors.eventVisibility.message === "string"
+                            ? errors.eventVisibility.message
+                            : ""}
+                        </IonText>
+                      )}
                     </IonList>
                   </IonCardContent>
                 </IonGrid>
@@ -414,11 +433,15 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     <IonList className="form-group">
                       <IonRadioGroup
                         className="ion-radio-group"
-                        allowEmptySelection={true}
-                        //value="turtles
-                        {...register("eventVisibility", { required: false })}
-                        value={eventVisibility}
-                        onIonChange={(e) => setEventVisibility(e.detail.value)}
+                        allowEmptySelection={false}
+                        onIonChange={(e) => {
+                          register("expenseOption").onChange(e);
+                          setSelectedOption(e.detail.value);
+                        }}
+                        value={selectedOption}
+                        {...register("expenseOption", {
+                          required: "Please select an option",
+                        })}
                       >
                         <IonRadio
                           className="ion-radio"
@@ -434,7 +457,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           </p>
                         </IonRadio>
                         <IonRadio
-                          class="ion-radio"
+                          className="ion-radio"
                           value="record"
                           justify="space-between"
                         >
@@ -442,11 +465,47 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             <img src={recordsIcon} alt="Record expenses" />
                           </span>
                           <p>
-                            <strong>Record expenses</strong>Securely maintain
-                            the expenses between hosts & co-hosts
+                            <strong>Record expenses</strong>
+                            Securely maintain the expenses between hosts &
+                            co-hosts.
                           </p>
                         </IonRadio>
                       </IonRadioGroup>
+                      {/* Show currency dropdown only if 'record' is selected */}
+                      {selectedOption === "record" && (
+                        <IonItem>
+                          <IonLabel>Currency</IonLabel>
+                          <IonSelect
+                            value={selectedCurrency}
+                            onIonChange={(e) =>
+                              setSelectedCurrency(e.detail.value)
+                            }
+                            {...register("currency", {
+                              required: "Please select a currency",
+                            })}
+                          >
+                            <IonSelectOption value="usd">USD</IonSelectOption>
+                            <IonSelectOption value="eur">EUR</IonSelectOption>
+                            <IonSelectOption value="inr">INR</IonSelectOption>
+                          </IonSelect>
+                        </IonItem>
+                      )}
+                      {errors?.currency && (
+                        <IonText color="danger" style={{ fontSize: 12 }}>
+                          *
+                          {typeof errors.currency.message === "string"
+                            ? errors.currency.message
+                            : ""}
+                        </IonText>
+                      )}
+                      {errors?.expenseOption && (
+                        <IonText color="danger" style={{ fontSize: 12 }}>
+                          *
+                          {typeof errors.expenseOption.message === "string"
+                            ? errors.expenseOption.message
+                            : ""}
+                        </IonText>
+                      )}
                     </IonList>
                   </IonCardContent>
                 </IonGrid>
@@ -475,7 +534,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 onClick={handleSubmit(handleCreateEvent, onError)}
                 expand="block"
                 //disabled={isCreating || !selectedLocation || !eventName}
-                disabled={!eventVisibility}
               >
                 {isCreating ? "Creating Event..." : "Create Event"}
               </IonButton>
