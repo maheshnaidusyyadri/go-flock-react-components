@@ -5,9 +5,9 @@ import { IonCard, IonGrid, IonImg, IonLabel, IonText } from "@ionic/react";
 import Mobile from "../../images/otp_varification.svg";
 
 type OtpVerificationProps = {
-  control?: any; // Replace with the appropriate type if available
+  control?: any;
   setValue?: (name: any, value: any) => void;
-  errors?: any; // Replace with FieldErrors if using react-hook-form types
+  errors?: any;
   fieldName?: any;
   isRequired?: boolean;
   phoneNumber?: any;
@@ -21,6 +21,11 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
   isRequired = false,
   phoneNumber,
 }) => {
+  const resendOTP = () => {
+    alert(
+      `OTP has been sent successfully to your registered number: ${""} ${phoneNumber}`
+    );
+  };
   return (
     <IonGrid className="varification_sec">
       <IonCard className="auth_cnt">
@@ -79,7 +84,7 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
             )}
           />
         </IonCard>
-        <IonText className="otp_resend">
+        <IonText className="otp_resend" onClick={resendOTP}>
           Didn't receive the code? <a>Resend</a>
         </IonText>
       </IonCard>

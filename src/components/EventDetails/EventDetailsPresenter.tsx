@@ -88,26 +88,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   };
 
   const handleClick = (option: React.SetStateAction<string>) => {
-    console.log("handleClick", option);
     setShowValidation(false);
     setAdultCount(0);
     setKidsCount(0);
-    // let response: "attending" | "not-attending" | "maybe" | "not-answered" =
-    //   "attending";
-    // if (option === "no") {
-    //   response = "not-attending";
-    // } else if (option === "notSure") {
-    //   response = "maybe";
-    // }
     setActiveOption(option);
-    // let rsvp: RSVP = {
-    //   response: response,
-    //   count: 4,
-    //   comment: "Happy birthday!!",
-    //   kidsCount: 2,
-    //   adultsCount: 2,
-    // };
-    //submitRSVP(event.id, rsvp);
   };
   const incrementAdults = () => {
     setShowValidation(false);
@@ -371,7 +355,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <>
               <IonItemDivider className="devider"></IonItemDivider>
               <IonGrid className="status_sec">
-                <IonLabel className="status-title">RSVP Status</IonLabel>
+                {event?.counters && (
+                  <IonLabel className="status-title">RSVP Status</IonLabel>
+                )}
                 <IonRow className="status_cards success">
                   {Object.entries(event?.counters || {})
                     .filter(([statusName]) =>

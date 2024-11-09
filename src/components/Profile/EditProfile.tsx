@@ -25,6 +25,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
   profile,
   setPreferredName,
   setProfileOpen,
+  setSMSPreference,
 }) => {
   const [preferredName, setPreferredNameState] = useState<string>(
     profile.prefName || ""
@@ -33,6 +34,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the hidden file input
   const [image, setImage] = useState<string | null>(null); // State to hold the selected image
+  const [sendNotification, setSendNotification] = useState(false);
   const methods = useForm();
   const {
     handleSubmit,
@@ -63,6 +65,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
     } finally {
       setIsLoading(false);
     }
+  };
+  const handleNotification = (event: CustomEvent) => {
+    setSendNotification(event.detail.checked);
+    setSMSPreference(event.detail.checked);
   };
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -157,7 +163,12 @@ const EditProfile: React.FC<EditProfileProps> = ({
                   />
                 </div>
                 <div className="terms">
-                  <IonToggle className="ion-toggle" labelPlacement="start">
+                  <IonToggle
+                    className="ion-toggle"
+                    labelPlacement="start"
+                    checked={sendNotification}
+                    onIonChange={handleNotification}
+                  >
                     Get remainders, notifications via SMS.
                   </IonToggle>
                 </div>

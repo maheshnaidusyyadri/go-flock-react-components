@@ -69,6 +69,7 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
             country={"us"}
             value={value} // Ensure the input is controlled
             placeholder="Enter phone number"
+            preferredCountries={["us", "ca", "gb", "in"]}
             enableSearch={true}
             countryCodeEditable={false}
             onChange={(phone: any, country) => {

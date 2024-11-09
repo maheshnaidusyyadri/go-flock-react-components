@@ -36,6 +36,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         </IonLabel>
       )}
       <IonInput
+        disabled={readOnly}
         placeholder={placeholder}
         readonly={readOnly}
         type={inputType}
