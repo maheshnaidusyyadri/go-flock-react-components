@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./EventDetailsPresenter.scss";
 import {
   IonAvatar,
@@ -29,7 +29,7 @@ import addUserIcon from "../../images/icons/addUser.svg";
 import userTickIcon from "../../images/icons/userTick.svg";
 import userCrossIcon from "../../images/icons/userCross.svg";
 import helpIcon from "../../images/icons/help.svg";
-import ProfileIcon from "../../images/profile.png";
+//import ProfileIcon from "../../images/profile.png";
 import noPreview from "../../images/noPreview.svg";
 
 import Header from "../Header/Header";
@@ -75,6 +75,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [activeOption, setActiveOption] = useState("yes");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const methods = useForm();
   const {
     handleSubmit,
@@ -202,9 +204,30 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setKidsCount(0);
     setAdultCount(0);
   };
-  useEffect(() => {
-    console.log("eventRelation", eventRelation.rsvp);
-  }, []);
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log("Selected file:", file.name);
+      const base64 = await convertFileToBase64(file);
+      setImage(base64); // Set the selected image as the new profile picture
+      console.log("SelectedImage", base64);
+    } else {
+      console.log("No file selected");
+    }
+  };
+
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result as string);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <>
@@ -221,9 +244,19 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           deleteEvent={deleteEvent}
           eventRelation={eventRelation}
         />
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          ref={fileInputRef}
+          onChange={handleFileChange}
+        />
         {!event.invitationCard?.url && (
-          <IonCard className="nopreview">
-            <IonImg src={noPreview} />
+          <IonCard
+            className="nopreview"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <IonImg src={image || noPreview} />
           </IonCard>
         )}
 
