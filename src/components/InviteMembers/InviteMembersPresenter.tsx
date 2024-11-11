@@ -243,14 +243,12 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 Go to Contacts
               </IonButton>
             ) : (
-              contacts?.length == 0 && (
-                <IonButton
-                  className="primary-btn rounded"
-                  onClick={() => getContactsList()}
-                >
-                  Import contacts
-                </IonButton>
-              )
+              <IonButton
+                className="primary-btn rounded"
+                onClick={() => getContactsList()}
+              >
+                {contacts.length === 0 ? "Import contacts" : "Sync contacts"}
+              </IonButton>
             )}
           </IonFooter>
           {selectedContacts &&
