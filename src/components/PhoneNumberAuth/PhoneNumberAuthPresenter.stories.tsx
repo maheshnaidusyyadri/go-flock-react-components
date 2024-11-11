@@ -23,10 +23,8 @@ SuccessfulVerification.args = {
     action("sendOTP")(`Sending OTP to ${phoneNumberWithCountryCode}`);
     return true;
   },
-  verifyOTP: async (phoneNumberWithCountryCode: string, otp: string) => {
-    action("verifyOTP")(
-      `Verifying OTP ${otp} for ${phoneNumberWithCountryCode}`
-    );
+  verifyOTP: async (otp: string) => {
+    action("verifyOTP")(`Verifying OTP ${otp}`);
     return true;
   },
   onSuccessfulVerification: async () => {
@@ -40,10 +38,8 @@ OtpSendingFailed.args = {
     action("sendOTP")(`Failed Sending OTP for ${phoneNumberWithCountryCode}`);
     return false;
   },
-  verifyOTP: async (phoneNumberWithCountryCode: string, otp: string) => {
-    action("verifyOTP")(
-      `Verifying OTP ${otp} for ${phoneNumberWithCountryCode}`
-    );
+  verifyOTP: async (otp: string) => {
+    action("verifyOTP")(`Verifying OTP ${otp}`);
     return true;
   },
   onSuccessfulVerification: async () => {
@@ -59,10 +55,8 @@ OtpVerificationFailed.args = {
     );
     return true;
   },
-  verifyOTP: async (phoneNumberWithCountryCode: string, otp: string) => {
-    action("verifyOTP")(
-      `Failed Verifying OTP ${otp} for ${phoneNumberWithCountryCode}`
-    );
+  verifyOTP: async (otp: string) => {
+    action("verifyOTP")(`Failed Verifying OTP ${otp}`);
     return false;
   },
   onSuccessfulVerification: async () => {

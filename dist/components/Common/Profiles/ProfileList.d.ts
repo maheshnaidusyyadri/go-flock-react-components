@@ -4,7 +4,7 @@ interface ProfileListProps {
     eventId: string;
     eventMembers: EventMember[];
     type?: string;
-    onSelectMember?: (member: any) => void;
+    onSelectMember?: (member: EventMember) => void;
 }
 declare const ProfileList: React.FC<ProfileListProps>;
 export default ProfileList;

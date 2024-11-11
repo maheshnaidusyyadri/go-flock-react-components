@@ -1,8 +1,7 @@
 import React from "react";
 import { IonAvatar, IonLabel, IonThumbnail } from "@ionic/react";
-import "./ProfileList.scss"; // Custom CSS file
+import "./ProfileList.scss";
 import { EventMember } from "@goflock/types/src";
-import unselect from "../../../images/icons/remove.svg";
 import attendingIcon from "../../../images/icons/Attending.svg";
 import notAttendingIcon from "../../../images/icons/notAttending.svg";
 import notSureIcon from "../../../images/icons/notSure.svg";
@@ -11,20 +10,21 @@ interface ProfileListProps {
   eventId: string;
   eventMembers: EventMember[];
   type?: string;
-  onSelectMember?: (member: any) => void;
+  onSelectMember?: (member: EventMember) => void;
 }
 
 const ProfileList: React.FC<ProfileListProps> = ({
   eventMembers,
   onSelectMember,
 }) => {
-  const getDisplayName = (name: any) => {
-    return name.length > 1
+  const getDisplayName = (name: string) => {
+    return name?.length > 1
       ? name.slice(0, 2).toUpperCase()
       : name.toUpperCase();
   };
-  const showStatusIcons = (eventMember: any) => {
-    if (eventMember.rsvp && eventMember.rsvp.response) {
+
+  const showStatusIcons = (eventMember: EventMember) => {
+    if (eventMember?.rsvp && eventMember.rsvp?.response) {
       switch (eventMember.rsvp.response) {
         case "attending":
           return attendingIcon;
@@ -33,10 +33,10 @@ const ProfileList: React.FC<ProfileListProps> = ({
         case "maybe":
           return notSureIcon;
         default:
-          return unselect;
+          return "";
       }
     }
-    return unselect;
+    return "";
   };
   return (
     <div className="profile-list">
@@ -56,15 +56,18 @@ const ProfileList: React.FC<ProfileListProps> = ({
               </IonAvatar>
             ) : (
               <IonAvatar className="profile-dp">
-                {getDisplayName(eventMember?.name)}
+                {getDisplayName(eventMember?.name!)}
               </IonAvatar>
             )}
-            <img
-              src={showStatusIcons(eventMember)}
-              alt="status"
-              className="remove_user"
-            />
+            {showStatusIcons(eventMember).length > 0 && (
+              <img
+                src={showStatusIcons(eventMember)}
+                alt="status"
+                className="remove_user"
+              />
+            )}
           </IonThumbnail>
+
           <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
       ))}
