@@ -42,6 +42,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
   createEvent,
   goToEvent,
+  mode = "detail",
 }) => {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
@@ -66,6 +67,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   } = useForm();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+
+  console.log(mode);
+
   useEffect(() => {
     if (startDate) {
       // setValue("endDate", startDate);
@@ -389,7 +393,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={privateEventIcon} alt="Private Event" />
+                            <img
+                              src={privateEventIcon}
+                              alt="Private Event"
+                            />
                           </span>
                           <p>
                             <strong>Private Event</strong>
@@ -403,7 +410,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={publicEventIcon} alt="Public Event" />
+                            <img
+                              src={publicEventIcon}
+                              alt="Public Event"
+                            />
                           </span>
                           <p>
                             <strong>Public Event</strong> Anyone with the link
@@ -413,7 +423,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonRadio>
                       </IonRadioGroup>
                       {errors?.eventVisibility && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
+                        <IonText
+                          color="danger"
+                          style={{ fontSize: 12 }}
+                        >
                           *{" "}
                           {typeof errors.eventVisibility.message === "string"
                             ? errors.eventVisibility.message
@@ -449,7 +462,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={mediaIcon} alt="Media" />
+                            <img
+                              src={mediaIcon}
+                              alt="Media"
+                            />
                           </span>
                           <p>
                             <strong>Media</strong>
@@ -462,7 +478,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={recordsIcon} alt="Record expenses" />
+                            <img
+                              src={recordsIcon}
+                              alt="Record expenses"
+                            />
                           </span>
                           <p>
                             <strong>Record expenses</strong>
@@ -491,7 +510,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonItem>
                       )}
                       {errors?.currency && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
+                        <IonText
+                          color="danger"
+                          style={{ fontSize: 12 }}
+                        >
                           *
                           {typeof errors.currency.message === "string"
                             ? errors.currency.message
@@ -499,7 +521,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonText>
                       )}
                       {errors?.expenseOption && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
+                        <IonText
+                          color="danger"
+                          style={{ fontSize: 12 }}
+                        >
                           *
                           {typeof errors.expenseOption.message === "string"
                             ? errors.expenseOption.message
@@ -541,9 +566,15 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonFooter>
         </FormProvider>
       </IonContent>
-      <IonGrid className="action_screen" style={{ display: "none" }}>
+      <IonGrid
+        className="action_screen"
+        style={{ display: "none" }}
+      >
         <IonGrid className="action_screen_cnt">
-          <IonImg alt="Successfully Created Event" src={Success} />
+          <IonImg
+            alt="Successfully Created Event"
+            src={Success}
+          />
           <IonLabel className="action_title">
             Successfully Created Event
           </IonLabel>

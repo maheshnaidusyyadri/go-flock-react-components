@@ -15,6 +15,7 @@ export declare const ownerEventRelation: EventRelation;
 export declare const cohostEventRelation: EventRelation;
 export declare const guestEventRelation: EventRelation;
 export declare const rsvpGuestEventRelation: EventRelation;
+export declare const rsvpNotAttendingGuestEventRelation: EventRelation;
 export declare const ImagesMedia: Media[];
 export declare const ImageAndVideosMixedMedia: Media[];
 export declare const IphoneDeviceContext: DeviceContext;
