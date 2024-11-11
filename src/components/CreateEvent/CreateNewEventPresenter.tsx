@@ -418,12 +418,17 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={privateEventIcon} alt="Private Event" />
+                            <img
+                              src={privateEventIcon}
+                              alt="Personal Event"
+                            />
                           </span>
                           <p>
-                            <strong>Private Event</strong>
-                            Exclusively invite your guests by their phone
-                            numbers. You can change this option later.
+                            <strong>Personal Event</strong>
+                            Exclusively invite your guests by their contact. You
+                            can keep your invitation private and share the event
+                            happenings securely. You can change this option
+                            later.
                           </p>
                         </IonRadio>
                         <IonRadio
@@ -432,17 +437,23 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={publicEventIcon} alt="Public Event" />
+                            <img
+                              src={publicEventIcon}
+                              alt="Community Event"
+                            />
                           </span>
                           <p>
-                            <strong>Public Event</strong> Anyone with the link
-                            can access. There is no restriction. You can change
+                            <strong>Community Event</strong> Anyone with the
+                            link can access the event, RSVP etc. You can change
                             this option later.
                           </p>
                         </IonRadio>
                       </IonRadioGroup>
                       {errors?.eventVisibility && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
+                        <IonText
+                          color="danger"
+                          style={{ fontSize: 12 }}
+                        >
                           *{" "}
                           {typeof errors.eventVisibility.message === "string"
                             ? errors.eventVisibility.message
@@ -483,7 +494,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={mediaIcon} alt="Media" />
+                            <img
+                              src={mediaIcon}
+                              alt="Media"
+                            />
                           </span>
                           <p>
                             <strong>Media</strong> Securely share pictures with
@@ -515,7 +529,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img src={recordsIcon} alt="Record expenses" />
+                            <img
+                              src={recordsIcon}
+                              alt="Record expenses"
+                            />
                           </span>
                           <p>
                             <strong>Record expenses</strong> Securely maintain
@@ -558,7 +575,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
                       {/* Error message for Currency */}
                       {errors?.currency && selectedRecord && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
+                        <IonText
+                          color="danger"
+                          style={{ fontSize: 12 }}
+                        >
                           *
                           {typeof errors.currency.message === "string"
                             ? errors.currency.message
@@ -566,7 +586,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonText>
                       )}
                       {errors?.record && !selectedMedia && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
+                        <IonText
+                          color="danger"
+                          style={{ fontSize: 12 }}
+                        >
                           *
                           {typeof errors.record.message === "string"
                             ? errors.record.message
@@ -608,9 +631,15 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonFooter>
         </FormProvider>
       </IonContent>
-      <IonGrid className="action_screen" style={{ display: "none" }}>
+      <IonGrid
+        className="action_screen"
+        style={{ display: "none" }}
+      >
         <IonGrid className="action_screen_cnt">
-          <IonImg alt="Successfully Created Event" src={Success} />
+          <IonImg
+            alt="Successfully Created Event"
+            src={Success}
+          />
           <IonLabel className="action_title">
             Successfully Created Event
           </IonLabel>
