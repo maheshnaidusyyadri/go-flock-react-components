@@ -27,13 +27,31 @@ import ProfileList from "../Common/Profiles/ProfileList";
 import Menu from "../../images/icons/menu.svg";
 import noContacts from "../../images/no-contacts.svg";
 import noMembers from "../../images/no-members.svg";
-
+import HostIcon from "../../images/icons/host.svg";
+import CoHostIcon from "../../images/icons/co-host.svg";
+import { getDisplayName } from "../../utils/utils";
+import { RoleType } from "@goflock/types/src/models/event/RoleType";
+interface EventMember {
+  id?: string;
+  flockId?: string;
+  eventId?: string;
+  name?: string;
+  phoneNumber?: string;
+  email?: string;
+  profileImg?: string;
+  addedByUid?: string;
+  phone?: string;
+  roles?: RoleType[];
+}
 const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   importContactsFromDevice,
   addMembers,
   members,
   contacts,
+  removeMember,
+  addAdmin,
+  removeAdmin,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Contacts"
@@ -42,6 +60,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   const [selectedContacts, setSelectedContacts] = useState<any>([]);
   const [selectedMembers, _] = useState<any[]>([]);
   const [showAction, setShowAction] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<EventMember | null>(null);
 
   // Filter members based on search text
   const filteredContacts = contacts?.filter(
@@ -50,11 +69,11 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       contact.phone?.includes(searchText)
   );
 
-  const getDisplayName = (name: string) => {
-    return name.length > 1
-      ? name.slice(0, 2).toUpperCase()
-      : name.toUpperCase();
-  };
+  // const getDisplayName = (name: string) => {
+  //   return name.length > 1
+  //     ? name.slice(0, 2).toUpperCase()
+  //     : name.toUpperCase();
+  // };
   const handleSelectContact = (contact: any) => {
     if (selectedContacts.includes(contact)) {
       // Remove if already selected
@@ -75,6 +94,25 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     setShowAction(false);
     setSelectedContacts([]);
     setSelectedSegment("Members");
+  };
+  const handleDelete = () => {
+    if (selectedUser) {
+      removeMember(selectedUser);
+    }
+  };
+  const handleCohost = () => {
+    if (selectedUser && selectedUser?.roles?.includes("member")) {
+      addAdmin(selectedUser);
+    } else if (selectedUser && selectedUser?.roles?.includes("admin")) {
+      removeAdmin(selectedUser);
+    }
+  };
+  const getActionName = () => {
+    if (selectedUser && selectedUser?.roles?.includes("member")) {
+      return "Make co-host";
+    } else if (selectedUser && selectedUser?.roles?.includes("admin")) {
+      return "Dismiss as co-host";
+    }
   };
 
   return (
@@ -106,16 +144,14 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {members.map((member, index) => (
-                      <IonItem
-                        key={index}
-                        className="list_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
-                          {/* <IonImg className="type" src={HostIcon} /> */}
-                          {/* <IonImg className="type co" src={CoHostIcon} /> */}
+                      <IonItem key={index} className="list_item">
+                        <IonThumbnail slot="start" className="dp">
+                          {member?.roles?.includes("owner") && (
+                            <IonImg className="type" src={HostIcon} />
+                          )}
+                          {member?.roles?.includes("admin") && (
+                            <IonImg className="type co" src={CoHostIcon} />
+                          )}
                           {member.profileImg ? (
                             <IonImg
                               src={member.profileImg}
@@ -127,25 +163,35 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img
-                              src={Selected}
-                              alt="Selected"
-                            />
+                            <img src={Selected} alt="Selected" />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
-                          <h2>{member.name}</h2>
+                          <h2>
+                            {member.name +
+                              (member?.roles?.includes("owner")
+                                ? " (Host)"
+                                : member?.roles?.includes("admin")
+                                ? " (Co-host)"
+                                : "")}
+                          </h2>
+
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
-                        <IonAvatar
-                          className="action_menu"
-                          onClick={() => setShowAction(true)}
-                        >
-                          <IonImg
-                            src={Menu}
-                            alt="More Details"
-                          />
-                        </IonAvatar>
+                        {!member?.roles?.includes("owner") && (
+                          <IonAvatar
+                            className="action_menu"
+                            //onClick={() => setShowAction(true)}
+                            onClick={() => {
+                              if (member) {
+                                setSelectedUser(member);
+                                setShowAction(true);
+                              }
+                            }}
+                          >
+                            <IonImg src={Menu} alt="More Details" />
+                          </IonAvatar>
+                        )}
                       </IonItem>
                     ))}
                   </IonList>
@@ -190,10 +236,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                           //onClick={() => addMember(member)}
                           onClick={() => handleSelectContact(member)}
                         >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
+                          <IonThumbnail slot="start" className="dp">
                             {member.profileImg ? (
                               <IonImg
                                 src={member.profileImg}
@@ -206,10 +249,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             )}
                             {selectedContacts.includes(member) && (
                               <span className="selection">
-                                <img
-                                  src={Selected}
-                                  alt="Selected"
-                                />
+                                <img src={Selected} alt="Selected" />
                               </span>
                             )}
                           </IonThumbnail>
@@ -275,20 +315,27 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
         subHeader="Make/remove admin or remove the member"
         buttons={[
           {
-            text: "Make co-host",
+            text: getActionName(),
             role: "destructive",
             data: {
-              action: "delete",
+              action: "Add-Cohost",
             },
             cssClass: "fill-btn dark-btn",
-            handler: () => {},
+            handler: () => {
+              handleCohost();
+            },
           },
           {
-            text: "Cancel",
+            text: selectedUser
+              ? selectedUser.name || selectedUser.phone || ""
+              : "",
             data: {
-              action: "cancel",
+              action: "Delete",
             },
             cssClass: "rounded",
+            handler: () => {
+              handleDelete();
+            },
           },
         ]}
       ></IonActionSheet>

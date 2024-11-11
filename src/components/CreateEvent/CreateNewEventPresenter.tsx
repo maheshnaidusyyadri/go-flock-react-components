@@ -37,6 +37,7 @@ import CustomInput from "../Common/CustomInput";
 import IonTextarea from "../Common/CustomTextarea";
 import CustomSelect from "../Common/CustomSelect";
 import CustomDateTime from "../Common/CustomDateTime";
+import { formatTime } from "../../utils/utils";
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
@@ -53,7 +54,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [startDate, setStartDate] = useState<string>(tomorrowISOString); // Default to next day
   const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
   const [locationError, setLocationError] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedMedia, setSelectedMedia] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
   const totalSteps = 5; // Define the total number of steps
   const methods = useForm();
   const {
@@ -82,9 +86,12 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   }, [startDate, startTime, endDate]);
   // Handle creating an event
   const handleCreateEvent = async (data: any) => {
-    console.log("handleCreateEvent-Data", data);
+    console.log("formData", data);
+    console.log("data.startDate", data.startDate);
+    console.log("data.startTime", data.startTime);
+    console.log("data.endDate", data.endDate);
+    console.log(" data.endTime", data.endTime);
     if (!selectedLocation || !data.event || data.event.trim() === "") return;
-    // if (!selectedLocation || data.event.trim() === "") return;
     setIsCreating(true);
     const draftEvent: DraftEvent = {
       name: data.event,
@@ -92,11 +99,29 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       description: data.description,
       location: selectedLocation,
       visibility: eventVisibility,
+      hostedBy: data.hostedBy,
       time: {
-        startDate: data.startDate || new Date(),
-        endDate: data.endDate,
-        startTime: data.startTime,
-        endTime: data.endTime,
+        startDate: data.startDate
+          ? new Date(data.startDate).toISOString().slice(0, 10)
+          : new Date().toISOString().slice(0, 10),
+        endDate: data.endDate
+          ? new Date(data.endDate).toISOString().slice(0, 10)
+          : undefined,
+        startTime: data.startTime ? formatTime(data.startTime) : "",
+        endTime: data.endTime ? formatTime(data.endTime) : "",
+        //startDate: data.startDate || new Date(),
+        //endDate: data.endDate,
+        // startTime: data.startTime,
+        //endTime: data.endTime,
+      },
+      settings: {
+        shareMedia: selectedMedia,
+        splitBills: false,
+        enableChats: false,
+        allowCheckList: false,
+        //allowCheckList: selectedRecord,
+        currency: selectedRecord && selectedCurrency ? selectedCurrency : "USD",
+        eventVisibility: eventVisibility || "private",
       },
     };
     try {
@@ -154,8 +179,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     setSelectedLocation(location);
     setLocationError(false);
   };
-  const [selectedOption, setSelectedOption] = useState(""); // Local state for radio button selection
-  const [selectedCurrency, setSelectedCurrency] = useState(""); // Local state for currency dropdown selection
 
   return (
     <IonPage>
@@ -257,8 +280,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                       errors={errors}
                       defaultValue={startDate}
                       onDateChange={(value: any) => {
-                        setStartDate(value); // Update the Start Date
-                        setEndDate(value); // Set End Date to the same as Start Date
+                        setStartDate(value);
+                        //setEndDate(value);
                       }}
                       formatOptions={{
                         weekday: "short",
@@ -433,29 +456,53 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     <IonList className="form-group">
                       <IonRadioGroup
                         className="ion-radio-group"
-                        allowEmptySelection={false}
+                        allowEmptySelection={true}
+                        value={selectedMedia ? "media" : ""}
                         onIonChange={(e) => {
-                          register("expenseOption").onChange(e);
-                          setSelectedOption(e.detail.value);
+                          const value = e.detail.value;
+                          const isMediaSelected = value === "media";
+                          setSelectedMedia(isMediaSelected);
+                          setSelectedRecord(false);
+                          register("media").onChange(e);
                         }}
-                        value={selectedOption}
-                        {...register("expenseOption", {
-                          required: "Please select an option",
+                        {...register("media", {
+                          required: selectedRecord
+                            ? false
+                            : "Please select an option",
                         })}
                       >
                         <IonRadio
                           className="ion-radio"
-                          value={"media"}
+                          value="media"
                           justify="space-between"
                         >
                           <span>
                             <img src={mediaIcon} alt="Media" />
                           </span>
                           <p>
-                            <strong>Media</strong>
-                            Securely share pictures with the event attendees.
+                            <strong>Media</strong> Securely share pictures with
+                            the event attendees.
                           </p>
                         </IonRadio>
+                      </IonRadioGroup>
+
+                      <IonRadioGroup
+                        className="ion-radio-group"
+                        allowEmptySelection={true}
+                        value={selectedRecord ? "record" : ""}
+                        onIonChange={(e) => {
+                          const value = e.detail.value;
+                          const isRecordSelected = value === "record";
+                          setSelectedRecord(isRecordSelected);
+                          setSelectedMedia(false);
+                          register("record").onChange(e);
+                        }}
+                        {...register("record", {
+                          required: selectedMedia
+                            ? false
+                            : "Please select an option",
+                        })}
+                      >
                         <IonRadio
                           className="ion-radio"
                           value="record"
@@ -465,32 +512,35 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             <img src={recordsIcon} alt="Record expenses" />
                           </span>
                           <p>
-                            <strong>Record expenses</strong>
-                            Securely maintain the expenses between hosts &
-                            co-hosts.
+                            <strong>Record expenses</strong> Securely maintain
+                            the expenses between hosts & co-hosts.
                           </p>
                         </IonRadio>
                       </IonRadioGroup>
-                      {/* Show currency dropdown only if 'record' is selected */}
-                      {selectedOption === "record" && (
+                      {selectedRecord && (
                         <IonItem>
                           <IonLabel>Currency</IonLabel>
                           <IonSelect
                             value={selectedCurrency}
-                            onIonChange={(e) =>
-                              setSelectedCurrency(e.detail.value)
-                            }
+                            onIonChange={(e) => {
+                              setSelectedCurrency(e.detail.value);
+                              register("currency").onChange(e);
+                            }}
                             {...register("currency", {
-                              required: "Please select a currency",
+                              required: selectedRecord
+                                ? "Please select a currency"
+                                : false,
                             })}
                           >
-                            <IonSelectOption value="usd">USD</IonSelectOption>
-                            <IonSelectOption value="eur">EUR</IonSelectOption>
-                            <IonSelectOption value="inr">INR</IonSelectOption>
+                            <IonSelectOption value="USD">USD</IonSelectOption>
+                            <IonSelectOption value="EUR">EUR</IonSelectOption>
+                            <IonSelectOption value="INR">INR</IonSelectOption>
                           </IonSelect>
                         </IonItem>
                       )}
-                      {errors?.currency && (
+
+                      {/* Error message for Currency */}
+                      {errors?.currency && selectedRecord && (
                         <IonText color="danger" style={{ fontSize: 12 }}>
                           *
                           {typeof errors.currency.message === "string"
@@ -498,11 +548,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             : ""}
                         </IonText>
                       )}
-                      {errors?.expenseOption && (
+                      {errors?.record && !selectedMedia && (
                         <IonText color="danger" style={{ fontSize: 12 }}>
                           *
-                          {typeof errors.expenseOption.message === "string"
-                            ? errors.expenseOption.message
+                          {typeof errors.record.message === "string"
+                            ? errors.record.message
                             : ""}
                         </IonText>
                       )}

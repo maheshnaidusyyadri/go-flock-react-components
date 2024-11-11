@@ -25,7 +25,7 @@ interface CustomStartDateProps {
   defaultValue?: any;
   onDateChange?: (e: CustomEvent) => void; // Optional input change handler;
   className: any;
-  formatOptions: any;
+  formatOptions?: any;
   presentation: any;
   placeHolder: string;
   startTime?: string;

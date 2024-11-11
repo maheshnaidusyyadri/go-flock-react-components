@@ -55,7 +55,7 @@ WithValidNumberOfContacts.args = {
 };
 
 export const WithEmptyMembersAndContacts = Template.bind({});
-WithValidNumberOfContacts.args = {
+WithEmptyMembersAndContacts.args = {
   ...EmptyContacts.args,
   members: [],
   contacts: [],
