@@ -325,12 +325,12 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
           },
           {
             text: selectedUser
-              ? selectedUser.name || selectedUser.phone || ""
+              ? "Remove " + selectedUser.name || selectedUser.phone || ""
               : "",
             data: {
               action: "Delete",
             },
-            cssClass: "rounded",
+            cssClass: "rounded border-red",
             handler: () => {
               handleDelete();
             },

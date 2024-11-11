@@ -16,6 +16,7 @@ import {
   IonSelect,
   IonItem,
   IonSelectOption,
+  IonThumbnail,
 } from "@ionic/react";
 import {
   CreateNewEventProps,
@@ -28,6 +29,7 @@ import privateEventIcon from "../../images/icons/privateEvent.svg";
 import publicEventIcon from "../../images/icons/publicEvent.svg";
 import mediaIcon from "../../images/icons/media_circle.svg";
 import recordsIcon from "../../images/icons/record_circle.svg";
+import currencyIcon from "../../images/icons/currency.svg";
 
 import PlaceSearch from "./PlaceSearch";
 import { EventVisibility } from "@goflock/types";
@@ -522,10 +524,21 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonRadio>
                       </IonRadioGroup>
                       {selectedRecord && (
-                        <IonItem>
-                          <IonLabel>Currency</IonLabel>
+                        <IonItem className="currency_selection">
+                          <IonThumbnail>
+                            <IonImg src={currencyIcon} />
+                          </IonThumbnail>
+                          <IonLabel className="item-title">
+                            Currency
+                            <IonText className="item-subtitle">
+                              Securely maintain the expenses between hosts &
+                              co-hosts
+                            </IonText>
+                          </IonLabel>
                           <IonSelect
+                            className="ion-select"
                             value={selectedCurrency}
+                            interface="action-sheet"
                             onIonChange={(e) => {
                               setSelectedCurrency(e.detail.value);
                               register("currency").onChange(e);

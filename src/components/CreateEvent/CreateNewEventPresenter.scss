@@ -1,15 +1,13 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 body {
-    font-size: 100%;
+  font-size: 100%;
   //  padding: 16px !important;
 }
-.create_event  {
-    min-height: calc(100vh - 60px);
-    padding: 0px !important;
+.create_event {
+  min-height: calc(100vh - 60px);
+  padding: 0px !important;
 }
-
-
 
 // .stepper-container {
 //     display: flex;
@@ -82,36 +80,51 @@ body {
 //     }
 // }
 
-
-
-
 // .form-container {
 //     ion-card-content {
 //         padding: 0px;
 //     }
 // }
 
-
-.event_images {
-    img.events {
-        display: block;
-        width: 100%;
-        max-width: 390px;
-        margin-bottom: 10px;
-        &:nth-last-child(2) {
-            margin-bottom: 0px;
-        }
+.currency_selection {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  --border-color: transparent;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  ion-thumbnail {
+    margin: 0;
+  }
+  .item-title {
+    font-family: $GoFlockFont;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: $GoFlockColor;
+    display: block;
+    padding: 0 0 0 10px;
+    margin: 0;
+    .item-subtitle {
+      display: block;
+      white-space: pre-wrap;
+      color: $secondaryColor;
+      font-family: $GoFlockFont;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      margin: 0px;
+      padding: 0;
+      width: 100%;
+      padding-left: 0px;
     }
-    .addmore {
-        width: 32px;
-        height: 32px;
-        display: block;
-        margin: 0 auto;
-        transform: translateY(-50%);
-        background: url('../../images/plus.png') no-repeat center;
-        cursor: pointer;
-    }
+  }
+  .ion-select {
+    border: 0px;
+  }
 }
-
-
-
