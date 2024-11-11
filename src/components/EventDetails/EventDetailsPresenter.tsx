@@ -231,14 +231,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   return (
     <>
-      <IonContent
-        className={`eventDetails ${
-          !event?.invitationCard?.url ? "no-image" : ""
-        }`}
-      >
+      <IonContent className="eventDetails">
         <Header
           eventId={event.id}
-          title={!event.invitationCard ? "" : event.name}
+          title={event.name}
           showMenu={true}
           showContactList={false}
           deleteEvent={deleteEvent}
@@ -251,26 +247,20 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           ref={fileInputRef}
           onChange={handleFileChange}
         />
-        {!event.invitationCard?.url && (
-          <IonCard
-            className="nopreview"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <IonImg src={image || noPreview} />
-          </IonCard>
-        )}
 
         <IonGrid className="event_details">
           <IonCard className="event_info">
-            {!["admin", "owner"].includes(eventRelation?.visitType) && (
-              <IonLabel class="event_title">{event.name}</IonLabel>
+            {!event.invitationCard?.url && (
+              <IonThumbnail
+                className="event_dp"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <IonImg src={image || noPreview} />
+              </IonThumbnail>
             )}
             {event.invitationCard?.url && (
               <IonThumbnail className="event_dp">
-                <IonImg
-                  src={event.invitationCard.url}
-                  alt="Event"
-                />
+                <IonImg src={event.invitationCard.url} alt="Event" />
               </IonThumbnail>
             )}
             <IonText className="event_brief">{event.description}</IonText>
@@ -280,10 +270,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   <IonItem className="ion-list">
                     <IonCard className="venue_info">
                       <IonThumbnail className="dp">
-                        <IonImg
-                          src={goingIcon}
-                          alt=" "
-                        />
+                        <IonImg src={goingIcon} alt=" " />
                       </IonThumbnail>
                       <IonCardContent className="event_titles">
                         <IonCardTitle
@@ -291,19 +278,19 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                             eventRelation.rsvp.response === "attending"
                               ? "going"
                               : eventRelation.rsvp.response === "not-attending"
-                                ? "not-going"
-                                : eventRelation.rsvp.response === "maybe"
-                                  ? "not-sure"
-                                  : ""
+                              ? "not-going"
+                              : eventRelation.rsvp.response === "maybe"
+                              ? "not-sure"
+                              : ""
                           }`}
                         >
                           {eventRelation.rsvp.response == "attending"
                             ? "Going"
                             : eventRelation.rsvp.response == "not-attending"
-                              ? "Not Going"
-                              : eventRelation.rsvp.response == "maybe"
-                                ? "Not sure"
-                                : ""}
+                            ? "Not Going"
+                            : eventRelation.rsvp.response == "maybe"
+                            ? "Not sure"
+                            : ""}
                         </IonCardTitle>
                         <IonCardSubtitle className="event_subtitle">
                           {eventRelation.rsvp.adultsCount} Adults,{" "}
@@ -323,10 +310,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonItem className="ion-list">
                 <IonCard className="venue_info">
                   <IonThumbnail className="dp">
-                    <IonImg
-                      src={clockIcon}
-                      alt="Page Back"
-                    />
+                    <IonImg src={clockIcon} alt="Page Back" />
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
@@ -344,10 +328,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     className="dp"
                     onClick={() => navigateToEventLocation(event.id)}
                   >
-                    <IonImg
-                      src={locationIcon}
-                      alt=" "
-                    />
+                    <IonImg src={locationIcon} alt=" " />
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
@@ -359,10 +340,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="event_type"
                   onClick={() => navigateToEventLocation(event.id)}
                 >
-                  <IonImg
-                    src={GlobeIcon}
-                    alt=""
-                  />
+                  <IonImg src={GlobeIcon} alt="" />
                 </IonThumbnail>
               </IonItem>
               {!["admin", "owner"].includes(eventRelation?.visitType) && (
@@ -420,10 +398,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     className="add-user"
                     onClick={() => inviteMembers(event.id)}
                   >
-                    <IonImg
-                      src={addUserIcon}
-                      alt="Event"
-                    />
+                    <IonImg src={addUserIcon} alt="Event" />
                   </IonThumbnail>
                 </IonItem>
                 {event.members && (
@@ -461,10 +436,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                             statusName === "attendingRSVP"
                               ? "status_card"
                               : statusName === "declinedRSVP"
-                                ? "status_card error"
-                                : statusName === "maybeRSVP"
-                                  ? "status_card warning"
-                                  : ""
+                              ? "status_card error"
+                              : statusName === "maybeRSVP"
+                              ? "status_card warning"
+                              : ""
                           }
                         >
                           <IonItem className="rvsp_info">
@@ -475,8 +450,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                                   statusName === "attendingRSVP"
                                     ? userTickIcon
                                     : statusName === "maybeRSVP"
-                                      ? helpIcon
-                                      : userCrossIcon
+                                    ? helpIcon
+                                    : userCrossIcon
                                 }
                                 alt="Event"
                               />
@@ -487,8 +462,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                                 {statusName === "attendingRSVP"
                                   ? "Attending"
                                   : statusName === "maybeRSVP"
-                                    ? "Maybe"
-                                    : "Declined"}
+                                  ? "Maybe"
+                                  : "Declined"}
                               </IonText>
                             </IonLabel>
                           </IonItem>
@@ -541,29 +516,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </IonButton> */}
             <IonCard className="rsvp_card">
               <IonLabel className="rsvp_title">Are you going?</IonLabel>
-              <IonList
-                class="rsvp_actions"
-                onClick={toggleGogingClass}
-              >
-                <IonItem
-                  className="ionitem"
-                  onClick={() => handleClick("yes")}
-                >
-                  <IonText
-                    class="yes"
-                    className="iontext"
-                  >
+              <IonList class="rsvp_actions" onClick={toggleGogingClass}>
+                <IonItem className="ionitem" onClick={() => handleClick("yes")}>
+                  <IonText class="yes" className="iontext">
                     Yes
                   </IonText>
                 </IonItem>
-                <IonItem
-                  className="ionitem"
-                  onClick={() => handleClick("no")}
-                >
-                  <IonText
-                    class="no"
-                    className="iontext"
-                  >
+                <IonItem className="ionitem" onClick={() => handleClick("no")}>
+                  <IonText class="no" className="iontext">
                     No
                   </IonText>
                 </IonItem>
@@ -571,10 +531,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="ionitem"
                   onClick={() => handleClick("notSure")}
                 >
-                  <IonText
-                    class="notSure"
-                    className="iontext"
-                  >
+                  <IonText class="notSure" className="iontext">
                     Not sure
                   </IonText>
                 </IonItem>
@@ -583,10 +540,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           </IonFooter>
         )}
         {["admin", "owner"].includes(eventRelation?.visitType) && (
-          <Footer
-            eventId={event.id}
-            activeTab={"home"}
-          />
+          <Footer eventId={event.id} activeTab={"home"} />
         )}
       </IonContent>
 
@@ -601,10 +555,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <IonLabel>Are you going?</IonLabel>
           </IonHeader>
           <IonList className="rsvp_actions">
-            <IonItem
-              className="ionitem"
-              onClick={() => handleClick("yes")}
-            >
+            <IonItem className="ionitem" onClick={() => handleClick("yes")}>
               <IonText
                 className={`iontext yes ${
                   activeOption === "yes" ? "active" : ""
@@ -613,10 +564,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 Yes
               </IonText>
             </IonItem>
-            <IonItem
-              className="ionitem"
-              onClick={() => handleClick("no")}
-            >
+            <IonItem className="ionitem" onClick={() => handleClick("no")}>
               <IonText
                 className={`iontext no ${
                   activeOption === "no" ? "active" : ""
@@ -625,10 +573,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 No
               </IonText>
             </IonItem>
-            <IonItem
-              className="ionitem"
-              onClick={() => handleClick("notSure")}
-            >
+            <IonItem className="ionitem" onClick={() => handleClick("notSure")}>
               <IonText
                 className={`iontext notSure ${
                   activeOption === "notSure" ? "active" : ""
@@ -783,10 +728,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <IonImg src={RSVPSuccess} />
             <IonLabel className="success_label">RSVP Submitted!</IonLabel>
           </IonCard>
-          <IonButton
-            className="primary-btn rounded"
-            onClick={successRSVP}
-          >
+          <IonButton className="primary-btn rounded" onClick={successRSVP}>
             Go back to invitation page
           </IonButton>
         </IonGrid>
