@@ -90,11 +90,14 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
             />
           </IonThumbnail>
         ) : (
-          <IonCard style={{ background: getBackGround(event.type) }}>
+          <IonCardContent
+            className="default_event_dp"
+            style={{ background: getBackGround(event.type) }}
+          >
             <IonThumbnail className="icon-thumb">
               <IonImg src={showIcons(event.type)}></IonImg>
             </IonThumbnail>
-          </IonCard>
+          </IonCardContent>
         )}
         <IonCardContent className="event_info">
           <IonCardTitle className="event-name">{event.name}</IonCardTitle>
