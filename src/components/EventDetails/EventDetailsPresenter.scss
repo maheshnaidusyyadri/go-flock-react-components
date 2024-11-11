@@ -6,20 +6,6 @@ body {
 .eventDetails {
   min-height: 100vh;
   padding: 0px !important;
-  &.no-image {
-    .main-header {
-      .header-cnt {
-        background: transparent;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        top: 0;
-      }
-    }
-    .event_details {
-      padding-top: 0px;
-    }
-  }
 }
 
 .event_title {
@@ -188,8 +174,8 @@ body {
           em {
             width: 12px;
             height: 12px;
-            background: url("../../images/icons/close.svg") no-repeat right
-              bottom;
+            // background: url("../../images/icons/close.svg") no-repeat right
+            //   bottom;
           }
         }
         .user-name {
@@ -340,27 +326,6 @@ body {
   min-height: calc(100vh - 147px);
 }
 
-.event_images {
-  img.events {
-    display: block;
-    width: 100%;
-    max-width: 390px;
-    margin-bottom: 10px;
-    &:nth-last-child(2) {
-      margin-bottom: 0px;
-    }
-  }
-  .addmore {
-    width: 32px;
-    height: 32px;
-    display: block;
-    margin: 0 auto;
-    transform: translateY(-50%);
-    background: url("../../images/plus.png") no-repeat center;
-    cursor: pointer;
-  }
-}
-
 .copy_event {
   --padding-start: 0;
   --inner-padding-end: 0;
@@ -375,23 +340,6 @@ body {
   }
   .copy_icon {
     --size: 40px;
-  }
-}
-
-.nopreview {
-  margin: 0;
-  background: $black;
-  border-radius: 0;
-  box-shadow: none;
-  &::after {
-    content: "";
-    width: 100%;
-    height: 32px;
-    border-radius: 16px 16px 0 0;
-    background: $white;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
   }
 }
 

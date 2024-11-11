@@ -43,6 +43,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
   createEvent,
   goToEvent,
+  mode = "detail",
 }) => {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
@@ -70,6 +71,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   } = useForm();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+
+  console.log(mode);
+
   useEffect(() => {
     if (startDate) {
       // setValue("endDate", startDate);

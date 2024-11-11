@@ -4,5 +4,6 @@ declare const _default: {
     component: import('react').FC<CreateNewEventProps>;
 };
 export default _default;
-export declare const CreateEventFlow: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, CreateNewEventProps>;
+export declare const CreateDetailEventFlow: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, CreateNewEventProps>;
+export declare const CreateQuickEventFlow: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, CreateNewEventProps>;
 export declare const ErrorState: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, CreateNewEventProps>;

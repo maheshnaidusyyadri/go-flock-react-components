@@ -53,7 +53,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     console.log("onError", error);
   };
   const handleVerifyOTP = (formData: any) => {
-    verifyOTP(formData.phone, formData.otp)
+    verifyOTP(formData.otp)
       .then(() => {
         onSuccessfulVerification();
       })
@@ -73,7 +73,11 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           <>
             <IonGrid className="auth_sec">
               <IonCard className="auth_cnt">
-                <IonImg className="logo" alt="Go Flock" src={Logo} />
+                <IonImg
+                  className="logo"
+                  alt="Go Flock"
+                  src={Logo}
+                />
                 <IonLabel className="auth-title">
                   Enter Your Phone Number
                 </IonLabel>

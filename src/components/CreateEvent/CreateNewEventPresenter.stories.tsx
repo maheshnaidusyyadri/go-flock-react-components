@@ -14,8 +14,9 @@ const Template: StoryFn<CreateNewEventProps> = (args) => (
   <CreateNewEventPresenter {...args} />
 );
 
-export const CreateEventFlow = Template.bind({});
-CreateEventFlow.args = {
+export const CreateDetailEventFlow = Template.bind({});
+CreateDetailEventFlow.args = {
+  mode: "detail",
   profile: OwnerProfile,
   searchLocation: async (query: string) => {
     console.log(`Searching for location: ${query}`);
@@ -38,9 +39,15 @@ CreateEventFlow.args = {
   },
 };
 
+export const CreateQuickEventFlow = Template.bind({});
+CreateQuickEventFlow.args = {
+  ...CreateDetailEventFlow.args,
+  mode: "quick",
+};
+
 export const ErrorState = Template.bind({});
 ErrorState.args = {
-  ...CreateEventFlow.args,
+  ...CreateDetailEventFlow.args,
   createEvent: async (draftEvent: DraftEvent) => {
     action("createEvent failed for")(draftEvent);
     throw new Error("Failed to create event");
