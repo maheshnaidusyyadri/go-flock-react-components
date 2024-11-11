@@ -466,7 +466,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           const value = e.detail.value;
                           const isMediaSelected = value === "media";
                           setSelectedMedia(isMediaSelected);
-                          setSelectedRecord(false);
+                          // setSelectedRecord(false);
                           register("media").onChange(e);
                         }}
                         {...register("media", {
@@ -498,7 +498,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           const value = e.detail.value;
                           const isRecordSelected = value === "record";
                           setSelectedRecord(isRecordSelected);
-                          setSelectedMedia(false);
+                          // setSelectedMedia(false);
                           register("record").onChange(e);
                         }}
                         {...register("record", {
