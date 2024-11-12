@@ -577,15 +577,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               </IonCard>
             </IonFooter>
           )}
-        {["admin", "owner", "member", "pass"].includes(
-          eventRelation?.visitType
-        ) &&
-          eventRelation?.rsvp && (
-            <Footer
-              eventId={event.id}
-              activeTab={"home"}
-            />
-          )}
+        {(["admin", "owner"].includes(eventRelation?.visitType) ||
+          (["member"].includes(eventRelation?.visitType) &&
+            eventRelation?.rsvp)) && (
+          <Footer
+            eventId={event.id}
+            activeTab={"home"}
+          />
+        )}
       </IonContent>
 
       {isInviteActive && (
