@@ -39,7 +39,8 @@ import CustomInput from "../Common/CustomInput";
 import IonTextarea from "../Common/CustomTextarea";
 import CustomSelect from "../Common/CustomSelect";
 import CustomDateTime from "../Common/CustomDateTime";
-import { formatTime } from "../../utils/utils";
+//import { formatTime } from "../../utils/utils";
+import moment from "moment";
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
@@ -112,18 +113,18 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       visibility: eventVisibility,
       hostedBy: data.hostedBy,
       time: {
-        startDate: data.startDate
-          ? new Date(data.startDate).toISOString().slice(0, 10)
-          : new Date().toISOString().slice(0, 10),
+        startDate: moment(data.startDate || new Date()).format(
+          "YYYY-MM-DDTHH:mm:ss"
+        ),
         endDate: data.endDate
-          ? new Date(data.endDate).toISOString().slice(0, 10)
-          : undefined,
-        startTime: data.startTime ? formatTime(data.startTime) : "",
-        endTime: data.endTime ? formatTime(data.endTime) : "",
-        //startDate: data.startDate || new Date(),
-        //endDate: data.endDate,
-        // startTime: data.startTime,
-        //endTime: data.endTime,
+          ? moment(data.endDate).format("YYYY-MM-DDTHH:mm:ss")
+          : "",
+        startTime: data.startTime
+          ? moment(data.startTime).format("YYYY-MM-DDTHH:mm:ss")
+          : "",
+        endTime: data.endTime
+          ? moment(data.endTime).format("YYYY-MM-DDTHH:mm:ss")
+          : "",
       },
       settings: {
         shareMedia: selectedMedia,
