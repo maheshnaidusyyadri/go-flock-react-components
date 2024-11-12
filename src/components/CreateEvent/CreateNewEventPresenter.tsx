@@ -61,7 +61,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [selectedMedia, setSelectedMedia] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const totalSteps = 5; // Define the total number of steps
+  const totalSteps = mode == "detail" ? 5 : 2; // Define the total number of steps
   const methods = useForm();
   const {
     handleSubmit,
@@ -97,13 +97,18 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     console.log("data.startTime", data.startTime);
     console.log("data.endDate", data.endDate);
     console.log(" data.endTime", data.endTime);
-    if (!selectedLocation || !data.event || data.event.trim() === "") return;
+    if (
+      (mode == "detail" && !selectedLocation) ||
+      !data.event ||
+      data.event.trim() === ""
+    )
+      return;
     setIsCreating(true);
     const draftEvent: DraftEvent = {
       name: data.event,
       type: data.eventType,
       description: data.description,
-      location: selectedLocation,
+      location: selectedLocation || undefined,
       visibility: eventVisibility,
       hostedBy: data.hostedBy,
       time: {
@@ -122,10 +127,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       },
       settings: {
         shareMedia: selectedMedia,
-        splitBills: false,
+        splitBills: selectedRecord,
         enableChats: false,
         allowCheckList: false,
-        //allowCheckList: selectedRecord,
         currency: selectedRecord && selectedCurrency ? selectedCurrency : "USD",
         eventVisibility: eventVisibility || "private",
       },
@@ -145,7 +149,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const nextStep = (formData: any) => {
     console.log("nextStep-currentStep", currentStep);
     console.log("nextStep-formData", formData);
-    if (!selectedLocation) {
+    if (mode == "detail" && !selectedLocation) {
       setLocationError(true);
       return;
     }
@@ -154,7 +158,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const onError = (err: any) => {
     console.log("onError-currentStep", currentStep);
     console.log("onError-err", err);
-    if (!selectedLocation) {
+    if (mode == "detail" && !selectedLocation) {
       setLocationError(true);
     }
   };
@@ -214,62 +218,66 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         register={register}
                       />
                     </IonList>
-                    <IonList className="form-group">
-                      <CustomSelect
-                        control={control}
-                        label="Event Type"
-                        fieldName="eventType"
-                        placeholder="Select Type"
-                        options={[
-                          { value: "Birthday", label: "Birthday" },
-                          { value: "Vacations", label: "Vacations" },
-                          { value: "GetTogether", label: "Get together" },
-                          { value: "Other", label: "Other" },
-                        ]}
-                        isRequired={true}
-                        errors={errors}
-                        errorText="Event Type"
-                        //onIonChange={(e: any) => setEventType(e)}
-                      />
-                    </IonList>
-                    <IonList className="form-group">
-                      <IonLabel className="form-label">Location*</IonLabel>
-                      <PlaceSearch
-                        searchLocation={searchLocation}
-                        onSelectLocation={handleSelectLocation}
-                      />
-                      {locationError && (
-                        <IonText className="error">
-                          *Location is required
-                        </IonText>
-                      )}
-                      {selectedLocation && (
-                        <IonLabel className="location_selection">
-                          Selected Location:
-                          <IonText className="location">
-                            {" "}
-                            {selectedLocation.name}
-                          </IonText>
-                        </IonLabel>
-                      )}
-                    </IonList>
-                    <IonList className="form-group">
-                      <CustomInput
-                        placeholder={"Hosted by"}
-                        label={"Hosted by"}
-                        fieldName={"hostedBy"}
-                        isRequired={true}
-                        errors={errors}
-                        errorText={"Hosted by"}
-                        register={register}
-                      />
-                    </IonList>
+                    {mode === "detail" && (
+                      <>
+                        <IonList className="form-group">
+                          <CustomSelect
+                            control={control}
+                            label="Event Type"
+                            fieldName="eventType"
+                            placeholder="Select Type"
+                            options={[
+                              { value: "Birthday", label: "Birthday" },
+                              { value: "Vacations", label: "Vacations" },
+                              { value: "GetTogether", label: "Get together" },
+                              { value: "Other", label: "Other" },
+                            ]}
+                            isRequired={true}
+                            errors={errors}
+                            errorText="Event Type"
+                            //onIonChange={(e: any) => setEventType(e)}
+                          />
+                        </IonList>
+                        <IonList className="form-group">
+                          <IonLabel className="form-label">Location*</IonLabel>
+                          <PlaceSearch
+                            searchLocation={searchLocation}
+                            onSelectLocation={handleSelectLocation}
+                          />
+                          {locationError && (
+                            <IonText className="error">
+                              *Location is required
+                            </IonText>
+                          )}
+                          {selectedLocation && (
+                            <IonLabel className="location_selection">
+                              Selected Location:
+                              <IonText className="location">
+                                {" "}
+                                {selectedLocation.name}
+                              </IonText>
+                            </IonLabel>
+                          )}
+                        </IonList>
+                        <IonList className="form-group">
+                          <CustomInput
+                            placeholder={"Hosted by"}
+                            label={"Hosted by"}
+                            fieldName={"hostedBy"}
+                            isRequired={true}
+                            errors={errors}
+                            errorText={"Hosted by"}
+                            register={register}
+                          />
+                        </IonList>
+                      </>
+                    )}
                   </IonCardContent>
                 </IonGrid>
               </IonGrid>
             )}
 
-            {currentStep == 2 && (
+            {currentStep == 2 && mode === "detail" && (
               <IonGrid className={`step-content ${getStepClass(2)}`}>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
@@ -375,7 +383,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-            {currentStep == 3 && (
+            {currentStep == 3 && mode === "detail" && (
               <IonGrid className={`step-content ${getStepClass(3)}`}>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
@@ -394,7 +402,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-            {currentStep == 4 && (
+            {currentStep == 4 && mode === "detail" && (
               <IonGrid className={`step-content ${getStepClass(4)}`}>
                 <IonLabel className="step_title">Event Category*</IonLabel>
                 <IonGrid className="form-container">
@@ -418,10 +426,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img
-                              src={privateEventIcon}
-                              alt="Personal Event"
-                            />
+                            <img src={privateEventIcon} alt="Personal Event" />
                           </span>
                           <p>
                             <strong>Personal Event</strong>
@@ -437,10 +442,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img
-                              src={publicEventIcon}
-                              alt="Community Event"
-                            />
+                            <img src={publicEventIcon} alt="Community Event" />
                           </span>
                           <p>
                             <strong>Community Event</strong> Anyone with the
@@ -450,10 +452,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonRadio>
                       </IonRadioGroup>
                       {errors?.eventVisibility && (
-                        <IonText
-                          color="danger"
-                          style={{ fontSize: 12 }}
-                        >
+                        <IonText color="danger" style={{ fontSize: 12 }}>
                           *{" "}
                           {typeof errors.eventVisibility.message === "string"
                             ? errors.eventVisibility.message
@@ -465,8 +464,17 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-            {currentStep == 5 && (
-              <IonGrid className={`step-content ${getStepClass(5)}`}>
+            {((mode === "detail" && currentStep == 5) ||
+              (mode === "quick" && currentStep == 2)) && (
+              <IonGrid
+                className={`step-content ${
+                  mode === "detail" && currentStep === 5
+                    ? getStepClass(5)
+                    : mode === "quick" && currentStep === 2
+                    ? getStepClass(2)
+                    : ""
+                }`}
+              >
                 <IonLabel className="step_title">Settings*</IonLabel>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
@@ -494,10 +502,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img
-                              src={mediaIcon}
-                              alt="Media"
-                            />
+                            <img src={mediaIcon} alt="Media" />
                           </span>
                           <p>
                             <strong>Media</strong> Securely share pictures with
@@ -529,10 +534,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           justify="space-between"
                         >
                           <span>
-                            <img
-                              src={recordsIcon}
-                              alt="Record expenses"
-                            />
+                            <img src={recordsIcon} alt="Record expenses" />
                           </span>
                           <p>
                             <strong>Record expenses</strong> Securely maintain
@@ -575,10 +577,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
                       {/* Error message for Currency */}
                       {errors?.currency && selectedRecord && (
-                        <IonText
-                          color="danger"
-                          style={{ fontSize: 12 }}
-                        >
+                        <IonText color="danger" style={{ fontSize: 12 }}>
                           *
                           {typeof errors.currency.message === "string"
                             ? errors.currency.message
@@ -586,10 +585,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         </IonText>
                       )}
                       {errors?.record && !selectedMedia && (
-                        <IonText
-                          color="danger"
-                          style={{ fontSize: 12 }}
-                        >
+                        <IonText color="danger" style={{ fontSize: 12 }}>
                           *
                           {typeof errors.record.message === "string"
                             ? errors.record.message
@@ -631,15 +627,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           </IonFooter>
         </FormProvider>
       </IonContent>
-      <IonGrid
-        className="action_screen"
-        style={{ display: "none" }}
-      >
+      <IonGrid className="action_screen" style={{ display: "none" }}>
         <IonGrid className="action_screen_cnt">
-          <IonImg
-            alt="Successfully Created Event"
-            src={Success}
-          />
+          <IonImg alt="Successfully Created Event" src={Success} />
           <IonLabel className="action_title">
             Successfully Created Event
           </IonLabel>
