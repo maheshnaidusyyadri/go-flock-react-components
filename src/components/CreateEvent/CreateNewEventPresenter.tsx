@@ -62,7 +62,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [selectedMedia, setSelectedMedia] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const totalSteps = mode == "detail" ? 5 : 2; // Define the total number of steps
+  const [currentMode, setCurrentMode] = useState(mode);
+  const totalSteps = currentMode == "detail" ? 5 : 3; // Define the total number of steps
   const methods = useForm();
   const {
     handleSubmit,
@@ -99,7 +100,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     console.log("data.endDate", data.endDate);
     console.log(" data.endTime", data.endTime);
     if (
-      (mode == "detail" && !selectedLocation) ||
+      (currentMode == "detail" && !selectedLocation) ||
       !data.event ||
       data.event.trim() === ""
     )
@@ -150,7 +151,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const nextStep = (formData: any) => {
     console.log("nextStep-currentStep", currentStep);
     console.log("nextStep-formData", formData);
-    if (mode == "detail" && !selectedLocation) {
+    if (currentMode == "detail" && !selectedLocation) {
       setLocationError(true);
       return;
     }
@@ -159,7 +160,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const onError = (err: any) => {
     console.log("onError-currentStep", currentStep);
     console.log("onError-err", err);
-    if (mode == "detail" && !selectedLocation) {
+    if (currentMode == "detail" && !selectedLocation) {
       setLocationError(true);
     }
   };
@@ -191,6 +192,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     setLocationError(false);
   };
 
+  const changeMode = () => {
+    setCurrentMode((prevMode) => (prevMode === "detail" ? "quick" : "detail"));
+    console.log("changeMode", currentMode);
+  };
+
   return (
     <IonPage>
       <Header
@@ -204,10 +210,18 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
         <FormProvider {...methods}>
           <IonGrid className="stepper-content">
             {/* Step content with prev, current, and next classes */}
+
             {currentStep == 1 && (
               <IonGrid className={`step-content ${getStepClass(1)}`}>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
+                    <IonText
+                      className="error"
+                      style={{ fontSize: 25 }}
+                      onClick={changeMode}
+                    >
+                      ChangeState{currentMode}
+                    </IonText>
                     <IonList className="form-group">
                       <CustomInput
                         placeholder={"Event Name"}
@@ -219,7 +233,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         register={register}
                       />
                     </IonList>
-                    {mode === "detail" && (
+                    {currentMode === "detail" && (
                       <>
                         <IonList className="form-group">
                           <CustomSelect
@@ -278,7 +292,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               </IonGrid>
             )}
 
-            {currentStep == 2 && mode === "detail" && (
+            {currentStep == 2 && currentMode === "detail" && (
               <IonGrid className={`step-content ${getStepClass(2)}`}>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
@@ -384,7 +398,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-            {currentStep == 3 && mode === "detail" && (
+            {currentStep == 3 && currentMode === "detail" && (
               <IonGrid className={`step-content ${getStepClass(3)}`}>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
@@ -403,8 +417,17 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-            {currentStep == 4 && mode === "detail" && (
-              <IonGrid className={`step-content ${getStepClass(4)}`}>
+            {((currentStep == 4 && currentMode === "detail") ||
+              (currentMode === "quick" && currentStep == 2)) && (
+              <IonGrid
+                className={`step-content ${
+                  currentMode === "detail" && currentStep === 4
+                    ? getStepClass(4)
+                    : currentMode === "quick" && currentStep === 2
+                    ? getStepClass(2)
+                    : ""
+                }`}
+              >
                 <IonLabel className="step_title">Event Category*</IonLabel>
                 <IonGrid className="form-container">
                   <IonCardContent className="pad0">
@@ -465,14 +488,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonGrid>
               </IonGrid>
             )}
-            {((mode === "detail" && currentStep == 5) ||
-              (mode === "quick" && currentStep == 2)) && (
+            {((currentMode === "detail" && currentStep == 5) ||
+              (currentMode === "quick" && currentStep == 3)) && (
               <IonGrid
                 className={`step-content ${
-                  mode === "detail" && currentStep === 5
+                  currentMode === "detail" && currentStep === 5
                     ? getStepClass(5)
-                    : mode === "quick" && currentStep === 2
-                    ? getStepClass(2)
+                    : currentMode === "quick" && currentStep === 3
+                    ? getStepClass(3)
                     : ""
                 }`}
               >
