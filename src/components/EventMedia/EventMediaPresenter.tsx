@@ -48,6 +48,7 @@ import NoMedia from "../../images/noMedia.svg";
 import { Share } from "@capacitor/share";
 import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
 type SelectablePhoto = Photo & {
+  id?: any;
   selected?: boolean;
   type?: String;
 };
@@ -281,7 +282,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         });
     });
   };
-  const handleDeleteSelected = () => {
+  const handleDeleteSelected = async () => {
+    const mediaIds = photos
+      .filter((filterItem) => filterItem.selected)
+      .map((mediaItem) => mediaItem.id);
+    console.log("mediaIds-mediaIds", mediaIds);
+    await deleteMedia(mediaIds);
     setPhotos((prevPhotos) => {
       // Filter out the selected photos
       return prevPhotos.filter((photo) => !photo.selected);
@@ -393,6 +399,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       reader.readAsDataURL(file);
     });
   };
+
   return (
     <>
       <IonContent className="eventMedia">
@@ -576,6 +583,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         )}
         {/* Hidden file input for image upload */}
         <input
+          multiple
           type="file"
           accept="image/*"
           style={{ display: "none" }} // Hide the file input

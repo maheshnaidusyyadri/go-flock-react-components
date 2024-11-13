@@ -639,7 +639,7 @@ export const ImageAndVideosMixedMedia: Media[] = [
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "8fT3MMJseTpFPKup6gaw",
       width: 1080,
-      height: 780,
+      height: 720,
     },
   },
   {
@@ -660,7 +660,7 @@ export const ImageAndVideosMixedMedia: Media[] = [
       eventId: "Lz0XqK6sLWl7icDEWQ8b",
       mediaId: "mCtamZsxf7DSpOd1PfnM",
       width: 1080,
-      height: 720,
+      height: 1620,
     },
   },
   {
