@@ -4,6 +4,7 @@ import { CreateNewEventProps } from "@goflock/types/src/presenter";
 import { DraftEvent, LocationInfo } from "@goflock/types/src";
 import { EventWithMembers, OwnerProfile } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
+import NoEvent from "./NoEvent";
 
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
@@ -53,3 +54,7 @@ ErrorState.args = {
     throw new Error("Failed to create event");
   },
 };
+
+const NoEventTemplate: StoryFn = () => <NoEvent />;
+
+export const NoEventFlow = NoEventTemplate.bind({});

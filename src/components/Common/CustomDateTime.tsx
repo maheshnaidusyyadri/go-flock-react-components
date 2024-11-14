@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   IonLabel,
-  IonList,
   IonDatetime,
   IonDatetimeButton,
   IonModal,
   IonText,
   IonImg,
+  IonCol,
+  IonRow,
 } from "@ionic/react";
 import { Controller } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -63,79 +64,81 @@ const CustomDateTime: React.FC<CustomStartDateProps> = ({
   }, []);
 
   return (
-    <IonList className="form-group">
-      {label && (
-        <IonLabel className="form-label">
-          {isRequired ? label + "*" : label}
-        </IonLabel>
-      )}
-      <IonImg
-        className="picker_icon"
-        src={presentation == "date" ? calanderIcon : clockIcon}
-      />
-      <Controller
-        defaultValue={defaultValue}
-        name={fieldName}
-        control={control}
-        rules={{ required: isRequired }}
-        render={({ field: { onChange, value } }) => (
-          <>
-            <IonDatetimeButton
-              className={className ? className : "ion-datetime-button date"}
-              datetime={fieldName}
-              onClick={() =>
-                disabled ? setModalOpen(false) : setModalOpen(true)
-              }
-            />
-            {!value && (
-              <IonLabel className="form-placeholder">{placeHolder}</IonLabel>
-            )}
-            {/* Modal with datetime picker */}
-            <IonModal
-              keepContentsMounted={true}
-              isOpen={isModalOpen}
-              onDidDismiss={() => setModalOpen(false)}
-            >
-              <IonDatetime
-                value={value || selectedDate}
-                //max={minDate}
-                min={minDate}
-                id={fieldName}
-                presentation={presentation}
-                showDefaultButtons={true}
-                onIonChange={(e: any) => {
-                  const newSelectedDate = e.detail.value;
-                  onChange(newSelectedDate);
-                  setModalOpen(false);
-                  setSelectedDate(newSelectedDate);
-
-                  if (onDateChange && newSelectedDate) {
-                    onDateChange(newSelectedDate);
-                  } else {
-                    if (onIonFocus && !newSelectedDate) {
-                      onIonFocus(newSelectedDate);
-                    }
-                  }
-                }}
-                formatOptions={formatOptions}
-                disabled={disabled}
-              />
-            </IonModal>
-            {errors?.[fieldName] &&
-              errors?.[fieldName].type &&
-              errors?.[fieldName].type === "required" && (
-                <IonText
-                  color="danger"
-                  className="error"
-                  style={{ fontSize: 12 }}
-                >
-                  {"* " + errorText + " is required"}
-                </IonText>
-              )}
-          </>
+    <IonRow>
+      <IonCol className="form-group ion-padding-bottom">
+        {label && (
+          <IonLabel className="form-label">
+            {isRequired ? label + "*" : label}
+          </IonLabel>
         )}
-      />
-    </IonList>
+        <IonImg
+          className="picker_icon"
+          src={presentation == "date" ? calanderIcon : clockIcon}
+        />
+        <Controller
+          defaultValue={defaultValue}
+          name={fieldName}
+          control={control}
+          rules={{ required: isRequired }}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <IonDatetimeButton
+                className={className ? className : "ion-datetime-button date"}
+                datetime={fieldName}
+                onClick={() =>
+                  disabled ? setModalOpen(false) : setModalOpen(true)
+                }
+              />
+              {!value && (
+                <IonLabel className="form-placeholder">{placeHolder}</IonLabel>
+              )}
+              {/* Modal with datetime picker */}
+              <IonModal
+                keepContentsMounted={true}
+                isOpen={isModalOpen}
+                onDidDismiss={() => setModalOpen(false)}
+              >
+                <IonDatetime
+                  value={value || selectedDate}
+                  //max={minDate}
+                  min={minDate}
+                  id={fieldName}
+                  presentation={presentation}
+                  showDefaultButtons={true}
+                  onIonChange={(e: any) => {
+                    const newSelectedDate = e.detail.value;
+                    onChange(newSelectedDate);
+                    setModalOpen(false);
+                    setSelectedDate(newSelectedDate);
+
+                    if (onDateChange && newSelectedDate) {
+                      onDateChange(newSelectedDate);
+                    } else {
+                      if (onIonFocus && !newSelectedDate) {
+                        onIonFocus(newSelectedDate);
+                      }
+                    }
+                  }}
+                  formatOptions={formatOptions}
+                  disabled={disabled}
+                />
+              </IonModal>
+              {errors?.[fieldName] &&
+                errors?.[fieldName].type &&
+                errors?.[fieldName].type === "required" && (
+                  <IonText
+                    color="danger"
+                    className="error"
+                    style={{ fontSize: 12 }}
+                  >
+                    {"* " + errorText + " is required"}
+                  </IonText>
+                )}
+            </>
+          )}
+        />
+      </IonCol>
+    </IonRow>
   );
 };
 

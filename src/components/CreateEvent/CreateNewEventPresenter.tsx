@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./CreateNewEventPresenter.scss";
 import {
-  IonCardContent,
   IonButton,
   IonContent,
   IonRadioGroup,
   IonRadio,
   IonLabel,
   IonText,
-  IonList,
   IonFooter,
   IonGrid,
   IonImg,
@@ -17,6 +15,8 @@ import {
   IonItem,
   IonSelectOption,
   IonThumbnail,
+  IonCol,
+  IonRow,
 } from "@ionic/react";
 import {
   CreateNewEventProps,
@@ -192,283 +192,289 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   };
 
   return (
-    <IonPage>
-      <Header
-        title="Create Event"
-        showMenu={false}
-        showContactList={false}
-        showProfile={true}
-      />
-      <IonContent className="create_event">
-        <IonList className="stepper-container">{renderSteps()}</IonList>
-        <FormProvider {...methods}>
-          <IonGrid className="stepper-content">
+    <>
+      <IonPage>
+        <Header
+          title="Create Event"
+          showMenu={false}
+          showContactList={false}
+          showProfile={true}
+        />
+        <IonContent className="ion-padding create_event">
+          {/* <IonContent className="create_event"> */}
+          <IonLabel className="stepper-container ion-no-margin ion-margin-bottom">
+            {renderSteps()}
+          </IonLabel>
+          <FormProvider {...methods}>
             {/* Step content with prev, current, and next classes */}
             {currentStep == 1 && (
-              <IonGrid className={`step-content ${getStepClass(1)}`}>
-                <IonGrid className="form-container">
-                  <IonCardContent className="pad0">
-                    <IonList className="form-group">
-                      <CustomInput
-                        placeholder={"Event Name"}
-                        label={"Event Name"}
-                        fieldName={"event"}
-                        isRequired={true}
-                        errors={errors}
-                        errorText={"Event Name"}
-                        register={register}
-                      />
-                    </IonList>
-                    {mode === "detail" && (
-                      <>
-                        <IonList className="form-group">
-                          <CustomSelect
-                            control={control}
-                            label="Event Type"
-                            fieldName="eventType"
-                            placeholder="Select Type"
-                            options={[
-                              { value: "Birthday", label: "Birthday" },
-                              { value: "Vacations", label: "Vacations" },
-                              { value: "GetTogether", label: "Get together" },
-                              { value: "Other", label: "Other" },
-                            ]}
-                            isRequired={true}
-                            errors={errors}
-                            errorText="Event Type"
-                            //onIonChange={(e: any) => setEventType(e)}
-                          />
-                        </IonList>
-                        <IonList className="form-group">
-                          <IonLabel className="form-label">Location*</IonLabel>
-                          <PlaceSearch
-                            searchLocation={searchLocation}
-                            onSelectLocation={handleSelectLocation}
-                          />
-                          {locationError && (
-                            <IonText className="error">
-                              *Location is required
+              <IonGrid
+                className={`ion-no-padding step-content ${getStepClass(1)}`}
+              >
+                <IonRow>
+                  <IonCol className="form-group ion-padding-bottom">
+                    <CustomInput
+                      placeholder={"Event Name"}
+                      label={"Event Name"}
+                      fieldName={"event"}
+                      isRequired={true}
+                      errors={errors}
+                      errorText={"Event Name"}
+                      register={register}
+                    />
+                  </IonCol>
+                </IonRow>
+                {mode === "detail" && (
+                  <>
+                    <IonRow>
+                      <IonCol className="form-group ion-padding-bottom">
+                        <CustomSelect
+                          control={control}
+                          label="Event Type"
+                          fieldName="eventType"
+                          placeholder="Select Type"
+                          options={[
+                            { value: "Birthday", label: "Birthday" },
+                            { value: "Vacations", label: "Vacations" },
+                            {
+                              value: "GetTogether",
+                              label: "Get together",
+                            },
+                            { value: "Other", label: "Other" },
+                          ]}
+                          isRequired={true}
+                          errors={errors}
+                          errorText="Event Type"
+                          //onIonChange={(e: any) => setEventType(e)}
+                        />
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol className="form-group ion-padding-bottom">
+                        <IonLabel className="form-label">Location*</IonLabel>
+                        <PlaceSearch
+                          searchLocation={searchLocation}
+                          onSelectLocation={handleSelectLocation}
+                        />
+                        {locationError && (
+                          <IonText className="error">
+                            *Location is required
+                          </IonText>
+                        )}
+                        {selectedLocation && (
+                          <IonLabel className="location_selection">
+                            Selected Location:
+                            <IonText className="location">
+                              {" "}
+                              {selectedLocation.name}
                             </IonText>
-                          )}
-                          {selectedLocation && (
-                            <IonLabel className="location_selection">
-                              Selected Location:
-                              <IonText className="location">
-                                {" "}
-                                {selectedLocation.name}
-                              </IonText>
-                            </IonLabel>
-                          )}
-                        </IonList>
-                        <IonList className="form-group">
-                          <CustomInput
-                            placeholder={"Hosted by"}
-                            label={"Hosted by"}
-                            fieldName={"hostedBy"}
-                            isRequired={true}
-                            errors={errors}
-                            errorText={"Hosted by"}
-                            register={register}
-                          />
-                        </IonList>
-                      </>
-                    )}
-                  </IonCardContent>
-                </IonGrid>
+                          </IonLabel>
+                        )}
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol className="form-group ion-padding-bottom">
+                        <CustomInput
+                          placeholder={"Hosted by"}
+                          label={"Hosted by"}
+                          fieldName={"hostedBy"}
+                          isRequired={true}
+                          errors={errors}
+                          errorText={"Hosted by"}
+                          register={register}
+                        />
+                      </IonCol>
+                    </IonRow>
+                  </>
+                )}
               </IonGrid>
             )}
-
             {currentStep == 2 && mode === "detail" && (
-              <IonGrid className={`step-content ${getStepClass(2)}`}>
-                <IonGrid className="form-container">
-                  <IonCardContent className="pad0">
-                    <CustomDateTime
-                      placeHolder={"Select Date"}
-                      className={"ion-datetime-button date"}
-                      presentation={"date"}
-                      control={control}
-                      label={"Date"}
-                      fieldName="startDate"
-                      minDate={tomorrowISOString}
-                      isRequired={true}
-                      errorText="Date"
-                      errors={errors}
-                      defaultValue={startDate}
-                      onDateChange={(value: any) => {
-                        setStartDate(value);
-                        //setEndDate(value);
-                      }}
-                      formatOptions={{
-                        weekday: "short",
-                        month: "long",
-                        day: "2-digit",
-                      }}
-                    />
-                    <CustomDateTime
-                      placeHolder={"Select Time"}
-                      className={"ion-datetime-button time"}
-                      presentation={"time"}
-                      control={control}
-                      label={"Time"}
-                      fieldName="startTime"
-                      isRequired={true}
-                      errorText="Time"
-                      errors={errors}
-                      onIonFocus={() => {
-                        const currentTimeUTC = new Date();
-                        const currentTimeIST = new Date(
-                          currentTimeUTC.getTime() + 5.5 * 60 * 60 * 1000
-                        );
-                        setValue("startTime", currentTimeIST.toISOString());
-                        //setValue("endTime", " ");
-                        setStartTime(currentTimeIST.toISOString());
-                        clearErrors("startTime");
-                      }}
-                      formatOptions={{
-                        time: {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        },
-                      }}
-                    />
-                    <CustomDateTime
-                      placeHolder={"Select Date"}
-                      className={"ion-datetime-button date"}
-                      presentation={"date"}
-                      control={control}
-                      label={"End Date"}
-                      fieldName="endDate"
-                      minDate={startDate}
-                      isRequired={false}
-                      errorText="End Date"
-                      errors={errors}
-                      formatOptions={{
-                        weekday: "short",
-                        month: "long",
-                        day: "2-digit",
-                      }}
-                      //  defaultValue={endDate}
-                      onDateChange={(value: any) => {
-                        setEndDate(value);
-                      }}
-                    />
-
-                    <CustomDateTime
-                      placeHolder={"Select Time"}
-                      className={"ion-datetime-button time"}
-                      presentation={"time"}
-                      control={control}
-                      label={"End Time"}
-                      fieldName="endTime"
-                      isRequired={false}
-                      errorText="End Time"
-                      errors={errors}
-                      minDate={endTime}
-                      onIonFocus={() => {
-                        const currentTimeUTC = new Date();
-                        const currentTimeIST = new Date(
-                          currentTimeUTC.getTime() + 5.5 * 60 * 60 * 1000
-                        );
-                        setValue("endTime", currentTimeIST.toISOString());
-                        clearErrors("endTime");
-                      }}
-                      formatOptions={{
-                        time: {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        },
-                      }}
-                      //disabled={!startTime}
-                    />
-                  </IonCardContent>
-                </IonGrid>
+              <IonGrid
+                className={`ion-no-padding step-content ${getStepClass(2)}`}
+              >
+                <CustomDateTime
+                  placeHolder={"Select Date"}
+                  className={"ion-datetime-button date"}
+                  presentation={"date"}
+                  control={control}
+                  label={"Date"}
+                  fieldName="startDate"
+                  minDate={tomorrowISOString}
+                  isRequired={true}
+                  errorText="Date"
+                  errors={errors}
+                  defaultValue={startDate}
+                  onDateChange={(value: any) => {
+                    setStartDate(value);
+                    //setEndDate(value);
+                  }}
+                  formatOptions={{
+                    weekday: "short",
+                    month: "long",
+                    day: "2-digit",
+                  }}
+                />
+                <CustomDateTime
+                  placeHolder={"Select Time"}
+                  className={"ion-datetime-button time"}
+                  presentation={"time"}
+                  control={control}
+                  label={"Time"}
+                  fieldName="startTime"
+                  isRequired={true}
+                  errorText="Time"
+                  errors={errors}
+                  onIonFocus={() => {
+                    const currentTimeUTC = new Date();
+                    const currentTimeIST = new Date(
+                      currentTimeUTC.getTime() + 5.5 * 60 * 60 * 1000
+                    );
+                    setValue("startTime", currentTimeIST.toISOString());
+                    //setValue("endTime", " ");
+                    setStartTime(currentTimeIST.toISOString());
+                    clearErrors("startTime");
+                  }}
+                  formatOptions={{
+                    time: {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  }}
+                />
+                <CustomDateTime
+                  placeHolder={"Select Date"}
+                  className={"ion-datetime-button date"}
+                  presentation={"date"}
+                  control={control}
+                  label={"End Date"}
+                  fieldName="endDate"
+                  minDate={startDate}
+                  isRequired={false}
+                  errorText="End Date"
+                  errors={errors}
+                  formatOptions={{
+                    weekday: "short",
+                    month: "long",
+                    day: "2-digit",
+                  }}
+                  //  defaultValue={endDate}
+                  onDateChange={(value: any) => {
+                    setEndDate(value);
+                  }}
+                />
+                <CustomDateTime
+                  placeHolder={"Select Time"}
+                  className={"ion-datetime-button time"}
+                  presentation={"time"}
+                  control={control}
+                  label={"End Time"}
+                  fieldName="endTime"
+                  isRequired={false}
+                  errorText="End Time"
+                  errors={errors}
+                  minDate={endTime}
+                  onIonFocus={() => {
+                    const currentTimeUTC = new Date();
+                    const currentTimeIST = new Date(
+                      currentTimeUTC.getTime() + 5.5 * 60 * 60 * 1000
+                    );
+                    setValue("endTime", currentTimeIST.toISOString());
+                    clearErrors("endTime");
+                  }}
+                  formatOptions={{
+                    time: {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  }}
+                />
               </IonGrid>
             )}
             {currentStep == 3 && mode === "detail" && (
-              <IonGrid className={`step-content ${getStepClass(3)}`}>
-                <IonGrid className="form-container">
-                  <IonCardContent className="pad0">
-                    <IonList className="form-group">
-                      <IonTextarea
-                        placeholder={"Description"}
-                        label={"Description"}
-                        fieldName={"description"}
-                        isRequired={true}
-                        errors={errors}
-                        errorText={"Description"}
-                        register={register}
-                      />
-                    </IonList>
-                  </IonCardContent>
-                </IonGrid>
+              <IonGrid
+                className={`ion-no-padding step-content ${getStepClass(3)}`}
+              >
+                <IonRow>
+                  <IonCol className="form-group ion-padding-bottom">
+                    <IonTextarea
+                      placeholder={"Description"}
+                      label={"Description"}
+                      fieldName={"description"}
+                      isRequired={true}
+                      errors={errors}
+                      errorText={"Description"}
+                      register={register}
+                    />
+                  </IonCol>
+                </IonRow>
               </IonGrid>
             )}
             {currentStep == 4 && mode === "detail" && (
-              <IonGrid className={`step-content ${getStepClass(4)}`}>
+              <IonGrid
+                className={`ion-no-padding step-content ${getStepClass(4)}`}
+              >
                 <IonLabel className="step_title">Event Category*</IonLabel>
-                <IonGrid className="form-container">
-                  <IonCardContent className="pad0">
-                    <IonList className="form-group">
-                      <IonRadioGroup
-                        className="ion-radio-group"
-                        allowEmptySelection={false}
-                        onIonChange={(e) => {
-                          register("eventVisibility").onChange(e);
-                          setEventVisibility(e.detail.value);
-                        }}
-                        value={eventVisibility}
-                        {...register("eventVisibility", {
-                          required: "Event Category is required",
-                        })}
+                <IonRow>
+                  <IonCol className="form-group ion-padding-bottom">
+                    <IonRadioGroup
+                      className="ion-radio-group"
+                      allowEmptySelection={false}
+                      onIonChange={(e) => {
+                        register("eventVisibility").onChange(e);
+                        setEventVisibility(e.detail.value);
+                      }}
+                      value={eventVisibility}
+                      {...register("eventVisibility", {
+                        required: "Event Category is required",
+                      })}
+                    >
+                      <IonRadio
+                        className="ion-radio"
+                        value="private"
+                        justify="space-between"
                       >
-                        <IonRadio
-                          className="ion-radio"
-                          value="private"
-                          justify="space-between"
-                        >
-                          <span>
-                            <img src={privateEventIcon} alt="Personal Event" />
-                          </span>
-                          <p>
-                            <strong>Personal Event</strong>
-                            Exclusively invite your guests by their contact. You
-                            can keep your invitation private and share the event
-                            happenings securely. You can change this option
-                            later.
-                          </p>
-                        </IonRadio>
-                        <IonRadio
-                          class="ion-radio"
-                          value="public"
-                          justify="space-between"
-                        >
-                          <span>
-                            <img src={publicEventIcon} alt="Community Event" />
-                          </span>
-                          <p>
-                            <strong>Community Event</strong> Anyone with the
-                            link can access the event, RSVP etc. You can change
-                            this option later.
-                          </p>
-                        </IonRadio>
-                      </IonRadioGroup>
-                      {errors?.eventVisibility && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
-                          *{" "}
-                          {typeof errors.eventVisibility.message === "string"
-                            ? errors.eventVisibility.message
-                            : ""}
-                        </IonText>
-                      )}
-                    </IonList>
-                  </IonCardContent>
-                </IonGrid>
+                        <span>
+                          <img src={privateEventIcon} alt="Personal Event" />
+                        </span>
+                        <p>
+                          <strong>Personal Event</strong>
+                          Exclusively invite your guests by their contact. You
+                          can keep your invitation private and share the event
+                          happenings securely. You can change this option later.
+                        </p>
+                      </IonRadio>
+                      <IonRadio
+                        class="ion-radio"
+                        value="public"
+                        justify="space-between"
+                      >
+                        <span>
+                          <img src={publicEventIcon} alt="Community Event" />
+                        </span>
+                        <p>
+                          <strong>Community Event</strong> Anyone with the link
+                          can access the event, RSVP etc. You can change this
+                          option later.
+                        </p>
+                      </IonRadio>
+                    </IonRadioGroup>
+                    {errors?.eventVisibility && (
+                      <IonText color="danger" style={{ fontSize: 12 }}>
+                        *{" "}
+                        {typeof errors.eventVisibility.message === "string"
+                          ? errors.eventVisibility.message
+                          : ""}
+                      </IonText>
+                    )}
+                  </IonCol>
+                </IonRow>
               </IonGrid>
             )}
             {((mode === "detail" && currentStep == 5) ||
               (mode === "quick" && currentStep == 2)) && (
               <IonGrid
-                className={`step-content ${
+                className={`ion-no-padding step-content ${
                   mode === "detail" && currentStep === 5
                     ? getStepClass(5)
                     : mode === "quick" && currentStep === 2
@@ -477,176 +483,173 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 }`}
               >
                 <IonLabel className="step_title">Settings*</IonLabel>
-                <IonGrid className="form-container">
-                  <IonCardContent className="pad0">
-                    <IonList className="form-group">
-                      <IonRadioGroup
-                        className="ion-radio-group"
-                        allowEmptySelection={true}
-                        value={selectedMedia ? "media" : ""}
-                        onIonChange={(e) => {
-                          const value = e.detail.value;
-                          const isMediaSelected = value === "media";
-                          setSelectedMedia(isMediaSelected);
-                          // setSelectedRecord(false);
-                          register("media").onChange(e);
-                        }}
-                        {...register("media", {
-                          required: selectedRecord
-                            ? false
-                            : "Please select an option",
-                        })}
+                <IonRow>
+                  <IonCol className="form-group ion-padding-bottom">
+                    <IonRadioGroup
+                      className="ion-radio-group"
+                      allowEmptySelection={true}
+                      value={selectedMedia ? "media" : ""}
+                      onIonChange={(e) => {
+                        const value = e.detail.value;
+                        const isMediaSelected = value === "media";
+                        setSelectedMedia(isMediaSelected);
+                        // setSelectedRecord(false);
+                        register("media").onChange(e);
+                      }}
+                      {...register("media", {
+                        required: selectedRecord
+                          ? false
+                          : "Please select an option",
+                      })}
+                    >
+                      <IonRadio
+                        className="ion-radio"
+                        value="media"
+                        justify="space-between"
                       >
-                        <IonRadio
-                          className="ion-radio"
-                          value="media"
-                          justify="space-between"
-                        >
-                          <span>
-                            <img src={mediaIcon} alt="Media" />
-                          </span>
-                          <p>
-                            <strong>Media</strong> Securely share pictures with
-                            the event attendees.
-                          </p>
-                        </IonRadio>
-                      </IonRadioGroup>
-
-                      <IonRadioGroup
-                        className="ion-radio-group"
-                        allowEmptySelection={true}
-                        value={selectedRecord ? "record" : ""}
-                        onIonChange={(e) => {
-                          const value = e.detail.value;
-                          const isRecordSelected = value === "record";
-                          setSelectedRecord(isRecordSelected);
-                          // setSelectedMedia(false);
-                          register("record").onChange(e);
-                        }}
-                        {...register("record", {
-                          required: selectedMedia
-                            ? false
-                            : "Please select an option",
-                        })}
+                        <span>
+                          <img src={mediaIcon} alt="Media" />
+                        </span>
+                        <p>
+                          <strong>Media</strong> Securely share pictures with
+                          the event attendees.
+                        </p>
+                      </IonRadio>
+                    </IonRadioGroup>
+                    <IonRadioGroup
+                      className="ion-radio-group"
+                      allowEmptySelection={true}
+                      value={selectedRecord ? "record" : ""}
+                      onIonChange={(e) => {
+                        const value = e.detail.value;
+                        const isRecordSelected = value === "record";
+                        setSelectedRecord(isRecordSelected);
+                        // setSelectedMedia(false);
+                        register("record").onChange(e);
+                      }}
+                      {...register("record", {
+                        required: selectedMedia
+                          ? false
+                          : "Please select an option",
+                      })}
+                    >
+                      <IonRadio
+                        className="ion-radio"
+                        value="record"
+                        justify="space-between"
                       >
-                        <IonRadio
-                          className="ion-radio"
-                          value="record"
-                          justify="space-between"
+                        <span>
+                          <img src={recordsIcon} alt="Record expenses" />
+                        </span>
+                        <p>
+                          <strong>Record expenses</strong> Securely maintain the
+                          expenses between hosts & co-hosts.
+                        </p>
+                      </IonRadio>
+                    </IonRadioGroup>
+                    {selectedRecord && (
+                      <IonItem className="currency_selection">
+                        <IonThumbnail>
+                          <IonImg src={currencyIcon} />
+                        </IonThumbnail>
+                        <IonLabel className="item-title">
+                          Currency
+                          <IonText className="item-subtitle">
+                            Securely maintain the expenses between hosts &
+                            co-hosts
+                          </IonText>
+                        </IonLabel>
+                        <IonSelect
+                          className="ion-select"
+                          value={selectedCurrency}
+                          interface="action-sheet"
+                          onIonChange={(e) => {
+                            setSelectedCurrency(e.detail.value);
+                            register("currency").onChange(e);
+                          }}
+                          {...register("currency", {
+                            required: selectedRecord
+                              ? "Please select a currency"
+                              : false,
+                          })}
                         >
-                          <span>
-                            <img src={recordsIcon} alt="Record expenses" />
-                          </span>
-                          <p>
-                            <strong>Record expenses</strong> Securely maintain
-                            the expenses between hosts & co-hosts.
-                          </p>
-                        </IonRadio>
-                      </IonRadioGroup>
-                      {selectedRecord && (
-                        <IonItem className="currency_selection">
-                          <IonThumbnail>
-                            <IonImg src={currencyIcon} />
-                          </IonThumbnail>
-                          <IonLabel className="item-title">
-                            Currency
-                            <IonText className="item-subtitle">
-                              Securely maintain the expenses between hosts &
-                              co-hosts
-                            </IonText>
-                          </IonLabel>
-                          <IonSelect
-                            className="ion-select"
-                            value={selectedCurrency}
-                            interface="action-sheet"
-                            onIonChange={(e) => {
-                              setSelectedCurrency(e.detail.value);
-                              register("currency").onChange(e);
-                            }}
-                            {...register("currency", {
-                              required: selectedRecord
-                                ? "Please select a currency"
-                                : false,
-                            })}
-                          >
-                            <IonSelectOption value="USD">USD</IonSelectOption>
-                            <IonSelectOption value="EUR">EUR</IonSelectOption>
-                            <IonSelectOption value="INR">INR</IonSelectOption>
-                          </IonSelect>
-                        </IonItem>
-                      )}
-
-                      {/* Error message for Currency */}
-                      {errors?.currency && selectedRecord && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
-                          *
-                          {typeof errors.currency.message === "string"
-                            ? errors.currency.message
-                            : ""}
-                        </IonText>
-                      )}
-                      {errors?.record && !selectedMedia && (
-                        <IonText color="danger" style={{ fontSize: 12 }}>
-                          *
-                          {typeof errors.record.message === "string"
-                            ? errors.record.message
-                            : ""}
-                        </IonText>
-                      )}
-                    </IonList>
-                  </IonCardContent>
-                </IonGrid>
+                          <IonSelectOption value="USD">USD</IonSelectOption>
+                          <IonSelectOption value="EUR">EUR</IonSelectOption>
+                          <IonSelectOption value="INR">INR</IonSelectOption>
+                        </IonSelect>
+                      </IonItem>
+                    )}
+                    {/* Error message for Currency */}
+                    {errors?.currency && selectedRecord && (
+                      <IonText color="danger" style={{ fontSize: 12 }}>
+                        *
+                        {typeof errors.currency.message === "string"
+                          ? errors.currency.message
+                          : ""}
+                      </IonText>
+                    )}
+                    {errors?.record && !selectedMedia && (
+                      <IonText color="danger" style={{ fontSize: 12 }}>
+                        *
+                        {typeof errors.record.message === "string"
+                          ? errors.record.message
+                          : ""}
+                      </IonText>
+                    )}
+                  </IonCol>
+                </IonRow>
               </IonGrid>
             )}
-          </IonGrid>
-          {/* Navigation buttons */}
-          <IonFooter className="actions-container stickyFooter">
-            <IonButton
-              className="primary-btn actions"
-              onClick={prevStep}
-              disabled={currentStep === 1}
-            >
-              Previous
-            </IonButton>
-            <IonButton
-              className="primary-btn actions"
-              onClick={handleSubmit(nextStep, onError)}
-              disabled={currentStep === totalSteps}
-            >
-              Next
-            </IonButton>
-            {currentStep === totalSteps && (
+
+            {/* Navigation buttons */}
+            <IonFooter className="actions-container stickyFooter ion-no-padding">
               <IonButton
-                className="primary-btn"
-                onClick={handleSubmit(handleCreateEvent, onError)}
-                expand="block"
-                //disabled={isCreating || !selectedLocation || !eventName}
+                className="primary-btn actions"
+                onClick={prevStep}
+                disabled={currentStep === 1}
               >
-                {isCreating ? "Creating Event..." : "Create Event"}
+                Previous
               </IonButton>
-            )}
+              <IonButton
+                className="primary-btn actions"
+                onClick={handleSubmit(nextStep, onError)}
+                disabled={currentStep === totalSteps}
+              >
+                Next
+              </IonButton>
+              {currentStep === totalSteps && (
+                <IonButton
+                  className="primary-btn"
+                  onClick={handleSubmit(handleCreateEvent, onError)}
+                  expand="block"
+                  //disabled={isCreating || !selectedLocation || !eventName}
+                >
+                  {isCreating ? "Creating Event..." : "Create Event"}
+                </IonButton>
+              )}
+            </IonFooter>
+          </FormProvider>
+        </IonContent>
+        <IonGrid className="action_screen" style={{ display: "none" }}>
+          <IonGrid className="action_screen_cnt">
+            <IonImg alt="Successfully Created Event" src={Success} />
+            <IonLabel className="action_title">
+              Successfully Created Event
+            </IonLabel>
+            <IonText className="action_info">
+              Event Created! 🎉 Now, let's make it unforgettable. Invite friends
+              and let the good times roll!
+            </IonText>
+          </IonGrid>
+          <IonFooter className="action_screen_buttons">
+            <IonButton className="primary-btn">Go To Event Details</IonButton>
+            <IonButton className="secondary-btn">
+              Invite Friends To The Event
+            </IonButton>
           </IonFooter>
-        </FormProvider>
-      </IonContent>
-      <IonGrid className="action_screen" style={{ display: "none" }}>
-        <IonGrid className="action_screen_cnt">
-          <IonImg alt="Successfully Created Event" src={Success} />
-          <IonLabel className="action_title">
-            Successfully Created Event
-          </IonLabel>
-          <IonText className="action_info">
-            Event Created! 🎉 Now, let's make it unforgettable. Invite friends
-            and let the good times roll!
-          </IonText>
         </IonGrid>
-        <IonFooter className="action_screen_buttons">
-          <IonButton className="primary-btn">Go To Event Details</IonButton>
-          <IonButton className="secondary-btn">
-            Invite Friends To The Event
-          </IonButton>
-        </IonFooter>
-      </IonGrid>
-    </IonPage>
+      </IonPage>
+    </>
   );
 };
 

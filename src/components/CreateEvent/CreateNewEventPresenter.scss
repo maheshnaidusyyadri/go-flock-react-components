@@ -1,13 +1,14 @@
-@import "../../styles/variables.scss";
-
-body {
-  font-size: 100%;
-  //  padding: 16px !important;
-}
-.create_event {
-  min-height: calc(100vh - 60px);
-  padding: 0px !important;
-}
+@import "../../styles/fonts";
+@import "../../styles/stepper.scss";
+@import "../../styles/_actionModal.scss";
+// body {
+//   font-size: 100%;
+//   //  padding: 16px !important;
+// }
+// .create_event {
+//   min-height: calc(100vh - 60px);
+//   padding: 0px !important;
+// }
 
 // .stepper-container {
 //     display: flex;
@@ -125,6 +126,6 @@ body {
     }
   }
   .ion-select {
-    border: 0px;
+    border: 0px !important;
   }
 }
