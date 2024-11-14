@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import "./EventSplitBillPresenter.scss";
 
 import {
+  IonPage,
+  IonContent,
   IonButton,
   IonLabel,
   IonText,
   IonFooter,
   IonGrid,
+  IonRow,
+  IonCol,
   IonImg,
   IonThumbnail,
   IonItem,
-  IonCardContent,
   IonList,
   IonInput,
   IonAvatar,
@@ -339,118 +342,131 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   };
 
   return (
-    <>
+    <IonPage>
       <Header
         title="Add expense"
         showMenu={false}
         showContactList={false}
         showProfile={true}
       />
-      <IonGrid className="expense_page">
-        <IonList className="stepper-container">{renderSteps()}</IonList>
+      <IonContent className="ion-padding expense_page">
+        <IonList className="stepper-container ion-no-margin ion-margin-bottom">
+          {renderSteps()}
+        </IonList>
         <FormProvider {...methods}>
-          <IonGrid className="stepper-content">
-            <IonGrid className={`step-content ${getStepClass(1)}`}>
-              <IonGrid className="form-container">
-                <IonCardContent className="pad0">
-                  <IonList className="form-group">
-                    <CustomInput
-                      placeholder={"Expense Details"}
-                      label={"Expense details"}
-                      fieldName={"billName"}
-                      isRequired={true}
-                      errors={errors}
-                      errorText={"Expense Details"}
-                      register={register}
-                    />
-                  </IonList>
-                  <IonList className="form-group">
-                    <CustomInput
-                      placeholder={"Total Amount"}
-                      label={"Total Amount"}
-                      fieldName={"totalAmount"}
-                      isRequired={true}
-                      errors={errors}
-                      errorText={"Total Amount"}
-                      register={register}
-                      inputType="number"
-                      onInputChange={(e) => setTotalAmount(e.detail.value)}
-                    />
-                  </IonList>
+          {currentStep == 1 && (
+            <IonGrid
+              className={`ion-no-padding ion-padding-top step-content ${getStepClass(
+                1
+              )}`}
+            >
+              <IonRow>
+                <IonCol className="form-group ion-padding-bottom">
+                  <CustomInput
+                    placeholder={"Expense Details"}
+                    label={"Expense details"}
+                    fieldName={"billName"}
+                    isRequired={true}
+                    errors={errors}
+                    errorText={"Expense Details"}
+                    register={register}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol className="form-group ion-padding-bottom">
+                  <CustomInput
+                    placeholder={"Total Amount"}
+                    label={"Total Amount"}
+                    fieldName={"totalAmount"}
+                    isRequired={true}
+                    errors={errors}
+                    errorText={"Total Amount"}
+                    register={register}
+                    inputType="number"
+                    onInputChange={(e) => setTotalAmount(e.detail.value)}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol
+                  className="form-group ion-padding-bottom"
+                  onClick={handlePaidByClick}
+                >
+                  <CustomInput
+                    placeholder={"You"}
+                    label={"Paid by"}
+                    fieldName={"paidBy"}
+                    isRequired={true}
+                    errors={errors}
+                    errorText={"Paid By"}
+                    register={register}
+                    readonly={true}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol
+                  className="form-group ion-padding-bottom"
+                  onClick={handleChooseMembersClick}
+                >
+                  <CustomInput
+                    placeholder={"Choose members"}
+                    label={"Split among"}
+                    fieldName={"splitAmong"}
+                    isRequired={true}
+                    errors={errors}
+                    errorText={"Choose members"}
+                    register={register}
+                    readonly={true}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol></IonCol>
+              </IonRow>
+              <IonGrid class="profile-list">
+                {selectedMember.map((eventMember: any) => (
                   <IonList
-                    className="form-group"
-                    onClick={handlePaidByClick}
+                    key={eventMember.id}
+                    className="profile-item"
+                    onClick={() => handleRemove(eventMember)}
                   >
-                    <CustomInput
-                      placeholder={"You"}
-                      label={"Paid by"}
-                      fieldName={"paidBy"}
-                      isRequired={true}
-                      errors={errors}
-                      errorText={"Paid By"}
-                      register={register}
-                      readonly={true}
-                    />
+                    <IonThumbnail className="profile-avatar-wrapper">
+                      <>
+                        {eventMember.profileImg ? (
+                          <IonAvatar className="profile-avatar">
+                            <IonImg
+                              src={eventMember.profileImg}
+                              alt={eventMember.name}
+                            />
+                          </IonAvatar>
+                        ) : (
+                          <IonAvatar className="profile-dp">
+                            {getDisplayName(eventMember?.name)}
+                          </IonAvatar>
+                        )}
+                      </>
+                      <IonImg
+                        src={unselect}
+                        alt="status"
+                        className="remove_user"
+                      />
+                    </IonThumbnail>
+                    <IonLabel className="profile-name">
+                      {eventMember.name}
+                    </IonLabel>
                   </IonList>
-                  <IonList>
-                    <>
-                      <IonLabel
-                        className="form-group"
-                        onClick={handleChooseMembersClick}
-                      >
-                        <CustomInput
-                          placeholder={"Choose members"}
-                          label={"Split among"}
-                          fieldName={"splitAmong"}
-                          isRequired={true}
-                          errors={errors}
-                          errorText={"Choose members"}
-                          register={register}
-                          readonly={true}
-                        />
-                      </IonLabel>
-                    </>
-                  </IonList>
-                </IonCardContent>
-                <IonGrid class="profile-list">
-                  {selectedMember.map((eventMember: any) => (
-                    <div
-                      key={eventMember.id}
-                      className="profile-item"
-                      onClick={() => handleRemove(eventMember)}
-                    >
-                      <IonThumbnail className="profile-avatar-wrapper">
-                        <>
-                          {eventMember.profileImg ? (
-                            <IonAvatar className="profile-avatar">
-                              <img
-                                src={eventMember.profileImg}
-                                alt={eventMember.name}
-                              />
-                            </IonAvatar>
-                          ) : (
-                            <IonAvatar className="profile-dp">
-                              {getDisplayName(eventMember?.name)}
-                            </IonAvatar>
-                          )}
-                        </>
-                        <img
-                          src={unselect}
-                          alt="status"
-                          className="remove_user"
-                        />
-                      </IonThumbnail>
-                      <IonLabel className="profile-name">
-                        {eventMember.name}
-                      </IonLabel>
-                    </div>
-                  ))}
-                </IonGrid>
+                ))}
               </IonGrid>
             </IonGrid>
-
-            <IonGrid className={`step-content ${getStepClass(2)}`}>
+          )}
+          {currentStep == 2 && (
+            <IonGrid
+              className={`ion-no-padding step-content ${getStepClass(2)}`}
+            >
               <IonSegment
+                className="tabs-sec"
                 value={selectedSegment}
                 onIonChange={(e) =>
                   setSelectedSegment(
@@ -470,130 +486,121 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
               </IonSegment>
 
               {selectedSegment === "equal" && (
-                <div id="home-page">
-                  <IonList className="list_wrap">
-                    {selectedEqallAmount.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
-                          {Item.profileImg ? (
-                            <IonAvatar className="profile-avatar">
-                              <img
-                                src={Item.profileImg}
-                                alt={`${Item.name}'s profile`}
-                              />
-                            </IonAvatar>
-                          ) : (
-                            <IonAvatar className="profile-dp">
-                              {getDisplayName(Item?.name)}
-                            </IonAvatar>
-                          )}
-                        </IonThumbnail>
-                        <IonLabel className="user_name">
-                          {Item.name || Item.phoneNumber}
-                        </IonLabel>
-                        <IonText class="amout">${Item.amount}</IonText>
-                      </IonItem>
-                    ))}
-                  </IonList>
-                </div>
+                <IonRow id="home-page">
+                  <IonCol size="12">
+                    <IonList className="list_wrap">
+                      {selectedEqallAmount.map((Item: any, index: any) => (
+                        <IonItem key={index} className="user_item">
+                          <IonThumbnail slot="start" className="dp">
+                            {Item.profileImg ? (
+                              <IonAvatar className="profile-avatar">
+                                <IonImg
+                                  src={Item.profileImg}
+                                  alt={`${Item.name}'s profile`}
+                                />
+                              </IonAvatar>
+                            ) : (
+                              <IonAvatar className="profile-dp">
+                                {getDisplayName(Item?.name)}
+                              </IonAvatar>
+                            )}
+                          </IonThumbnail>
+                          <IonLabel className="user_name">
+                            {Item.name || Item.phoneNumber}
+                          </IonLabel>
+                          <IonText class="amout">${Item.amount}</IonText>
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </IonCol>
+                </IonRow>
               )}
 
               {selectedSegment === "amount" && (
-                <div id="radio-page">
-                  <IonList className="list_wrap expense_tabs">
-                    {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
-                          {Item.profileImg ? (
-                            <IonAvatar className="profile-avatar">
-                              <IonImg
-                                src={Item.profileImg}
-                                alt={`${Item.name}'s profile`}
-                              />
-                            </IonAvatar>
-                          ) : (
-                            <IonAvatar className="profile-dp">
-                              {getDisplayName(Item?.name)}
-                            </IonAvatar>
-                          )}
-                        </IonThumbnail>
-                        <IonLabel className="user_name">
-                          {Item.name || Item.phone}
-                        </IonLabel>
-                        <IonInput
-                          className="ion_input prefix"
-                          value={Item.amount}
-                          label=""
-                          labelPlacement="stacked"
-                          placeholder="0.00"
-                          type="number" // Ensures numeric input
-                          inputmode="decimal"
-                          onIonInput={(e) =>
-                            handleAmountChange(e.detail.value || "", index)
-                          }
-                        />
-                      </IonItem>
-                    ))}
-                  </IonList>
-                </div>
+                <IonRow id="radio-page">
+                  <IonCol size="12">
+                    <IonList className="list_wrap expense_tabs">
+                      {selectedMember.map((Item: any, index: any) => (
+                        <IonItem key={index} className="user_item">
+                          <IonThumbnail slot="start" className="dp">
+                            {Item.profileImg ? (
+                              <IonAvatar className="profile-avatar">
+                                <IonImg
+                                  src={Item.profileImg}
+                                  alt={`${Item.name}'s profile`}
+                                />
+                              </IonAvatar>
+                            ) : (
+                              <IonAvatar className="profile-dp">
+                                {getDisplayName(Item?.name)}
+                              </IonAvatar>
+                            )}
+                          </IonThumbnail>
+                          <IonLabel className="user_name">
+                            {Item.name || Item.phone}
+                          </IonLabel>
+                          <IonInput
+                            className="ion_input prefix"
+                            value={Item.amount}
+                            label=""
+                            labelPlacement="stacked"
+                            placeholder="0.00"
+                            type="number" // Ensures numeric input
+                            inputmode="decimal"
+                            onIonInput={(e) =>
+                              handleAmountChange(e.detail.value || "", index)
+                            }
+                          />
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </IonCol>
+                </IonRow>
               )}
 
               {selectedSegment === "percentage" && (
-                <div id="library-page">
-                  <IonList className="list_wrap expense_tabs">
-                    {selectedMember.map((Item: any, index: any) => (
-                      <IonItem
-                        key={index}
-                        className="user_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
-                          {Item.profileImg ? (
-                            <IonAvatar className="profile-avatar">
-                              <img
-                                src={Item.profileImg}
-                                alt={`${Item.name}'s profile`}
-                              />
-                            </IonAvatar>
-                          ) : (
-                            <IonAvatar className="profile-dp">
-                              {getDisplayName(Item?.name)}
-                            </IonAvatar>
-                          )}
-                        </IonThumbnail>
-                        <IonLabel className="user_name">
-                          {Item.name || Item.phone}
-                        </IonLabel>
-                        <IonInput
-                          class="ion_input safix"
-                          value={Item.percentage}
-                          label=""
-                          labelPlacement="stacked"
-                          placeholder="0"
-                          type="number" // Ensures numeric input
-                          inputmode="decimal"
-                          onIonInput={(e) =>
-                            handlePercentageChange(e.detail.value || "", index)
-                          }
-                        />
-                      </IonItem>
-                    ))}
-                  </IonList>
-                </div>
+                <IonRow id="library-page">
+                  <IonCol size="12">
+                    <IonList className="list_wrap expense_tabs">
+                      {selectedMember.map((Item: any, index: any) => (
+                        <IonItem key={index} className="user_item">
+                          <IonThumbnail slot="start" className="dp">
+                            {Item.profileImg ? (
+                              <IonAvatar className="profile-avatar">
+                                <IonImg
+                                  src={Item.profileImg}
+                                  alt={`${Item.name}'s profile`}
+                                />
+                              </IonAvatar>
+                            ) : (
+                              <IonAvatar className="profile-dp">
+                                {getDisplayName(Item?.name)}
+                              </IonAvatar>
+                            )}
+                          </IonThumbnail>
+                          <IonLabel className="user_name">
+                            {Item.name || Item.phone}
+                          </IonLabel>
+                          <IonInput
+                            class="ion_input safix"
+                            value={Item.percentage}
+                            label=""
+                            labelPlacement="stacked"
+                            placeholder="0"
+                            type="number" // Ensures numeric input
+                            inputmode="decimal"
+                            onIonInput={(e) =>
+                              handlePercentageChange(
+                                e.detail.value || "",
+                                index
+                              )
+                            }
+                          />
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  </IonCol>
+                </IonRow>
               )}
               {showError && (
                 <>
@@ -634,21 +641,16 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 </>
               )}
             </IonGrid>
-
+          )}
+          {currentStep == 3 && (
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
                 {selectedMember.map((Item: any, index: any) => (
-                  <IonItem
-                    key={index}
-                    className="user_item"
-                  >
-                    <IonThumbnail
-                      slot="start"
-                      className="dp"
-                    >
+                  <IonItem key={index} className="user_item">
+                    <IonThumbnail slot="start" className="dp">
                       {Item.profileImg ? (
                         <IonAvatar className="profile-avatar">
-                          <img
+                          <IonImg
                             src={Item.profileImg}
                             alt={`${Item.name}'s profile`}
                           />
@@ -667,36 +669,35 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 ))}
               </IonList>
             </IonGrid>
-          </IonGrid>
-          <IonFooter className="actions-container stickyFooter">
-            <IonButton
-              className="primary-btn actions"
-              onClick={prevStep}
-              disabled={currentStep === 1}
-            >
-              Previous
-            </IonButton>
-            <IonButton
-              className="primary-btn actions"
-              onClick={handleSubmit(nextStep, onError)}
-              disabled={currentStep === totalSteps}
-            >
-              Next
-            </IonButton>
-            {currentStep === totalSteps && (
-              <IonButton
-                className="primary-btn save"
-                // onClick={() => handleSave()}
-                onClick={handleSubmit(handleSave, onError)}
-                expand="block"
-              >
-                Save & Back To Home
-              </IonButton>
-            )}
-          </IonFooter>
+          )}
         </FormProvider>
-      </IonGrid>
-
+      </IonContent>
+      <IonFooter className="actions-container stickyFooter">
+        <IonButton
+          className="primary-btn actions"
+          onClick={prevStep}
+          disabled={currentStep === 1}
+        >
+          Previous
+        </IonButton>
+        <IonButton
+          className="primary-btn actions"
+          onClick={handleSubmit(nextStep, onError)}
+          disabled={currentStep === totalSteps}
+        >
+          Next
+        </IonButton>
+        {currentStep === totalSteps && (
+          <IonButton
+            className="primary-btn save"
+            // onClick={() => handleSave()}
+            onClick={handleSubmit(handleSave, onError)}
+            expand="block"
+          >
+            Save & Back To Home
+          </IonButton>
+        )}
+      </IonFooter>
       <IonGrid className={`custom-modal ${isOpen ? "open" : ""}`}>
         {true && (
           <>
@@ -718,7 +719,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
           </>
         )}
       </IonGrid>
-    </>
+    </IonPage>
   );
 };
 

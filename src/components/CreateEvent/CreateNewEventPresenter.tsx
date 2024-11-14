@@ -218,6 +218,13 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               <IonGrid
                 className={`ion-no-padding step-content ${getStepClass(1)}`}
               >
+                <IonText
+                  className="error"
+                  style={{ fontSize: 25 }}
+                  onClick={changeMode}
+                >
+                  ChangeState{currentMode}
+                </IonText>
                 <IonRow>
                   <IonCol className="form-group ion-padding-bottom">
                     <CustomInput
@@ -296,7 +303,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 )}
               </IonGrid>
             )}
-            {currentStep == 2 && mode === "detail" && (
+            {currentStep == 2 && currentMode === "detail" && (
               <IonGrid
                 className={`ion-no-padding step-content ${getStepClass(2)}`}
               >
@@ -398,7 +405,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 />
               </IonGrid>
             )}
-            {currentStep == 3 && mode === "detail" && (
+            {currentStep == 3 && currentMode === "detail" && (
               <IonGrid
                 className={`ion-no-padding step-content ${getStepClass(3)}`}
               >
@@ -420,7 +427,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
             {((currentStep == 4 && currentMode === "detail") ||
               (currentMode === "quick" && currentStep == 2)) && (
               <IonGrid
-                className={`step-content ${
+                className={`ion-no-padding step-content ${
                   currentMode === "detail" && currentStep === 4
                     ? getStepClass(4)
                     : currentMode === "quick" && currentStep === 2
@@ -488,7 +495,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
             {((currentMode === "detail" && currentStep == 5) ||
               (currentMode === "quick" && currentStep == 3)) && (
               <IonGrid
-                className={`step-content ${
+                className={`ion-no-padding step-content ${
                   currentMode === "detail" && currentStep === 5
                     ? getStepClass(5)
                     : currentMode === "quick" && currentStep === 3
