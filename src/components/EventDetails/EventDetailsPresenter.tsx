@@ -229,10 +229,16 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     });
   };
 
+  if (eventRelation.visitType === "unauthorized") {
+    return <>Event does not exist or not authorized</>;
+  }
+
   return (
     <>
       <IonContent className="eventDetails">
         <Header
+          showLogo={true}
+          showGoBack={false}
           eventId={event.id}
           title={event.name}
           showMenu={true}
@@ -528,8 +534,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </IonButton>
           </IonFooter>
         )}
-        {!["admin", "owner"].includes(eventRelation?.visitType) &&
-          !eventRelation?.rsvp && (
+        {!["owner"].includes(eventRelation?.visitType) &&
+          !(eventRelation?.rsvp && eventRelation.rsvp?.response) && (
             <IonFooter className="stickyFooter">
               {/* <IonButton onClick={toggleClass} className="primary-btn rounded">
               Submit your response
@@ -579,7 +585,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           )}
         {(["admin", "owner"].includes(eventRelation?.visitType) ||
           (["member"].includes(eventRelation?.visitType) &&
-            eventRelation?.rsvp)) && (
+            eventRelation?.rsvp &&
+            eventRelation.rsvp?.response)) && (
           <Footer
             eventId={event.id}
             activeTab={"home"}
