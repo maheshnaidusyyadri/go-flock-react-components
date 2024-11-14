@@ -63,6 +63,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [selectedRecord, setSelectedRecord] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [currentMode, setCurrentMode] = useState(mode);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [newEventId, setNewEventId] = useState("");
+
   const totalSteps = currentMode == "detail" ? 5 : 3; // Define the total number of steps
   const methods = useForm();
   const {
@@ -139,6 +142,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     try {
       let newEvent: Event = await createEvent(draftEvent);
       if (newEvent.id) {
+        setShowSuccess(true);
+        setNewEventId(newEvent.id);
         goToEvent(newEvent.id);
       }
     } catch (error) {
@@ -238,7 +243,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     />
                   </IonCol>
                 </IonRow>
-                {mode === "detail" && (
+                {currentMode === "detail" && (
                   <>
                     <IonRow>
                       <IonCol className="form-group ion-padding-bottom">
@@ -651,24 +656,34 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
             </IonFooter>
           </FormProvider>
         </IonContent>
-        <IonGrid className="action_screen" style={{ display: "none" }}>
-          <IonGrid className="action_screen_cnt">
-            <IonImg alt="Successfully Created Event" src={Success} />
-            <IonLabel className="action_title">
-              Successfully Created Event
-            </IonLabel>
-            <IonText className="action_info">
-              Event Created! 🎉 Now, let's make it unforgettable. Invite friends
-              and let the good times roll!
-            </IonText>
+        {showSuccess && (
+          <IonGrid className="action_screen">
+            <IonGrid className="action_screen_cnt">
+              <IonImg alt="Successfully Created Event" src={Success} />
+              <IonLabel className="action_title">
+                Successfully Created Event
+              </IonLabel>
+              <IonText className="action_info">
+                Event Created! 🎉 Now, let's make it unforgettable. Invite
+                friends and let the good times roll!
+              </IonText>
+            </IonGrid>
+            <IonFooter className="action_screen_buttons">
+              <IonButton
+                className="primary-btn"
+                onClick={() => {
+                  setShowSuccess(false);
+                  goToEvent(newEventId);
+                }}
+              >
+                Go To Event Details
+              </IonButton>
+              <IonButton className="secondary-btn">
+                Invite Friends To The Event
+              </IonButton>
+            </IonFooter>
           </IonGrid>
-          <IonFooter className="action_screen_buttons">
-            <IonButton className="primary-btn">Go To Event Details</IonButton>
-            <IonButton className="secondary-btn">
-              Invite Friends To The Event
-            </IonButton>
-          </IonFooter>
-        </IonGrid>
+        )}
       </IonPage>
     </>
   );
