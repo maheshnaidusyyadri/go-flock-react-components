@@ -30,6 +30,7 @@ import publicEventIcon from "../../images/icons/publicEvent.svg";
 import mediaIcon from "../../images/icons/media_circle.svg";
 import recordsIcon from "../../images/icons/record_circle.svg";
 import currencyIcon from "../../images/icons/currency.svg";
+import nextIcon from "../../images/icons/next.svg";
 
 import PlaceSearch from "./PlaceSearch";
 import { EventVisibility } from "@goflock/types";
@@ -211,6 +212,32 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           showContactList={false}
           showProfile={true}
         />
+        {currentStep == 1 && (
+          <IonLabel
+            className="event-type-action ion-padding-horizontal"
+            onClick={changeMode}
+          >
+            {
+              <>
+                {currentMode === "detail" ? (
+                  <p>
+                    Short on time? Create an event{" "}
+                    <IonText class="type">instantly!</IonText>
+                  </p>
+                ) : (
+                  <p>
+                    Want more control? Create a{" "}
+                    <IonText class="type">detailed event.</IonText>
+                  </p>
+                )}
+              </>
+            }
+
+            {/* {currentMode === "detail" ? "instantly!" : "detailed event."} */}
+
+            <IonImg className="next" src={nextIcon} />
+          </IonLabel>
+        )}
         <IonContent className="ion-padding create_event">
           {/* <IonContent className="create_event"> */}
           <IonLabel className="stepper-container ion-no-margin ion-margin-bottom">
@@ -223,13 +250,13 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               <IonGrid
                 className={`ion-no-padding step-content ${getStepClass(1)}`}
               >
-                <IonText
+                {/* <IonText
                   className="error"
                   style={{ fontSize: 25 }}
                   onClick={changeMode}
                 >
                   ChangeState{currentMode}
-                </IonText>
+                </IonText> */}
                 <IonRow>
                   <IonCol className="form-group ion-padding-bottom">
                     <CustomInput
@@ -654,36 +681,37 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 </IonButton>
               )}
             </IonFooter>
+
+            {showSuccess && (
+              <IonGrid className="action_screen">
+                <IonGrid className="action_screen_cnt">
+                  <IonImg alt="Successfully Created Event" src={Success} />
+                  <IonLabel className="action_title">
+                    Successfully Created Event
+                  </IonLabel>
+                  <IonText className="action_info">
+                    Event Created! 🎉 Now, let's make it unforgettable. Invite
+                    friends and let the good times roll!
+                  </IonText>
+                </IonGrid>
+                <IonFooter className="action_screen_buttons">
+                  <IonButton
+                    className="primary-btn"
+                    onClick={() => {
+                      setShowSuccess(false);
+                      goToEvent(newEventId);
+                    }}
+                  >
+                    Go To Event Details
+                  </IonButton>
+                  <IonButton className="secondary-btn">
+                    Invite Friends To The Event
+                  </IonButton>
+                </IonFooter>
+              </IonGrid>
+            )}
           </FormProvider>
         </IonContent>
-        {showSuccess && (
-          <IonGrid className="action_screen">
-            <IonGrid className="action_screen_cnt">
-              <IonImg alt="Successfully Created Event" src={Success} />
-              <IonLabel className="action_title">
-                Successfully Created Event
-              </IonLabel>
-              <IonText className="action_info">
-                Event Created! 🎉 Now, let's make it unforgettable. Invite
-                friends and let the good times roll!
-              </IonText>
-            </IonGrid>
-            <IonFooter className="action_screen_buttons">
-              <IonButton
-                className="primary-btn"
-                onClick={() => {
-                  setShowSuccess(false);
-                  goToEvent(newEventId);
-                }}
-              >
-                Go To Event Details
-              </IonButton>
-              <IonButton className="secondary-btn">
-                Invite Friends To The Event
-              </IonButton>
-            </IonFooter>
-          </IonGrid>
-        )}
       </IonPage>
     </>
   );
