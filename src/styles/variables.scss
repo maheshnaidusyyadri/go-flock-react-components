@@ -9,6 +9,8 @@ $secondaryColor: #71717a;
 $black: #000000;
 $white: #ffffff;
 
+@import "../styles/style.scss";
+
 :host {
   display: block;
   background-color: lightblue;
@@ -117,11 +119,11 @@ body {
 }
 
 .form-group {
-  width: 100%;
-  padding-bottom: 15px;
-  margin-bottom: 5px;
-  display: block;
-  position: relative;
+  // width: 100%;
+  // padding-bottom: 15px;
+  // margin-bottom: 5px;
+  // display: block;
+  //position: relative;
   .form-label {
     font-family: $GoFlockFont;
     font-size: 14px;
@@ -340,7 +342,7 @@ body {
   .picker_icon {
     position: absolute;
     right: 15px;
-    top: calc(50% + 8px);
+    top: calc(50% + 4px);
     z-index: -1;
     transform: translateY(-50%);
   }
@@ -694,22 +696,6 @@ body {
 }
 
 /////////////////////////
-.stepper-container {
-  display: flex;
-  gap: 4px; /* Space between the inputs */
-  justify-content: center;
-  margin: 8px 0 24px;
-  padding: 16px 16px 0;
-  .step {
-    width: 33.3%;
-    height: 4px;
-    border-radius: 50px;
-    background: #ecefea;
-    &.active {
-      background: $GoFlockColor;
-    }
-  }
-}
 
 .actions-container {
   display: flex;
@@ -735,63 +721,62 @@ body {
   }
 }
 
-.stepper-content {
-  display: flex;
-  position: relative;
-  min-height: 70vh;
+// .stepper-content {
+//   display: flex;
+//   position: relative;
+//   min-height: 70vh;
 
-  .step-content {
-    min-width: 100%;
-    display: block !important;
-    position: absolute;
-    top: 0;
-    padding: 0 16px;
-    transition: all 0.4s ease-in-out;
-    .step_title {
-      font-family: $GoFlockFont;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-    }
-    &.prev {
-      left: -100%;
-      opacity: 0;
-      visibility: hidden;
-    }
-    &.next {
-      left: 100%;
-      opacity: 0;
-      visibility: hidden;
-    }
-    &.current {
-      left: 0px;
-      opacity: 1;
-      visibility: visible;
-    }
-    .form-container {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      box-shadow: none;
-    }
-    .list_wrap {
-      padding-top: 12px;
-      .user_item {
-        .dp {
-          --size: 40px;
-          width: 40px;
-          height: 40px;
-          margin-right: 12px;
-          margin-top: 0;
-          .profile-avatar {
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-    }
-  }
-}
+//   .step-content {
+//     min-width: 100%;
+//     display: block !important;
+//     position: absolute;
+//     top: 0;
+//     transition: all 0.4s ease-in-out;
+//     .step_title {
+//       font-family: $GoFlockFont;
+//       font-size: 14px;
+//       font-weight: 500;
+//       line-height: 20px;
+//     }
+//     &.prev {
+//       left: -100%;
+//       opacity: 0;
+//       visibility: hidden;
+//     }
+//     &.next {
+//       left: 100%;
+//       opacity: 0;
+//       visibility: hidden;
+//     }
+//     &.current {
+//       left: 0px;
+//       opacity: 1;
+//       visibility: visible;
+//     }
+//     .form-container {
+//       width: 100%;
+//       padding: 0;
+//       margin: 0;
+//       box-shadow: none;
+//     }
+//     .list_wrap {
+//       padding-top: 12px;
+//       .user_item {
+//         .dp {
+//           --size: 40px;
+//           width: 40px;
+//           height: 40px;
+//           margin-right: 12px;
+//           margin-top: 0;
+//           .profile-avatar {
+//             width: 100%;
+//             height: 100%;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

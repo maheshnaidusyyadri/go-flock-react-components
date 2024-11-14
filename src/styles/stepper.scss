@@ -1,0 +1,93 @@
+@import "../styles/fonts";
+
+.stepper-container {
+  display: flex;
+  gap: 4px; /* Space between the inputs */
+  justify-content: center;
+  .step {
+    width: 100%;
+    height: 4px;
+    border-radius: 50px;
+    background: #ecefea;
+    &.active {
+      background: $GoFlockColor;
+    }
+  }
+}
+
+.step-content {
+  .step_title {
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+  &.prev {
+    left: -100%;
+    opacity: 0;
+    visibility: hidden;
+  }
+  &.next {
+    left: 100%;
+    opacity: 0;
+    visibility: hidden;
+  }
+  &.current {
+    left: 0px;
+    opacity: 1;
+    visibility: visible;
+  }
+  .form-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+  .list_wrap {
+    padding-top: 12px;
+    .user_item {
+      .dp {
+        --size: 40px;
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        margin-top: 0;
+        .profile-avatar {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.tabs-sec {
+  position: sticky;
+  top: -16px;
+  background: $white;
+  z-index: 9;
+}
+
+.stepper-content {
+  .step-content {
+    position: absolute;
+    top: 0;
+    transition: all 0.4s ease-in-out;
+
+    &.prev {
+      left: -100%;
+      opacity: 0;
+      visibility: hidden;
+    }
+    &.next {
+      left: 100%;
+      opacity: 0;
+      visibility: hidden;
+    }
+    &.current {
+      left: 0px;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@use "../styles/fonts" as *;
+
+.ion-color-primary {
+  --ion-color-primary: #18181b;
+  font-family: $GoFlockFont;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: capitalize;
+}

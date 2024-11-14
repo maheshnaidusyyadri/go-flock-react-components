@@ -1,0 +1,25 @@
+@import "../styles/fonts";
+
+.no-event-sec {
+  h2 {
+    font-family: $GoFlockFont;
+    color: $GoFlockColor;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+    margin: 0 0 8px 0;
+  }
+  p {
+    font-family: $GoFlockFont;
+    color: $secondaryColor;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0 0 30px 0;
+  }
+  .button {
+    width: 170px;
+  }
+}

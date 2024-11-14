@@ -1,0 +1,74 @@
+@import "../styles/fonts";
+
+.action-moadal {
+  --border-radius: 16px;
+}
+
+.actions-head {
+  .action-icon {
+    margin: 0 auto 4px;
+    display: block;
+    width: 40px;
+  }
+  .action-title {
+    font-family: $GoFlockFont;
+    color: $GoFlockColor;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    padding-bottom: 4px;
+    margin: 0;
+  }
+  .action-subtitle {
+    font-family: $GoFlockFont;
+    color: $secondaryColor;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    margin: 0;
+  }
+}
+
+.event-type {
+  box-shadow: none;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  height: 100%;
+  margin: 0 4px;
+  .type-icon {
+    width: 19px;
+    margin: 0 auto 10px;
+  }
+  h2 {
+    color: $GoFlockColor;
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0 0 10px;
+  }
+  p {
+    color: $secondaryColor;
+    font-family: $GoFlockFont;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    margin: 0;
+  }
+}
+
+.action-line {
+  padding-top: 40px;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 24px;
+    transform: translateX(-50%);
+    border-radius: 30px;
+    background: #ebebeb;
+    width: 40px;
+    height: 4px;
+  }
+}
