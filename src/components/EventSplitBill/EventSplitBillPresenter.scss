@@ -1,9 +1,6 @@
 @import "../../styles/fonts";
 @import "../../styles/stepper.scss";
 
-body {
-  padding: 0px !important;
-}
 .bill_cnt {
   padding: 16px !important;
   .action_screen_buttons {
@@ -11,11 +8,6 @@ body {
     top: 100%;
     box-shadow: none;
   }
-}
-
-.expense_page {
-  // height: calc(100vh - 68px);
-  // padding: 0;
 }
 
 body {
@@ -151,87 +143,156 @@ body {
   z-index: 999;
 }
 
-.transactions_cnt {
-  padding: 0px;
-  margin: 0px;
-  border: 1px solid #e4e4e7;
-  border-radius: 6px;
+// .transactions_cnt {
+//   padding: 0px;
+//   margin: 0px;
+//   //border: 1px solid #e4e4e7;
+//   border-radius: 6px;
+//   box-shadow: none;
+//   .nodata {
+//     text-align: center;
+//     display: block;
+//     padding: 0px 0 40px;
+//     font-family: $GoFlockFont;
+//     font-size: 14px;
+//     color: $GoFlockColor;
+//     font-weight: 600;
+//   }
+// }
+// .transactions {
+//   padding: 16px;
+//   width: 100%;
+//   --padding-start: 16px;
+//   --padding-end: 16px;
+//   --padding-top: 16px;
+//   --padding-bottom: 16px;
+//   .transaction_list {
+//     padding: 6px 10px;
+//     border-radius: 6px;
+//     border: 1px solid #e4e4e7;
+//     .transaction_item {
+//       --border-color: transparent;
+//       --background: transparent;
+//       --min-height: auto;
+//       --padding-start: 0;
+//       --inner-padding-end: 0;
+//       .transaction_name {
+//         margin: 0;
+//         font-family: $GoFlockFont;
+//         font-size: 12px;
+//         font-weight: 600;
+//         color: $GoFlockColor;
+//       }
+//       .transaction_actions {
+//         display: flex;
+//         align-items: center;
+//         justify-content: flex-end;
+//         margin: 0;
+//         .icon_btn {
+//           --background: transparent;
+//           --box-shadow: none;
+//           width: 30px;
+//           height: 30px;
+//           border: 1px solid #f7d4d4;
+//           --padding-end: 0;
+//           --padding-start: 0;
+//           margin: 0 0 0 10px;
+//           border-radius: 50%;
+//           ion-img {
+//             width: 16px;
+//           }
+//         }
+//       }
+//     }
+//     .contributor_list {
+//       --padding-start: 0;
+//       --inner-padding-end: 0;
+//       --border-color: transparent;
+//       --background: transparent;
+//       .contributor_name {
+//         font-family: $GoFlockFont;
+//         font-size: 12px;
+//         line-height: 20px;
+//         font-weight: 500;
+//         color: $GoFlockColor;
+//       }
+//       .contribution {
+//         font-family: $GoFlockFont;
+//         font-size: 14px;
+//         line-height: 20px;
+//         font-weight: 500;
+//         color: #dc2626;
+//       }
+//     }
+//   }
+// }
+
+.transactions-cnt {
   box-shadow: none;
-  .nodata {
-    text-align: center;
-    display: block;
-    padding: 0px 0 40px;
-    font-family: $GoFlockFont;
-    font-size: 14px;
-    color: $GoFlockColor;
-    font-weight: 600;
-  }
-}
-.transactions {
-  padding: 16px;
-  width: 100%;
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --padding-top: 16px;
-  --padding-bottom: 16px;
-  .transaction_list {
-    padding: 6px 10px;
-    .transaction_item {
+  .transaction-list {
+    padding: 14px;
+    border-radius: 6px;
+    border: 1px solid #e4e4e7;
+    margin-bottom: 16px;
+    .transaction-item {
       --border-color: transparent;
       --background: transparent;
       --min-height: auto;
       --padding-start: 0;
       --inner-padding-end: 0;
-      .transaction_name {
-        margin: 0;
-        font-family: $GoFlockFont;
-        font-size: 12px;
-        font-weight: 600;
-        color: $GoFlockColor;
+      margin-bottom: 0px;
+      .transaction-info {
+        h2 {
+          color: $GoFlockColor;
+          font-family: $GoFlockFont;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          margin: 0 0 4px 0;
+        }
+        p {
+          color: $secondaryColor;
+          font-family: $GoFlockFont;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 14px;
+          margin: 0;
+        }
       }
-      .transaction_actions {
+      .transaction-actions {
         display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        margin: 0;
-        .icon_btn {
-          --background: transparent;
-          --box-shadow: none;
-          width: 30px;
-          height: 30px;
-          border: 1px solid #f7d4d4;
-          --padding-end: 0;
-          --padding-start: 0;
-          margin: 0 0 0 10px;
-          border-radius: 50%;
-          ion-img {
-            width: 16px;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+        p {
+          color: #dc2626;
+          font-family: $GoFlockFont;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 20px;
+          padding-left: 10px;
+        }
+        .action-btns {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          margin: 4px 0 0 0;
+          .icon-btn {
+            --background: transparent;
+            --box-shadow: none;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #f7d4d4;
+            --padding-end: 0;
+            --padding-start: 0;
+            margin: 0 0 0 10px;
+            border-radius: 50%;
+            ion-img {
+              width: 16px;
+            }
           }
         }
       }
-    }
-    .contributor_list {
-      --padding-start: 0;
-      --inner-padding-end: 0;
-      --border-color: transparent;
-      --background: transparent;
-      .contributor_name {
-        font-family: $GoFlockFont;
-        font-size: 12px;
-        line-height: 20px;
-        font-weight: 500;
-        color: $GoFlockColor;
-      }
-      .contribution {
-        font-family: $GoFlockFont;
-        font-size: 14px;
-        line-height: 20px;
-        font-weight: 500;
-        color: #dc2626;
-      }
-    }
-    &:nth-child(even) {
-      background: #f6f6f6;
     }
   }
 }

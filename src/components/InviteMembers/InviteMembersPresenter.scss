@@ -652,11 +652,12 @@ body {
 }
 
 .nodata {
-  padding: 50px 0 0 0;
+  padding: 0px 0 0 0;
   margin: 0;
   box-shadow: none;
   border: none;
   text-align: center;
+  display: block;
   ion-img {
     display: block;
     margin: 0 auto 50px;

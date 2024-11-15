@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { EventExpenseSummaryProps } from "@goflock/types/src/index";
 import "./EventSplitBillPresenter.scss";
-
 import Footer from "../Footer/Footer";
 import {
   IonButton,
-  IonCard,
+  IonCol,
   IonContent,
   IonFooter,
+  IonGrid,
   IonImg,
   IonItem,
   IonLabel,
   IonList,
   IonPage,
+  IonRow,
   IonSegment,
   IonSegmentButton,
   IonText,
@@ -20,7 +21,7 @@ import {
 import Header from "../Header/Header";
 import EditIcon from "../../images/icons/Edit.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
-import Bill from "../../images/bill.svg";
+import EmptyBill from "../Common/Icons/EmptyBill";
 
 const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   event,
@@ -57,111 +58,113 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         showContactList={false}
         showProfile={true}
       />
-
-      <IonContent className="event_transactions">
+      <IonContent className="event_transactions ion-padding">
         <IonSegment
+          className="segment_tabs ion-margin-bottom"
           value={selectedSegment}
           onIonChange={(e) =>
             setSelectedSegment(e.detail.value as "transactions" | "expenses")
           }
         >
-          <IonSegmentButton value="transactions">Transactions</IonSegmentButton>
-          <IonSegmentButton value="expenses">Expense Summary</IonSegmentButton>
+          <IonSegmentButton value="transactions">
+            <IonLabel>Transactions</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="expenses">
+            <IonLabel>Expense Summary</IonLabel>
+          </IonSegmentButton>
         </IonSegment>
-
         {selectedSegment === "transactions" && (
-          <IonContent className="transactions">
-            <IonCard className="transactions_cnt">
-              {transactions.length > 0 ? (
-                transactions.map((transaction) => (
-                  <IonList
-                    key={transaction.id}
-                    className="transaction_list"
-                  >
-                    <IonItem className="transaction_item">
-                      <IonLabel class="transaction_name">
-                        {transaction.description}
-                      </IonLabel>
-                      <IonLabel class="transaction_actions">
-                        <IonButton
-                          className="icon_btn"
-                          onClick={() =>
-                            onUpdateTransaction(event.id, transaction.id!)
-                          }
-                          disabled={isLoading}
+          <IonGrid className="transactions-cnt ion-no-margin ion-no-padding">
+            {transactions.length > 0 ? (
+              transactions.map((transaction) => (
+                <IonRow>
+                  <IonCol>
+                    <IonList key={transaction.id} className="transaction-list">
+                      <IonItem
+                        className="transaction-item ion-no-margin"
+                        lines="none"
+                      >
+                        <IonLabel class="transaction-info ion-no-margin">
+                          <h2>{transaction.description}</h2>
+                          <p>{transaction.paidUserId}</p>
+                        </IonLabel>
+                        <IonLabel
+                          slot="end"
+                          className="transaction-actions ion-no-margin"
                         >
-                          <IonImg src={EditIcon} />
-                        </IonButton>
-                        <IonButton
-                          className="icon_btn"
-                          onClick={() =>
-                            handleDeleteTransaction(transaction.id!)
-                          }
-                          disabled={isLoading}
-                        >
-                          <IonImg src={DeleteIcon} />
-                        </IonButton>
-                      </IonLabel>
-                    </IonItem>
-
-                    <IonItem className="contributor_list">
-                      <IonLabel className="contributor_name">
-                        {transaction.paidUserId}
-                      </IonLabel>
-                      <IonText className="contribution">
-                        ${transaction.amount}
-                      </IonText>
-                    </IonItem>
-                  </IonList>
-                ))
-              ) : (
-                <>
-                  <IonImg
-                    className="ion-img"
-                    alt="No transactions found"
-                    src={Bill}
-                  />
-                  <IonText className="nodata">No transactions found</IonText>
-                </>
-              )}
-            </IonCard>
-          </IonContent>
+                          <p>${transaction.amount}</p>
+                          <IonLabel class="action-btns" slot="end">
+                            <IonButton
+                              className="icon-btn"
+                              onClick={() =>
+                                onUpdateTransaction(event.id, transaction.id!)
+                              }
+                              disabled={isLoading}
+                            >
+                              <IonImg src={EditIcon} />
+                            </IonButton>
+                            <IonButton
+                              className="icon-btn"
+                              onClick={() =>
+                                handleDeleteTransaction(transaction.id!)
+                              }
+                              disabled={isLoading}
+                            >
+                              <IonImg src={DeleteIcon} />
+                            </IonButton>
+                          </IonLabel>
+                        </IonLabel>
+                      </IonItem>
+                    </IonList>
+                  </IonCol>
+                </IonRow>
+              ))
+            ) : (
+              <IonLabel className="ion-text-center">
+                <EmptyBill />
+                <IonText className="nodata ion-text-center">
+                  No transactions found
+                </IonText>
+              </IonLabel>
+            )}
+          </IonGrid>
         )}
-
         {selectedSegment === "expenses" && (
-          <IonContent className="transactions">
-            <IonCard className="transactions_cnt">
-              {expenses.length > 0 ? (
-                expenses.map((expense) => (
-                  <IonItem
-                    key={expense.userId}
-                    className="contributor_list"
-                  >
-                    <IonLabel className="contributor_name">
-                      {expense.userId}
-                    </IonLabel>
-                    <IonText className="contribution">
-                      ${expense.amount.toFixed(2)}
-                    </IonText>
-                  </IonItem>
-                ))
-              ) : (
-                <>
-                  <IonImg
-                    className="ion-img"
-                    alt="No expenses found"
-                    src={Bill}
-                  />
-                  <IonText className="nodata">No expenses found</IonText>
-                </>
-              )}
-            </IonCard>
-          </IonContent>
+          <IonGrid className="transactions-cnt ion-no-margin ion-no-padding">
+            {expenses.length > 0 ? (
+              expenses.map((expense) => (
+                <IonRow>
+                  <IonCol>
+                    <IonList className="transaction-list">
+                      <IonItem
+                        key={expense.userId}
+                        className="transaction-item ion-no-margin"
+                        lines="none"
+                      >
+                        <IonLabel className="transaction-info ion-no-margin">
+                          <h2>{expense.userId}</h2>
+                        </IonLabel>
+                        <IonLabel
+                          slot="end"
+                          className="transaction-actions ion-no-margin"
+                        >
+                          <p>${expense.amount.toFixed(2)}</p>
+                        </IonLabel>
+                      </IonItem>
+                    </IonList>
+                  </IonCol>
+                </IonRow>
+              ))
+            ) : (
+              <IonLabel className="ion-text-center">
+                <EmptyBill />
+                <IonText className="nodata ">No expenses found</IonText>
+              </IonLabel>
+            )}
+          </IonGrid>
         )}
       </IonContent>
-
       {error && <p style={{ color: "red" }}>{error}</p>}
-
       <IonFooter class="stickyFooter hasFooter">
         <IonButton
           className="primary-btn rounded"
@@ -170,13 +173,8 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
           Add Transaction
         </IonButton>
       </IonFooter>
-
-      <Footer
-        eventId={event.id}
-        activeTab={"bills"}
-      />
+      <Footer eventId={event.id} activeTab={"bills"} />
     </IonPage>
   );
 };
-
 export default EventExpenseSummaryPresenter;
