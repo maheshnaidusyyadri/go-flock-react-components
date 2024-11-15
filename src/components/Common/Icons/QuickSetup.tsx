@@ -1,5 +1,5 @@
 import React from "react";
-const Flash: React.FC = ({}) => {
+const QuickSetup: React.FC = ({}) => {
   return (
     <>
       <svg
@@ -18,4 +18,4 @@ const Flash: React.FC = ({}) => {
   );
 };
 
-export default Flash;
+export default QuickSetup;

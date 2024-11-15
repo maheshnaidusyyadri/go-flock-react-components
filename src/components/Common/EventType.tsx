@@ -2,7 +2,7 @@ import React from "react";
 import { IonCol, IonGrid, IonRow, IonContent, IonCard } from "@ionic/react";
 
 import SettingsCircle from "./Icons/SettingsCircle";
-import Flash from "./Icons/flash";
+import QuickSetup from "./Icons/QuickSetup";
 import Detail from "./Icons/Detail";
 
 const EventType: React.FC = ({}) => {
@@ -32,7 +32,7 @@ const EventType: React.FC = ({}) => {
             </IonCol>
             <IonCol className="ion-text-center">
               <IonCard className="ion-padding event-type">
-                <Flash />
+                <QuickSetup />
                 <h2>Quick setup</h2>
                 <p>(Set up your event instantly with simple, fast options.)</p>
               </IonCard>
