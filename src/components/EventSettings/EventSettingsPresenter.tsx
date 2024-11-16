@@ -19,14 +19,13 @@ import {
 import Header from "../Header/Header";
 import galleryIcon from "../../images/icons/gallery.svg";
 import billsIcon from "../../images/icons/bills.svg";
-import chatIcon from "../../images/icons/message.svg";
-import ChecklistIcon from "../../images/icons/Checklist.svg";
 import dollarIcon from "../../images/icons/dollar-circle.svg";
 import Footer from "../Footer/Footer";
 
 const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   event,
   eventSettings,
+  eventRelation,
   enableMediaSharing,
   disableMediaSharing,
   enableSplitBills,
@@ -133,7 +132,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
             <IonThumbnail className="dp">
               <IonImg
                 src={billsIcon}
-                alt="Split Bills"
+                alt="Add Expenses"
               />
             </IonThumbnail>
             Split Bills
@@ -142,44 +141,6 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
             <IonToggle
               checked={splitBills}
               onIonChange={handleToggleSplitBills}
-              disabled={isLoading}
-            />
-          </IonItem>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel className="ion-label">
-            <IonThumbnail className="dp">
-              <IonImg
-                src={chatIcon}
-                alt="Chats"
-              />
-            </IonThumbnail>
-            Chats
-          </IonLabel>
-          <IonItem>
-            <IonToggle
-              checked={true}
-              //   onIonChange={handleToggleSplitBills}
-              disabled={isLoading}
-            />
-          </IonItem>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel className="ion-label">
-            <IonThumbnail className="dp">
-              <IonImg
-                src={ChecklistIcon}
-                alt="Checklist"
-              />
-            </IonThumbnail>
-            Checklist
-          </IonLabel>
-          <IonItem>
-            <IonToggle
-              checked={true}
-              //  onIonChange={handleToggleSplitBills}
               disabled={isLoading}
             />
           </IonItem>
@@ -232,16 +193,17 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               }
               disabled={isLoading}
             >
-              <IonSelectOption value="public">Public</IonSelectOption>
-              <IonSelectOption value="private">Private</IonSelectOption>
-              <IonSelectOption value="hidden">Hidden</IonSelectOption>
+              <IonSelectOption value="public">Community</IonSelectOption>
+              <IonSelectOption value="private">Personal</IonSelectOption>
             </IonSelect>
           </IonItem>
         </IonItem>
       </IonCardContent>
       <Footer
         eventId={event.id}
-        activeTab={"splitBill"}
+        activeTab={"expenses"}
+        settings={event.settings}
+        eventRelation={eventRelation}
       />
     </IonContent>
   );

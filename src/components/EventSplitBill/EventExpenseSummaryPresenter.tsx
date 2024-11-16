@@ -25,6 +25,7 @@ import EmptyBill from "../Common/Icons/EmptyBill";
 
 const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   event,
+  eventRelation,
   transactions = [],
   deleteTransaction,
   expenses = [],
@@ -79,7 +80,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
               transactions.map((transaction) => (
                 <IonRow>
                   <IonCol className="ion-padding-top">
-                    <IonList key={transaction.id} className="transaction-list">
+                    <IonList
+                      key={transaction.id}
+                      className="transaction-list"
+                    >
                       <IonItem
                         className="transaction-item ion-no-margin"
                         lines="none"
@@ -93,7 +97,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                           className="transaction-actions ion-no-margin"
                         >
                           <p>${transaction.amount}</p>
-                          <IonLabel class="action-btns" slot="end">
+                          <IonLabel
+                            class="action-btns"
+                            slot="end"
+                          >
                             <IonButton
                               className="icon-btn"
                               onClick={() =>
@@ -173,7 +180,12 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
           Add Transaction
         </IonButton>
       </IonFooter>
-      <Footer eventId={event.id} activeTab={"bills"} />
+      <Footer
+        eventId={event.id}
+        activeTab={"expenses"}
+        settings={event.settings}
+        eventRelation={eventRelation}
+      />
     </IonPage>
   );
 };

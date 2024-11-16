@@ -39,7 +39,6 @@ import DisplayDate from "../../utils/DisplayDate";
 import ProfileList from "../Common/Profiles/ProfileList";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
-import InviteIcon from "../../images/icons/UserPlus.svg";
 import CopyIcon from "../../images/icons/copy.svg";
 import Copy from "../../images/icons/copy_white.svg";
 import kidsIcon from "../../images/Kids.svg";
@@ -523,17 +522,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </IonButton>
           </IonFooter>
         )}
-        {["owner"].includes(eventRelation?.visitType) && (
-          <IonFooter className="stickyFooter hasFooter">
-            <IonButton
-              className="primary-btn rounded"
-              onClick={() => inviteMembers(event.id)}
-            >
-              <IonImg src={InviteIcon} />
-              Invite Guests
-            </IonButton>
-          </IonFooter>
-        )}
         {!["owner"].includes(eventRelation?.visitType) &&
           !(eventRelation?.rsvp && eventRelation.rsvp?.response) && (
             <IonFooter className="stickyFooter">
@@ -589,7 +577,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             eventRelation.rsvp?.response)) && (
           <Footer
             eventId={event.id}
-            activeTab={"home"}
+            activeTab={"invitation"}
+            settings={event.settings}
+            eventRelation={eventRelation}
           />
         )}
       </IonContent>
@@ -750,7 +740,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
             >
               <IonButton className="primary-btn rounded">
-                {profile ? "Submit" : "GENERATE OTP"}
+                {profile ? "Submit" : "Send OTP"}
               </IonButton>
             </IonFooter>
           </FormProvider>
