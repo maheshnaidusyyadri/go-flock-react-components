@@ -5,8 +5,10 @@ import {
   IonButton,
   IonCard,
   IonImg,
-  IonCardContent,
   IonToggle,
+  IonCol,
+  IonRow,
+  IonGrid,
 } from "@ionic/react";
 import ProfileDp from "../../images/profile.png";
 import Header from "../Header/Header";
@@ -129,10 +131,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
           </span>
         </IonCard>
         <div className="profile_info_card">
-          <div className="form-container">
-            <FormProvider {...methods}>
-              <IonCardContent className="pad0">
-                <div className="form-group">
+          <FormProvider {...methods}>
+            <IonGrid className="ion-no-padding">
+              <IonRow>
+                <IonCol className="form-group ion-padding-bottom">
                   <CustomInput
                     placeholder={"Enter your name"}
                     label={"Event Name"}
@@ -146,8 +148,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
                       setPreferredNameState(e.detail.value!)
                     }
                   />
-                </div>
-                <div className="form-group">
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol className="form-group ion-padding-bottom">
                   <CustomInput
                     placeholder={"Enter Phone Number"}
                     label={"Phone Number"}
@@ -161,27 +165,27 @@ const EditProfile: React.FC<EditProfileProps> = ({
                     onInputChange={(e) => setPhone(e.detail.value!)}
                     readOnly={true}
                   />
-                </div>
-                <div className="terms">
-                  <IonToggle
-                    className="ion-toggle"
-                    labelPlacement="start"
-                    checked={sendNotification}
-                    onIonChange={handleNotification}
-                  >
-                    Get remainders, notifications via SMS.
-                  </IonToggle>
-                </div>
-                <IonButton
-                  expand="block"
-                  onClick={handleSubmit(handlePreferredNameChange, onError)}
-                  className="primary-btn rounded"
+                </IonCol>
+              </IonRow>
+              <div className="terms">
+                <IonToggle
+                  className="ion-toggle"
+                  labelPlacement="start"
+                  checked={sendNotification}
+                  onIonChange={handleNotification}
                 >
-                  Save
-                </IonButton>
-              </IonCardContent>
-            </FormProvider>
-          </div>
+                  Get remainders, notifications via SMS.
+                </IonToggle>
+              </div>
+              <IonButton
+                expand="block"
+                onClick={handleSubmit(handlePreferredNameChange, onError)}
+                className="primary-btn rounded"
+              >
+                Save
+              </IonButton>
+            </IonGrid>
+          </FormProvider>
         </div>
       </IonContent>
     </IonPage>
