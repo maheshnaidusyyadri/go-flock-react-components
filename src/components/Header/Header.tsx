@@ -1,4 +1,3 @@
-// src/components/Header/Header.tsx
 import { useState } from "react";
 
 import {
@@ -9,7 +8,9 @@ import {
   IonImg,
   IonLabel,
   IonText,
-  IonRouterLink,
+  IonToolbar,
+  IonButtons,
+  IonButton,
 } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
@@ -71,71 +72,79 @@ const Header: React.FC<HeaderProps> = ({
         return false;
     }
   });
-  const handleBack = () => {
-    window.history.back(); // Goes back to the previous page
-  };
 
   return (
     <>
       <IonHeader className={`main-header ${className}`}>
-        <div className="header-cnt">
-          {showGoBack && (
-            <IonImg
-              src={backArrow}
-              alt="Page Back"
-              onClick={handleBack}
-            />
-          )}
-          {showLogo && (
-            <IonRouterLink routerLink="/">
-              <IonThumbnail className="profile_icon">
-                <IonImg
-                  src={goflockLogo}
-                  alt="ProfileIcon"
-                />
-              </IonThumbnail>
-            </IonRouterLink>
-          )}
+        <IonToolbar className="header-cnt">
+          <IonButtons slot="start">
+            {showGoBack && (
+              <IonButton routerLink={`/event/${eventId}`}>
+                <IonThumbnail className="profile_icon">
+                  <IonImg
+                    src={backArrow}
+                    alt="Page Back"
+                  />
+                </IonThumbnail>
+              </IonButton>
+            )}
+            {showLogo && (
+              <IonButton routerLink="/">
+                <IonThumbnail className="profile_icon">
+                  <IonImg
+                    src={goflockLogo}
+                    alt="ProfileIcon"
+                  />
+                </IonThumbnail>
+              </IonButton>
+            )}
+          </IonButtons>
           {title && <IonTitle className="page-title">{title}</IonTitle>}
-          {showMenu && (
-            <IonThumbnail
-              id="open-action-sheet"
-              className="menu_icon"
-            >
-              <IonImg
-                src={Menu}
-                alt="More Details"
-              />
-            </IonThumbnail>
-          )}
-          {showContactList && (
-            <IonThumbnail className="menu_icon contactList">
-              <IonImg
-                src={ContactListIcon}
-                alt="Contact List"
-              />
-            </IonThumbnail>
-          )}
-          {showProfile && (
-            <IonRouterLink routerLink="/profile">
-              <IonThumbnail className="profile_icon">
+          <IonButtons slot="end">
+            {showMenu && (
+              <IonButton>
+                <IonThumbnail
+                  id="open-action-sheet"
+                  className="menu_icon"
+                >
+                  <IonImg
+                    src={Menu}
+                    alt="More Details"
+                  />
+                </IonThumbnail>
+              </IonButton>
+            )}
+            {showContactList && (
+              <IonButton>
+                <IonThumbnail className="menu_icon contactList">
+                  <IonImg
+                    src={ContactListIcon}
+                    alt="Contact List"
+                  />
+                </IonThumbnail>
+              </IonButton>
+            )}
+            {showProfile && (
+              <IonButton routerLink="/profile">
+                <IonThumbnail className="profile_icon">
+                  <IonImg
+                    src={ProfileIcon}
+                    alt="ProfileIcon"
+                  />
+                </IonThumbnail>
+              </IonButton>
+            )}
+            {showSignIn && (
+              <IonLabel class="signIn_btn">
+                <IonText class="signin_text">Sign in</IonText>
                 <IonImg
-                  src={ProfileIcon}
+                  src={signInIcon}
                   alt="ProfileIcon"
                 />
-              </IonThumbnail>
-            </IonRouterLink>
-          )}
-          {showSignIn && (
-            <IonLabel class="signIn_btn">
-              <IonText class="signin_text">Sign in</IonText>
-              <IonImg
-                src={signInIcon}
-                alt="ProfileIcon"
-              />
-            </IonLabel>
-          )}
-        </div>
+              </IonLabel>
+            )}
+          </IonButtons>
+        </IonToolbar>
       </IonHeader>
 
       {showMenu && (
