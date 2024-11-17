@@ -1,30 +1,29 @@
-@import '../../styles/variables.scss';
- 
+@use '../../styles/fonts' as *;
+@use '../../styles/buttons' as *;
 
- 
-.main-header { 
-    box-shadow: none !important;  
+.main-header {
+    box-shadow: none !important;
     .header-cnt {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background:#F6F6F6; 
+        background:#F6F6F6;
         height: 60px;
         padding: 0 15px;
         .page-title {
             display: block;
             text-align: center;
-            font-family: $GoFlockFont;
+          //  font-family: $GoFlockFont;
             font-size: 14px;
-            color: $GoFlockColor;
+        //    color: $GoFlockColor;
             font-weight: 500;
             display: flex;
             align-items: center;
             padding: 0px;
         }
-        .menu_icon {   
-            --size:30px   
-            min-width: 30px;      
+        .menu_icon {
+            --size:30px
+            min-width: 30px;
             img {
                 display: block;
             }
@@ -36,7 +35,7 @@
                 justify-content: center;
                 border: 1px solid #E4E4E7;
                 border-radius: 50%;
-                background: $white;
+             //   background: $white;
                 ion-img {
                     width: 20px;
                     height: auto;
@@ -54,9 +53,9 @@
     }
     &.darkheader  {
         .header-cnt {
-            background: $GoFlockColor;
+        //    background: $GoFlockColor;
             .page-title {
-                color: $white;
+           //     color: $white;
             }
         }
     }
@@ -67,10 +66,10 @@
     align-items: center;
     justify-content: flex-end;
     .signin_text {
-        font-family: $GoFlockColor;
+     //   font-family: $GoFlockColor;
         font-size: 14px;
         line-height: 20px;
-        color: $GoFlockColor;
+      //  color: $GoFlockColor;
         font-weight: 500;
         margin-right: 8px;
     }
@@ -78,3 +77,28 @@
         width: 20px;
     }
 }
+
+.event-type-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #e4e4e7;
+    border-bottom: 1px solid #e4e4e7;
+    background: #f1fef8;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
+    min-height: 48px;
+    p {
+    //   color: $secondaryColor;
+    //   font-family: $GoFlockFont;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      .type {
+      //  color: $GoFlockColor;
+      }
+    }
+
+    .next {
+      width: 20px;
+    }
+  }

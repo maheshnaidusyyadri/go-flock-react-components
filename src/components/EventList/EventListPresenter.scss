@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/fonts" as *;
 
 body {
   font-size: 100%;
@@ -87,6 +87,41 @@ body {
             margin: 0 0 0px 0;
             display: block;
           }
+        }
+        .actions_menu {
+          --size: 28px;
+          // background: $white;
+          // border-radius: 100%;
+          position: absolute;
+          top: 6px;
+          right: 6px;
+          cursor: pointer;
+          // display: flex;
+          // align-items: center;
+          // justify-content: center;
+          .button-native {
+            padding-inline-start: 0;
+            padding-inline-end: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+          }
+          // span {
+          //     width: 100%;
+          //     height: 100%;
+          //     display: flex;
+          //     align-items: center;
+          //     justify-content: center;
+        
+          //     img {
+          //         display: block;
+          //     }
+          // }
+          // &::part(native) {
+          //     padding: 0px; /* Adjust the padding as per your needs */
+          // }
+          // .events  {
+          //     width: 9px;
+          // }
         }
       }
     }

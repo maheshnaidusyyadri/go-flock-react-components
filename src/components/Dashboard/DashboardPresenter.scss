@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/fonts" as *;
 
 body {
   font-size: 100%;
@@ -127,26 +127,26 @@ body {
   }
 }
 
-.event_images {
-  img.events {
-    display: block;
-    width: 100%;
-    max-width: 390px;
-    margin-bottom: 10px;
-    &:nth-last-child(2) {
-      margin-bottom: 0px;
-    }
-  }
-  .addmore {
-    width: 32px;
-    height: 32px;
-    display: block;
-    margin: 0 auto;
-    transform: translateY(-50%);
-    background: url("../../images/plus.png") no-repeat center;
-    cursor: pointer;
-  }
-}
+// .event_images {
+//   img.events {
+//     display: block;
+//     width: 100%;
+//     max-width: 390px;
+//     margin-bottom: 10px;
+//     &:nth-last-child(2) {
+//       margin-bottom: 0px;
+//     }
+//   }
+//   .addmore {
+//     width: 32px;
+//     height: 32px;
+//     display: block;
+//     margin: 0 auto;
+//     transform: translateY(-50%);
+//     background: url("../..plus.png") no-repeat center;
+//     cursor: pointer;
+//   }
+// }
 
 .event_actions {
   margin-top: 10px;
@@ -189,5 +189,55 @@ body {
       display: block;
       text-align: center;
     }
+  }
+}
+
+.event_item {
+  width: 50%;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: none;
+  margin: 0;
+  figure {
+    margin: 0px;
+    img {
+      display: block;
+    }
+  }
+  .display_pic {
+    width: 100%;
+    height: auto;
+  }
+  .event_info {
+    padding: 12px;
+    padding: clamp(10px, 2.9vw, 12px);
+    .event-name {
+      font-family: $GoFlockFont;
+      font-weight: 600;
+      font-size: 12px;
+      font-size: clamp(10px, 2.9vw, 12px);
+      line-height: 18px;
+      color: $GoFlockColor;
+      padding: 0px;
+      margin: 0 0 5px 0;
+    }
+    .event-date {
+      font-family: $GoFlockFont;
+      font-weight: 400;
+      font-size: 12px;
+      font-size: clamp(10px, 2.9vw, 12px);
+      line-height: 18px;
+      color: $secondaryColor;
+      padding: 0px;
+      margin: 0 0 0px 0;
+      display: block;
+    }
+  }
+  .default_event_dp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
   }
 }

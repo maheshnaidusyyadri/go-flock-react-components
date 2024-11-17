@@ -1,6 +1,8 @@
-@import "../../styles/fonts";
-@import "../../styles/stepper.scss";
-@import "../../styles/_actionModal.scss";
+@use "../../styles/fonts" as *;
+@use "../../styles/_actionModal" as *;
+@use "../../styles/stepper.scss" as *;
+@use "../../styles/form";
+
 // body {
 //   font-size: 100%;
 //   //  padding: 16px !important;

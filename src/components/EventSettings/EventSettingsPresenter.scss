@@ -1,42 +1,40 @@
-@import '../../styles/variables.scss'; 
+@use "../../styles/fonts" as *;
 
-body { 
-    padding: 0px !important;
+body {
+  padding: 0px !important;
 }
-.page_cnt  {
-    min-height: 100vh;
-    padding: 0px !important;
+.page_cnt {
+  min-height: 100vh;
+  padding: 0px !important;
 }
-
 
 .settings_list {
-    .item  {
-        --padding-start:0px;
-        --border-color: transparent;
-        --inner-padding-end: 0;
-        .ion-label {
-            margin-right: auto;
-            font-size: 16px; /* Adjust if necessary */
-            display: flex;
-            align-items: center;
-            font-family: $GoFlockFont;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 20px;
-            color: $GoFlockColor;
-            .dp { 
-                --size: 40px;  
-                margin-right: 12px;
-            }
-        }
-        .ion-toggle {
-            margin-left: auto;
-            flex: inherit;
-            --handle-background: #ffffff; /* Customize toggle handle color */
-            --background: #e0e0e0; /* Background when toggle is off */
-            --background-checked: #3880ff; /* Background when toggle is on */
-            --width: 50px; /* Customize width of toggle */
-        }
+  .item {
+    --padding-start: 0px;
+    --border-color: transparent;
+    --inner-padding-end: 0;
+    .ion-label {
+      margin-right: auto;
+      font-size: 16px; /* Adjust if necessary */
+      display: flex;
+      align-items: center;
+      font-family: $GoFlockFont;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      color: $GoFlockColor;
+      .dp {
+        --size: 40px;
+        margin-right: 12px;
+      }
     }
+    .ion-toggle {
+      margin-left: auto;
+      flex: inherit;
+      --handle-background: #ffffff; /* Customize toggle handle color */
+      --background: #e0e0e0; /* Background when toggle is off */
+      --background-checked: #3880ff; /* Background when toggle is on */
+      --width: 50px; /* Customize width of toggle */
+    }
+  }
 }
-

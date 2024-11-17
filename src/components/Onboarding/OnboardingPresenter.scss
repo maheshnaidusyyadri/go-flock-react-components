@@ -1,131 +1,132 @@
-@import '../../styles/variables.scss'; 
+@use "../../styles/fonts" as *;
 
 body {
-    font-size: 100%;
-    padding: 0px !important;
-} 
+  font-size: 100%;
+  padding: 0px !important;
+}
 
-.onboard_cnt  {
-    min-height: 100vh;
-    padding: 0px !important;
-    .auth_screen {
-        display: block;
-        text-align: center;
-        width: 100%;
-        margin: 0;
-        box-shadow: none;
-        img {
-            width: clamp(220px, 90vw, 335px);
-        }
-        .ion-title {
-            font-family: $GoFlockFont;
-            font-size: clamp(16px, 7.1vw, 28px);
-            line-height: 40px;
-            color: $GoFlockColor;
-            font-weight: 700;
-            margin-bottom: 8px;
-            position: static;
-            padding: 0;
-        }
-        .ion-text {
-            font-family: $GoFlockFont;
-            font-size: clamp(12px, 3.38vw, 14px);
-            line-height: 18px;
-            color: $secondaryColor;
-            font-weight: 400;
-            margin-bottom: 0px;
-            display: block;
-            position: static;
-        }
+.onboard_cnt {
+  min-height: 100vh;
+  padding: 0px !important;
+  .auth_screen {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+    img {
+      width: clamp(220px, 90vw, 335px);
     }
-    .step-content {
-        min-width: 100%;
-        width: 100%;
-        display: block; 
-        top: 0;
-        padding: 0 16px;
-        transition: all 0.4s ease-in-out;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;  
-        padding-bottom: 50px;
+    .ion-title {
+      font-family: $GoFlockFont;
+      font-size: clamp(16px, 7.1vw, 28px);
+      line-height: 40px;
+      color: $GoFlockColor;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: static;
+      padding: 0;
     }
-    .swiper  {
-        height: 100vh;
+    .ion-text {
+      font-family: $GoFlockFont;
+      font-size: clamp(12px, 3.38vw, 14px);
+      line-height: 18px;
+      color: $secondaryColor;
+      font-weight: 400;
+      margin-bottom: 0px;
+      display: block;
+      position: static;
     }
-    .swiper-pagination {
-        display: flex;
-        top: 20px !important;
-        left: 0 !important;
-        bottom: inherit !important;
-        .swiper-pagination-bullet {
-            width: 33.3%;
-            height: 4px;
-            border-radius: 50px;
-            background: #ECEFEA !important;
-            opacity: 1;
-            &.swiper-pagination-bullet-active {
-                background: $GoFlockColor !important;
-            }
-        }
+  }
+  .step-content {
+    min-width: 100%;
+    width: 100%;
+    display: block;
+    top: 0;
+    padding: 0 16px;
+    transition: all 0.4s ease-in-out;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+  }
+  .swiper {
+    height: 100vh;
+  }
+  .swiper-pagination {
+    display: flex;
+    top: 20px !important;
+    left: 0 !important;
+    bottom: inherit !important;
+    .swiper-pagination-bullet {
+      width: 33.3%;
+      height: 4px;
+      border-radius: 50px;
+      background: #ecefea !important;
+      opacity: 1;
+      &.swiper-pagination-bullet-active {
+        background: $GoFlockColor !important;
+      }
     }
-    .swiper-button-prev, .swiper-button-next {
-        top: inherit;
-        transform: inherit;
-        margin-top: 0;
-        bottom: 0; 
-        background:$GoFlockColor;
-        width: calc(50% - 26px);
-        text-align: center;
-        font-family: $GoFlockFont;
-        font-weight: 600;
-        color: $white;
-        font-size: 14px;
-        line-height: 20px;
-        border-radius: 50px;
-        height: 50px; 
-        &:after {
-            font-family: $GoFlockFont;
-            font-size: 14px;
-            line-height: 20px;
-            text-transform: capitalize !important;
-        }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: inherit;
+    transform: inherit;
+    margin-top: 0;
+    bottom: 0;
+    background: $GoFlockColor;
+    width: calc(50% - 26px);
+    text-align: center;
+    font-family: $GoFlockFont;
+    font-weight: 600;
+    color: $white;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 50px;
+    height: 50px;
+    &:after {
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: capitalize !important;
     }
-    .swiper-button-next {
-        right: 16px;
-        left: inherit;
-        bottom: 16px;
-    }
-    .swiper-button-prev {
-        left: 16px;
-        display: none;
-    }
-    .skip {
-        font-family: $GoFlockFont;
-        font-size: 14px;
-        line-height: 20px;
-        color: $GoFlockColor;
-        font-weight: 600;
-        padding: 0;
-        text-decoration: underline;
-        display: flex;
-        margin: 0 auto;
-        width: 50%;
-        height: 50px;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        left: 0px;
-        bottom: 16px;
-        z-index: 99;
-    }
-    .getstart {
-        position: absolute;
-        left: 0px;
-        bottom: 16px;
-        z-index: 99;
-        height: 50px;
-        left: 16px;
-        width: calc(100% - 32px);
-    }
+  }
+  .swiper-button-next {
+    right: 16px;
+    left: inherit;
+    bottom: 16px;
+  }
+  .swiper-button-prev {
+    left: 16px;
+    display: none;
+  }
+  .skip {
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    line-height: 20px;
+    color: $GoFlockColor;
+    font-weight: 600;
+    padding: 0;
+    text-decoration: underline;
+    display: flex;
+    margin: 0 auto;
+    width: 50%;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0px;
+    bottom: 16px;
+    z-index: 99;
+  }
+  .getstart {
+    position: absolute;
+    left: 0px;
+    bottom: 16px;
+    z-index: 99;
+    height: 50px;
+    left: 16px;
+    width: calc(100% - 32px);
+  }
 }

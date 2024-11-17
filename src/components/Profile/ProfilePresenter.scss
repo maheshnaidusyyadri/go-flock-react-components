@@ -1,192 +1,194 @@
-@import '../../styles/variables.scss';
+@use "../../styles/fonts" as *;
+@use "../../styles/form" as *;
 
 .profile_card {
-    padding: 16px;
-    display: block;
-    text-align: center;
-    border: 1px solid #E4E4E7;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
-    border-radius: 6px;
-    margin: 0 0 24px;
-    .dp {
-        width: 56px;
-        margin: 0 auto 10px;
-    }
-    .name {
-        font-family: $GoFlockFont;
-        font-size: 14px;
-        color: $GoFlockColor;
-        font-weight: 600;
-        line-height: 20px;
-        padding: 0px;
-        margin: 0 0 2px 0;
-        position: static;
-    }
-    .number {
-        font-family: $GoFlockFont;
-        font-size: 12px;
-        color: $secondaryColor;
-        font-weight: 400;
-        line-height: 18px;
-        padding: 0px;
-        margin: 0;
-    }
+  padding: 16px;
+  display: block;
+  text-align: center;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  margin: 0 0 24px;
+  .dp {
+    width: 56px;
+    margin: 0 auto 10px;
+  }
+  .name {
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    color: $GoFlockColor;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 0px;
+    margin: 0 0 2px 0;
+    position: static;
+  }
+  .number {
+    font-family: $GoFlockFont;
+    font-size: 12px;
+    color: $secondaryColor;
+    font-weight: 400;
+    line-height: 18px;
+    padding: 0px;
+    margin: 0;
+  }
 }
 
 .profile_settings {
-    .list-title {
-        font-family: $GoFlockFont;
-        font-size: 12px;
-        font-weight: 600;
-        color: $secondaryColor;
-        line-height: 18px;
-        padding: 0px;
+  .list-title {
+    font-family: $GoFlockFont;
+    font-size: 12px;
+    font-weight: 600;
+    color: $secondaryColor;
+    line-height: 18px;
+    padding: 0px;
+    margin: 0;
+    position: static;
+    text-align: left;
+  }
+  .list_wrap {
+    margin: 0;
+    padding: 0;
+    display: block;
+    .list_item {
+      margin: 9px 0;
+      display: flex;
+      flex-direction: column;
+      --border-color: transparent;
+      width: 100%;
+      --background: url("../../images/icons/arrow-right.svg") no-repeat
+        calc(100% - 6px) center;
+      --padding-start: 0;
+      .dp {
         margin: 0;
-        position: static;
-        text-align: left;
-    }
-    .list_wrap {
-        margin: 0;
-        padding: 0;
-        display: block;
-        .list_item {
-            margin: 9px 0;
-            display: flex;
-            flex-direction: column;
-            --border-color: transparent;
-            width: 100%;
-            --background: url('../../images/icons/arrow-right.svg') no-repeat calc(100% - 6px) center;
-            --padding-start: 0;
-            .dp {
-                margin: 0;
-                width: 40px;
-                height: 40px;
-                position: relative;
-                border: 1px solid #E4E4E7;
-                background: #F6F6F6;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                .ion-img {
-                    width: 20px;
-                    height: auto;
-                }
-            }
-            .list-info {
-                display: block;
-                padding: 0 0 0 12px;
-                margin: 0px;
-                .title-default {
-                    font-family: $GoFlockFont;
-                    font-size: 14px;
-                    line-height: 20px;
-                    line-height: 18px;
-                    font-weight: 500;
-                    margin: 0;
-                    color: $GoFlockColor;
-                    display: block;
-                    padding: 0;
-                    position: static;
-                    text-align: left;
-                }
-            }
-            &.delete {
-                --background: url('../../images/icons/arrow-right-red.svg') no-repeat calc(100% - 6px) center;
-                .list-info {
-                  .title-default {
-                    color: #DC2626;
-                  }
-                }
-            }
+        width: 40px;
+        height: 40px;
+        position: relative;
+        border: 1px solid #e4e4e7;
+        background: #f6f6f6;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .ion-img {
+          width: 20px;
+          height: auto;
         }
+      }
+      .list-info {
+        display: block;
+        padding: 0 0 0 12px;
+        margin: 0px;
+        .title-default {
+          font-family: $GoFlockFont;
+          font-size: 14px;
+          line-height: 20px;
+          line-height: 18px;
+          font-weight: 500;
+          margin: 0;
+          color: $GoFlockColor;
+          display: block;
+          padding: 0;
+          position: static;
+          text-align: left;
+        }
+      }
+      &.delete {
+        --background: url("../../images/icons/arrow-right-red.svg") no-repeat
+          calc(100% - 6px) center;
+        .list-info {
+          .title-default {
+            color: #dc2626;
+          }
+        }
+      }
     }
+  }
 }
 
 .profile_edit_cnt {
-    --background: #18181B;
+  --background: #18181b;
 }
 
 .profile_edit_card {
-    padding: 24px 0 48px;
-    background: transparent;
-    margin: 0;
-    box-shadow: none;
-    .dp_wrap {
-        display: block;
-        position: relative;
-        width: 120px;
-        height: 120px;
-        margin: 0 auto;
-        .dp {
-            margin: 0;
-            width: 120px;
-            height: 120px;
-            position: relative;
-            border: 1px solid rgba($white , 0.2);
-            background: #F6F6F6;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            overflow: hidden;
-            .ion-img {
-                width: 100%;
-                height: auto;
-            }
-        }
-        .dp_edit {
-            width: 30px;
-            height: 30px;
-            background: url('../../images/icons/Edit.svg') no-repeat center $white;
-            position: absolute;
-            right: 0px;
-            bottom: 0px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+  padding: 24px 0 48px;
+  background: transparent;
+  margin: 0;
+  box-shadow: none;
+  .dp_wrap {
+    display: block;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    .dp {
+      margin: 0;
+      width: 120px;
+      height: 120px;
+      position: relative;
+      border: 1px solid rgba($white, 0.2);
+      background: #f6f6f6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      overflow: hidden;
+      .ion-img {
+        width: 100%;
+        height: auto;
+      }
     }
-
+    .dp_edit {
+      width: 30px;
+      height: 30px;
+      background: url("../../images/icons/Edit.svg") no-repeat center $white;
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
 }
 
 .profile_info_card {
-    background: $white;
-    border-radius: 20px 20px 0 0;
-    min-height: calc(100vh - 250px);
-    padding: 30px 16px;
-    margin: 0px;
+  background: $white;
+  border-radius: 20px 20px 0 0;
+  min-height: calc(100vh - 250px);
+  padding: 30px 16px;
+  margin: 0px;
 }
 
 .terms {
-    .ion-toggle {
-        font-family: $GoFlockFont;
-        font-size: 12px;
-        color: $GoFlockColor;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  .ion-toggle {
+    font-family: $GoFlockFont;
+    font-size: 12px;
+    color: $GoFlockColor;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .privacy_sec {
-    min-height: calc(100vh - 60px);
-    margin-top: 10px;
-    .privacy_cnt {
-        border-radius: 6px;
-        border: 1px solid #E4E4E7;
-        box-shadow: none;
-        padding: 16px 16px 0 16px;
-        margin: 0px;
-        .privacy_text {
-            font-family: $GoFlockFont;
-            font-size: 12px;
-            color: $secondaryColor;
-            line-height: 20px;
-            font-weight: 400;
-            display: block;
-            margin-bottom: 16px;
-        }
+  min-height: calc(100vh - 60px);
+  margin-top: 10px;
+  .privacy_cnt {
+    border-radius: 6px;
+    border: 1px solid #e4e4e7;
+    box-shadow: none;
+    padding: 16px 16px 0 16px;
+    margin: 0px;
+    .privacy_text {
+      font-family: $GoFlockFont;
+      font-size: 12px;
+      color: $secondaryColor;
+      line-height: 20px;
+      font-weight: 400;
+      display: block;
+      margin-bottom: 16px;
     }
+  }
 }

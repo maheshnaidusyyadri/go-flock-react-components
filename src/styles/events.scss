@@ -1,4 +1,4 @@
-@import "../styles/fonts";
+@use "../styles/fonts";
 
 .no-event-sec {
   h2 {
@@ -24,27 +24,88 @@
   }
 }
 
-.event-type-action {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid #e4e4e7;
-  border-bottom: 1px solid #e4e4e7;
-  background: #f1fef8;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
-  min-height: 48px;
-  p {
-    color: $secondaryColor;
-    font-family: $GoFlockFont;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
-    .type {
-      color: $GoFlockColor;
+.event_item {
+  width: 50%;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: none;
+  margin: 0;
+  figure {
+    margin: 0px;
+    img {
+      display: block;
     }
   }
-
-  .next {
-    width: 20px;
+  .display_pic {
+    width: 100%;
+    height: auto;
   }
+  .event_info {
+    padding: 12px;
+    padding: clamp(10px, 2.9vw, 12px);
+    .event-name {
+      font-family: $GoFlockFont;
+      font-weight: 600;
+      font-size: 12px;
+      font-size: clamp(10px, 2.9vw, 12px);
+      line-height: 18px;
+      color: $GoFlockColor;
+      padding: 0px;
+      margin: 0 0 5px 0;
+    }
+    .event-date {
+      font-family: $GoFlockFont;
+      font-weight: 400;
+      font-size: 12px;
+      font-size: clamp(10px, 2.9vw, 12px);
+      line-height: 18px;
+      color: $secondaryColor;
+      padding: 0px;
+      margin: 0 0 0px 0;
+      display: block;
+    }
+  }
+  .default_event_dp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+  }
+}
+
+.actions_menu {
+  --size: 28px;
+  // background: $white;
+  // border-radius: 100%;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  cursor: pointer;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  .button-native {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  // span {
+  //     width: 100%;
+  //     height: 100%;
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
+
+  //     img {
+  //         display: block;
+  //     }
+  // }
+  // &::part(native) {
+  //     padding: 0px; /* Adjust the padding as per your needs */
+  // }
+  // .events  {
+  //     width: 9px;
+  // }
 }
