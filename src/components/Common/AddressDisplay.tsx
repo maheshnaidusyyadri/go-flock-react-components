@@ -8,6 +8,8 @@ interface AddressDisplayProps {
 
 // Utility function to split the address into two parts
 function splitAddress(address: string): [string, string] {
+  if (!address) return ["", ""];
+
   const parts = address.split(","); // Split the address by commas
   const firstLine = parts.slice(0, 2).join(","); // First two parts for the first line
   const secondLine = parts.slice(2).join(","); // Remaining parts for the second line

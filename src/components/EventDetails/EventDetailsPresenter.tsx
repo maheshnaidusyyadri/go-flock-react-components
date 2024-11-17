@@ -350,7 +350,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
-                      <AddressDisplay address={event.location.name} />
+                      <AddressDisplay address={event.location?.name} />
                     </IonCardTitle>
                   </IonCardContent>
                 </IonCard>
