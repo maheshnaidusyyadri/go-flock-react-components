@@ -1,8 +1,7 @@
 // src/components/EventItem.tsx
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
-  IonActionSheet,
   IonCard,
   IonCardContent,
   IonCardTitle,
@@ -11,7 +10,6 @@ import {
   IonThumbnail,
 } from "@ionic/react";
 import { Event } from "@goflock/types/src/index";
-import menuIcon from "../../../images/icons/menu_icon.svg";
 import DisplayDate from "../../../utils/DisplayDate";
 import birthdayIcon from "../../../images/icons/birthday.svg";
 import vacationIcon from "../../../images/icons/vacation.svg";
@@ -26,31 +24,6 @@ interface EventItemProps {
 }
 
 const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
-  const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
-
-  const handleActionSheetDismiss = () => {
-    setShowFirstActionSheet(false);
-  };
-  useEffect(() => {
-    console.log("event-event", event);
-  }, []);
-
-  const handleAction = (action: string) => {
-    switch (action) {
-      case "edit":
-        // Handle edit action
-        break;
-      case "checklist":
-        // Handle add checklist action
-        break;
-      case "delete":
-        // Handle delete action
-        break;
-      default:
-        break;
-    }
-    handleActionSheetDismiss(); // Dismiss the action sheet after an action is taken
-  };
   const showIcons = (eventType: any) => {
     if (eventType === "birthday") {
       return birthdayIcon;
@@ -80,7 +53,10 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
 
   return (
     <>
-      <IonCard className="event_item" onClick={() => onOpen(event.id)}>
+      <IonCard
+        className="event_item"
+        onClick={() => onOpen(event.id)}
+      >
         {event.invitationCard?.url ? (
           <IonThumbnail className="display_pic">
             <IonImg
@@ -105,45 +81,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
             <DisplayDate inputDate={event.time} />
           </IonLabel>
         </IonCardContent>
-        <IonThumbnail
-          className="actions_menu"
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent triggering onCardClick
-            setShowFirstActionSheet(true);
-          }}
-        >
-          <IonImg className="events" alt="Event Details" src={menuIcon} />
-        </IonThumbnail>
       </IonCard>
-
-      <IonActionSheet
-        isOpen={showFirstActionSheet}
-        onDidDismiss={handleActionSheetDismiss}
-        buttons={[
-          {
-            text: "Copy link",
-            role: "destructive",
-            data: { action: "copy" },
-            handler: () => handleAction("copy"),
-          },
-          {
-            text: "Edit Event",
-            data: { action: "edit" },
-            handler: () => handleAction("edit"),
-          },
-          {
-            text: "Add Checklist",
-            data: { action: "checklist" },
-            handler: () => handleAction("checklist"),
-          },
-          {
-            text: "Delete Event",
-            role: "destructive",
-            data: { action: "delete" },
-            handler: () => handleAction("delete"),
-          },
-        ]}
-      />
     </>
   );
 };
