@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./EventSettingsPresenter.scss";
 import {
-  IonCardContent,
   IonToggle,
   IonItem,
   IonLabel,
@@ -10,6 +9,8 @@ import {
   IonContent,
   IonThumbnail,
   IonImg,
+  IonPage,
+  IonGrid,
 } from "@ionic/react";
 import {
   EventSettingsProps,
@@ -98,114 +99,100 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   };
 
   return (
-    <IonContent className="page_cnt">
+    <IonPage>
       <Header
         title={`Event Settings for ${event?.name || "Event"}`}
         showMenu={false}
         showContactList={false}
         className="sticky"
       />
-
-      <IonCardContent className="settings_list">
-        <IonItem>
-          <IonLabel className="ion-label">
-            <IonThumbnail className="dp">
-              <IonImg
-                src={galleryIcon}
-                alt="Media"
-              />
-            </IonThumbnail>
-            Media Sharing
-          </IonLabel>
+      <IonContent className="ion-padding">
+        <IonGrid className="settings_list ion-no-padding ion-no-margin">
           <IonItem>
-            <IonToggle
-              className="ion-toggle"
-              checked={mediaSharing}
-              onIonChange={handleToggleMediaSharing}
-              disabled={isLoading}
-            />
-          </IonItem>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel className="ion-label">
-            <IonThumbnail className="dp">
-              <IonImg
-                src={billsIcon}
-                alt="Add Expenses"
+            <IonLabel className="ion-label">
+              <IonThumbnail className="dp">
+                <IonImg src={galleryIcon} alt="Media" />
+              </IonThumbnail>
+              Media Sharing
+            </IonLabel>
+            <IonItem>
+              <IonToggle
+                className="ion-toggle"
+                checked={mediaSharing}
+                onIonChange={handleToggleMediaSharing}
+                disabled={isLoading}
               />
-            </IonThumbnail>
-            Split Bills
-          </IonLabel>
-          <IonItem>
-            <IonToggle
-              checked={splitBills}
-              onIonChange={handleToggleSplitBills}
-              disabled={isLoading}
-            />
+            </IonItem>
           </IonItem>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel className="ion-label">
-            <IonThumbnail className="dp">
-              <IonImg
-                src={dollarIcon}
-                alt="chat"
+          <IonItem>
+            <IonLabel className="ion-label">
+              <IonThumbnail className="dp">
+                <IonImg src={billsIcon} alt="Add Expenses" />
+              </IonThumbnail>
+              Split Bills
+            </IonLabel>
+            <IonItem>
+              <IonToggle
+                checked={splitBills}
+                onIonChange={handleToggleSplitBills}
+                disabled={isLoading}
               />
-            </IonThumbnail>
-            Currency
-          </IonLabel>
-          <IonItem>
-            <IonSelect
-              className="ion-select"
-              value={currency}
-              interface="action-sheet"
-              onIonChange={(e) =>
-                handleUpdateCurrency(e.detail.value as Currency)
-              }
-              disabled={isLoading}
-            >
-              <IonSelectOption value="USD">USD</IonSelectOption>
-              <IonSelectOption value="EUR">EUR</IonSelectOption>
-              <IonSelectOption value="GBP">GBP</IonSelectOption>
-            </IonSelect>
+            </IonItem>
           </IonItem>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel className="ion-label">
-            <IonThumbnail className="dp">
-              <IonImg
-                src={galleryIcon}
-                alt="Media"
-              />
-            </IonThumbnail>
-            Event Visibility
-          </IonLabel>
           <IonItem>
-            <IonSelect
-              className="ion-select"
-              value={visibility}
-              interface="action-sheet"
-              onIonChange={(e) =>
-                handleUpdateVisibility(e.detail.value as EventVisibility)
-              }
-              disabled={isLoading}
-            >
-              <IonSelectOption value="public">Community</IonSelectOption>
-              <IonSelectOption value="private">Personal</IonSelectOption>
-            </IonSelect>
+            <IonLabel className="ion-label">
+              <IonThumbnail className="dp">
+                <IonImg src={dollarIcon} alt="chat" />
+              </IonThumbnail>
+              Currency
+            </IonLabel>
+            <IonItem>
+              <IonSelect
+                className="ion-select"
+                value={currency}
+                interface="action-sheet"
+                onIonChange={(e) =>
+                  handleUpdateCurrency(e.detail.value as Currency)
+                }
+                disabled={isLoading}
+              >
+                <IonSelectOption value="USD">USD</IonSelectOption>
+                <IonSelectOption value="EUR">EUR</IonSelectOption>
+                <IonSelectOption value="GBP">GBP</IonSelectOption>
+              </IonSelect>
+            </IonItem>
           </IonItem>
-        </IonItem>
-      </IonCardContent>
+          <IonItem>
+            <IonLabel className="ion-label">
+              <IonThumbnail className="dp">
+                <IonImg src={galleryIcon} alt="Media" />
+              </IonThumbnail>
+              Event Visibility
+            </IonLabel>
+            <IonItem>
+              <IonSelect
+                className="ion-select"
+                value={visibility}
+                interface="action-sheet"
+                onIonChange={(e) =>
+                  handleUpdateVisibility(e.detail.value as EventVisibility)
+                }
+                disabled={isLoading}
+              >
+                <IonSelectOption value="public">Community</IonSelectOption>
+                <IonSelectOption value="private">Personal</IonSelectOption>
+              </IonSelect>
+            </IonItem>
+          </IonItem>
+        </IonGrid>
+      </IonContent>
       <Footer
         eventId={event.id}
         activeTab={"expenses"}
         settings={event.settings}
         eventRelation={eventRelation}
       />
-    </IonContent>
+    </IonPage>
   );
 };
 
