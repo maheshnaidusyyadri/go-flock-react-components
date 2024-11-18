@@ -1,0 +1,204 @@
+@use "../styles/fonts" as *;
+
+.action-sheet-wrapper {
+  display: block;
+  .action-sheet-container {
+    padding: 0;
+    .action-sheet-group {
+      padding: 50px 16px 52px 16px;
+      position: relative;
+      border-radius: 16px 16px 0 0;
+      margin: 0px;
+      padding-top: 50px !important;
+      padding-bottom: 52px !important;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 24px;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        background: #ebebeb;
+        width: 40px;
+        height: 4px;
+      }
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 50%;
+        bottom: 16px;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        background: $GoFlockColor;
+        width: 130px;
+        height: 4px;
+      }
+      .action-sheet-title {
+        color: $GoFlockColor;
+        text-align: center;
+        font-family: $GoFlockFont;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 30px;
+        margin-bottom: 4px;
+        background: transparent;
+        padding: 0 0 30px 0;
+        margin: 0;
+        width: 100%;
+        .action-sheet-sub-title {
+          color: $secondaryColor;
+          text-align: center;
+          font-family: $GoFlockFont;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 18px;
+        }
+      }
+
+      .action-sheet-button {
+        height: 50px;
+        width: 100%;
+        border: 1px solid $GoFlockColor;
+        border-radius: 12px;
+        margin-top: 8px;
+        .action-sheet-button-inner {
+          justify-content: center;
+          font-family: $GoFlockFont;
+          font-size: 14px;
+          font-weight: 500;
+          color: $GoFlockColor;
+        }
+        &.fill-btn {
+          background: #dc2626;
+          border: 0;
+          border-radius: 52px;
+          .action-sheet-button-inner {
+            color: $white;
+          }
+        }
+        &.dark-btn {
+          background: $GoFlockColor;
+          .action-sheet-button-inner {
+            color: $white;
+          }
+        }
+        &.rounded {
+          border-radius: 52px;
+        }
+        &.border-red {
+          border: 1px solid #dc2626;
+          .action-sheet-button-inner {
+            color: #dc2626;
+          }
+        }
+      }
+    }
+    .action-sheet-group-cancel {
+      display: none;
+    }
+  }
+}
+
+.action-menu-end {
+  &.delete {
+    //  background: url("../images/icons/delete_icon.svg") no-repeat center top;
+    .action-sheet-title {
+    }
+  }
+  &.grid_menu .action-sheet-wrapper {
+    .action-sheet-container {
+      .action-sheet-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        .action-sheet-button {
+          width: calc(33.3% - 8px);
+          height: 80px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          margin: 0;
+          border: 1px solid #e4e4e7;
+        }
+      }
+    }
+  }
+}
+
+.action_screen {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  justify-content: space-between;
+  padding: 16px !important;
+  flex-direction: column;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 9;
+  background: $white;
+  .action_screen_cnt {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    //  height: calc(100vh - 150px);
+    align-items: center;
+    justify-content: center;
+    .ion-img {
+      display: block;
+      margin: 0 auto 40px;
+    }
+    .action_title {
+      display: block;
+      text-align: center;
+      font-family: $GoFlockFont;
+      font-weight: 700;
+      line-height: 36px;
+      color: $black;
+      padding: 0 0 8px 0;
+      margin: 0;
+      font-size: 24px;
+      font-size: clamp(18px, 5.8vw, 24px);
+    }
+    .action_info {
+      display: block;
+      font-family: $GoFlockFont;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: center;
+      color: #71717a;
+      padding: 0;
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      font-size: clamp(12px, 3.38vw, 14px);
+    }
+  }
+  .action_screen_buttons {
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: none;
+    .primary-btn {
+      margin: 0;
+      --border-radius: 52px;
+    }
+  }
+  &.h-auto {
+    min-height: auto;
+  }
+  &.has_header {
+    min-height: calc(100vh - 60px);
+  }
+}
+
+.devider {
+  width: 100%;
+  display: block;
+  height: 1px;
+  background: #efeff1;
+  margin: 20px 0;
+  min-height: inherit;
+}
