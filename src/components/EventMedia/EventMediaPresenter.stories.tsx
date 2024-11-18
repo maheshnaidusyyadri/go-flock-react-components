@@ -1,17 +1,22 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import EventMediaPresenter from "./EventMediaPresenter";
 import {
+  EventWithInvitation,
   ImageAndVideosMixedMedia,
   ImagesMedia,
+  ownerEventRelation,
   OwnerProfile,
 } from "../Common/MockData";
+
 import { UserMediaMetadata } from "@goflock/types/src";
 import { action } from "@storybook/addon-actions";
+import { withRouter } from "storybook-addon-remix-react-router";
 
 export default {
   title: "GoFlock/Presenters/EventMediaPresenter",
   component: EventMediaPresenter,
-} as Meta<typeof EventMediaPresenter>;
+  decorators: [withRouter],
+};
 
 const Template: StoryFn<typeof EventMediaPresenter> = (args) => (
   <EventMediaPresenter {...args} />
@@ -21,6 +26,8 @@ export const WithNoMedia = Template.bind({});
 WithNoMedia.args = {
   profile: OwnerProfile,
   eventId: "event_001",
+  event: EventWithInvitation,
+  eventRelation: ownerEventRelation,
   media: [],
 
   // Mock function to add media
@@ -44,12 +51,12 @@ WithNoMedia.args = {
 
 export const WithImagesMedia = Template.bind({});
 WithImagesMedia.args = {
-  ...WithNoMedia,
+  ...WithNoMedia.args,
   media: ImagesMedia,
 };
 
 export const WithImagesAndMixedMedia = Template.bind({});
 WithImagesAndMixedMedia.args = {
-  ...WithNoMedia,
+  ...WithNoMedia.args,
   media: ImageAndVideosMixedMedia,
 };

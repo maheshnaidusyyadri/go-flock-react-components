@@ -13,10 +13,12 @@ import {
   rsvpGuestEventRelation,
 } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
+import { withRouter } from "storybook-addon-remix-react-router";
 
 export default {
   title: "GoFlock/Presenters/EventDetailsPresenter",
   component: EventDetailsPresenter,
+  decorators: [withRouter],
 };
 
 const Template: StoryFn<EventProps> = (args) => (

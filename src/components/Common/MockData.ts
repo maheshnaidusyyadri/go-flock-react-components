@@ -61,8 +61,8 @@ export const BirthdayEvent: Event = {
   },
   visibility: "private",
   settings: {
-    shareMedia: false,
-    splitBills: false,
+    shareMedia: true,
+    splitBills: true,
     enableChats: false,
     allowCheckList: false,
     currency: "USD",
