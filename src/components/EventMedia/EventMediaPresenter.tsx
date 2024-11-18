@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./EventMediaPresenter.scss";
 import {
   IonButton,
+  IonCol,
   IonContent,
   IonFooter,
   IonGrid,
@@ -10,12 +11,15 @@ import {
   IonLabel,
   IonList,
   IonPage,
+  IonRow,
   IonSegment,
   IonSegmentButton,
   IonSpinner,
   IonToast,
+  IonToolbar,
   SegmentValue,
 } from "@ionic/react";
+import { Link } from "react-router-dom";
 import { EventMediaProps, Media } from "@goflock/types";
 import { MasonryPhotoAlbum, Photo } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
@@ -613,36 +617,83 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         </IonButton>
       </IonFooter>
       {isEditMode ? (
-        <IonFooter className="main-footer">
-          <nav>
-            <ul>
-              <li>
-                <StyledLink className="link" onClick={handleShareSelected}>
-                  <img src={ShareIcon} alt="Media" />
-                  <span>Share</span>
-                </StyledLink>
-              </li>
-              <li>
-                <StyledLink className="link" onClick={handleDownloadSelected}>
-                  <img src={Download} alt="Split Bill" />
-                  <span>Download</span>
-                </StyledLink>
-              </li>
-              <li>
-                <StyledLink className="link" href="#">
-                  <img src={save} alt="Chat" />
-                  <span>Save</span>
-                </StyledLink>
-              </li>
-              <li>
-                <StyledLink className="link" onClick={handleDeleteSelected}>
-                  <img src={Delete} alt="Settings" />
-                  <span>Delete</span>
-                </StyledLink>
-              </li>
-            </ul>
-          </nav>
-        </IonFooter>
+        <>
+          <IonFooter className="footer">
+            <IonToolbar>
+              <IonGrid className="ion-padding footer-cnt">
+                <IonRow>
+                  <IonCol className="ion-no-padding">
+                    <Link to={""}>
+                      <img src={ShareIcon} alt="Media" />
+                    </Link>
+                  </IonCol>
+                  <IonCol
+                    className="ion-no-padding"
+                    onClick={handleDownloadSelected}
+                  >
+                    <Link to={""}>
+                      <img src={Download} alt="Split Bill" />
+                    </Link>
+                  </IonCol>
+                  <IonCol className="ion-no-padding">
+                    <Link to={""}>
+                      <img src={save} alt="Chat" />
+                    </Link>
+                  </IonCol>
+                  <IonCol
+                    className="ion-no-padding"
+                    onClick={handleDeleteSelected}
+                  >
+                    <Link to={""}>
+                      <img src={Delete} alt="Media" />
+                    </Link>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonToolbar>
+          </IonFooter>
+          {/* <IonFooter className="main-footer">
+            <nav>
+              <ul>
+                <IonRow>
+                  <IonCol>
+                    <StyledLink className="link" onClick={handleShareSelected}>
+                      <img src={ShareIcon} alt="Media" />
+                      <span>Share</span>
+                    </StyledLink>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <StyledLink
+                      className="link"
+                      onClick={handleDownloadSelected}
+                    >
+                      <img src={Download} alt="Split Bill" />
+                      <span>Download</span>
+                    </StyledLink>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <StyledLink className="link" href="#">
+                      <img src={save} alt="Chat" />
+                      <span>Save</span>
+                    </StyledLink>
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol>
+                    <StyledLink className="link" onClick={handleDeleteSelected}>
+                      <img src={Delete} alt="Settings" />
+                      <span>Delete</span>
+                    </StyledLink>
+                  </IonCol>
+                </IonRow>
+              </ul>
+            </nav>
+          </IonFooter> */}
+        </>
       ) : (
         <Footer
           activeTab={"media"}
