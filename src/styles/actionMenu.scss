@@ -202,3 +202,23 @@
   margin: 20px 0;
   min-height: inherit;
 }
+
+.stickyFooter {
+  position: sticky;
+  top: 100%;
+  bottom: 0;
+  box-shadow: none !important;
+  padding: 16px;
+  .primary-btn {
+    margin: 0;
+  }
+  .secondary-btn {
+    margin-bottom: 12px;
+  }
+  &.hasFooter {
+    top: calc(100% - 160px);
+    &.bottomSticky {
+      bottom: 60px;
+    }
+  }
+}
