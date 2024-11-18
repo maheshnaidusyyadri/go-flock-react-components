@@ -1,0 +1,12 @@
+@use "../../styles/fonts" as *;
+.footer {
+  box-shadow: none !important;
+  .footer-cnt {
+    border-top: 1px solid #ececee;
+    background: #f6f6f6;
+    ion-col {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
