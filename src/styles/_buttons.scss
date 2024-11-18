@@ -22,7 +22,6 @@
   color: $white;
   --box-shadow: none;
   text-transform: capitalize;
-  margin: 25px auto 0;
   &.rounded {
     --border-radius: 50px;
   }
@@ -49,7 +48,6 @@
   color: $GoFlockColor;
   --box-shadow: none;
   text-transform: capitalize;
-  margin: 0px auto 0;
   --background: transparent;
   --background-hover: transparent;
   --background-focused: #2780bf;

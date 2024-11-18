@@ -130,21 +130,11 @@
 }
 
 .action_screen {
-  min-height: calc(100vh - 60px);
-  display: flex;
-  justify-content: space-between;
-  padding: 16px !important;
-  flex-direction: column;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 9;
-  background: $white;
   .action_screen_cnt {
     display: flex;
     text-align: center;
     flex-direction: column;
-    //  height: calc(100vh - 150px);
+    height: 100%;
     align-items: center;
     justify-content: center;
     .ion-img {
