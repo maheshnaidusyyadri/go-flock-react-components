@@ -3,39 +3,35 @@
 import React, { useEffect, useState } from "react";
 import "./DashboardPresenter.scss";
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonAvatar,
   IonContent,
   IonActionSheet,
-  IonCol,
-  IonThumbnail,
-  IonImg,
-  IonText,
-  IonRow,
   IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
 } from "@ionic/react";
 import { DashboardProps } from "@goflock/types/src/index";
-import AddIcon from "../../images/icons/add-circle.svg";
-import vacationIcon from "../../images/icons/vacation.svg";
-import birthdayIcon from "../../images/icons/birthday.svg";
-import marriageIcon from "../../images/icons/marriage.svg";
-import graduationIcon from "../../images/icons/graduation.svg";
-import moreIcon from "../../images/icons/more.svg";
+// import AddIcon from "../../images/icons/add-circle.svg";
+// import vacationIcon from "../../images/icons/vacation.svg";
+// import birthdayIcon from "../../images/icons/birthday.svg";
+// import marriageIcon from "../../images/icons/marriage.svg";
+// import graduationIcon from "../../images/icons/graduation.svg";
+// import moreIcon from "../../images/icons/more.svg";
 import EventSection from "../Common/Events/EventSection";
 import Header from "../Header/Header";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
-  profile,
+  // profile,
   activeEvents,
   myEvents,
-  createNewEvent,
+  // createNewEvent,
   openEvent,
-  seeAllMyEvents,
-  seeAllEvents,
+  // seeAllMyEvents,
+  // seeAllEvents,
 }) => {
+  const [selectedSegment, setSelectedSegment] = useState<
+    "AllEvents" | "MyEvents"
+  >("AllEvents");
   const [showFirstActionSheet, setShowFirstActionSheet] = useState(false);
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
 
@@ -51,14 +47,11 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         title={""}
         showProfile={true}
       />
-      <IonContent className="dashboard">
-        <IonCard className="db_profile">
+      <IonContent className="dashboard ion-padding">
+        {/* <IonCard className="db_profile">
           <IonCardHeader className="db_profile_head">
             <IonAvatar slot="start">
-              <IonImg
-                src={profile?.pictureUrl}
-                alt="Profile"
-              />
+              <IonImg src={profile?.pictureUrl} alt="Profile" />
             </IonAvatar>
             <IonCardTitle className="profile-name">
               Welcome, {profile.prefName}
@@ -75,16 +68,43 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               </IonText>
             )}
           </IonCardContent>
-        </IonCard>
+        </IonCard> */}
+        <IonSegment
+          className="segment_tabs"
+          value={selectedSegment}
+          onIonChange={(e) =>
+            setSelectedSegment(e.detail.value as "AllEvents" | "MyEvents")
+          }
+        >
+          <IonSegmentButton value="AllEvents">
+            <IonLabel>All events</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="MyEvents">
+            <IonLabel>My events</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
+
+        {selectedSegment === "AllEvents" && (
+          <EventSection
+            title=""
+            events={activeEvents}
+            //onSeeAll={() => seeAllEvents("guest")}
+            onOpenEvent={openEvent}
+          />
+        )}
+
+        {selectedSegment === "MyEvents" && (
+          <EventSection
+            title=""
+            events={myEvents}
+            //  onSeeAll={seeAllMyEvents}
+            onOpenEvent={openEvent}
+          />
+        )}
         {/* Active Events Section */}
-        <EventSection
-          title="Active Events"
-          events={activeEvents}
-          onSeeAll={() => seeAllEvents("guest")}
-          onOpenEvent={openEvent}
-        />
+
         {/* Event Categories Section */}
-        <IonCard className="events_sec">
+        {/* <IonCard className="events_sec">
           <IonCardHeader className="events_head">
             <IonCardTitle className="events_title">All Events</IonCardTitle>
           </IonCardHeader>
@@ -161,14 +181,8 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
               </IonCol>
             </IonRow>
           </IonCardContent>
-        </IonCard>
-        {/* My Events Section */}
-        <EventSection
-          title="My Events"
-          events={myEvents}
-          onSeeAll={seeAllMyEvents}
-          onOpenEvent={openEvent}
-        />
+        </IonCard> */}
+
         {/* Action Sheets */}
         <IonActionSheet
           isOpen={showFirstActionSheet}

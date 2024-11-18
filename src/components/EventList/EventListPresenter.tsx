@@ -1,19 +1,12 @@
 import React from "react";
 import "./EventListPresenter.scss";
-import {
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonList,
-  IonPage,
-  IonGrid,
-} from "@ionic/react";
+import { IonPage, IonGrid, IonContent, IonCol, IonRow } from "@ionic/react";
 import { EventListProps } from "@goflock/types/src/index";
 import EventItem from "../Common/Events/EventItem";
 import Header from "../Header/Header";
 
 const EventListPresenter: React.FC<EventListProps> = ({
-  profile,
+  // profile,
   events,
   openEvent,
 }) => {
@@ -26,30 +19,27 @@ const EventListPresenter: React.FC<EventListProps> = ({
         showGoBack={true}
         showProfile={true}
       />
-
-      <IonGrid className="events_sec">
-        <IonCardHeader className="events_head">
-          <IonCardTitle className="events_title">
-            {profile.prefName}'s Events
-          </IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent className="events_cnt">
+      <IonContent className="ion-padding">
+        {/* <IonLabel className="event-name">{profile.prefName}'s Events</IonLabel> */}
+        <IonGrid className="events_sec ion-no-padding ion-no-margin">
           {events.length === 0 ? (
             <p>No events to display.</p>
           ) : (
-            <IonList className="ion-list">
+            <IonRow className="event-row">
               {events.map((event) => (
-                <EventItem
-                  key={event.id}
-                  event={event}
-                  onOpen={openEvent}
-                  onShowActionSheet={() => {}}
-                />
+                <IonCol size="6" className="event-col">
+                  <EventItem
+                    key={event.id}
+                    event={event}
+                    onOpen={openEvent}
+                    onShowActionSheet={() => {}}
+                  />
+                </IonCol>
               ))}
-            </IonList>
+            </IonRow>
           )}
-        </IonCardContent>
-      </IonGrid>
+        </IonGrid>
+      </IonContent>
     </IonPage>
   );
 };

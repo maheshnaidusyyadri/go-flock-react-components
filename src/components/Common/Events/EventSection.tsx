@@ -2,12 +2,12 @@
 
 import React from "react";
 import {
-  IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardContent,
-  IonList,
   IonLabel,
+  IonCol,
+  IonRow,
+  IonGrid,
 } from "@ionic/react";
 import EventItem from "./EventItem";
 import { Event } from "@goflock/types/src/index";
@@ -25,31 +25,30 @@ const EventSection: React.FC<EventSectionProps> = ({
   onSeeAll,
   onOpenEvent,
 }) => (
-  <IonCard className="events_sec">
+  <>
     <IonCardHeader className="events_head">
       <IonCardTitle className="events_title">{title}</IonCardTitle>
       {onSeeAll && (
-        <IonLabel
-          className="viewall"
-          onClick={onSeeAll}
-        >
+        <IonLabel className="viewall" onClick={onSeeAll}>
           See all
         </IonLabel>
       )}
     </IonCardHeader>
-    <IonCardContent className="events_cnt">
-      <IonList className="ion-list">
+    <IonGrid className="events_sec ion-no-padding ion-no-margin">
+      <IonRow className="event-row">
         {events.map((event) => (
-          <EventItem
-            key={event.id}
-            event={event}
-            onOpen={onOpenEvent}
-            onShowActionSheet={() => {}}
-          />
+          <IonCol size="6" className="event-col">
+            <EventItem
+              key={event.id}
+              event={event}
+              onOpen={onOpenEvent}
+              onShowActionSheet={() => {}}
+            />
+          </IonCol>
         ))}
-      </IonList>
-    </IonCardContent>
-  </IonCard>
+      </IonRow>
+    </IonGrid>
+  </>
 );
 
 export default EventSection;
