@@ -1,25 +1,18 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import EventSettingsPresenter from "./EventSettingsPresenter";
+import { Currency, EventVisibility } from "@goflock/types/src/index";
 import {
-  Currency,
-  EventVisibility,
-  EventSettings,
-} from "@goflock/types/src/index";
-import { BirthdayEvent, OwnerProfile } from "../Common/MockData";
+  BirthdayEvent,
+  ownerEventRelation,
+  OwnerProfile,
+} from "../Common/MockData";
+import { withRouter } from "storybook-addon-remix-react-router";
 
 export default {
   title: "GoFlock/Presenters/EventSettingsPresenter",
   component: EventSettingsPresenter,
-} as Meta<typeof EventSettingsPresenter>;
-
-const mockEventSettings: EventSettings = {
-  shareMedia: true,
-  splitBills: true,
-  enableChats: true,
-  allowCheckList: true,
-  currency: "USD",
-  eventVisibility: "private",
+  decorators: [withRouter],
 };
 
 // Template using StoryFn
@@ -27,11 +20,12 @@ const Template: StoryFn<typeof EventSettingsPresenter> = (args) => (
   <EventSettingsPresenter {...args} />
 );
 
-export const Default = Template.bind({});
-Default.args = {
+export const OwnerSettings = Template.bind({});
+OwnerSettings.args = {
   profile: OwnerProfile,
   event: BirthdayEvent,
-  eventSettings: mockEventSettings,
+  eventRelation: ownerEventRelation,
+  eventSettings: BirthdayEvent.settings,
 
   enableMediaSharing: async (eventId: string) => {
     action("enableMediaSharing")(`Enabling media sharing for event ${eventId}`);

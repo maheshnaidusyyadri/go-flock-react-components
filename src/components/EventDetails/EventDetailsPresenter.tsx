@@ -234,17 +234,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   return (
     <>
-      <IonContent className="eventDetails">
-        <Header
-          showLogo={true}
-          showGoBack={false}
-          eventId={event.id}
-          title={event.name}
-          showMenu={true}
-          showContactList={false}
-          deleteEvent={deleteEvent}
-          eventRelation={eventRelation}
-        />
+      <Header
+        showLogo={true}
+        showGoBack={false}
+        eventId={event.id}
+        title={event.name}
+        showMenu={true}
+        showContactList={false}
+        deleteEvent={deleteEvent}
+        eventRelation={eventRelation}
+      />
+      <IonContent>
         <input
           type="file"
           accept="image/*"
@@ -350,7 +350,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
-                      <AddressDisplay address={event.location.name} />
+                      <AddressDisplay address={event.location?.name} />
                     </IonCardTitle>
                   </IonCardContent>
                 </IonCard>
@@ -511,78 +511,76 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </>
           )}
         </IonGrid>
-        {["admin"].includes(eventRelation?.visitType) && (
-          <IonFooter className="stickyFooter hasFooter">
-            <IonButton
-              className="primary-btn rounded"
-              onClick={() => inviteMembers(event.id)}
-            >
-              <IonImg src={Copy} />
-              Copy link
-            </IonButton>
+      </IonContent>
+      {["admin"].includes(eventRelation?.visitType) && (
+        <IonFooter className="stickyFooter hasFooter">
+          <IonButton
+            className="primary-btn rounded"
+            onClick={() => inviteMembers(event.id)}
+          >
+            <IonImg src={Copy} />
+            Copy link
+          </IonButton>
+        </IonFooter>
+      )}
+      {!["owner"].includes(eventRelation?.visitType) &&
+        !(eventRelation?.rsvp && eventRelation.rsvp?.response) && (
+          <IonFooter className="stickyFooter">
+            <IonCard className="rsvp_card">
+              <IonLabel className="rsvp_title">Are you going?</IonLabel>
+              <IonList
+                class="rsvp_actions"
+                onClick={toggleGogingClass}
+              >
+                <IonItem
+                  className="ionitem"
+                  onClick={() => handleClick("yes")}
+                >
+                  <IonText
+                    class="yes"
+                    className="iontext"
+                  >
+                    Yes
+                  </IonText>
+                </IonItem>
+                <IonItem
+                  className="ionitem"
+                  onClick={() => handleClick("no")}
+                >
+                  <IonText
+                    class="no"
+                    className="iontext"
+                  >
+                    No
+                  </IonText>
+                </IonItem>
+                <IonItem
+                  className="ionitem"
+                  onClick={() => handleClick("notSure")}
+                >
+                  <IonText
+                    class="notSure"
+                    className="iontext"
+                  >
+                    Not sure
+                  </IonText>
+                </IonItem>
+              </IonList>
+            </IonCard>
           </IonFooter>
         )}
-        {!["owner"].includes(eventRelation?.visitType) &&
-          !(eventRelation?.rsvp && eventRelation.rsvp?.response) && (
-            <IonFooter className="stickyFooter">
-              {/* <IonButton onClick={toggleClass} className="primary-btn rounded">
-              Submit your response
-            </IonButton> */}
-              <IonCard className="rsvp_card">
-                <IonLabel className="rsvp_title">Are you going?</IonLabel>
-                <IonList
-                  class="rsvp_actions"
-                  onClick={toggleGogingClass}
-                >
-                  <IonItem
-                    className="ionitem"
-                    onClick={() => handleClick("yes")}
-                  >
-                    <IonText
-                      class="yes"
-                      className="iontext"
-                    >
-                      Yes
-                    </IonText>
-                  </IonItem>
-                  <IonItem
-                    className="ionitem"
-                    onClick={() => handleClick("no")}
-                  >
-                    <IonText
-                      class="no"
-                      className="iontext"
-                    >
-                      No
-                    </IonText>
-                  </IonItem>
-                  <IonItem
-                    className="ionitem"
-                    onClick={() => handleClick("notSure")}
-                  >
-                    <IonText
-                      class="notSure"
-                      className="iontext"
-                    >
-                      Not sure
-                    </IonText>
-                  </IonItem>
-                </IonList>
-              </IonCard>
-            </IonFooter>
-          )}
-        {(["admin", "owner"].includes(eventRelation?.visitType) ||
-          (["member"].includes(eventRelation?.visitType) &&
-            eventRelation?.rsvp &&
-            eventRelation.rsvp?.response)) && (
-          <Footer
-            eventId={event.id}
-            activeTab={"invitation"}
-            settings={event.settings}
-            eventRelation={eventRelation}
-          />
-        )}
-      </IonContent>
+
+      {(["admin", "owner"].includes(eventRelation?.visitType) ||
+        (["member"].includes(eventRelation?.visitType) &&
+          eventRelation?.rsvp &&
+          eventRelation.rsvp?.response)) && (
+        <Footer
+          eventId={event.id}
+          activeTab={"invitation"}
+          settings={event.settings}
+          eventRelation={eventRelation}
+        />
+      )}
 
       {isInviteActive && (
         <IonGrid className={`${isInviteActive ? "rsvp_modal active" : ""}`}>
