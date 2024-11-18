@@ -297,15 +297,14 @@ body {
 
 .media_cnt {
   padding: 0px;
-  margin: 16px;
 }
 
 .gallery_tabs {
   margin-bottom: 16px;
-  margin-top: 8px;
+  margin-top: 0px;
   --background: #ffffff;
   position: sticky;
-  top: 0px;
+  top: -16px;
   border-radius: 0;
   z-index: 999;
   &:after {
@@ -367,7 +366,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 16px 0 16px;
   .slection_count {
     display: flex;
     align-items: center;

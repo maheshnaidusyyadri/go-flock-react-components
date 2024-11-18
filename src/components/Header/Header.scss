@@ -8,9 +8,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background:#F6F6F6;
-        height: 60px;
-        padding: 0 15px;
+        --background:#F6F6F6;
+        height: 60px; 
         .page-title {
             display: block;
             text-align: center;
