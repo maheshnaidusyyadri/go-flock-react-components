@@ -1,4 +1,4 @@
-import { IonFooter } from "@ionic/react";
+import { IonCol, IonFooter, IonGrid, IonRow, IonToolbar } from "@ionic/react";
 import "./Footer.scss";
 import homeIcon from "../../images/icons/home.svg";
 import mediaIcon from "../../images/icons/media.svg";
@@ -6,6 +6,7 @@ import splitIcon from "../../images/icons/split.svg";
 import settingsIcon from "../../images/icons/settings.svg";
 import { EventSettings } from "@goflock/types/src";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
+import { Link } from "react-router-dom";
 
 interface FooterProps {
   eventId: string;
@@ -16,7 +17,6 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({
   eventId,
-  activeTab,
   settings,
   eventRelation,
 }) => {
@@ -68,24 +68,23 @@ const Footer: React.FC<FooterProps> = ({
   const enabledTabs = allTabs.filter((tab) => tab.enabled);
 
   return (
-    <IonFooter className="main-footer">
-      <nav>
-        <ul>
-          {enabledTabs.map((tab) => (
-            <li key={tab.key}>
-              <a
-                className={`link ${activeTab === tab.key ? "active" : ""}`}
-                href={tab.href}
-              >
-                <img
-                  src={tab.icon}
-                  alt={`${tab.label} icon`}
-                />
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <IonFooter>
+      <IonToolbar>
+        <IonGrid>
+          <IonRow>
+            {enabledTabs.map((tab) => (
+              <IonCol key={tab.key}>
+                <Link to={tab.href}>
+                  <img
+                    src={tab.icon}
+                    alt={`${tab.label} icon`}
+                  />
+                </Link>
+              </IonCol>
+            ))}
+          </IonRow>
+        </IonGrid>
+      </IonToolbar>
     </IonFooter>
   );
 };
