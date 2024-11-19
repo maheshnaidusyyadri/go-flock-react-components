@@ -1,6 +1,6 @@
 // src/components/DashboardPresenter.tsx
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./DashboardPresenter.scss";
 import {
   IonContent,
@@ -11,6 +11,7 @@ import {
   IonLabel,
   IonFooter,
   IonButton,
+  IonModal,
 } from "@ionic/react";
 import { DashboardProps } from "@goflock/types/src/index";
 // import AddIcon from "../../images/icons/add-circle.svg";
@@ -21,6 +22,7 @@ import { DashboardProps } from "@goflock/types/src/index";
 // import moreIcon from "../../images/icons/more.svg";
 import EventSection from "../Common/Events/EventSection";
 import Header from "../Header/Header";
+import EventType from "../Common/Events/EventType";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   // profile,
@@ -40,6 +42,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   useEffect(() => {
     console.log("DashboardPresenter mounted");
   }, []);
+  const modal = useRef<HTMLIonModalElement>(null);
 
   return (
     <IonPage>
@@ -72,7 +75,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           </IonCardContent>
         </IonCard> */}
         <IonSegment
-          className="segment_tabs"
+          className="segment-tabs"
           value={selectedSegment}
           onIonChange={(e) =>
             setSelectedSegment(e.detail.value as "AllEvents" | "MyEvents")
@@ -223,15 +226,33 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         />
       </IonContent>
       <IonFooter className="stickyFooter">
-        <IonButton
+        {/* <IonButton
           expand="block"
           shape="round"
           className="primary-btn"
           routerLink="/create-event"
         >
           Create new event
+        </IonButton> */}
+        <IonButton
+          color="primary"
+          shape="round"
+          size="large"
+          id="open-modal"
+          expand="block"
+        >
+          Create new event
         </IonButton>
       </IonFooter>
+      <IonModal
+        ref={modal}
+        trigger="open-modal"
+        initialBreakpoint={0.6}
+        breakpoints={[0, 0.6, 0.75]}
+        className="action-moadal ion-padding-top"
+      >
+        <EventType />
+      </IonModal>
     </IonPage>
   );
 };

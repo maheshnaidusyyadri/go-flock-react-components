@@ -466,7 +466,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
               className={`ion-no-padding step-content ${getStepClass(2)}`}
             >
               <IonSegment
-                className="tabs-sec"
+                className="segment-tabs"
                 value={selectedSegment}
                 onIonChange={(e) =>
                   setSelectedSegment(
