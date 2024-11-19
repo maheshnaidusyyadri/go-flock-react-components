@@ -1,0 +1,54 @@
+@use "../styles/fonts" as *;
+
+.profile-list {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 5px 0;
+  gap: 15px;
+  max-width: calc(100vw - 32px);
+  .profile-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px;
+    min-width: 55px;
+    max-width: 60px;
+    .profile-avatar-wrapper {
+      position: relative;
+      --size: 40px;
+      .profile-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .remove_user {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 14px;
+        height: auto;
+        border-radius: 50%;
+      }
+    }
+    .profile-name {
+      margin-top: 5px;
+      font-family: $GoFlockFont;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 18px;
+      color: $secondaryColor;
+      text-align: center;
+      width: 100%;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

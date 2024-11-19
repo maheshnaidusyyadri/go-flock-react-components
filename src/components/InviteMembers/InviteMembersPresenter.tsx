@@ -121,14 +121,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   return (
     <>
       <IonPage className="invite_page">
-        <Header
-          eventId={eventId}
-          title="Manage members"
-          showMenu={false}
-        />
+        <Header eventId={eventId} title="Manage members" showMenu={false} />
         <IonContent className="invite_members">
           <IonSegment
-            className="segment_tabs"
+            className="segment-tabs"
             value={selectedSegment}
             onIonChange={(e) =>
               setSelectedSegment(e.detail.value as "Members" | "Contacts")
@@ -147,25 +143,13 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {members.map((member, index) => (
-                      <IonItem
-                        key={index}
-                        className="list_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="list_item">
+                        <IonThumbnail slot="start" className="dp">
                           {member?.roles?.includes("owner") && (
-                            <IonImg
-                              className="type"
-                              src={HostIcon}
-                            />
+                            <IonImg className="type" src={HostIcon} />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg
-                              className="type co"
-                              src={CoHostIcon}
-                            />
+                            <IonImg className="type co" src={CoHostIcon} />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -178,10 +162,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img
-                              src={Selected}
-                              alt="Selected"
-                            />
+                            <img src={Selected} alt="Selected" />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -190,8 +171,8 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                  ? " (Co-host)"
-                                  : "")}
+                                ? " (Co-host)"
+                                : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
@@ -207,10 +188,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               }
                             }}
                           >
-                            <IonImg
-                              src={Menu}
-                              alt="More Details"
-                            />
+                            <IonImg src={Menu} alt="More Details" />
                           </IonAvatar>
                         )}
                       </IonItem>
@@ -257,10 +235,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                           //onClick={() => addMember(member)}
                           onClick={() => handleSelectContact(member)}
                         >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
+                          <IonThumbnail slot="start" className="dp">
                             {member.profileImg ? (
                               <IonImg
                                 src={member.profileImg}
@@ -273,10 +248,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             )}
                             {selectedContacts.includes(member) && (
                               <span className="selection">
-                                <img
-                                  src={Selected}
-                                  alt="Selected"
-                                />
+                                <img src={Selected} alt="Selected" />
                               </span>
                             )}
                           </IonThumbnail>
@@ -334,7 +306,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
         <Footer
           eventId={eventId}
           activeTab={"members"}
-          settings={event.settings}
+          //settings={event.settings}
           eventRelation={eventRelation}
         />
       </IonPage>

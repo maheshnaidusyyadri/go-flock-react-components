@@ -10,9 +10,9 @@ import {
   IonCardHeader,
   IonText,
   IonHeader,
-  IonTitle,
   IonAvatar,
   IonContent,
+  IonToolbar,
 } from "@ionic/react";
 import backArrow from "../../images/icons/back-arrow.svg";
 import { getDisplayName } from "../../utils/utils";
@@ -66,14 +66,20 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
   };
   return (
     <>
-      <IonHeader className="main-header">
-        <div className="header-cnt">
-          <IonImg src={backArrow} alt="Page Back" onClick={handleBack} />
-          <IonTitle className="page-title">{title}</IonTitle>
-        </div>
+      <IonHeader className="main-header ">
+        <IonToolbar className="header-cnt ion-no-padding">
+          <IonImg
+            slot="start"
+            className="arrow_icon ion-margin-start"
+            src={backArrow}
+            alt="Page Back"
+            onClick={handleBack}
+          />
+          <IonText className="page-title">{title}</IonText>
+        </IonToolbar>
       </IonHeader>
-      <IonContent className="members_cnt">
-        <IonGrid className="aroundspace">
+      <IonContent className="members_cnt ion-padding">
+        <IonGrid className="aroundspace ion-no-padding ion-no-margin">
           <IonCardHeader className="card_header">
             <IonLabel className="ion-title">Members</IonLabel>
             {isMultiple && (
