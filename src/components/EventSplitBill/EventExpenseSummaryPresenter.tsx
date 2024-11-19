@@ -54,7 +54,8 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   return (
     <IonPage>
       <Header
-        title={`Split Bill ${event.name}`}
+        eventId={event.id}
+        title={`Expenses`}
         showMenu={false}
         showContactList={false}
         showProfile={true}

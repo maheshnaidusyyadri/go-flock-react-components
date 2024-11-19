@@ -122,9 +122,9 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
     <>
       <IonPage className="invite_page">
         <Header
+          eventId={eventId}
           title="Manage members"
           showMenu={false}
-          showContactList={true}
         />
         <IonContent className="invite_members">
           <IonSegment

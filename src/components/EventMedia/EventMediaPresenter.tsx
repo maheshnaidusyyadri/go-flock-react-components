@@ -410,6 +410,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   return (
     <IonPage>
       <Header
+        eventId={eventId}
         showMenu={false}
         showContactList={false}
         title={"Media"}
@@ -434,12 +435,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -475,7 +482,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 render={{
                   // render custom styled link
                   link: (props) => (
-                    <StyledLink {...props} isEditView={isEditMode} />
+                    <StyledLink
+                      {...props}
+                      isEditView={isEditMode}
+                    />
                   ),
                   // render image selection icon
                   extras: (_, { photo: { selected, type }, index }) => (
@@ -497,12 +507,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type_declaration" src={VideoType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={VideoType}
+                          />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type_declaration" src={ImageType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={ImageType}
+                          />
                         </>
                       )}
                     </>
@@ -624,7 +640,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 <IonRow>
                   <IonCol className="ion-no-padding">
                     <Link to={""}>
-                      <img src={ShareIcon} alt="Media" />
+                      <img
+                        src={ShareIcon}
+                        alt="Media"
+                      />
                     </Link>
                   </IonCol>
                   <IonCol
@@ -632,12 +651,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDownloadSelected}
                   >
                     <Link to={""}>
-                      <img src={Download} alt="Split Bill" />
+                      <img
+                        src={Download}
+                        alt="Split Bill"
+                      />
                     </Link>
                   </IonCol>
                   <IonCol className="ion-no-padding">
                     <Link to={""}>
-                      <img src={save} alt="Chat" />
+                      <img
+                        src={save}
+                        alt="Chat"
+                      />
                     </Link>
                   </IonCol>
                   <IonCol
@@ -645,7 +670,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDeleteSelected}
                   >
                     <Link to={""}>
-                      <img src={Delete} alt="Media" />
+                      <img
+                        src={Delete}
+                        alt="Media"
+                      />
                     </Link>
                   </IonCol>
                 </IonRow>
