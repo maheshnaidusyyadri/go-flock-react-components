@@ -79,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({
         <IonToolbar className="header-cnt">
           <IonButtons slot="start">
             {showGoBack && (
-              <IonButton routerLink={`/event/${eventId}`}>
+              <IonButton routerLink={eventId ? `/event/${eventId}` : "/"}>
                 <IonThumbnail className="profile_icon">
                   <IonImg
                     src={backArrow}

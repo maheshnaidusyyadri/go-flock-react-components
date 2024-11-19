@@ -9,6 +9,8 @@ import {
   IonSegment,
   IonSegmentButton,
   IonLabel,
+  IonFooter,
+  IonButton,
 } from "@ionic/react";
 import { DashboardProps } from "@goflock/types/src/index";
 // import AddIcon from "../../images/icons/add-circle.svg";
@@ -220,6 +222,16 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           ]}
         />
       </IonContent>
+      <IonFooter className="stickyFooter">
+        <IonButton
+          expand="block"
+          shape="round"
+          className="primary-btn"
+          routerLink="/create-event"
+        >
+          Create new event
+        </IonButton>
+      </IonFooter>
     </IonPage>
   );
 };
