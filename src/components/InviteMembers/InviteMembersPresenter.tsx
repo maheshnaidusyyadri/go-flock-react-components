@@ -5,8 +5,6 @@ import {
   IonItem,
   IonLabel,
   IonContent,
-  IonSearchbar,
-  IonToolbar,
   IonThumbnail,
   IonImg,
   IonAvatar,
@@ -18,20 +16,24 @@ import {
   IonActionSheet,
   IonCard,
   IonText,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { InviteMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
-import GoArrow from "../../images/icons/GoArrow.svg";
 import Header from "../Header/Header";
-import ProfileList from "../Common/Profiles/ProfileList";
 import Menu from "../../images/icons/menu.svg";
-import noContacts from "../../images/no-contacts.svg";
 import noMembers from "../../images/no-members.svg";
 import HostIcon from "../../images/icons/host.svg";
 import CoHostIcon from "../../images/icons/co-host.svg";
 import { getDisplayName } from "../../utils/utils";
 import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
+import RsvpStatus from "../Common/RsvpStatus";
+import CustomSelect from "../Common/CustomSelect";
+import IonTextarea from "../Common/CustomTextarea";
+import { FormProvider, useForm } from "react-hook-form";
+
 interface EventMember {
   id?: string;
   flockId?: string;
@@ -48,56 +50,24 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   eventId,
   event,
   eventRelation,
-  importContactsFromDevice,
-  addMembers,
   members,
-  contacts,
   removeMember,
   addAdmin,
   removeAdmin,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
-    "Members" | "Contacts"
-  >("Members");
-  const [searchText, setSearchText] = useState(""); // State to track search input
-  const [selectedContacts, setSelectedContacts] = useState<any>([]);
-  const [selectedMembers, _] = useState<any[]>([]);
+    "Members" | "Track" | "Messaging"
+  >("Track");
   const [showAction, setShowAction] = useState(false);
   const [selectedUser, setSelectedUser] = useState<EventMember | null>(null);
+  const methods = useForm();
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    control,
+  } = useForm();
 
-  // Filter members based on search text
-  const filteredContacts = contacts?.filter(
-    (contact) =>
-      contact.name?.toLowerCase().includes(searchText.toLowerCase()) ||
-      contact.phone?.includes(searchText)
-  );
-
-  // const getDisplayName = (name: string) => {
-  //   return name.length > 1
-  //     ? name.slice(0, 2).toUpperCase()
-  //     : name.toUpperCase();
-  // };
-  const handleSelectContact = (contact: any) => {
-    if (selectedContacts.includes(contact)) {
-      // Remove if already selected
-      setSelectedContacts(selectedContacts.filter((c: any) => c !== contact));
-    } else {
-      // Add to selected list
-      setSelectedContacts([...selectedContacts, contact]);
-    }
-  };
-
-  const getContactsList = () => {
-    importContactsFromDevice().then(() => {
-      console.log("Contacts imported");
-    });
-  };
-  const addSelectedContactsToEvent = async () => {
-    await addMembers(selectedContacts);
-    setShowAction(false);
-    setSelectedContacts([]);
-    setSelectedSegment("Members");
-  };
   const handleDelete = () => {
     if (selectedUser) {
       removeMember(selectedUser);
@@ -117,55 +87,51 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
       return "Dismiss as co-host";
     }
   };
+  const onSendMessage = (formData: any) => {
+    console.log("onSendMessage-formData", formData);
+  };
+  const onError = (err: any) => {
+    console.log("onSendMessage-err", err);
+  };
 
   return (
     <>
       <IonPage className="invite_page">
-        <Header
-          eventId={eventId}
-          title="Manage members"
-          showMenu={false}
-        />
-        <IonContent className="invite_members">
+        <Header eventId={eventId} title="Manage members" showMenu={false} />
+        <IonContent className="invite_members ion-padding">
           <IonSegment
             className="segment-tabs"
             value={selectedSegment}
             onIonChange={(e) =>
-              setSelectedSegment(e.detail.value as "Members" | "Contacts")
+              setSelectedSegment(
+                e.detail.value as "Members" | "Track" | "Messaging"
+              )
             }
           >
+            <IonSegmentButton value="Track">
+              <IonLabel>Track</IonLabel>
+            </IonSegmentButton>
             <IonSegmentButton value="Members">
               <IonLabel>Members</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton value="Contacts">
-              <IonLabel>Contacts</IonLabel>
+            <IonSegmentButton value="Messaging">
+              <IonLabel>Messaging</IonLabel>
             </IonSegmentButton>
           </IonSegment>
+          {selectedSegment === "Track" && <RsvpStatus event={event} />}
           {selectedSegment === "Members" && (
             <div className="members_page">
               <div className="menbers_list ">
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {members.map((member, index) => (
-                      <IonItem
-                        key={index}
-                        className="list_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="list_item">
+                        <IonThumbnail slot="start" className="dp">
                           {member?.roles?.includes("owner") && (
-                            <IonImg
-                              className="type"
-                              src={HostIcon}
-                            />
+                            <IonImg className="type" src={HostIcon} />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg
-                              className="type co"
-                              src={CoHostIcon}
-                            />
+                            <IonImg className="type co" src={CoHostIcon} />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -178,10 +144,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img
-                              src={Selected}
-                              alt="Selected"
-                            />
+                            <img src={Selected} alt="Selected" />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -190,8 +153,8 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                  ? " (Co-host)"
-                                  : "")}
+                                ? " (Co-host)"
+                                : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
@@ -199,7 +162,6 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                         {!member?.roles?.includes("owner") && (
                           <IonAvatar
                             className="action_menu"
-                            //onClick={() => setShowAction(true)}
                             onClick={() => {
                               if (member) {
                                 setSelectedUser(member);
@@ -207,10 +169,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               }
                             }}
                           >
-                            <IonImg
-                              src={Menu}
-                              alt="More Details"
-                            />
+                            <IonImg src={Menu} alt="More Details" />
                           </IonAvatar>
                         )}
                       </IonItem>
@@ -228,108 +187,61 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
               </div>
             </div>
           )}
-          {selectedSegment === "Contacts" && (
-            <div className="members_page">
-              {contacts && contacts.length > 0 ? (
-                <div>
-                  <IonToolbar>
-                    <IonSearchbar
-                      value={searchText}
-                      onIonInput={(e) => setSearchText(e.detail.value!)}
-                      placeholder="Search by name or phone"
-                    />
-                  </IonToolbar>
-                  <div className="users_list">
-                    <ProfileList
-                      eventId={eventId}
-                      eventMembers={selectedContacts}
-                      onSelectMember={handleSelectContact}
-                    />
-                  </div>
-                  <span className="devider"></span>
-                  <div className="menbers_list">
-                    <h6>All Members</h6>
-                    <IonList className="list_wrap">
-                      {filteredContacts.map((member, index) => (
-                        <IonItem
-                          key={index}
-                          className="list_item"
-                          //onClick={() => addMember(member)}
-                          onClick={() => handleSelectContact(member)}
-                        >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            {member.profileImg ? (
-                              <IonImg
-                                src={member.profileImg}
-                                alt={`${member.name}'s profile`}
-                              />
-                            ) : (
-                              <IonAvatar class="profile-dp">
-                                {getDisplayName(member.name || "")}
-                              </IonAvatar>
-                            )}
-                            {selectedContacts.includes(member) && (
-                              <span className="selection">
-                                <img
-                                  src={Selected}
-                                  alt="Selected"
-                                />
-                              </span>
-                            )}
-                          </IonThumbnail>
-                          <IonLabel className="member-info">
-                            <h2>{member.name}</h2>
-                            <p>{member.phone}</p>
-                          </IonLabel>
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </div>
-                </div>
-              ) : (
-                <IonCard className="nodata">
-                  <IonImg src={noContacts} />
-                  <IonLabel className="title">No Contacts Found</IonLabel>
-                  <IonText className="subtitle">
-                    Import contacts and add members
-                  </IonText>
-                </IonCard>
-              )}
-            </div>
+          {selectedSegment === "Messaging" && (
+            <FormProvider {...methods}>
+              <IonRow>
+                <IonCol className="form-group ion-padding-bottom">
+                  <IonTextarea
+                    placeholder={"Message"}
+                    label={"Message"}
+                    fieldName={"message"}
+                    isRequired={true}
+                    errors={errors}
+                    errorText={"Message"}
+                    register={register}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol className="form-group ion-padding-bottom">
+                  <CustomSelect
+                    control={control}
+                    label="Recipients"
+                    fieldName="recipients"
+                    placeholder="Select Recipients"
+                    options={[
+                      { value: "Birthday", label: "Birthday" },
+                      { value: "Vacations", label: "Vacations" },
+                      {
+                        value: "GetTogether",
+                        label: "Get together",
+                      },
+                      { value: "Other", label: "Other" },
+                    ]}
+                    isRequired={true}
+                    errors={errors}
+                    errorText="Recipients"
+                    //onIonChange={(e: any) => setEventType(e)}
+                  />
+                </IonCol>
+              </IonRow>
+            </FormProvider>
           )}
-
-          <IonFooter className="stickyFooter hasFooter bottomSticky">
-            {selectedSegment === "Members" && selectedMembers.length == 0 ? (
-              <IonButton
-                className="primary-btn rounded"
-                onClick={() => setSelectedSegment("Contacts")}
-              >
-                Go to Contacts
+          <IonFooter class="stickyFooter">
+            {selectedSegment !== "Messaging" && (
+              <IonButton className="primary-btn rounded">
+                {"Invite Guests"}
               </IonButton>
-            ) : (
+            )}
+            {selectedSegment === "Messaging" && (
               <IonButton
                 className="primary-btn rounded"
-                onClick={() => getContactsList()}
+                onClick={handleSubmit(onSendMessage, onError)}
               >
-                {contacts.length === 0 ? "Import contacts" : "Sync contacts"}
+                {"Send message"}
               </IonButton>
             )}
           </IonFooter>
-          {selectedContacts &&
-            selectedContacts.length > 0 &&
-            selectedSegment === "Contacts" && (
-              <IonFooter class="stickyFooter">
-                <IonButton
-                  className="goarrow"
-                  onClick={addSelectedContactsToEvent}
-                >
-                  <IonImg src={GoArrow} />
-                </IonButton>
-              </IonFooter>
-            )}
         </IonContent>
         <Footer
           eventId={eventId}
@@ -369,7 +281,7 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
             },
           },
         ]}
-      ></IonActionSheet>
+      />
     </>
   );
 };

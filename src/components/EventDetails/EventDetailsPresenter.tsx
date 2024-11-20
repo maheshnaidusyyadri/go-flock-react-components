@@ -56,6 +56,7 @@ import CustomTextarea from "../Common/CustomTextarea";
 import RSVPSuccess from "../../images/RSVP_success.svg";
 import OtpVerification from "../Common/OtpVerification";
 import { getDisplayNamewithchr } from "../../utils/utils";
+//import RsvpStatus from "../Common/RsvpStatus";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
@@ -424,7 +425,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           {["admin", "owner"].includes(eventRelation?.visitType) && (
             <>
               <IonItemDivider className="devider"></IonItemDivider>
-              <IonGrid className="status_sec">
+              {/* <IonGrid className="status_sec">
                 {event?.counters && (
                   <IonLabel className="status-title">RSVP Status</IonLabel>
                 )}
@@ -490,7 +491,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       );
                     })}
                 </IonRow>
-              </IonGrid>
+              </IonGrid> */}
+              {/* <RsvpStatus event={event} /> */}
             </>
           )}
         </IonGrid>

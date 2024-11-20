@@ -50,12 +50,13 @@ import Delete from "../../images/icons/Delet.svg";
 import CrossIcon from "../../images/icons/Cross.svg";
 import NoMedia from "../../images/noMedia.svg";
 
-import { Share } from "@capacitor/share";
+//import { Share } from "@capacitor/share";
 import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
 type SelectablePhoto = Photo & {
   id?: any;
   selected?: boolean;
   type?: String;
+  metadata?: UserMediaMetadata;
 };
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
@@ -306,25 +307,46 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
 
   // @ts-ignore
   const handleShareSelected = async () => {
-    const selectedPhotos = photos.filter((photo) => photo.selected);
-    if (selectedPhotos.length === 0) {
-      console.warn("No photos selected for sharing.");
-      return;
-    }
-
+    console.log("handleShareSelected");
     try {
-      // Create a message containing the URLs of the selected photos
-      const messageText = `Check out these images!\n\n${selectedPhotos
-        .map((photo) => photo.src)
-        .join("\n")}`;
+      const selectedPhotos = photos.filter((photo) => photo.selected);
+      console.log("selectedPhotos", selectedPhotos);
+      if (selectedPhotos.length === 0) {
+        alert("No images selected to share.");
+        return;
+      }
 
-      await Share.share({
-        title: "Share Images",
-        text: messageText,
-        dialogTitle: "Share these images",
-      });
+      const files = await Promise.all(
+        selectedPhotos.map(async (photo) => {
+          const response = await fetch(photo.src);
+          console.log("selectedItem", photo);
+          if (!response.ok)
+            throw new Error(`Failed to fetch image: ${photo.src}`);
+          const blob = await response.blob();
+          return new File([blob], photo?.metadata?.name || "", {
+            type: blob.type,
+          });
+        })
+      );
+
+      console.log("Files to share:", files);
+
+      // await Share.share({
+      //   title: "Share",
+      //   text: "Check out these!",
+      //   files,
+      // });
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({
+          title: "Share",
+          text: "Check out these!",
+          files,
+        });
+      } else {
+        alert("File sharing is not supported on this platform.");
+      }
     } catch (error) {
-      console.error("Error sharing:", error);
+      console.error("Error sharing images:", error);
     }
   };
 
@@ -436,18 +458,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleSelectAll}
-              >
+              <IonLabel className="select_action" onClick={handleSelectAll}>
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleDeselectAll}
-              >
+              <IonLabel className="select_action" onClick={handleDeselectAll}>
                 Deselect All
               </IonLabel>
             )}
@@ -483,10 +499,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 render={{
                   // render custom styled link
                   link: (props) => (
-                    <StyledLink
-                      {...props}
-                      isEditView={isEditMode}
-                    />
+                    <StyledLink {...props} isEditView={isEditMode} />
                   ),
                   // render image selection icon
                   extras: (_, { photo: { selected, type }, index }) => (
@@ -508,18 +521,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg
-                            class="type_declaration"
-                            src={VideoType}
-                          />
+                          <IonImg class="type_declaration" src={VideoType} />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg
-                            class="type_declaration"
-                            src={ImageType}
-                          />
+                          <IonImg class="type_declaration" src={ImageType} />
                         </>
                       )}
                     </>
@@ -639,12 +646,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <IonToolbar>
               <IonGrid className="ion-padding footer-cnt">
                 <IonRow>
-                  <IonCol className="ion-no-padding">
+                  <IonCol
+                    className="ion-no-padding"
+                    onClick={handleShareSelected}
+                  >
                     <Link to={""}>
-                      <img
-                        src={ShareIcon}
-                        alt="Media"
-                      />
+                      <img src={ShareIcon} alt="Media" />
                     </Link>
                   </IonCol>
                   <IonCol
@@ -652,18 +659,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDownloadSelected}
                   >
                     <Link to={""}>
-                      <img
-                        src={Download}
-                        alt="Split Bill"
-                      />
+                      <img src={Download} alt="Split Bill" />
                     </Link>
                   </IonCol>
                   <IonCol className="ion-no-padding">
                     <Link to={""}>
-                      <img
-                        src={save}
-                        alt="Chat"
-                      />
+                      <img src={save} alt="Chat" />
                     </Link>
                   </IonCol>
                   <IonCol
@@ -671,10 +672,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDeleteSelected}
                   >
                     <Link to={""}>
-                      <img
-                        src={Delete}
-                        alt="Media"
-                      />
+                      <img src={Delete} alt="Media" />
                     </Link>
                   </IonCol>
                 </IonRow>

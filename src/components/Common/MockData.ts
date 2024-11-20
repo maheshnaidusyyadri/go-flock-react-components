@@ -373,6 +373,28 @@ export const EventWithOneMember: Event = {
       eventId: "event_12345",
       name: "Alice Smith",
       email: "alice.smith@example.com",
+      roles: ["owner"],
+    },
+    {
+      id: "admin_001",
+      eventId: "event_12345",
+      name: "Alice Smith",
+      email: "alice.smith@example.com",
+      roles: ["member"],
+    },
+    {
+      id: "admin_001",
+      eventId: "event_12345",
+      name: "Alice Smith",
+      email: "alice.smith@example.com",
+      roles: ["admin"],
+    },
+    {
+      id: "admin_001",
+      eventId: "event_12345",
+      name: "Alice Smith",
+      email: "alice.smith@example.com",
+      roles: ["admin"],
     },
   ],
   settings: {
@@ -388,6 +410,28 @@ export const EventWithOneMember: Event = {
   media: [],
   deleted: false,
   transactions: [],
+  counters: {
+    attendingRSVP: {
+      total: 9,
+      adults: 5,
+      kids: 4,
+    },
+    maybeRSVP: {
+      total: 10,
+      adults: 6,
+      kids: 4,
+    },
+    declinedRSVP: {
+      total: 8,
+      adults: 4,
+      kids: 4,
+    },
+    totalRSVP: {
+      total: 10,
+      adults: 6,
+      kids: 4,
+    },
+  },
 };
 
 export const EventWithInvitation: Event = {
@@ -633,6 +677,30 @@ export const ImageAndVideosMixedMedia: Media[] = [
     metadata: {
       lastModifiedDate: "1728792187163",
       name: "BigBuckBunny.mp4",
+      size: 148916,
+      type: "video/mp4",
+      uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+      eventId: "Lz0XqK6sLWl7icDEWQ8b",
+      mediaId: "8fT3MMJseTpFPKup6gaw",
+      width: 1080,
+      height: 720,
+    },
+  },
+  {
+    id: "8fT3MMJseTpFPKup6gaw",
+    uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
+    eventId: "Lz0XqK6sLWl7icDEWQ8b",
+    type: "video",
+    path: "media/Lz0XqK6sLWl7icDEWQ8b/8fT3MMJseTpFPKup6gaw/BigBuckBunny.mp4",
+    createdAt: "2024-11-03T16:53:22.660Z",
+    isDeleted: false,
+    thumbnailUrl:
+      "https://media.istockphoto.com/id/904475088/vector/stopwatch-icon.jpg?s=612x612&w=0&k=20&c=SM0DKmmrYfJKdGoVrhXuk8cMlvlXpt5ExROqr-QEN4w=",
+    downloadUrl:
+      "https://www.shutterstock.com/shutterstock/videos/1091631955/preview/stock-footage--countdown-animation-from-to-modern-flat-design-with-animation-on-dark-background-k.mp4",
+    metadata: {
+      lastModifiedDate: "1728792187163",
+      name: "Funny.mp4",
       size: 148916,
       type: "video/mp4",
       uploadedBy: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
