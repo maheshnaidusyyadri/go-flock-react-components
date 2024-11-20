@@ -304,6 +304,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     setSelectedCount(0);
   };
 
+  // @ts-ignore
   const handleShareSelected = async () => {
     const selectedPhotos = photos.filter((photo) => photo.selected);
     if (selectedPhotos.length === 0) {

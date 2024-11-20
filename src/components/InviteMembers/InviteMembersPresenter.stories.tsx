@@ -10,11 +10,14 @@ import {
   EventWithOneMember,
   OwnerProfile,
   MockContacts,
+  ownerEventRelation,
 } from "../Common/MockData";
+import { withRouter } from "storybook-addon-remix-react-router";
 
 export default {
   title: "GoFlock/Presenters/InviteMembersPresenter",
   component: InviteMembersPresenter,
+  decorators: [withRouter],
 };
 
 const Template: StoryFn<InviteMembersProps> = (args) => (
@@ -25,6 +28,8 @@ export const EmptyContacts = Template.bind({});
 EmptyContacts.args = {
   profile: OwnerProfile,
   eventId: EventWithOneMember.id,
+  event: EventWithOneMember,
+  eventRelation: ownerEventRelation,
   members: EventWithOneMember.members,
   contacts: [],
   importContactsFromDevice: async () => {
