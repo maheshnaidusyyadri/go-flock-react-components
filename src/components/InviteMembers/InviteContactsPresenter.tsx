@@ -18,18 +18,13 @@ import {
 import noContacts from "../../images/no-contacts.svg";
 import Selected from "../../images/icons/selected.svg";
 import GoArrow from "../../images/icons/GoArrow.svg";
-import { Contact } from "@goflock/types";
+import { InviteContactsProps } from "@goflock/types";
 import ProfileList from "../Common/Profiles/ProfileList";
 import { getDisplayName } from "../../utils/utils";
 import Header from "../Header/Header";
-interface InviteGuestProps {
-  eventId: string;
-  contacts: Contact[];
-  importContactsFromDevice: () => Promise<void>;
-  addMembers: (contact: Contact[]) => Promise<number>;
-}
+import "./InviteContactsPresenter.scss";
 
-const InviteGuest: React.FC<InviteGuestProps> = ({
+const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
   eventId,
   contacts,
   importContactsFromDevice,
@@ -46,8 +41,8 @@ const InviteGuest: React.FC<InviteGuestProps> = ({
     );
   };
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact?.name?.toLowerCase().includes(searchText.toLowerCase())
+  const filteredContacts = contacts.filter(
+    (contact) => contact?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
   const getContactsList = () => {
     importContactsFromDevice().then(() => {
@@ -61,7 +56,11 @@ const InviteGuest: React.FC<InviteGuestProps> = ({
 
   return (
     <IonPage>
-      <Header eventId={eventId} title="Manage members" showMenu={false} />
+      <Header
+        eventId={eventId}
+        title="Manage members"
+        showMenu={false}
+      />
       <IonContent className="members_page ion-padding">
         {contacts && contacts.length > 0 ? (
           <div>
@@ -93,7 +92,10 @@ const InviteGuest: React.FC<InviteGuestProps> = ({
                     className="list_item"
                     onClick={() => handleSelectContact(member)}
                   >
-                    <IonThumbnail slot="start" className="dp">
+                    <IonThumbnail
+                      slot="start"
+                      className="dp"
+                    >
                       {member.profileImg ? (
                         <IonImg
                           src={member.profileImg}
@@ -106,7 +108,10 @@ const InviteGuest: React.FC<InviteGuestProps> = ({
                       )}
                       {selectedContacts.includes(member) && (
                         <span className="selection">
-                          <img src={Selected} alt="Selected" />
+                          <img
+                            src={Selected}
+                            alt="Selected"
+                          />
                         </span>
                       )}
                     </IonThumbnail>
@@ -140,7 +145,10 @@ const InviteGuest: React.FC<InviteGuestProps> = ({
         )}
         {selectedContacts && selectedContacts.length > 0 && (
           <IonFooter class="stickyFooter">
-            <IonButton className="goarrow" onClick={addSelectedContactsToEvent}>
+            <IonButton
+              className="goarrow"
+              onClick={addSelectedContactsToEvent}
+            >
               <IonImg src={GoArrow} />
             </IonButton>
           </IonFooter>
@@ -150,4 +158,4 @@ const InviteGuest: React.FC<InviteGuestProps> = ({
   );
 };
 
-export default InviteGuest;
+export default InviteContactsPresenter;

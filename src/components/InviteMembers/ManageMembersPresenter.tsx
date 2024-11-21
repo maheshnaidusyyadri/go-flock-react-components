@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./InviteMembersPresenter.scss";
+import "./ManageMembersPresenter.scss";
 import {
   IonList,
   IonItem,
@@ -19,7 +19,7 @@ import {
   IonRow,
   IonCol,
 } from "@ionic/react";
-import { InviteMembersProps } from "@goflock/types/src/index";
+import { ManageMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
 import Menu from "../../images/icons/menu.svg";
@@ -46,7 +46,7 @@ interface EventMember {
   phone?: string;
   roles?: RoleType[];
 }
-const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
+const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   eventId,
   event,
   eventRelation,
@@ -97,7 +97,11 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   return (
     <>
       <IonPage className="invite_page">
-        <Header eventId={eventId} title="Manage members" showMenu={false} />
+        <Header
+          eventId={eventId}
+          title="Manage members"
+          showMenu={false}
+        />
         <IonContent className="invite_members ion-padding">
           <IonSegment
             className="segment-tabs"
@@ -125,13 +129,25 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {members.map((member, index) => (
-                      <IonItem key={index} className="list_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="list_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member?.roles?.includes("owner") && (
-                            <IonImg className="type" src={HostIcon} />
+                            <IonImg
+                              className="type"
+                              src={HostIcon}
+                            />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg className="type co" src={CoHostIcon} />
+                            <IonImg
+                              className="type co"
+                              src={CoHostIcon}
+                            />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -144,7 +160,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img src={Selected} alt="Selected" />
+                            <img
+                              src={Selected}
+                              alt="Selected"
+                            />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -153,8 +172,8 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                ? " (Co-host)"
-                                : "")}
+                                  ? " (Co-host)"
+                                  : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
@@ -169,7 +188,10 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
                               }
                             }}
                           >
-                            <IonImg src={Menu} alt="More Details" />
+                            <IonImg
+                              src={Menu}
+                              alt="More Details"
+                            />
                           </IonAvatar>
                         )}
                       </IonItem>
@@ -286,4 +308,4 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
   );
 };
 
-export default InviteMembersPresenter;
+export default ManageMembersPresenter;

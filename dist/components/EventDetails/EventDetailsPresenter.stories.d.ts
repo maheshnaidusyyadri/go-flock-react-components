@@ -2,6 +2,7 @@ import { EventProps } from '@goflock/types/src/index';
 declare const _default: {
     title: string;
     component: import('react').FC<EventProps>;
+    decorators: (() => any)[];
 };
 export default _default;
 export declare const PublicEventHostViewWithInvitation: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventProps>;
