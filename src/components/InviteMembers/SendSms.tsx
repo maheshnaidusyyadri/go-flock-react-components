@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { IonPage } from "@ionic/react";
+import {
+  IonButton,
+  IonContent,
+  IonFooter,
+  IonLabel,
+  IonPage,
+} from "@ionic/react";
 import ProfileList from "../Common/Profiles/ProfileList";
 import { EventMember } from "@goflock/types/src";
 
@@ -19,13 +25,24 @@ const SendSms: React.FC<{
   }, [members]);
 
   return (
-    <IonPage>
-      <ProfileList
-        eventId={eventId}
-        eventMembers={updatedMembers}
-        removeMember={removeMember}
-      />
-    </IonPage>
+    <>
+      <IonContent className="ion-padding">
+        <ProfileList
+          eventId={eventId}
+          eventMembers={updatedMembers}
+          removeMember={removeMember}
+        />
+      </IonContent>
+      <IonFooter className="stickyFooter">
+        <IonButton color="primary" shape="round" size="large" expand="block">
+          Send sms for contacts
+        </IonButton>
+        <IonButton color="primary" shape="round" size="large" expand="block">
+          Share invitation link personally
+        </IonButton>
+        <IonLabel className="skip-btn ion-padding">Skip </IonLabel>
+      </IonFooter>
+    </>
   );
 };
 

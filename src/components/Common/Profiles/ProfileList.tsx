@@ -1,10 +1,11 @@
 import React from "react";
-import { IonAvatar, IonLabel, IonThumbnail } from "@ionic/react";
+import { IonAvatar, IonImg, IonLabel, IonThumbnail } from "@ionic/react";
 import "./ProfileList.scss";
 import { EventMember } from "@goflock/types/src";
 import attendingIcon from "../../../images/icons/Attending.svg";
 import notAttendingIcon from "../../../images/icons/notAttending.svg";
 import notSureIcon from "../../../images/icons/notSure.svg";
+import AddMember from "../../../images/icons/add-more.svg";
 
 interface ProfileListProps {
   eventId: string;
@@ -50,7 +51,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
   };
   console.log("eventMembers", eventMembers);
   return (
-    <div className="profile-list">
+    <div className="profile-list profile-grid">
       {eventMembers.map((eventMember) => (
         <div
           key={eventMember.id}
@@ -78,6 +79,12 @@ const ProfileList: React.FC<ProfileListProps> = ({
           <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
       ))}
+      <div className="profile-item">
+        <IonThumbnail>
+          <IonImg src={AddMember} />
+        </IonThumbnail>
+        <IonLabel className="profile-name">Add more</IonLabel>
+      </div>
     </div>
   );
 };

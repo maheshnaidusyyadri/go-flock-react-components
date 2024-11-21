@@ -61,6 +61,14 @@
   }
 }
 
+.skip-btn {
+  display: block;
+  text-align: center;
+  text-decoration: underline;
+  font-family: $GoFlockFont;
+  font-size: 14px;
+}
+
 .actions-container {
   display: flex;
   align-items: center;
