@@ -1,12 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import InviteMembersPresenter from "./InviteMembersPresenter";
-import InviteGust from "./InviteGuest";
-import {
-  InviteMembersProps,
-  EventMember,
-  Contact,
-} from "@goflock/types/src/index";
+import { EventMember, Contact } from "@goflock/types/src/index";
 import {
   EventWithOneMember,
   OwnerProfile,
@@ -14,15 +8,17 @@ import {
   ownerEventRelation,
 } from "../Common/MockData";
 import { withRouter } from "storybook-addon-remix-react-router";
+import InviteContactsPresenter from "./InviteContactsPresenter";
+import { InviteContactsProps } from "@goflock/types";
 
 export default {
-  title: "GoFlock/Presenters/InviteMembersPresenter",
-  component: InviteMembersPresenter,
+  title: "GoFlock/Presenters/InviteContactsPresenter",
+  component: InviteContactsPresenter,
   decorators: [withRouter],
 };
 
-const Template: StoryFn<InviteMembersProps> = (args) => (
-  <InviteMembersPresenter {...args} />
+const Template: StoryFn<InviteContactsProps> = (args) => (
+  <InviteContactsPresenter {...args} />
 );
 
 export const EmptyContacts = Template.bind({});
@@ -36,14 +32,6 @@ EmptyContacts.args = {
   contacts: [],
   importContactsFromDevice: async () => {
     action("importContactsFromDevice")("Fetching members from contact list...");
-  },
-  addAdmin: async (member: EventMember) => {
-    action("addAdmin")("Adding admin:", member);
-    return member;
-  },
-  removeAdmin: async (member: EventMember) => {
-    action("removeAdmin")("Removing admin:", member);
-    return true;
   },
   addMembers: async (contacts: Contact[]) => {
     action("addMembers")("Adding members:", contacts);
@@ -67,29 +55,21 @@ WithEmptyMembersAndContacts.args = {
   members: [],
   contacts: [],
 };
-const InviteGuestTemplate: StoryFn<InviteMembersProps> = (args) => (
-  <InviteGust {...args} />
+
+const InviteContactsTemplate: StoryFn<InviteContactsProps> = (args) => (
+  <InviteContactsPresenter {...args} />
 );
-export const InviteGuest = InviteGuestTemplate.bind({});
-InviteGuest.args = {
+
+export const InviteContacts = InviteContactsTemplate.bind({});
+InviteContacts.args = {
   profile: OwnerProfile,
   eventId: EventWithOneMember.id,
   event: EventWithOneMember,
   eventRelation: ownerEventRelation,
   members: EventWithOneMember.members,
-  //members: [],
-  //contacts: [],
   contacts: MockContacts,
   importContactsFromDevice: async () => {
     action("importContactsFromDevice")("Fetching members from contact list...");
-  },
-  addAdmin: async (member: EventMember) => {
-    action("addAdmin")("Adding admin:", member);
-    return member;
-  },
-  removeAdmin: async (member: EventMember) => {
-    action("removeAdmin")("Removing admin:", member);
-    return true;
   },
   addMembers: async (contacts: Contact[]) => {
     action("addMembers")("Adding members:", contacts);

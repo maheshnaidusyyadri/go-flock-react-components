@@ -1,5 +1,7 @@
-import { Meta } from '@storybook/react';
-import { default as EventSettingsPresenter } from './EventSettingsPresenter';
-declare const _default: Meta<typeof EventSettingsPresenter>;
+declare const _default: {
+    title: string;
+    component: import('react').FC<import('@goflock/types/src/presenter').EventSettingsProps>;
+    decorators: (() => any)[];
+};
 export default _default;
-export declare const Default: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, import('@goflock/types/src/presenter').EventSettingsProps>;
+export declare const OwnerSettings: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, import('@goflock/types/src/presenter').EventSettingsProps>;
