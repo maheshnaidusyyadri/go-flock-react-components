@@ -75,6 +75,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
               />
             )}
           </IonThumbnail>
+          <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
       ))}
     </div>
