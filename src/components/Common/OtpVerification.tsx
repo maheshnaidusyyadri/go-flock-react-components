@@ -27,18 +27,18 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
     );
   };
   return (
-    <IonGrid className="varification_sec">
-      <IonCard className="auth_cnt">
+    <IonGrid className="varification-sec">
+      <IonCard className="auth-cnt">
         <IonLabel className="auth-title">Verify Account</IonLabel>
         <IonImg className="mobile" alt="Go Flock" src={Mobile} />
         <IonText className="vatification-title">Mobile Verification</IonText>
         <IonText className="subtitle">
           To continue, please enter the OTP we just sent to{" "}
-          <IonText className="mobile_number">
+          <IonText className="mobile-number">
             {phoneNumber ? "+" + phoneNumber : ""}
           </IonText>
         </IonText>
-        <IonCard className="otp_fields">
+        <IonCard className="otp-fields">
           <Controller
             name={fieldName}
             control={control}
@@ -84,7 +84,7 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
             )}
           />
         </IonCard>
-        <IonText className="otp_resend" onClick={resendOTP}>
+        <IonText className="otp-resend" onClick={resendOTP}>
           Didn't receive the code? <a>Resend</a>
         </IonText>
       </IonCard>
