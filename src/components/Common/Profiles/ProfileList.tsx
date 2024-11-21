@@ -13,12 +13,15 @@ interface ProfileListProps {
   type?: string;
   onSelectMember?: (member: EventMember) => void;
   removeMember?: (eventMember: EventMember) => Promise<boolean>;
+  addMore?: () => void;
 }
 
 const ProfileList: React.FC<ProfileListProps> = ({
   eventMembers,
   onSelectMember,
   removeMember,
+  type,
+  addMore,
 }) => {
   const getDisplayName = (name: string) => {
     return name?.length > 1
@@ -51,7 +54,11 @@ const ProfileList: React.FC<ProfileListProps> = ({
   };
   console.log("eventMembers", eventMembers);
   return (
-    <div className="profile-list profile-grid">
+    <div
+      className={` ${
+        type == "Grid" ? "profile-list profile-grid" : "profile-list"
+      }`}
+    >
       {eventMembers.map((eventMember) => (
         <div
           key={eventMember.id}
@@ -79,12 +86,20 @@ const ProfileList: React.FC<ProfileListProps> = ({
           <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
       ))}
-      <div className="profile-item">
-        <IonThumbnail>
-          <IonImg src={AddMember} />
-        </IonThumbnail>
-        <IonLabel className="profile-name">Add more</IonLabel>
-      </div>
+      {type == "Grid" && (
+        <div className="profile-item">
+          <IonThumbnail
+            onClick={() => {
+              if (addMore) {
+                addMore();
+              }
+            }}
+          >
+            <IonImg src={AddMember} />
+          </IonThumbnail>
+          <IonLabel className="profile-name">Add more</IonLabel>
+        </div>
+      )}
     </div>
   );
 };

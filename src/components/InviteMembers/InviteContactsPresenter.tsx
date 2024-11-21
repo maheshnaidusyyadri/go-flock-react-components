@@ -23,7 +23,7 @@ import ProfileList from "../Common/Profiles/ProfileList";
 import { getDisplayName } from "../../utils/utils";
 import Header from "../Header/Header";
 import "./InviteContactsPresenter.scss";
-import SendSms from "./SendSms";
+import SendSms from "./SelectedMembers";
 
 const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
   eventId,
@@ -157,6 +157,10 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
           members={members}
           eventId={eventId}
           removeMember={removeMember}
+          addMore={() => {
+            setIsSmsSend(false);
+            console.log("addMore");
+          }}
         />
       )}
     </IonPage>
