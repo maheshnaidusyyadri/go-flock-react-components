@@ -187,58 +187,69 @@ const InviteMembersPresenter: React.FC<InviteMembersProps> = ({
               </div>
             </div>
           )}
-          {selectedSegment === "Messaging" && (
-            <FormProvider {...methods}>
-              <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
-                  <IonTextarea
-                    placeholder={"Message"}
-                    label={"Message"}
-                    fieldName={"message"}
-                    isRequired={true}
-                    errors={errors}
-                    errorText={"Message"}
-                    register={register}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
-                  <CustomSelect
-                    control={control}
-                    label="Recipients"
-                    fieldName="recipients"
-                    placeholder="Select Recipients"
-                    options={[
-                      { value: "Birthday", label: "Birthday" },
-                      { value: "Vacations", label: "Vacations" },
-                      {
-                        value: "GetTogether",
-                        label: "Get together",
-                      },
-                      { value: "Other", label: "Other" },
-                    ]}
-                    isRequired={true}
-                    errors={errors}
-                    errorText="Recipients"
-                    //onIonChange={(e: any) => setEventType(e)}
-                  />
-                </IonCol>
-              </IonRow>
-            </FormProvider>
-          )}
+          {selectedSegment === "Messaging" &&
+            (members && members.length > 0 ? (
+              <FormProvider {...methods}>
+                <IonRow>
+                  <IonCol className="form-group ion-padding-bottom">
+                    <IonTextarea
+                      placeholder={"Message"}
+                      label={"Message"}
+                      fieldName={"message"}
+                      isRequired={true}
+                      errors={errors}
+                      errorText={"Message"}
+                      register={register}
+                    />
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol className="form-group ion-padding-bottom">
+                    <CustomSelect
+                      control={control}
+                      label="Recipients"
+                      fieldName="recipients"
+                      placeholder="Select Recipients"
+                      options={[
+                        { value: "Birthday", label: "Birthday" },
+                        { value: "Vacations", label: "Vacations" },
+                        {
+                          value: "GetTogether",
+                          label: "Get together",
+                        },
+                        { value: "Other", label: "Other" },
+                      ]}
+                      isRequired={true}
+                      errors={errors}
+                      errorText="Recipients"
+                      //onIonChange={(e: any) => setEventType(e)}
+                    />
+                  </IonCol>
+                </IonRow>
+              </FormProvider>
+            ) : (
+              <IonCard className="nodata">
+                <IonImg src={noMembers} />
+                <IonLabel class="title">No invitees</IonLabel>
+                <IonText class="subtitle">
+                  Go to contacts and add members
+                </IonText>
+              </IonCard>
+            ))}
           <IonFooter class="stickyFooter">
-            {selectedSegment !== "Messaging" && (
-              <IonButton className="primary-btn rounded">
-                {"Invite Guests"}
-              </IonButton>
-            )}
-            {selectedSegment === "Messaging" && (
+            {}
+            {selectedSegment === "Messaging" &&
+            members &&
+            members.length > 0 ? (
               <IonButton
                 className="primary-btn rounded"
                 onClick={handleSubmit(onSendMessage, onError)}
               >
                 {"Send message"}
+              </IonButton>
+            ) : (
+              <IonButton className="primary-btn rounded">
+                {"Invite Guests"}
               </IonButton>
             )}
           </IonFooter>

@@ -11,11 +11,13 @@ interface ProfileListProps {
   eventMembers: EventMember[];
   type?: string;
   onSelectMember?: (member: EventMember) => void;
+  removeMember?: (eventMember: EventMember) => Promise<boolean>;
 }
 
 const ProfileList: React.FC<ProfileListProps> = ({
   eventMembers,
   onSelectMember,
+  removeMember,
 }) => {
   const getDisplayName = (name: string) => {
     return name?.length > 1
@@ -38,21 +40,27 @@ const ProfileList: React.FC<ProfileListProps> = ({
     }
     return "";
   };
+  const removeSelectedMember = (selectedItem: any) => {
+    if (onSelectMember) {
+      onSelectMember(selectedItem);
+    }
+    if (removeMember) {
+      removeMember(selectedItem);
+    }
+  };
+  console.log("eventMembers", eventMembers);
   return (
     <div className="profile-list">
       {eventMembers.map((eventMember) => (
         <div
           key={eventMember.id}
           className="profile-item"
-          onClick={() => onSelectMember && onSelectMember(eventMember)}
+          onClick={() => removeSelectedMember(eventMember)}
         >
           <IonThumbnail className="profile-avatar-wrapper">
             {eventMember.profileImg ? (
               <IonAvatar className="profile-avatar">
-                <img
-                  src={eventMember.profileImg}
-                  alt={eventMember.name}
-                />
+                <img src={eventMember.profileImg} alt={eventMember.name} />
               </IonAvatar>
             ) : (
               <IonAvatar className="profile-dp">
@@ -67,8 +75,6 @@ const ProfileList: React.FC<ProfileListProps> = ({
               />
             )}
           </IonThumbnail>
-
-          <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
       ))}
     </div>
