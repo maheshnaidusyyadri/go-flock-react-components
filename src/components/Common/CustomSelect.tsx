@@ -12,6 +12,7 @@ interface CustomSelectProps {
   errorText?: string;
   control: Control<any>; // Control object from react-hook-form
   onIonChange?: (e: CustomEvent) => void; // Optional select change handler
+  defaultValue?: string;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -24,6 +25,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   errorText,
   control,
   onIonChange,
+  defaultValue,
 }) => {
   return (
     <>
@@ -35,6 +37,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       <Controller
         name={fieldName}
         control={control}
+        defaultValue={defaultValue}
         rules={{ required: isRequired }}
         render={({ field: { onChange, value } }) => (
           <IonSelect

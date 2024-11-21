@@ -128,6 +128,29 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               <IonGrid className="menbers_list ion-no-padding">
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
+                    <CustomSelect
+                      control={control}
+                      label=""
+                      fieldName="recipients"
+                      placeholder="Select Recipients"
+                      defaultValue={"All(125)"}
+                      options={[
+                        { value: "All(125)", label: "All(125)" },
+                        { value: "Vacations", label: "Not Attending(40)" },
+                        {
+                          value: "Attending(10)",
+                          label: "Attending(10)",
+                        },
+                        {
+                          value: "Not Responding(30)",
+                          label: "Not Responding(30)",
+                        },
+                        { value: "Not Sure(20)", label: "Not Sure(20)" },
+                      ]}
+                      isRequired={false}
+                      errors={errors}
+                      errorText="Recipients"
+                    />
                     {members.map((member, index) => (
                       <IonItem key={index} className="list_item">
                         <IonThumbnail slot="start" className="dp">
@@ -221,16 +244,20 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     <CustomSelect
                       control={control}
                       label="Recipients"
-                      fieldName="recipients"
+                      fieldName="recipient"
                       placeholder="Select Recipients"
                       options={[
-                        { value: "Birthday", label: "Birthday" },
-                        { value: "Vacations", label: "Vacations" },
+                        { value: "All(125)", label: "All(125)" },
+                        { value: "Vacations", label: "Not Attending(40)" },
                         {
-                          value: "GetTogether",
-                          label: "Get together",
+                          value: "Attending(10)",
+                          label: "Attending(10)",
                         },
-                        { value: "Other", label: "Other" },
+                        {
+                          value: "Not Responding(30)",
+                          label: "Not Responding(30)",
+                        },
+                        { value: "Not Sure(20)", label: "Not Sure(20)" },
                       ]}
                       isRequired={true}
                       errors={errors}
