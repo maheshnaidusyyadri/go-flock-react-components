@@ -129,4 +129,7 @@ body {
     left: 16px;
     width: calc(100% - 32px);
   }
+  &.guest-user .swiper {
+    height: auto;
+  }
 }
