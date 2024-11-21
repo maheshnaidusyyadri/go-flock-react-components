@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  IonButton,
-  IonContent,
-  IonFooter,
-  IonLabel,
-  IonPage,
-} from "@ionic/react";
+import React from "react";
+import { IonButton, IonContent, IonFooter, IonLabel } from "@ionic/react";
 import ProfileList from "../Common/Profiles/ProfileList";
 import { EventMember } from "@goflock/types/src";
 
@@ -13,24 +7,17 @@ const SendSms: React.FC<{
   eventId: string;
   members: EventMember[];
   removeMember: (eventMember: EventMember) => Promise<boolean>;
-}> = ({ eventId, members, removeMember }) => {
-  const [updatedMembers, setUpdatedMembers] = useState<EventMember[]>([]);
-
-  useEffect(() => {
-    const staticMember: EventMember = {
-      id: "Add",
-      name: "Add More",
-    };
-    setUpdatedMembers([staticMember, ...members]);
-  }, [members]);
-
+  addMore?: () => void;
+}> = ({ eventId, members, removeMember, addMore }) => {
   return (
     <>
       <IonContent className="ion-padding">
         <ProfileList
           eventId={eventId}
-          eventMembers={updatedMembers}
+          eventMembers={members}
           removeMember={removeMember}
+          type={"Grid"}
+          addMore={addMore}
         />
       </IonContent>
       <IonFooter className="stickyFooter">
