@@ -120,3 +120,18 @@
     bottom: 0px; /* Position it at the bottom */
   }
 }
+
+.goarrow {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  --border-radius: 50%;
+  --background: #18181b;
+  --background-focused: #2780bf;
+  --background-activated: #2780bf;
+}

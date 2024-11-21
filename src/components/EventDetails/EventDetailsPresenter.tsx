@@ -27,7 +27,7 @@ import {
 import clockIcon from "../../images/icons/clock.svg";
 import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
-import addUserIcon from "../../images/icons/addUser.svg";
+//import addUserIcon from "../../images/icons/addUser.svg";
 import noPreview from "../../images/noPreview.svg";
 import noImage from "../../images/noImage.svg";
 
@@ -35,7 +35,7 @@ import Header from "../Header/Header";
 import { EventProps, RSVP } from "@goflock/types/src";
 import Footer from "../Footer/Footer";
 import DisplayDate from "../../utils/DisplayDate";
-import ProfileList from "../Common/Profiles/ProfileList";
+//import ProfileList from "../Common/Profiles/ProfileList";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
 import CopyIcon from "../../images/icons/copy.svg";
@@ -436,7 +436,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </>
           )}
 
-          {["owner"].includes(eventRelation?.visitType) && (
+          {/* {["owner"].includes(eventRelation?.visitType) && (
             <>
               <IonItemDivider className="devider"></IonItemDivider>
               <IonCard className="users_info">
@@ -460,12 +460,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 )}
               </IonCard>
             </>
-          )}
+          )} */}
 
-          {["admin", "owner"].includes(eventRelation?.visitType) && (
+          {/* {["admin", "owner"].includes(eventRelation?.visitType) && (
             <>
               <IonItemDivider className="devider"></IonItemDivider>
-              {/* <IonGrid className="status_sec">
+                <IonGrid className="status_sec">
                 {event?.counters && (
                   <IonLabel className="status-title">RSVP Status</IonLabel>
                 )}
@@ -531,14 +531,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       );
                     })}
                 </IonRow>
-              </IonGrid> */}
-              {/* <RsvpStatus event={event} /> */}
+              </IonGrid>  
+              <RsvpStatus event={event} />
             </>
-          )}
+          )} */}
         </IonGrid>
       </IonContent>
       {["admin"].includes(eventRelation?.visitType) && (
-        <IonFooter className="stickyFooter hasFooter">
+        <IonFooter className="stickyFooter no-padding-bottom">
           <IonButton
             className="primary-btn rounded"
             onClick={() => inviteMembers(event.id)}
