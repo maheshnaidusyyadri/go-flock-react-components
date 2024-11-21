@@ -9,6 +9,7 @@ import {
   IonCol,
   IonRow,
   IonGrid,
+  IonFooter,
 } from "@ionic/react";
 import ProfileDp from "../../images/profile.png";
 import Header from "../Header/Header";
@@ -130,7 +131,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
             ></span>
           </span>
         </IonCard>
-        <div className="profile_info_card">
+        <div className="profile_info_card ion-no-margin">
           <FormProvider {...methods}>
             <IonGrid className="ion-no-padding">
               <IonRow>
@@ -177,17 +178,19 @@ const EditProfile: React.FC<EditProfileProps> = ({
                   Get remainders, notifications via SMS.
                 </IonToggle>
               </div>
-              <IonButton
-                expand="block"
-                onClick={handleSubmit(handlePreferredNameChange, onError)}
-                className="primary-btn rounded"
-              >
-                Save
-              </IonButton>
             </IonGrid>
           </FormProvider>
         </div>
       </IonContent>
+      <IonFooter className="stickyFooter">
+        <IonButton
+          expand="block"
+          onClick={handleSubmit(handlePreferredNameChange, onError)}
+          className="primary-btn rounded"
+        >
+          Save
+        </IonButton>
+      </IonFooter>
     </IonPage>
   );
 };

@@ -1,32 +1,16 @@
-import React, { useRef } from "react";
-import {
-  IonContent,
-  IonCard,
-  IonText,
-  IonHeader,
-  IonTitle,
-} from "@ionic/react";
-import backArrow from "../.././images/icons/back-arrow.svg";
+import React from "react";
+import { IonContent, IonCard, IonText, IonPage } from "@ionic/react";
+import Header from "../Header/Header";
 
 const PrivacyPolicy: React.FC = ({}) => {
-  const modal = useRef<HTMLIonModalElement>(null);
-
-  function onDismiss() {
-    modal.current?.dismiss();
-  }
-
   return (
-    <>
-      <IonHeader className="main-header">
-        <div className="header-cnt">
-          <img
-            src={backArrow}
-            alt="Page Back"
-            onClick={onDismiss}
-          />
-          <IonTitle className="page-title">Privacy Policy</IonTitle>
-        </div>
-      </IonHeader>
+    <IonPage>
+      <Header
+        title="Privacy Policy"
+        showMenu={false}
+        showContactList={false}
+        className="darkheader"
+      />
       <IonContent className="privacy_sec ion-padding">
         <IonCard className="privacy_cnt">
           <IonText className="privacy_text">
@@ -53,7 +37,7 @@ const PrivacyPolicy: React.FC = ({}) => {
           </IonText>
         </IonCard>
       </IonContent>
-    </>
+    </IonPage>
   );
 };
 
