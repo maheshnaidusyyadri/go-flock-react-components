@@ -24,7 +24,13 @@ const SendSms: React.FC<{
         <IonButton color="primary" shape="round" size="large" expand="block">
           Send sms for contacts
         </IonButton>
-        <IonButton color="primary" shape="round" size="large" expand="block">
+        <IonButton
+          color="primary"
+          fill="outline"
+          shape="round"
+          size="large"
+          expand="block"
+        >
           Share invitation link personally
         </IonButton>
         <IonLabel className="skip-btn ion-padding">Skip </IonLabel>

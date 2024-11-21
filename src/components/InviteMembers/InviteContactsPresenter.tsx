@@ -66,7 +66,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
           <IonContent className="members_page ion-padding">
             {contacts && contacts.length > 0 ? (
               <div>
-                <IonText>
+                <IonText className="paragraph">
                   Type the username or phone number of your friends or
                   colleagues to be able to invite them.
                 </IonText>

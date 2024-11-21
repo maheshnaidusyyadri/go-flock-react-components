@@ -18,14 +18,17 @@ import {
   IonText,
   IonRow,
   IonCol,
+  IonGrid,
+  IonBadge,
 } from "@ionic/react";
 import { ManageMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
 import Header from "../Header/Header";
-import Menu from "../../images/icons/menu.svg";
+import MenuIcon from "../../images/icons/Dots.svg";
 import noMembers from "../../images/no-members.svg";
 import HostIcon from "../../images/icons/host.svg";
 import CoHostIcon from "../../images/icons/co-host.svg";
+import NotificationIcon from "../../images/icons/notification.svg";
 import { getDisplayName } from "../../utils/utils";
 import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
@@ -118,10 +121,11 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               <IonLabel>Messaging</IonLabel>
             </IonSegmentButton>
           </IonSegment>
+
           {selectedSegment === "Track" && <RsvpStatus event={event} />}
           {selectedSegment === "Members" && (
-            <div className="members_page">
-              <div className="menbers_list ">
+            <IonGrid className="members_page ion-no-padding">
+              <IonGrid className="menbers_list ion-no-padding">
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {members.map((member, index) => (
@@ -160,17 +164,26 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
                         {!member?.roles?.includes("owner") && (
-                          <IonAvatar
-                            className="action_menu"
-                            onClick={() => {
-                              if (member) {
-                                setSelectedUser(member);
-                                setShowAction(true);
-                              }
-                            }}
-                          >
-                            <IonImg src={Menu} alt="More Details" />
-                          </IonAvatar>
+                          <IonItem className="member-actions">
+                            <IonLabel class="notifies ion-no-margin">
+                              <IonImg
+                                className="notifies-icon"
+                                src={NotificationIcon}
+                              />
+                              <IonBadge className="count">2</IonBadge>
+                            </IonLabel>
+
+                            <IonImg
+                              onClick={() => {
+                                if (member) {
+                                  setSelectedUser(member);
+                                  setShowAction(true);
+                                }
+                              }}
+                              src={MenuIcon}
+                              alt="More Details"
+                            />
+                          </IonItem>
                         )}
                       </IonItem>
                     ))}
@@ -184,8 +197,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     </IonText>
                   </IonCard>
                 )}
-              </div>
-            </div>
+              </IonGrid>
+            </IonGrid>
           )}
           {selectedSegment === "Messaging" &&
             (members && members.length > 0 ? (
@@ -236,24 +249,22 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                 </IonText>
               </IonCard>
             ))}
-          <IonFooter class="stickyFooter">
-            {}
-            {selectedSegment === "Messaging" &&
-            members &&
-            members.length > 0 ? (
-              <IonButton
-                className="primary-btn rounded"
-                onClick={handleSubmit(onSendMessage, onError)}
-              >
-                {"Send message"}
-              </IonButton>
-            ) : (
-              <IonButton className="primary-btn rounded">
-                {"Invite Guests"}
-              </IonButton>
-            )}
-          </IonFooter>
         </IonContent>
+        <IonFooter class="stickyFooter">
+          {}
+          {selectedSegment === "Messaging" && members && members.length > 0 ? (
+            <IonButton
+              className="primary-btn rounded"
+              onClick={handleSubmit(onSendMessage, onError)}
+            >
+              {"Send message"}
+            </IonButton>
+          ) : (
+            <IonButton className="primary-btn rounded">
+              {"Invite Guests"}
+            </IonButton>
+          )}
+        </IonFooter>
         <Footer
           eventId={eventId}
           activeTab={"members"}

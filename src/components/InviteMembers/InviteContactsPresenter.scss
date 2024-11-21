@@ -1,5 +1,5 @@
 @use "../../styles/fonts" as *;
-
+@use "../../styles/form" as *;
 body {
   font-size: 100%;
   padding: 0 !important;
@@ -799,5 +799,39 @@ body {
     line-height: 24px;
     display: block;
     margin: 0 auto;
+  }
+}
+
+.member-actions {
+  --border-color: transparent;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  --min-height: 30px;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  .notifies {
+    position: relative;
+    margin-right: 10px;
+    .notifies-icon {
+      width: 20px;
+    }
+    .count {
+      border-radius: 14px;
+      border: 0.5px solid #fff;
+      background: #71717a;
+      width: 10px;
+      height: 10px;
+      font-size: 8px;
+      padding: 0;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      font-family: $GoFlockFont;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5px;
+    }
   }
 }
