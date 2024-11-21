@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./EventDetailsPresenter.scss";
+
 import {
   IonAvatar,
   IonButton,
@@ -7,6 +8,7 @@ import {
   IonCardContent,
   IonCardSubtitle,
   IonCardTitle,
+  IonCol,
   IonContent,
   IonFooter,
   IonGrid,
@@ -17,6 +19,7 @@ import {
   IonLabel,
   IonList,
   IonPage,
+  IonRow,
   IonText,
   IonThumbnail,
 } from "@ionic/react";
@@ -26,6 +29,7 @@ import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
 import addUserIcon from "../../images/icons/addUser.svg";
 import noPreview from "../../images/noPreview.svg";
+import noImage from "../../images/noImage.svg";
 
 import Header from "../Header/Header";
 import { EventProps, RSVP } from "@goflock/types/src";
@@ -253,20 +257,59 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           <IonCard className="event_info">
             {!event.invitationCard?.url &&
               ["admin", "owner"].includes(eventRelation?.visitType) && (
-                <IonThumbnail
-                  className="event_dp"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <IonImg src={image || noPreview} />
-                </IonThumbnail>
+                <IonGrid className="invitation-cards">
+                  <IonRow className="ion-row">
+                    <IonCol>
+                      <IonThumbnail
+                        className="event_dp"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <IonImg src={image || noPreview} />
+                      </IonThumbnail>
+                    </IonCol>
+                    <IonCol>
+                      <IonThumbnail className="event_dp">
+                        <IonImg src={noImage} />
+                      </IonThumbnail>
+                    </IonCol>
+                    <IonCol>
+                      <IonThumbnail className="event_dp">
+                        <IonImg src={noImage} />
+                      </IonThumbnail>
+                    </IonCol>
+                    <IonCol>
+                      <IonThumbnail className="event_dp">
+                        <IonImg src={noImage} />
+                      </IonThumbnail>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
               )}
             {event.invitationCard?.url && (
-              <IonThumbnail className="event_dp">
-                <IonImg
-                  src={event.invitationCard.url}
-                  alt="Event"
-                />
-              </IonThumbnail>
+              <IonGrid className="invitation-cards">
+                <IonRow className="ion-row">
+                  <IonCol>
+                    <IonThumbnail className="event_dp">
+                      <IonImg src={event.invitationCard.url} alt="Event" />
+                    </IonThumbnail>
+                  </IonCol>
+                  <IonCol>
+                    <IonThumbnail className="event_dp">
+                      <IonImg src={noImage} />
+                    </IonThumbnail>
+                  </IonCol>
+                  <IonCol>
+                    <IonThumbnail className="event_dp">
+                      <IonImg src={noImage} />
+                    </IonThumbnail>
+                  </IonCol>
+                  <IonCol>
+                    <IonThumbnail className="event_dp">
+                      <IonImg src={noImage} />
+                    </IonThumbnail>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
             )}
             <IonText className="event_brief">{event.description}</IonText>
             <IonList className="listitems">
@@ -275,10 +318,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   <IonItem className="ion-list">
                     <IonCard className="venue_info">
                       <IonThumbnail className="dp">
-                        <IonImg
-                          src={goingIcon}
-                          alt=" "
-                        />
+                        <IonImg src={goingIcon} alt=" " />
                       </IonThumbnail>
                       <IonCardContent className="event_titles">
                         <IonCardTitle
@@ -286,19 +326,19 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                             eventRelation.rsvp.response === "attending"
                               ? "going"
                               : eventRelation.rsvp.response === "not-attending"
-                                ? "not-going"
-                                : eventRelation.rsvp.response === "maybe"
-                                  ? "not-sure"
-                                  : ""
+                              ? "not-going"
+                              : eventRelation.rsvp.response === "maybe"
+                              ? "not-sure"
+                              : ""
                           }`}
                         >
                           {eventRelation.rsvp.response == "attending"
                             ? "Going"
                             : eventRelation.rsvp.response == "not-attending"
-                              ? "Not Going"
-                              : eventRelation.rsvp.response == "maybe"
-                                ? "Not sure"
-                                : ""}
+                            ? "Not Going"
+                            : eventRelation.rsvp.response == "maybe"
+                            ? "Not sure"
+                            : ""}
                         </IonCardTitle>
                         <IonCardSubtitle className="event_subtitle">
                           {eventRelation.rsvp.adultsCount} Adults,{" "}
@@ -318,10 +358,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonItem className="ion-list">
                 <IonCard className="venue_info">
                   <IonThumbnail className="dp">
-                    <IonImg
-                      src={clockIcon}
-                      alt="Page Back"
-                    />
+                    <IonImg src={clockIcon} alt="Page Back" />
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
@@ -339,10 +376,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     className="dp"
                     onClick={() => navigateToEventLocation(event.id)}
                   >
-                    <IonImg
-                      src={locationIcon}
-                      alt=" "
-                    />
+                    <IonImg src={locationIcon} alt=" " />
                   </IonThumbnail>
                   <IonCardContent className="event_titles">
                     <IonCardTitle className="event_title">
@@ -354,10 +388,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="event_type"
                   onClick={() => navigateToEventLocation(event.id)}
                 >
-                  <IonImg
-                    src={GlobeIcon}
-                    alt=""
-                  />
+                  <IonImg src={GlobeIcon} alt="" />
                 </IonThumbnail>
               </IonItem>
               {!["admin", "owner"].includes(eventRelation?.visitType) && (
@@ -415,10 +446,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     className="add-user"
                     onClick={() => inviteMembers(event.id)}
                   >
-                    <IonImg
-                      src={addUserIcon}
-                      alt="Event"
-                    />
+                    <IonImg src={addUserIcon} alt="Event" />
                   </IonThumbnail>
                 </IonItem>
                 {event.members && (
@@ -525,29 +553,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           <IonFooter className="stickyFooter">
             <IonCard className="rsvp_card">
               <IonLabel className="rsvp_title">Are you going?</IonLabel>
-              <IonList
-                class="rsvp_actions"
-                onClick={toggleGogingClass}
-              >
-                <IonItem
-                  className="ionitem"
-                  onClick={() => handleClick("yes")}
-                >
-                  <IonText
-                    class="yes"
-                    className="iontext"
-                  >
+              <IonList class="rsvp_actions" onClick={toggleGogingClass}>
+                <IonItem className="ionitem" onClick={() => handleClick("yes")}>
+                  <IonText class="yes" className="iontext">
                     Yes
                   </IonText>
                 </IonItem>
-                <IonItem
-                  className="ionitem"
-                  onClick={() => handleClick("no")}
-                >
-                  <IonText
-                    class="no"
-                    className="iontext"
-                  >
+                <IonItem className="ionitem" onClick={() => handleClick("no")}>
+                  <IonText class="no" className="iontext">
                     No
                   </IonText>
                 </IonItem>
@@ -555,10 +568,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="ionitem"
                   onClick={() => handleClick("notSure")}
                 >
-                  <IonText
-                    class="notSure"
-                    className="iontext"
-                  >
+                  <IonText class="notSure" className="iontext">
                     Not sure
                   </IonText>
                 </IonItem>
@@ -579,118 +589,116 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         />
       )}
 
-      {isInviteActive && (
-        <IonGrid className={`${isInviteActive ? "rsvp_modal active" : ""}`}>
-          <IonHeader class="modal_header">
-            <IonImg
-              src={backArrow}
-              alt="Page Back"
-              onClick={toggleGogingClass}
-            />
-            <IonLabel>Are you going?</IonLabel>
-          </IonHeader>
-          <IonList className="rsvp_actions">
-            <IonItem
-              className="ionitem"
-              onClick={() => handleClick("yes")}
-            >
-              <IonText
-                className={`iontext yes ${
-                  activeOption === "yes" ? "active" : ""
-                }`}
+      <IonGrid
+        className={`${isInviteActive ? "rsvp_modal active" : "rsvp_modal"}`}
+      >
+        {isInviteActive && (
+          <>
+            <IonHeader class="modal_header">
+              <IonImg
+                src={backArrow}
+                alt="Page Back"
+                onClick={toggleGogingClass}
+              />
+              <IonLabel>Are you going?</IonLabel>
+            </IonHeader>
+            <IonList className="rsvp_actions">
+              <IonItem className="ionitem" onClick={() => handleClick("yes")}>
+                <IonText
+                  className={`iontext yes ${
+                    activeOption === "yes" ? "active" : ""
+                  }`}
+                >
+                  Yes
+                </IonText>
+              </IonItem>
+              <IonItem className="ionitem" onClick={() => handleClick("no")}>
+                <IonText
+                  className={`iontext no ${
+                    activeOption === "no" ? "active" : ""
+                  }`}
+                >
+                  No
+                </IonText>
+              </IonItem>
+              <IonItem
+                className="ionitem"
+                onClick={() => handleClick("notSure")}
               >
-                Yes
-              </IonText>
-            </IonItem>
-            <IonItem
-              className="ionitem"
-              onClick={() => handleClick("no")}
-            >
-              <IonText
-                className={`iontext no ${
-                  activeOption === "no" ? "active" : ""
-                }`}
-              >
-                No
-              </IonText>
-            </IonItem>
-            <IonItem
-              className="ionitem"
-              onClick={() => handleClick("notSure")}
-            >
-              <IonText
-                className={`iontext notSure ${
-                  activeOption === "notSure" ? "active" : ""
-                }`}
-              >
-                Not sure
-              </IonText>
-            </IonItem>
-          </IonList>
-          <FormProvider {...methods}>
-            {activeOption !== "no" && (
-              <IonGrid className="guest_section">
-                <IonCard className="guest_info">
-                  <IonCard className="card_cnt">
-                    <IonThumbnail>
-                      <IonImg src={adultsIcon} />
-                    </IonThumbnail>
-                    <IonLabel className="guest_type">Adults</IonLabel>
-                    <IonCard className="counter_sec">
-                      <IonButton
-                        className="counter_btn"
-                        onClick={decrementAdults}
-                      >
-                        <IonImg src={minusIcon} />
-                      </IonButton>
-                      <IonLabel className="counter_value">
-                        {adultCount}
-                      </IonLabel>
-                      <IonButton
-                        className="counter_btn"
-                        onClick={incrementAdults}
-                      >
-                        <IonImg src={plusIcon} />
-                      </IonButton>
+                <IonText
+                  className={`iontext notSure ${
+                    activeOption === "notSure" ? "active" : ""
+                  }`}
+                >
+                  Not sure
+                </IonText>
+              </IonItem>
+            </IonList>
+            <FormProvider {...methods}>
+              {activeOption !== "no" && (
+                <IonGrid className="guest_section">
+                  <IonCard className="guest_info">
+                    <IonCard className="card_cnt">
+                      <IonThumbnail>
+                        <IonImg src={adultsIcon} />
+                      </IonThumbnail>
+                      <IonLabel className="guest_type">Adults</IonLabel>
+                      <IonCard className="counter_sec">
+                        <IonButton
+                          className="counter_btn"
+                          onClick={decrementAdults}
+                        >
+                          <IonImg src={minusIcon} />
+                        </IonButton>
+                        <IonLabel className="counter_value">
+                          {adultCount}
+                        </IonLabel>
+                        <IonButton
+                          className="counter_btn"
+                          onClick={incrementAdults}
+                        >
+                          <IonImg src={plusIcon} />
+                        </IonButton>
+                      </IonCard>
                     </IonCard>
                   </IonCard>
-                </IonCard>
-                <IonCard className="guest_info">
-                  <IonCard className="card_cnt">
-                    <IonThumbnail>
-                      <IonImg src={kidsIcon} />
-                    </IonThumbnail>
-                    <IonLabel class="guest_type">Kids</IonLabel>
-                    <IonCard className="counter_sec">
-                      <IonButton
-                        className="counter_btn"
-                        onClick={decrementKids}
-                      >
-                        <IonImg src={minusIcon} />
-                      </IonButton>
-                      <IonLabel className="counter_value">{kidsCount}</IonLabel>
-                      <IonButton
-                        className="counter_btn"
-                        onClick={incrementKids}
-                      >
-                        <IonImg src={plusIcon} />
-                      </IonButton>
+                  <IonCard className="guest_info">
+                    <IonCard className="card_cnt">
+                      <IonThumbnail>
+                        <IonImg src={kidsIcon} />
+                      </IonThumbnail>
+                      <IonLabel class="guest_type">Kids</IonLabel>
+                      <IonCard className="counter_sec">
+                        <IonButton
+                          className="counter_btn"
+                          onClick={decrementKids}
+                        >
+                          <IonImg src={minusIcon} />
+                        </IonButton>
+                        <IonLabel className="counter_value">
+                          {kidsCount}
+                        </IonLabel>
+                        <IonButton
+                          className="counter_btn"
+                          onClick={incrementKids}
+                        >
+                          <IonImg src={plusIcon} />
+                        </IonButton>
+                      </IonCard>
                     </IonCard>
                   </IonCard>
-                </IonCard>
-                {showValidation && (
-                  <IonText class="form-error">
-                    {"* At least one adult or kid is required"}
-                  </IonText>
-                )}
-              </IonGrid>
-            )}
+                  {showValidation && (
+                    <IonText class="form-error">
+                      {"* At least one adult or kid is required"}
+                    </IonText>
+                  )}
+                </IonGrid>
+              )}
 
-            <IonGrid className="guest_form">
-              <div className="form-container">
-                <IonCardContent className="pad0">
-                  {activeOption === "no" && (
-                    <div className="form-group">
+              <IonGrid className="guest_form">
+                {activeOption === "no" && (
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
                       <CustomTextarea
                         placeholder={"Write a note..."}
                         label={"Send a note (Optional)"}
@@ -699,11 +707,13 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         errors={errors}
                         register={register}
                       />
-                    </div>
-                  )}
-                  {!profile && (
-                    <>
-                      <div className="form-group">
+                    </IonCol>
+                  </IonRow>
+                )}
+                {!profile && (
+                  <>
+                    <IonRow>
+                      <IonCol className="form-group ion-padding-bottom">
                         <CustomInput
                           placeholder={"Enter your name"}
                           label={"Name"}
@@ -713,8 +723,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                           errorText={"Name"}
                           register={register}
                         />
-                      </div>
-                      <div className="form-group">
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol className="form-group">
                         <CustomPhoneNumber
                           control={control}
                           fieldName="phone"
@@ -724,23 +736,24 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                           errorText={"Mobile Number"}
                           onPhoneChange={(e: any) => setPhoneNumber(e)}
                         />
-                      </div>
-                    </>
-                  )}
-                </IonCardContent>
-              </div>
-            </IonGrid>
-            <IonFooter
-              className="stickyFooter"
-              onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
-            >
-              <IonButton className="primary-btn rounded">
-                {profile ? "Submit" : "Send OTP"}
-              </IonButton>
-            </IonFooter>
-          </FormProvider>
-        </IonGrid>
-      )}
+                      </IonCol>
+                    </IonRow>
+                  </>
+                )}
+              </IonGrid>
+              <IonFooter
+                className="stickyFooter"
+                onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
+              >
+                <IonButton className="primary-btn rounded">
+                  {profile ? "Submit" : "Send OTP"}
+                </IonButton>
+              </IonFooter>
+            </FormProvider>
+          </>
+        )}
+      </IonGrid>
+
       {isOpen && (
         <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
           <FormProvider {...methods}>
@@ -772,10 +785,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <IonImg src={RSVPSuccess} />
             <IonLabel className="success_label">RSVP Submitted!</IonLabel>
           </IonCard>
-          <IonButton
-            className="primary-btn rounded"
-            onClick={successRSVP}
-          >
+          <IonButton className="primary-btn rounded" onClick={successRSVP}>
             Go back to invitation page
           </IonButton>
         </IonGrid>
