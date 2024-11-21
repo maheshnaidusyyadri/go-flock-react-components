@@ -6,7 +6,7 @@ import attendingIcon from "../../../images/icons/Attending.svg";
 import notAttendingIcon from "../../../images/icons/notAttending.svg";
 import notSureIcon from "../../../images/icons/notSure.svg";
 import AddMember from "../../../images/icons/add-more.svg";
-
+import closeIcon from "../../../images/icons/close.svg";
 interface ProfileListProps {
   eventId: string;
   eventMembers: EventMember[];
@@ -82,6 +82,9 @@ const ProfileList: React.FC<ProfileListProps> = ({
                 className="remove_user"
               />
             )}
+            <span className="remove_user">
+              <IonImg src={closeIcon} />
+            </span>
           </IonThumbnail>
           <IonLabel className="profile-name">{eventMember.name}</IonLabel>
         </div>
