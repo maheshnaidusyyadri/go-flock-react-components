@@ -7,20 +7,18 @@ import {
   IonFooter,
   IonGrid,
   IonImg,
-  IonItem,
   IonLabel,
-  IonList,
   IonPage,
   IonRow,
   IonSegment,
   IonSegmentButton,
-  IonSpinner,
+  //IonSpinner,
   IonToast,
   IonToolbar,
   SegmentValue,
 } from "@ionic/react";
 import { Link } from "react-router-dom";
-import { EventMediaProps, Media } from "@goflock/types";
+import { EventMediaProps } from "@goflock/types";
 import { MasonryPhotoAlbum, Photo } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
@@ -68,9 +66,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   addMedia,
   deleteMedia,
 }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  //const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [galleryPhotos, setGalleryPhotos] = useState(media);
   const [lightboxPhoto, setLightboxPhoto] = useState<SelectablePhoto>();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [selectedCount, setSelectedCount] = useState(0);
@@ -192,39 +189,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   }, [photos]);
 
   const areAllSelected = photos?.length > 0 && selectedCount === photos.length;
-  // Handle adding media from the gallery
-  // const handleAddMedia = async () => {
-  //   setIsLoading(true);
-  //   setError(null);
-  //   try {
-  //     const galleryItems = await showGallary();
-  //     for (const item of galleryItems) {
-  //       const addedMedia = await addMedia(item.webviewPath!);
-  //       setGalleryPhotos((prevPhotos) => [...prevPhotos, addedMedia]);
-  //     }
-  //   } catch (err) {
-  //     setError("Failed to add media");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // Handle deleting media
-  const handleDeleteMedia = async (mediaId: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      await deleteMedia([mediaId]);
-      setGalleryPhotos((prevPhotos: any) =>
-        prevPhotos.filter((photo: any) => photo.id !== mediaId)
-      );
-    } catch (err) {
-      setError("Failed to delete media");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleEditMode = () => {
     setIsEditMode(true);
   };
@@ -440,7 +404,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         showProfile={true}
       />
       <IonContent className="ion-padding eventMedia1">
-        {/* <h2>Event Media</h2> */}
         {isEditMode && (
           <IonLabel class="slection_head">
             {isEditMode && (
@@ -488,14 +451,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               <IonImg src={DocumentsIcon} />
             </IonSegmentButton>
           </IonSegment>
-
           {photos && photos.length > 0 ? (
             <div onContextMenu={handleEditMode}>
               <MasonryPhotoAlbum
                 photos={photos}
                 // @ts-ignore
-                // layout="rows"
-                // spacing={10}
                 render={{
                   // render custom styled link
                   link: (props) => (
@@ -593,25 +553,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           index={lightboxIndex}
         />
 
-        {isLoading && <IonSpinner name="crescent" />}
-
-        {/* Media list with delete option */}
-        {false && (
-          <IonList>
-            {galleryPhotos.map((item: Media) => (
-              <IonItem key={item.id}>
-                <IonLabel>{item.createdAt}</IonLabel>
-                <IonButton
-                  onClick={() => handleDeleteMedia(item.id)}
-                  disabled={isLoading}
-                  color="danger"
-                >
-                  Delete
-                </IonButton>
-              </IonItem>
-            ))}
-          </IonList>
-        )}
+        {/* {isLoading && <IonSpinner name="crescent" />} */}
         {/* Hidden file input for image upload */}
         <input
           multiple
@@ -679,47 +621,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonGrid>
             </IonToolbar>
           </IonFooter>
-          {/* <IonFooter className="main-footer">
-            <nav>
-              <ul>
-                <IonRow>
-                  <IonCol>
-                    <StyledLink className="link" onClick={handleShareSelected}>
-                      <img src={ShareIcon} alt="Media" />
-                      <span>Share</span>
-                    </StyledLink>
-                  </IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol>
-                    <StyledLink
-                      className="link"
-                      onClick={handleDownloadSelected}
-                    >
-                      <img src={Download} alt="Split Bill" />
-                      <span>Download</span>
-                    </StyledLink>
-                  </IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol>
-                    <StyledLink className="link" href="#">
-                      <img src={save} alt="Chat" />
-                      <span>Save</span>
-                    </StyledLink>
-                  </IonCol>
-                </IonRow>
-                <IonRow>
-                  <IonCol>
-                    <StyledLink className="link" onClick={handleDeleteSelected}>
-                      <img src={Delete} alt="Settings" />
-                      <span>Delete</span>
-                    </StyledLink>
-                  </IonCol>
-                </IonRow>
-              </ul>
-            </nav>
-          </IonFooter> */}
         </>
       ) : (
         <Footer
