@@ -195,7 +195,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     </IonRow> */}
                     <IonRow>
                       <IonCol
-                        className="form-group ion-padding-bottom"
+                        className="form-group custom-input ion-padding-bottom"
                         onClick={showRecipientsPopup}
                       >
                         <CustomInput
@@ -325,7 +325,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                 </IonRow> */}
                 <IonRow>
                   <IonCol
-                    className="form-group ion-padding-bottom"
+                    className="form-group custom-input ion-padding-bottom"
                     onClick={showRecipientsModal}
                   >
                     <CustomInput
@@ -413,10 +413,13 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
         }
       >
         {showRecepients && (
-          <CustomSelectRecipients
-            onChange={handleRecipientChange}
-            defaultValue={selectedRecepients}
-          />
+          <>
+            <CustomSelectRecipients
+              onChange={handleRecipientChange}
+              defaultValue={selectedRecepients}
+            />
+            <IonLabel className="overlay"></IonLabel>
+          </>
         )}
       </IonGrid>
     </>

@@ -599,3 +599,14 @@ body {
     margin: 0 auto;
   }
 }
+
+.custom-input {
+  ion-input {
+    opacity: 1 !important;
+    z-index: 9;
+    cursor: pointer;
+    .native-input {
+      z-index: -1;
+    }
+  }
+}

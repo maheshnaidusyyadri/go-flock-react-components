@@ -9,11 +9,11 @@ import {
   IonText,
 } from "@ionic/react";
 import SettingsCircle from "../Common/Icons/SettingsCircle";
-import vacationIcon from "../../images/icons/vacation.svg";
-import birthdayIcon from "../../images/icons/birthday.svg";
-import marriageIcon from "../../images/icons/marriage.svg";
-import graduationIcon from "../../images/icons/graduation.svg";
-import moreIcon from "../../images/icons/more.svg";
+import allIcon from "../../images/rsvp/all.svg";
+import attendingIcon from "../../images/rsvp/attending.svg";
+import notAttendingIcon from "../../images/rsvp/notAttending.svg";
+import notRespondedIcon from "../../images/rsvp/notResponded.svg";
+import notSureIcon from "../../images/rsvp/notSure.svg";
 
 // Define the props type
 interface CustomSelectRecipientsProps {
@@ -27,11 +27,11 @@ const CustomSelectRecipients: React.FC<CustomSelectRecipientsProps> = ({
   defaultValue,
 }) => {
   const eventTypes = [
-    { label: "ALL(10)", icon: birthdayIcon },
-    { label: "Not Responding(5)", icon: vacationIcon },
-    { label: "Attending(15)", icon: marriageIcon },
-    { label: "Not Attending(5)", icon: graduationIcon },
-    { label: "Not Sure(2)", icon: moreIcon },
+    { label: "ALL (10)", icon: allIcon },
+    { label: "Not Responding (5)", icon: attendingIcon },
+    { label: "Attending (15)", icon: notAttendingIcon },
+    { label: "Not Attending (5)", icon: notRespondedIcon },
+    { label: "Not Sure (2)", icon: notSureIcon },
   ];
 
   const selectedValue = (selectedItem: any) => {
@@ -43,7 +43,7 @@ const CustomSelectRecipients: React.FC<CustomSelectRecipientsProps> = ({
 
   return (
     <>
-      <IonGrid className="ion-no-margin ion-no-padding">
+      <IonGrid className="ion-no-margin ion-no-padding action-modal-cnt">
         <IonRow>
           <IonCol className="actions-head ion-padding-bottom">
             <SettingsCircle />
