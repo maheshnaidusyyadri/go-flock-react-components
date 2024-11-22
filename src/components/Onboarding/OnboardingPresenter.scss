@@ -1,4 +1,5 @@
 @use "../../styles/fonts" as *;
+@use "../../styles/countrySelection" as *;
 
 body {
   font-size: 100%;
@@ -131,5 +132,25 @@ body {
   }
   &.guest-user .swiper {
     height: auto;
+    .swiper-pagination {
+      position: static;
+      justify-content: center;
+      .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+    }
   }
+}
+
+.paragraph {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: $GoFlockFont;
+  line-height: 22px;
+  color: $secondaryColor;
+  margin: 0px 0 15px 0;
+  text-align: center;
 }

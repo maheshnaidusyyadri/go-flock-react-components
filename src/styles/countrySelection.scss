@@ -197,6 +197,16 @@
     padding: 0px;
     box-shadow: none;
     .auth-title {
+      display: block;
+      text-align: center;
+      font-family: $GoFlockFont;
+      font-weight: 700;
+      line-height: 36px;
+      color: $black;
+      padding: 0;
+      margin: 0;
+      font-size: 24px;
+      font-size: clamp(18px, 5.8vw, 24px);
       margin-bottom: 20px;
     }
     .mobile {
@@ -212,6 +222,7 @@
       color: $GoFlockColor;
       margin-bottom: 10px;
       padding: 0px;
+      display: block;
     }
     .subtitle {
       color: $secondaryColor;

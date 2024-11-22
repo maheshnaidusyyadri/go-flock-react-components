@@ -10,6 +10,9 @@ import {
   IonCol,
   IonFooter,
   IonButton,
+  IonRow,
+  IonLabel,
+  IonList,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -85,49 +88,69 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
   };
   return (
     <>
-      <IonContent className="onboard_cnt guest-user">
-        <Swiper
-          modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-          autoplay={false}
-          pagination={true}
-          loop={false}
-          navigation={false} // Hide navigation on the last slide
-          onSlideChange={handleSlideChange}
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              <IonGrid className="step-content">
-                <IonCard className="auth_screen">
-                  <IonImg src={slide.image} alt={slide.title} />
-                  <IonTitle className="ion-title">{slide.title}</IonTitle>
-                  <IonText className="ion-text">{slide.text}</IonText>
-                </IonCard>
-              </IonGrid>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <IonContent className="onboard_cnt guest-user ion-padding">
         {!showOtpModal && (
-          <FormProvider {...methods}>
-            <IonCol className="form-group">
-              <CustomPhoneNumber
-                control={control}
-                fieldName="phone"
-                isRequired={true}
-                errors={errors}
-                register={register}
-                errorText={"Mobile Number"}
-                onPhoneChange={(e: any) => setPhoneNumber(e)}
-              />
-            </IonCol>
-            <IonFooter
-              className="stickyFooter"
-              onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
+          <>
+            <Swiper
+              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+              className="guest-onboarding"
+              autoplay={true}
+              pagination={true}
+              loop={true}
+              navigation={false} // Hide navigation on the last slide
+              onSlideChange={handleSlideChange}
             >
-              <IonButton className="primary-btn rounded">
-                {"Generate OTP"}
-              </IonButton>
-            </IonFooter>
-          </FormProvider>
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <IonGrid className="step-content">
+                    <IonCard className="auth_screen">
+                      <IonImg src={slide.image} alt={slide.title} />
+                      <IonTitle className="ion-title">{slide.title}</IonTitle>
+                      <IonText className="ion-text">{slide.text}</IonText>
+                    </IonCard>
+                  </IonGrid>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonList>
+                    <IonLabel className="info-alert">
+                      Hi! You are invited to <strong>Dhanush's Birthday</strong>
+                      .
+                    </IonLabel>
+                    <p className="paragraph ion-padding-top">
+                      This is a personal event invitation by Mahesh Naidu.
+                      Verify your phone number to see full invitation, RSVP,
+                      share pictures from the event etc.
+                    </p>
+                  </IonList>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+            <FormProvider {...methods}>
+              <IonCol className="form-group">
+                <CustomPhoneNumber
+                  control={control}
+                  fieldName="phone"
+                  isRequired={true}
+                  errors={errors}
+                  register={register}
+                  errorText={"Mobile Number"}
+                  onPhoneChange={(e: any) => setPhoneNumber(e)}
+                />
+              </IonCol>
+              <IonFooter
+                className="stickyFooter no-padding"
+                onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
+              >
+                <IonButton className="primary-btn rounded">
+                  {"Generate OTP"}
+                </IonButton>
+              </IonFooter>
+            </FormProvider>
+          </>
         )}
         {showOtpModal && (
           <IonGrid className={`rsvp_modal ${showOtpModal ? "active" : ""}`}>
@@ -139,7 +162,7 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
                 fieldName="otp"
                 isRequired={true}
               />
-              <IonFooter className="stickyFooter">
+              <IonFooter className="stickyFooter no-padding">
                 <IonButton
                   expand="block"
                   shape="round"
