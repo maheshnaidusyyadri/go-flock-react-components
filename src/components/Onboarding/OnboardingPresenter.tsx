@@ -9,6 +9,8 @@ import {
   IonImg,
   IonButton,
   IonLabel,
+  IonFooter,
+  IonPage,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -57,40 +59,48 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
   ];
 
   return (
-    <IonContent className="onboard_cnt">
-      <Swiper
-        modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-        autoplay={false}
-        pagination={true}
-        loop={false}
-        navigation={activeIndex !== slides.length - 1} // Hide navigation on the last slide
-        onSlideChange={handleSlideChange}
-      >
-        {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
-            <IonGrid className="step-content">
-              <IonCard className="auth_screen">
-                <IonImg src={slide.image} alt={slide.title} />
-                <IonTitle className="ion-title">{slide.title}</IonTitle>
-                <IonText className="ion-text">{slide.text}</IonText>
-              </IonCard>
-            </IonGrid>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <IonPage>
+      <IonContent className="onboard_cnt ion-padding">
+        <Swiper
+          modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+          autoplay={false}
+          pagination={true}
+          loop={false}
+          navigation={activeIndex !== slides.length - 1} // Hide navigation on the last slide
+          onSlideChange={handleSlideChange}
+        >
+          {slides.map((slide, index) => (
+            <SwiperSlide key={index}>
+              <IonGrid className="step-content ion-no-padding">
+                <IonCard className="auth_screen">
+                  <IonImg src={slide.image} alt={slide.title} />
+                  <IonTitle className="ion-title">{slide.title}</IonTitle>
+                  <IonText className="ion-text">{slide.text}</IonText>
+                </IonCard>
+              </IonGrid>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <IonFooter>
+          <>
+            {activeIndex !== slides.length - 1 && (
+              <IonLabel className="skip" onClick={introCompleted}>
+                Skip
+              </IonLabel>
+            )}
 
-      {activeIndex !== slides.length - 1 && (
-        <IonLabel className="skip" onClick={introCompleted}>
-          Skip
-        </IonLabel>
-      )}
-
-      {activeIndex === slides.length - 1 && (
-        <IonButton className="primary-btn rounded getstart" onClick={introCompleted}>
-          Get Started
-        </IonButton>
-      )}
-    </IonContent>
+            {activeIndex === slides.length - 1 && (
+              <IonButton
+                className="primary-btn rounded getstart ion-no-margin"
+                onClick={introCompleted}
+              >
+                Get Started
+              </IonButton>
+            )}
+          </>
+        </IonFooter>
+      </IonContent>
+    </IonPage>
   );
 };
 

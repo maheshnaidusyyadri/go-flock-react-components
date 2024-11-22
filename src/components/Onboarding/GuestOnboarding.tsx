@@ -13,6 +13,7 @@ import {
   IonRow,
   IonLabel,
   IonList,
+  IonPage,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -87,7 +88,7 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
     console.log(activeIndex);
   };
   return (
-    <>
+    <IonPage>
       <IonContent className="onboard_cnt guest-user ion-padding">
         {!showOtpModal && (
           <>
@@ -104,7 +105,11 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
                 <SwiperSlide key={index}>
                   <IonGrid className="step-content">
                     <IonCard className="auth_screen">
-                      <IonImg src={slide.image} alt={slide.title} />
+                      <IonImg
+                        className="slide-img"
+                        src={slide.image}
+                        alt={slide.title}
+                      />
                       <IonTitle className="ion-title">{slide.title}</IonTitle>
                       <IonText className="ion-text">{slide.text}</IonText>
                     </IonCard>
@@ -112,44 +117,45 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            <IonGrid>
+            <IonGrid className="guest-auth-form ">
               <IonRow>
                 <IonCol>
-                  <IonList>
-                    <IonLabel className="info-alert">
-                      Hi! You are invited to <strong>Dhanush's Birthday</strong>
-                      .
-                    </IonLabel>
-                    <p className="paragraph ion-padding-top">
-                      This is a personal event invitation by Mahesh Naidu.
-                      Verify your phone number to see full invitation, RSVP,
-                      share pictures from the event etc.
-                    </p>
-                  </IonList>
+                  <IonLabel className="info-alert">
+                    Hi! You are invited to <strong>Dhanush's Birthday</strong>.
+                  </IonLabel>
+                  <p className="paragraph ion-padding-top">
+                    This is a personal event invitation by Mahesh Naidu. Verify
+                    your phone number to see full invitation, RSVP, share
+                    pictures from the event etc.
+                  </p>
                 </IonCol>
               </IonRow>
+
+              <FormProvider {...methods}>
+                <IonRow>
+                  <IonCol className="form-group">
+                    <CustomPhoneNumber
+                      control={control}
+                      fieldName="phone"
+                      isRequired={true}
+                      errors={errors}
+                      register={register}
+                      errorText={"Mobile Number"}
+                      onPhoneChange={(e: any) => setPhoneNumber(e)}
+                    />
+                  </IonCol>
+                </IonRow>
+                <IonRow>
+                  <IonCol
+                    onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
+                  >
+                    <IonButton className="primary-btn rounded">
+                      {"Generate OTP"}
+                    </IonButton>
+                  </IonCol>
+                </IonRow>
+              </FormProvider>
             </IonGrid>
-            <FormProvider {...methods}>
-              <IonCol className="form-group">
-                <CustomPhoneNumber
-                  control={control}
-                  fieldName="phone"
-                  isRequired={true}
-                  errors={errors}
-                  register={register}
-                  errorText={"Mobile Number"}
-                  onPhoneChange={(e: any) => setPhoneNumber(e)}
-                />
-              </IonCol>
-              <IonFooter
-                className="stickyFooter no-padding"
-                onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
-              >
-                <IonButton className="primary-btn rounded">
-                  {"Generate OTP"}
-                </IonButton>
-              </IonFooter>
-            </FormProvider>
           </>
         )}
         {showOtpModal && (
@@ -176,7 +182,7 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
           </IonGrid>
         )}
       </IonContent>
-    </>
+    </IonPage>
   );
 };
 
