@@ -17,11 +17,13 @@ import {
   IonSegment,
   IonSegmentButton,
   IonText,
+  IonThumbnail,
 } from "@ionic/react";
 import Header from "../Header/Header";
 import EditIcon from "../../images/icons/Edit.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
 import EmptyBill from "../Common/Icons/EmptyBill";
+import userDefault from "../../images/userPlaceholder.svg";
 
 const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   event,
@@ -68,12 +70,8 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
             setSelectedSegment(e.detail.value as "transactions" | "expenses")
           }
         >
-          <IonSegmentButton value="transactions">
-            <IonLabel>Transactions</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="expenses">
-            <IonLabel>Expense Summary</IonLabel>
-          </IonSegmentButton>
+          <IonSegmentButton value="transactions">Transactions</IonSegmentButton>
+          <IonSegmentButton value="expenses">Expense Summary</IonSegmentButton>
         </IonSegment>
         {selectedSegment === "transactions" && (
           <IonGrid className="transactions-cnt ion-no-margin ion-no-padding">
@@ -144,7 +142,12 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                         lines="none"
                       >
                         <IonLabel className="transaction-info ion-no-margin">
-                          <h2>{expense.userId}</h2>
+                          <IonItem className="transaction-user">
+                            <IonThumbnail className="user-dp ion-no-margin">
+                              <IonImg src={userDefault}></IonImg>
+                            </IonThumbnail>
+                            <h2>{expense.userId}</h2>
+                          </IonItem>
                         </IonLabel>
                         <IonLabel
                           slot="end"
