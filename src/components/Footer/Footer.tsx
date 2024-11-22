@@ -8,7 +8,7 @@ import splitIcon from "../../images/icons/split.svg";
 import splitActiveIcon from "../../images/icons/splitActive.svg";
 import settingsIcon from "../../images/icons/settings.svg";
 import settingsActiveIcon from "../../images/icons/settingsActive.svg";
-import membersIcon from "../../images/icons/members.svg";
+import membersIcon from "../../images/icons/member.svg";
 import membersActiveIcon from "../../images/icons/membersActive.svg";
 // import invitationIcon from "../../images/icons/invitation.svg";
 // import invitationActiveIcon from "../../images/icons/invitationActive.svg";
@@ -85,10 +85,7 @@ const Footer: React.FC<FooterProps> = ({
             {enabledTabs.map((tab) => (
               <IonCol key={tab.key}>
                 <Link to={tab.href}>
-                  <img
-                    src={tab.icon}
-                    alt={`${tab.label} icon`}
-                  />
+                  <img src={tab.icon} alt={`${tab.label} icon`} />
                 </Link>
               </IonCol>
             ))}
