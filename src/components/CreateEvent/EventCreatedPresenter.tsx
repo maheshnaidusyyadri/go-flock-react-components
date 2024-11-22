@@ -38,10 +38,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({}) => {
         </IonGrid>
         <IonFooter className="action_screen_buttons">
           <IonButton className="primary-btn">Go To Event Details</IonButton>
-          <IonButton
-            className="secondary-btn"
-            onClick={() => {}}
-          >
+          <IonButton className="secondary-btn" onClick={() => {}}>
             Invite Friends To The Event
           </IonButton>
         </IonFooter>

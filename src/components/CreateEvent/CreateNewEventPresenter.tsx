@@ -264,20 +264,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     )}
                   </>
                 }
-
-                {/* {currentMode === "detail" ? "instantly!" : "detailed event."} */}
-
                 <IonImg className="next" src={nextIcon} />
               </IonLabel>
             )}
             <IonContent className="ion-padding create_event">
-              {/* <IonContent className="create_event"> */}
               <IonLabel className="stepper-container ion-no-margin ion-margin-bottom">
                 {renderSteps()}
               </IonLabel>
               <FormProvider {...methods}>
-                {/* Step content with prev, current, and next classes */}
-
                 <>
                   {currentStep == 1 && (
                     <IonGrid
@@ -285,13 +279,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         1
                       )}`}
                     >
-                      {/* <IonText
-                  className="error"
-                  style={{ fontSize: 25 }}
-                  onClick={changeMode}
-                >
-                  ChangeState{currentMode}
-                </IonText> */}
                       <IonRow>
                         <IonCol className="form-group ion-padding-bottom">
                           <CustomInput
@@ -734,7 +721,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                   className="primary-btn"
                   onClick={handleSubmit(handleCreateEvent, onError)}
                   expand="block"
-                  //disabled={isCreating || !selectedLocation || !eventName}
                 >
                   {isCreating ? "Creating Event..." : "Create Event"}
                 </IonButton>

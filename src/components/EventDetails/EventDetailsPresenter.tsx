@@ -190,9 +190,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     };
     submitRSVP(event.id, rsvp).then((res) => {
       console.log("submitRSVP-res", res);
-      //if (res) {
       setShowSuccess(!showSuccess);
-      // }
     });
   };
   const successRSVP = () => {
@@ -435,106 +433,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               </IonItem>
             </>
           )}
-
-          {/* {["owner"].includes(eventRelation?.visitType) && (
-            <>
-              <IonItemDivider className="devider"></IonItemDivider>
-              <IonCard className="users_info">
-                <IonItem className="users_head">
-                  <IonLabel className="ion-label">Invite Guests</IonLabel>
-                  <IonThumbnail
-                    className="add-user"
-                    onClick={() => inviteMembers(event.id)}
-                  >
-                    <IonImg src={addUserIcon} alt="Event" />
-                  </IonThumbnail>
-                </IonItem>
-                {event.members && (
-                  <IonGrid className="users_list">
-                    <ProfileList
-                      eventId={event.id}
-                      eventMembers={event.members}
-                      type={"InviteGuests"}
-                    />
-                  </IonGrid>
-                )}
-              </IonCard>
-            </>
-          )} */}
-
-          {/* {["admin", "owner"].includes(eventRelation?.visitType) && (
-            <>
-              <IonItemDivider className="devider"></IonItemDivider>
-                <IonGrid className="status_sec">
-                {event?.counters && (
-                  <IonLabel className="status-title">RSVP Status</IonLabel>
-                )}
-                <IonRow className="status_cards success">
-                  {Object.entries(event?.counters || {})
-                    .filter(([statusName]) =>
-                      ["attendingRSVP", "maybeRSVP", "declinedRSVP"].includes(
-                        statusName
-                      )
-                    )
-                    .map(([statusName, statusData]) => {
-                      return (
-                        <IonCol
-                          key={statusName}
-                          className={
-                            statusName === "attendingRSVP"
-                              ? "status_card"
-                              : statusName === "declinedRSVP"
-                              ? "status_card error"
-                              : statusName === "maybeRSVP"
-                              ? "status_card warning"
-                              : ""
-                          }
-                        >
-                          <IonItem className="rvsp_info">
-                            <IonAvatar className="avatar">
-                              <IonImg
-                                className="ion-img"
-                                src={
-                                  statusName === "attendingRSVP"
-                                    ? userTickIcon
-                                    : statusName === "maybeRSVP"
-                                    ? helpIcon
-                                    : userCrossIcon
-                                }
-                                alt="Event"
-                              />
-                            </IonAvatar>
-                            <IonLabel className="ion-label">
-                              {statusData.total}
-                              <IonText className="rsvp_response">
-                                {statusName === "attendingRSVP"
-                                  ? "Attending"
-                                  : statusName === "maybeRSVP"
-                                  ? "Maybe"
-                                  : "Declined"}
-                              </IonText>
-                            </IonLabel>
-                          </IonItem>
-
-                          <IonLabel className="guests_count">
-                            (
-                            <IonText className="count">
-                              {statusData.adults}
-                            </IonText>{" "}
-                            Adults &{" "}
-                            <IonText className="count">
-                              {statusData.kids}
-                            </IonText>{" "}
-                            Children)
-                          </IonLabel>
-                        </IonCol>
-                      );
-                    })}
-                </IonRow>
-              </IonGrid>  
-              <RsvpStatus event={event} />
-            </>
-          )} */}
         </IonGrid>
       </IonContent>
       {["admin"].includes(eventRelation?.visitType) && (
