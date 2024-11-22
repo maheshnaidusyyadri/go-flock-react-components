@@ -29,6 +29,10 @@ import noMembers from "../../images/no-members.svg";
 import HostIcon from "../../images/icons/host.svg";
 import CoHostIcon from "../../images/icons/co-host.svg";
 import NotificationIcon from "../../images/icons/notification.svg";
+import userSearchIcon from "../../images/icons/userSearch.svg";
+import membersIcon from "../../images/icons/members.svg";
+import messagesIcon from "../../images/icons/messages.svg";
+
 import { getDisplayName } from "../../utils/utils";
 import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
@@ -112,13 +116,13 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             }
           >
             <IonSegmentButton value="Track">
-              <IonLabel>Track</IonLabel>
+              <IonImg src={userSearchIcon} />
             </IonSegmentButton>
             <IonSegmentButton value="Members">
-              <IonLabel>Members</IonLabel>
+              <IonImg src={membersIcon} />
             </IonSegmentButton>
             <IonSegmentButton value="Messaging">
-              <IonLabel>Messaging</IonLabel>
+              <IonImg src={messagesIcon} />
             </IonSegmentButton>
           </IonSegment>
 
