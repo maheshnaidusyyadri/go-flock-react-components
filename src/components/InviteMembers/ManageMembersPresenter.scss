@@ -601,12 +601,21 @@ body {
 }
 
 .custom-input {
+  position: relative;
   ion-input {
     opacity: 1 !important;
     z-index: 9;
     cursor: pointer;
     .native-input {
       z-index: -1;
+    }
+  }
+  .arrowIcon {
+    position: absolute;
+    top: 43px;
+    right: 15px;
+    &.nolabel {
+      top: 15px;
     }
   }
 }

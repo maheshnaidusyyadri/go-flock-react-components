@@ -252,6 +252,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         className="action-moadal ion-padding-top"
       >
         <EventType />
+        <IonLabel className="overlay"></IonLabel>
       </IonModal>
     </IonPage>
   );

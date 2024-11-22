@@ -33,6 +33,7 @@ import NotificationIcon from "../../images/icons/notification.svg";
 import userSearchIcon from "../../images/icons/userSearch.svg";
 import membersIcon from "../../images/icons/members.svg";
 import messagesIcon from "../../images/icons/messages.svg";
+import arrowIcon from "../../images/icons/DownArrow.svg";
 
 import { getDisplayName } from "../../utils/utils";
 import { RoleType } from "@goflock/types/src/models/event/RoleType";
@@ -134,6 +135,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     setIsfilter(true);
     setShowRecepients(true);
   };
+  const toggleRecipientsPopup = (shouldShow = false) => {
+    setIsfilter(shouldShow);
+    setShowRecepients(shouldShow);
+  };
 
   return (
     <>
@@ -198,6 +203,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                         className="form-group custom-input ion-padding-bottom"
                         onClick={showRecipientsPopup}
                       >
+                        <IonImg className="arrowIcon nolabel" src={arrowIcon} />
                         <CustomInput
                           fieldName={"recipien"}
                           isRequired={false}
@@ -328,6 +334,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     className="form-group custom-input ion-padding-bottom"
                     onClick={showRecipientsModal}
                   >
+                    <IonImg className="arrowIcon" src={arrowIcon} />
                     <CustomInput
                       placeholder={"Select Recipients"}
                       label={"Recipients"}
@@ -418,7 +425,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               onChange={handleRecipientChange}
               defaultValue={selectedRecepients}
             />
-            <IonLabel className="overlay"></IonLabel>
+            <IonLabel
+              onClick={() => toggleRecipientsPopup(false)}
+              className="overlay"
+            ></IonLabel>
           </>
         )}
       </IonGrid>
