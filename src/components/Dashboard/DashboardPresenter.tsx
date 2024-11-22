@@ -225,7 +225,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
           ]}
         />
       </IonContent>
-      <IonFooter className="stickyFooter">
+      <IonFooter className="ion-padding">
         {/* <IonButton
           expand="block"
           shape="round"
