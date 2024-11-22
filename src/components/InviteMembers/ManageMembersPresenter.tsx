@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ManageMembersPresenter.scss";
+
 import {
   IonList,
   IonItem,
@@ -37,9 +38,11 @@ import { getDisplayName } from "../../utils/utils";
 import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
 import RsvpStatus from "../Common/RsvpStatus";
-import CustomSelect from "../Common/CustomSelect";
+//import CustomSelect from "../Common/CustomSelect";
 import IonTextarea from "../Common/CustomTextarea";
 import { FormProvider, useForm } from "react-hook-form";
+import CustomInput from "../Common/CustomInput";
+import CustomSelectRecipients from "./CustomSelectRecipients";
 
 interface EventMember {
   id?: string;
@@ -67,13 +70,23 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   >("Track");
   const [showAction, setShowAction] = useState(false);
   const [selectedUser, setSelectedUser] = useState<EventMember | null>(null);
+  const [showRecepients, setShowRecepients] = useState(false);
+  const [selectedRecepients, setSelectedRecepients] = useState<string | "null">(
+    "Birthdays"
+  );
+  const [Isfilter, setIsfilter] = useState(false);
   const methods = useForm();
   const {
     handleSubmit,
     formState: { errors },
     register,
-    control,
+    //control,
+    setValue,
+    clearErrors,
   } = useForm();
+  useEffect(() => {
+    setValue("recipien", "ALL");
+  }, []);
 
   const handleDelete = () => {
     if (selectedUser) {
@@ -99,6 +112,27 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   };
   const onError = (err: any) => {
     console.log("onSendMessage-err", err);
+  };
+  const handleRecipientChange = (value: string) => {
+    if (Isfilter) {
+      setSelectedRecepients(value);
+      setValue("recipien", value);
+      setShowRecepients(false);
+    } else {
+      setSelectedRecepients(value);
+      setValue("recipient", value);
+      setShowRecepients(false);
+      clearErrors("recipient");
+    }
+    console.log("Selected Event:", value);
+  };
+  const showRecipientsModal = () => {
+    setIsfilter(false);
+    setShowRecepients(true);
+  };
+  const showRecipientsPopup = () => {
+    setIsfilter(true);
+    setShowRecepients(true);
   };
 
   return (
@@ -132,7 +166,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               <IonGrid className="menbers_list ion-no-padding">
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
-                    <IonRow>
+                    {/* <IonRow>
                       <IonCol className="form-group ion-padding-bottom">
                         <CustomSelect
                           control={control}
@@ -156,6 +190,21 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           isRequired={false}
                           errors={errors}
                           errorText="Recipients"
+                        />
+                      </IonCol>
+                    </IonRow> */}
+                    <IonRow>
+                      <IonCol
+                        className="form-group ion-padding-bottom"
+                        onClick={showRecipientsPopup}
+                      >
+                        <CustomInput
+                          fieldName={"recipien"}
+                          isRequired={false}
+                          errors={errors}
+                          errorText={"Recipients"}
+                          register={register}
+                          readOnly={true}
                         />
                       </IonCol>
                     </IonRow>
@@ -247,7 +296,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     />
                   </IonCol>
                 </IonRow>
-                <IonRow>
+                {/* <IonRow>
                   <IonCol className="form-group ion-padding-bottom">
                     <CustomSelect
                       control={control}
@@ -271,6 +320,24 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                       errors={errors}
                       errorText="Recipients"
                       //onIonChange={(e: any) => setEventType(e)}
+                    />
+                  </IonCol>
+                </IonRow> */}
+                <IonRow>
+                  <IonCol
+                    className="form-group ion-padding-bottom"
+                    onClick={showRecipientsModal}
+                  >
+                    <CustomInput
+                      placeholder={"Select Recipients"}
+                      label={"Recipients"}
+                      fieldName={"recipient"}
+                      isRequired={true}
+                      errors={errors}
+                      errorText={"Recipients"}
+                      register={register}
+                      readOnly={true}
+                      defaultValue={selectedRecepients}
                     />
                   </IonCol>
                 </IonRow>
@@ -339,6 +406,19 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           },
         ]}
       />
+
+      <IonGrid
+        className={
+          showRecepients ? "custom-action-modal open" : "custom-action-modal"
+        }
+      >
+        {showRecepients && (
+          <CustomSelectRecipients
+            onChange={handleRecipientChange}
+            defaultValue={selectedRecepients}
+          />
+        )}
+      </IonGrid>
     </>
   );
 };

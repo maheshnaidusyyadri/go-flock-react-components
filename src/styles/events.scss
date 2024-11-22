@@ -268,3 +268,15 @@
     }
   }
 }
+
+.custom-action-modal {
+  position: fixed;
+  bottom: -100%;
+  left: 0px;
+  width: 100%;
+  background: #fff;
+  transition: all 0.25s ease-in-out;
+  &.open {
+    bottom: 0px;
+  }
+}
