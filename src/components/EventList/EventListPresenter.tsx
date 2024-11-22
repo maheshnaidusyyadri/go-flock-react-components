@@ -52,7 +52,7 @@ const EventListPresenter: React.FC<EventListProps> = ({
           )}
         </IonGrid>
       </IonContent>
-      <IonFooter className="stickyFooter">
+      <IonFooter className="ion-padding">
         <IonButton
           color="primary"
           shape="round"
