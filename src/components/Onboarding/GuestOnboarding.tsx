@@ -12,7 +12,6 @@ import {
   IonButton,
   IonRow,
   IonLabel,
-  IonList,
   IonPage,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
