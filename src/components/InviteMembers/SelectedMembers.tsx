@@ -12,6 +12,9 @@ const SendSms: React.FC<{
   return (
     <>
       <IonContent className="ion-padding">
+        <IonLabel className="info-alert ion-margin-bottom">
+          These <strong>selected members</strong> were added to the event.
+        </IonLabel>
         <ProfileList
           eventId={eventId}
           eventMembers={members}
