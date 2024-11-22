@@ -22,11 +22,11 @@ interface RsvpStatusProps {
 const RsvpStatus: React.FC<RsvpStatusProps> = ({ event }) => {
   console.log("event-event@@@", event);
   return (
-    <IonGrid className="status_sec">
+    <IonGrid className="rsvp-status">
       {event?.counters && (
         <IonLabel className="status-title">RSVP Status</IonLabel>
       )}
-      <IonRow className="status_cards success">
+      <IonRow className="status-cards">
         {Object.entries(event?.counters || {})
           .filter(([statusName]) =>
             ["attendingRSVP", "maybeRSVP", "declinedRSVP"].includes(statusName)
@@ -69,7 +69,7 @@ const RsvpStatus: React.FC<RsvpStatusProps> = ({ event }) => {
                   </IonLabel>
                 </IonItem>
 
-                <IonLabel className="guests_count">
+                <IonLabel className="guests-count">
                   (<IonText className="count">{statusData.adults}</IonText>{" "}
                   Adults &{" "}
                   <IonText className="count">{statusData.kids}</IonText>{" "}

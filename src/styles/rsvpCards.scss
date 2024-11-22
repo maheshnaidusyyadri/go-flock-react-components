@@ -1,0 +1,124 @@
+@use "../styles/fonts" as *;
+
+.rsvp-status {
+  margin-bottom: 32px;
+  padding: 0;
+  .status-title {
+    font-family: $GoFlockFont;
+    font-size: 14px;
+    font-weight: 600;
+    color: $GoFlockColor;
+    line-height: 20px;
+    padding: 0px;
+    margin: 0 0 8px 0;
+    display: block;
+  }
+  .status-cards {
+    display: block;
+    .status_card {
+      border-radius: 6px;
+      border: 1px solid #e4e4e7;
+      background: $white;
+      padding: 0px 12px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      height: 44px;
+      margin-bottom: 10px;
+      justify-content: space-between;
+      border-left: 6px solid #12b76a;
+      .rvsp_info {
+        --background: transparent;
+        --border-color: transparent;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        --min-height: auto;
+        .ion-label {
+          color: $GoFlockColor;
+          font-family: $GoFlockFont;
+          font-size: 10px;
+          font-weight: 600;
+          line-height: 18px;
+          display: flex;
+          align-items: center;
+          .rsvp_response {
+            color: $secondaryColor;
+            text-align: center;
+            font-family: $GoFlockFont;
+            font-size: 10px;
+            font-weight: 400;
+            padding: 0 0 0 4px;
+            text-transform: capitalize;
+            display: inline-block;
+          }
+        }
+      }
+      .avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin: 0px;
+        width: 24px;
+        height: 24px;
+        background: #12b76a;
+        margin-right: 5px;
+        .ion-img {
+          width: 16px;
+          height: auto;
+        }
+      }
+      .ion-label {
+        font-size: 10px;
+        font-family: $GoFlockFont;
+        font-weight: 400;
+        line-height: 18px;
+        display: block;
+        margin: 0;
+        color: $GoFlockColor;
+        font-size: clamp(9px, 2.4vw, 12px);
+        text-transform: capitalize;
+      }
+      .devider {
+        margin: 10px 0;
+      }
+      .guests-count {
+        color: $secondaryColor;
+        text-align: center;
+        font-family: $GoFlockFont;
+        font-size: 10px;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        .count {
+          font-family: $GoFlockFont;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 18px;
+          color: $GoFlockColor;
+          display: block;
+          font-style: normal;
+          padding: 0 4px;
+        }
+      }
+      &.success {
+        .avatar {
+          background: #12b76a;
+        }
+      }
+      &.error {
+        border-left: 6px solid #dc2626;
+        .avatar {
+          background: #dc2626;
+        }
+      }
+      &.warning {
+        border-left: 6px solid #f29126;
+        .avatar {
+          background: #f29126;
+        }
+      }
+    }
+  }
+}
