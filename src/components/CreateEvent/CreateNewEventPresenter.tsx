@@ -714,7 +714,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               </FormProvider>
             </IonContent>
 
-            <IonFooter className="actions-container stickyFooter ion-no-padding">
+            <IonFooter className="actions-container stickyFooter ion-padding">
               <IonButton
                 className="primary-btn actions"
                 onClick={prevStep}

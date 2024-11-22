@@ -672,7 +672,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
           )}
         </FormProvider>
       </IonContent>
-      <IonFooter className="actions-container stickyFooter">
+      <IonFooter className="actions-container stickyFooter ion-padding">
         <IonButton
           className="primary-btn actions"
           onClick={prevStep}

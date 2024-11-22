@@ -74,7 +74,7 @@ ion-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  //padding: 0;
   gap: 15px;
   position: sticky;
   top: 100%;
@@ -135,4 +135,8 @@ ion-button {
   --background: #18181b;
   --background-focused: #2780bf;
   --background-activated: #2780bf;
+}
+
+ion-footer {
+  box-shadow: none !important;
 }
