@@ -14,7 +14,6 @@ import { EventListProps } from "@goflock/types/src/index";
 import EventItem from "../Common/Events/EventItem";
 import Header from "../Header/Header";
 import NoEvent from "../Common/Events/NoEvent";
-import EventType from "../Common/Events/EventTypeSelection";
 
 const EventListPresenter: React.FC<EventListProps> = ({
   // profile,
@@ -73,7 +72,7 @@ const EventListPresenter: React.FC<EventListProps> = ({
         breakpoints={[0, 0.6, 0.75]}
         className="action-moadal ion-padding-top"
       >
-        <EventType />
+        {/* <EventTypeSelection /> */}
       </IonModal>
     </IonPage>
   );
