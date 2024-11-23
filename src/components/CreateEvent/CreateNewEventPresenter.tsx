@@ -37,11 +37,11 @@ import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
-import IonTextarea from "../Common/CustomTextarea";
 import CustomSelect from "../Common/CustomSelect";
 import CustomDateTime from "../Common/CustomDateTime";
 //import { formatTime } from "../../utils/utils";
 import moment from "moment";
+import LexicalEditor from "../Common/LexicalEditor/CustomLexicalEditor";
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
@@ -472,7 +472,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     >
                       <IonRow>
                         <IonCol className="form-group ion-padding-bottom">
-                          <IonTextarea
+                          {/* <IonTextarea
                             placeholder={"Description"}
                             label={"Description"}
                             fieldName={"description"}
@@ -480,6 +480,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             errors={errors}
                             errorText={"Description"}
                             register={register}
+                          /> */}
+                          <LexicalEditor
+                            initialHtml={
+                              "<p>Hello, <strong>world</strong>!</p>"
+                            }
+                            onExport={function (exportedHtml: string): void {
+                              setValue("description", exportedHtml);
+                            }}
                           />
                         </IonCol>
                       </IonRow>
