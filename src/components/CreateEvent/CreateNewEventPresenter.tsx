@@ -39,12 +39,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
 import CustomSelect from "../Common/CustomSelect";
 import CustomDateTime from "../Common/CustomDateTime";
-//import { formatTime } from "../../utils/utils";
 import moment from "moment";
 import LexicalEditor from "../Common/LexicalEditor/CustomLexicalEditor";
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
+  generateInvitationDescription,
   createEvent,
   goToEvent,
   mode = "detail",
@@ -79,6 +79,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   } = useForm();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [generatedInvitationDescription, setGeneratedInvitationDescription] =
+    useState("");
 
   useEffect(() => {
     if (startDate) {
@@ -94,6 +96,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       setEndTime(startDateObj.toISOString());
     }
   }, [startDate, startTime, endDate]);
+
   // Handle creating an event
   const handleCreateEvent = async (data: any) => {
     console.log("formData", data);
@@ -148,10 +151,56 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       setIsCreating(false);
     }
   };
+
   // Function to go to the next step
   const nextStep = (formData: any) => {
     console.log("nextStep-currentStep", currentStep);
     console.log("nextStep-formData", formData);
+
+    if (currentStep === 2) {
+      /**
+       * name: string;
+  type: EventType;
+  description?: string;
+  location?: LocationInfo;
+  time?: EventTime;
+  visibility?: EventVisibility;
+  admins?: EventMember[];
+  settings?: EventSettings;
+  hostedBy?: string;
+       */
+      generateInvitationDescription({
+        name: formData.event,
+        type: formData.eventType,
+        description: formData.description,
+        location: {
+          name: selectedLocation?.name!,
+        },
+        time: {
+          startDate: moment(formData.startDate || new Date()).format(
+            "YYYY-MM-DDTHH:mm:ss"
+          ),
+          endDate: formData.endDate
+            ? moment(formData.endDate).format("YYYY-MM-DDTHH:mm:ss")
+            : "",
+          startTime: formData.startTime
+            ? moment(formData.startTime).format("YYYY-MM-DDTHH:mm:ss")
+            : "",
+          endTime: formData.endTime
+            ? moment(formData.endTime).format("YYYY-MM-DDTHH:mm:ss")
+            : "",
+        },
+        hostedBy: formData.hostedBy,
+      })
+        .then((content) => {
+          console.log("Invitation description generated:", content);
+          setGeneratedInvitationDescription(content);
+        })
+        .catch((error) => {
+          console.error("Error generating invitation description:", error);
+        });
+    }
+
     if (currentMode == "detail" && !selectedLocation) {
       setLocationError(true);
       return;
@@ -482,9 +531,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             register={register}
                           /> */}
                           <LexicalEditor
-                            initialHtml={
-                              "<p>Hello, <strong>world</strong>!</p>"
-                            }
+                            initialHtml={generatedInvitationDescription}
                             onExport={function (exportedHtml: string): void {
                               setValue("description", exportedHtml);
                             }}

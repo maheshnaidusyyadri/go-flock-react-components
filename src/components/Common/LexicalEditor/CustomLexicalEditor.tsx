@@ -73,6 +73,8 @@ const ImportHtmlPlugin = ({ htmlContent }: { htmlContent: string }) => {
 
   useEffect(() => {
     if (htmlContent) {
+      console.log(htmlContent);
+
       editor.update(() => {
         const parser = new DOMParser();
         const dom = parser.parseFromString(htmlContent, "text/html");
