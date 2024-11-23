@@ -38,10 +38,7 @@ const EventListPresenter: React.FC<EventListProps> = ({
           ) : (
             <IonRow className="event-row">
               {events.map((event) => (
-                <IonCol
-                  size="6"
-                  className="event-col"
-                >
+                <IonCol size="6" className="event-col">
                   <EventItem
                     key={event.id}
                     event={event}
@@ -56,11 +53,11 @@ const EventListPresenter: React.FC<EventListProps> = ({
       </IonContent>
       <IonFooter className="ion-padding">
         <IonButton
-          color="primary"
           shape="round"
           size="large"
           id="open-modal"
           expand="block"
+          className="primary-btn rounded"
         >
           Create new event
         </IonButton>

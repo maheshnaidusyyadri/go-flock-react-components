@@ -74,7 +74,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
       </IonContent>
       <IonFooter className="ion-padding">
         <IonButton
-          color="primary"
+          className="primary-btn"
           shape="round"
           size="large"
           id="open-modal"

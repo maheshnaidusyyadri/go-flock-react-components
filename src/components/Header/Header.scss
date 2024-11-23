@@ -14,9 +14,9 @@
         .page-title {
             display: block;
             text-align: center;
-          //  font-family: $GoFlockFont;
+            font-family: $GoFlockFont;
             font-size: 14px;
-        //    color: $GoFlockColor;
+            color: $GoFlockColor;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -119,6 +119,13 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+ion-content, ion-card, ion-item, ion-footer {
+    --background : #ffffff;
+}
+ion-list, ion-footer {
+    background: #ffffff !important;
+}
+
 .info-alert {
     border-radius: 6px;
     border: 1px solid #DAFBEC;
@@ -139,3 +146,12 @@ strong {
  
 
 }
+
+
+.ion-select {
+    color: $GoFlockColor;
+    font-family: $GoFlockFont;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+  }

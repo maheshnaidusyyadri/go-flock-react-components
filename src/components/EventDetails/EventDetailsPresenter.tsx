@@ -54,6 +54,9 @@ import CustomTextarea from "../Common/CustomTextarea";
 import RSVPSuccess from "../../images/RSVP_success.svg";
 import OtpVerification from "../Common/OtpVerification";
 import { getDisplayNamewithchr } from "../../utils/utils";
+import Yes from "../Common/Icons/Yes";
+import No from "../Common/Icons/No";
+import NotSure from "../Common/Icons/NotSure";
 //import RsvpStatus from "../Common/RsvpStatus";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -454,11 +457,13 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonList class="rsvp_actions" onClick={toggleGogingClass}>
                 <IonItem className="ionitem" onClick={() => handleClick("yes")}>
                   <IonText class="yes" className="iontext">
+                    <Yes />
                     Yes
                   </IonText>
                 </IonItem>
                 <IonItem className="ionitem" onClick={() => handleClick("no")}>
                   <IonText class="no" className="iontext">
+                    <No />
                     No
                   </IonText>
                 </IonItem>
@@ -467,6 +472,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   onClick={() => handleClick("notSure")}
                 >
                   <IonText class="notSure" className="iontext">
+                    <NotSure />
                     Not sure
                   </IonText>
                 </IonItem>
@@ -507,6 +513,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     activeOption === "yes" ? "active" : ""
                   }`}
                 >
+                  <Yes />
                   Yes
                 </IonText>
               </IonItem>
@@ -516,6 +523,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     activeOption === "no" ? "active" : ""
                   }`}
                 >
+                  <No />
                   No
                 </IonText>
               </IonItem>
@@ -528,6 +536,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     activeOption === "notSure" ? "active" : ""
                   }`}
                 >
+                  <NotSure />
                   Not sure
                 </IonText>
               </IonItem>

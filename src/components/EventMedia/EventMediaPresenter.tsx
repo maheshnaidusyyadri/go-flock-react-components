@@ -574,7 +574,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           />
         )}
       </IonContent>
-      <IonFooter className="stickyFooter hasFooter bottomSticky">
+      <IonFooter className="stickyFooter">
         <IonButton
           className="primary-btn rounded"
           onClick={() => fileInputRef.current?.click()}

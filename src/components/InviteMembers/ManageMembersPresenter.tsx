@@ -419,18 +419,18 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           showRecepients ? "custom-action-modal open" : "custom-action-modal"
         }
       >
-        {showRecepients && (
-          <>
-            <CustomSelectRecipients
-              onChange={handleRecipientChange}
-              defaultValue={selectedRecepients}
-            />
+        <>
+          <CustomSelectRecipients
+            onChange={handleRecipientChange}
+            defaultValue={selectedRecepients}
+          />
+          {showRecepients && (
             <IonLabel
               onClick={() => toggleRecipientsPopup(false)}
               className="overlay"
             ></IonLabel>
-          </>
-        )}
+          )}
+        </>
       </IonGrid>
     </>
   );

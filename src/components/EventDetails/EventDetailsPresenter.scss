@@ -273,25 +273,37 @@ body {
       width: 100%;
       border: 1px solid #ddd;
       background: $white;
+      svg {
+        margin-right: 5px;
+      }
       &.active {
         color: $white;
+        svg path {
+          fill: $white;
+        }
       }
       &.yes {
         border-color: #12b76a;
+        color: #12b76a;
         &.active {
           background: #12b76a;
+          color: $white;
         }
       }
       &.no {
         border-color: #fc0005;
+        color: #fc0005;
         &.active {
           background: #fc0005;
+          color: $white;
         }
       }
       &.notSure {
         border-color: #f29126;
+        color: #f29126;
         &.active {
           background: #f29126;
+          color: $white;
         }
       }
     }
