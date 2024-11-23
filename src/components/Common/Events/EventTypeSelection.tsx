@@ -14,13 +14,27 @@ import birthdayIcon from "../../../images/icons/birthday.svg";
 import marriageIcon from "../../../images/icons/marriage.svg";
 import graduationIcon from "../../../images/icons/graduation.svg";
 import moreIcon from "../../../images/icons/more.svg";
-const EventType: React.FC = ({}) => {
-  const eventTypes = [
-    { label: "Birthdays", icon: birthdayIcon },
-    { label: "Vacation trips", icon: vacationIcon },
-    { label: "Marriage", icon: marriageIcon },
-    { label: "Graduation", icon: graduationIcon },
-    { label: "Others", icon: moreIcon },
+import { EventType } from "@goflock/types";
+
+interface EventTypeSelectionProps {
+  createNewEvent: (eventType: EventType) => void;
+}
+
+interface EventTypeCollection {
+  label: string;
+  icon: string;
+  type: EventType;
+}
+
+const EventTypeSelection: React.FC<EventTypeSelectionProps> = ({
+  createNewEvent,
+}) => {
+  const eventTypes: EventTypeCollection[] = [
+    { label: "Birthday", icon: birthdayIcon, type: "birthday" },
+    { label: "Vacation trip", icon: vacationIcon, type: "vacation" },
+    { label: "Baby shower", icon: marriageIcon, type: "baby_shower" },
+    { label: "Graduation", icon: graduationIcon, type: "reunion" },
+    { label: "Others", icon: moreIcon, type: "other" },
   ];
 
   return (
@@ -39,9 +53,17 @@ const EventType: React.FC = ({}) => {
 
           <IonRow className="action-grid">
             {eventTypes.map((event, index) => (
-              <IonCol key={index} size="4" className="ion-col">
+              <IonCol
+                key={index}
+                size="4"
+                className="ion-col"
+                onClick={() => createNewEvent(event.type)}
+              >
                 <IonThumbnail className="icon-thumb">
-                  <IonImg src={event.icon} alt={event.label} />
+                  <IonImg
+                    src={event.icon}
+                    alt={event.label}
+                  />
                 </IonThumbnail>
 
                 <IonText className="card-label ion-text-center">
@@ -56,4 +78,4 @@ const EventType: React.FC = ({}) => {
   );
 };
 
-export default EventType;
+export default EventTypeSelection;

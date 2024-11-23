@@ -5,6 +5,8 @@ interface ProfileListProps {
     eventMembers: EventMember[];
     type?: string;
     onSelectMember?: (member: EventMember) => void;
+    removeMember?: (eventMember: EventMember) => Promise<boolean>;
+    addMore?: () => void;
 }
 declare const ProfileList: React.FC<ProfileListProps>;
 export default ProfileList;

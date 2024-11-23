@@ -13,28 +13,18 @@ interface EventSectionProps {
   onOpenEvent: (eventId: string) => void;
 }
 
-const EventSection: React.FC<EventSectionProps> = ({
-  // title,
-  events,
-  // onSeeAll,
-  onOpenEvent,
-}) => (
+const EventSection: React.FC<EventSectionProps> = ({ events, onOpenEvent }) => (
   <>
-    {/* <IonCardHeader className="events_head">
-      <IonCardTitle className="events_title">{title}</IonCardTitle>
-      {onSeeAll && (
-        <IonLabel className="viewall" onClick={onSeeAll}>
-          See all
-        </IonLabel>
-      )}
-    </IonCardHeader> */}
     <IonGrid className="events_sec ion-no-padding ion-no-margin">
       <IonRow className="event-row">
         {events && events.length > 0 ? (
           events.map((event) => (
-            <IonCol size="6" className="event-col">
+            <IonCol
+              key={event.id}
+              size="6"
+              className="event-col"
+            >
               <EventItem
-                key={event.id}
                 event={event}
                 onOpen={onOpenEvent}
                 onShowActionSheet={() => {}}
@@ -42,7 +32,10 @@ const EventSection: React.FC<EventSectionProps> = ({
             </IonCol>
           ))
         ) : (
-          <IonCol size="12" className="no-events">
+          <IonCol
+            size="12"
+            className="no-events"
+          >
             <NoEvent />
           </IonCol>
         )}

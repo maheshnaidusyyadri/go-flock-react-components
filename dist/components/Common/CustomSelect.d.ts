@@ -13,6 +13,7 @@ interface CustomSelectProps {
     errorText?: string;
     control: Control<any>;
     onIonChange?: (e: CustomEvent) => void;
+    defaultValue?: string;
 }
 declare const CustomSelect: React.FC<CustomSelectProps>;
 export default CustomSelect;

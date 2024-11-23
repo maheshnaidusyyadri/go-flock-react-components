@@ -17,7 +17,7 @@ const SettingsCircle: React.FC = ({}) => {
             height="40"
             rx="20"
             fill="#F7F7F7"
-            shape-rendering="crispEdges"
+            shapeRendering="crispEdges"
           />
           <rect
             x="2.5"
@@ -26,7 +26,7 @@ const SettingsCircle: React.FC = ({}) => {
             height="39"
             rx="19.5"
             stroke="#E4E4E7"
-            shape-rendering="crispEdges"
+            shapeRendering="crispEdges"
           />
           <path
             d="M22.001 23.7884C20.462 23.7884 19.2129 22.5393 19.2129 21.0003C19.2129 19.4612 20.462 18.2122 22.001 18.2122C23.54 18.2122 24.7891 19.4612 24.7891 21.0003C24.7891 22.5393 23.54 23.7884 22.001 23.7884ZM22.001 19.3274C21.0791 19.3274 20.3281 20.0783 20.3281 21.0003C20.3281 21.9222 21.0791 22.6731 22.001 22.6731C22.9229 22.6731 23.6739 21.9222 23.6739 21.0003C23.6739 20.0783 22.9229 19.3274 22.001 19.3274Z"
@@ -45,9 +45,12 @@ const SettingsCircle: React.FC = ({}) => {
             width="44"
             height="44"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood
+              floodOpacity="0"
+              result="BackgroundImageFix"
+            />
             <feColorMatrix
               in="SourceAlpha"
               type="matrix"
@@ -56,7 +59,10 @@ const SettingsCircle: React.FC = ({}) => {
             />
             <feOffset dy="1" />
             <feGaussianBlur stdDeviation="1" />
-            <feComposite in2="hardAlpha" operator="out" />
+            <feComposite
+              in2="hardAlpha"
+              operator="out"
+            />
             <feColorMatrix
               type="matrix"
               values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0"

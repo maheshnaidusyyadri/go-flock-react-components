@@ -14,7 +14,7 @@ import { EventListProps } from "@goflock/types/src/index";
 import EventItem from "../Common/Events/EventItem";
 import Header from "../Header/Header";
 import NoEvent from "../Common/Events/NoEvent";
-import EventType from "../Common/Events/EventType";
+import EventType from "../Common/Events/EventTypeSelection";
 
 const EventListPresenter: React.FC<EventListProps> = ({
   // profile,
@@ -39,7 +39,10 @@ const EventListPresenter: React.FC<EventListProps> = ({
           ) : (
             <IonRow className="event-row">
               {events.map((event) => (
-                <IonCol size="6" className="event-col">
+                <IonCol
+                  size="6"
+                  className="event-col"
+                >
                   <EventItem
                     key={event.id}
                     event={event}
