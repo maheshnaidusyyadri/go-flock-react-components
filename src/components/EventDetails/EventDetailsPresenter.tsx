@@ -28,8 +28,6 @@ import clockIcon from "../../images/icons/clock.svg";
 import locationIcon from "../../images/icons/pointer.svg";
 import GlobeIcon from "../../images/icons/globe.svg";
 import noPreview from "../../images/noPreview.svg";
-import noImage from "../../images/noImage.svg";
-
 import Header from "../Header/Header";
 import { EventProps, RSVP } from "@goflock/types/src";
 import Footer from "../Footer/Footer";
@@ -65,6 +63,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   profile,
   sendOTP,
   verifyOTP,
+  addInvitationCards,
 }) => {
   const [isInviteActive, setIsInviteActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +74,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [phoneNumber, setPhoneNumber] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [image, setImage] = useState<string | null>(null);
   const methods = useForm();
   const {
     handleSubmit,
@@ -204,26 +202,15 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log("Selected file:", file.name);
-      const base64 = await convertFileToBase64(file);
-      setImage(base64); // Set the selected image as the new profile picture
-      console.log("SelectedImage", base64);
-    } else {
-      console.log("No file selected");
-    }
-  };
+    const files: FileList | null = event.target.files;
 
-  const convertFileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result as string);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+    if (!files || files.length === 0) {
+      console.log("No files selected");
+      return;
+    }
+
+    // Call addMedia with arrays of base64 strings and metadata
+    await addInvitationCards(files);
   };
 
   if (eventRelation.visitType === "unauthorized") {
@@ -253,7 +240,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
         <IonGrid className="event_details">
           <IonCard className="event_info">
-            {!event.invitationCard?.url &&
+            {!event.invitationCards?.at(0)?.downloadUrl &&
               ["admin", "owner"].includes(eventRelation?.visitType) && (
                 <IonGrid className="invitation-cards">
                   <IonRow className="ion-row">
@@ -262,7 +249,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         className="event_dp"
                         onClick={() => fileInputRef.current?.click()}
                       >
-                        <IonImg src={image || noPreview} />
+                        <IonImg
+                          src={
+                            event.invitationCards?.at(0)?.downloadUrl ||
+                            noPreview
+                          }
+                        />
                       </IonThumbnail>
                     </IonCol>
                     {/* <IonCol>
@@ -283,18 +275,18 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   </IonRow>
                 </IonGrid>
               )}
-            {event.invitationCard?.url && (
+            {event.invitationCards && event.invitationCards.length > 0 && (
               <IonGrid className="invitation-cards">
                 <IonRow className="ion-row">
                   <IonCol>
                     <IonThumbnail className="event_dp">
                       <IonImg
-                        src={event.invitationCard.url}
+                        src={event.invitationCards?.at(0)?.downloadUrl}
                         alt="Event"
                       />
                     </IonThumbnail>
                   </IonCol>
-                  <IonCol>
+                  {/* <IonCol>
                     <IonThumbnail className="event_dp">
                       <IonImg src={noImage} />
                     </IonThumbnail>
@@ -308,7 +300,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     <IonThumbnail className="event_dp">
                       <IonImg src={noImage} />
                     </IonThumbnail>
-                  </IonCol>
+                  </IonCol> */}
                 </IonRow>
               </IonGrid>
             )}

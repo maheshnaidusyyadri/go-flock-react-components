@@ -12,7 +12,6 @@ import {
   IonRow,
   IonSegment,
   IonSegmentButton,
-  //IonSpinner,
   IonToast,
   IonToolbar,
   SegmentValue,
@@ -62,7 +61,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   eventId,
   eventRelation,
   media,
-  profile,
   addMedia,
   deleteMedia,
 }) => {
@@ -317,81 +315,14 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const files = event.target.files;
+    const files: FileList | null = event.target.files;
     if (!files || files.length === 0) {
       console.log("No files selected");
       return;
     }
 
-    try {
-      // Initialize arrays to hold base64 strings and metadata for each file
-      const base64Strings: string[] = [];
-      const metadataList: UserMediaMetadata[] = [];
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const base64 = await convertFileToBase64(file);
-        let width = 0;
-        let height = 0;
-
-        // Determine dimensions based on file type
-        if (file.type.includes("image")) {
-          const img = new Image();
-          img.src = base64;
-          await new Promise<void>((resolve, reject) => {
-            img.onload = () => {
-              width = img.width;
-              height = img.height;
-              resolve();
-            };
-            img.onerror = (error) => {
-              reject(error);
-            };
-          });
-        } else if (file.type.includes("video")) {
-          const video = document.createElement("video");
-          video.src = base64;
-          await new Promise<void>((resolve) => {
-            video.onloadedmetadata = () => {
-              width = video.videoWidth;
-              height = video.videoHeight;
-              resolve();
-            };
-          });
-        }
-
-        // Create media metadata for the current file
-        const mediaMetadata: UserMediaMetadata = {
-          lastModifiedDate: file.lastModified?.toString(),
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          uploadedBy: profile.id,
-          eventId: eventId,
-          width: width,
-          height: height,
-        };
-
-        // Add base64 string and metadata to arrays
-        base64Strings.push(base64);
-        metadataList.push(mediaMetadata);
-      }
-
-      // Call addMedia with arrays of base64 strings and metadata
-      await addMedia(base64Strings, metadataList);
-    } catch (error) {
-      console.error("Failed to convert files to base64:", error);
-    }
-  };
-
-  // Function to convert file to base64
-  const convertFileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+    // Call addMedia with arrays of base64 strings and metadata
+    await addMedia(files);
   };
 
   return (
@@ -421,12 +352,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -459,7 +396,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 render={{
                   // render custom styled link
                   link: (props) => (
-                    <StyledLink {...props} isEditView={isEditMode} />
+                    <StyledLink
+                      {...props}
+                      isEditView={isEditMode}
+                    />
                   ),
                   // render image selection icon
                   extras: (_, { photo: { selected, type }, index }) => (
@@ -481,12 +421,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type_declaration" src={VideoType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={VideoType}
+                          />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type_declaration" src={ImageType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={ImageType}
+                          />
                         </>
                       )}
                     </>
@@ -593,7 +539,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleShareSelected}
                   >
                     <Link to={""}>
-                      <img src={ShareIcon} alt="Media" />
+                      <img
+                        src={ShareIcon}
+                        alt="Media"
+                      />
                     </Link>
                   </IonCol>
                   <IonCol
@@ -601,12 +550,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDownloadSelected}
                   >
                     <Link to={""}>
-                      <img src={Download} alt="Split Bill" />
+                      <img
+                        src={Download}
+                        alt="Split Bill"
+                      />
                     </Link>
                   </IonCol>
                   <IonCol className="ion-no-padding">
                     <Link to={""}>
-                      <img src={save} alt="Chat" />
+                      <img
+                        src={save}
+                        alt="Chat"
+                      />
                     </Link>
                   </IonCol>
                   <IonCol
@@ -614,7 +569,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDeleteSelected}
                   >
                     <Link to={""}>
-                      <img src={Delete} alt="Media" />
+                      <img
+                        src={Delete}
+                        alt="Media"
+                      />
                     </Link>
                   </IonCol>
                 </IonRow>

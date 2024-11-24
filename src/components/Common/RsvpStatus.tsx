@@ -20,7 +20,6 @@ interface RsvpStatusProps {
 }
 
 const RsvpStatus: React.FC<RsvpStatusProps> = ({ event }) => {
-  console.log("event-event@@@", event);
   return (
     <IonGrid className="rsvp-status">
       {event?.counters && (
@@ -38,30 +37,37 @@ const RsvpStatus: React.FC<RsvpStatusProps> = ({ event }) => {
               statusName === "attendingRSVP"
                 ? "status_card"
                 : statusName === "declinedRSVP"
-                ? "status_card error"
-                : statusName === "maybeRSVP"
-                ? "status_card warning"
-                : "";
+                  ? "status_card error"
+                  : statusName === "maybeRSVP"
+                    ? "status_card warning"
+                    : "";
 
             const iconSrc =
               statusName === "attendingRSVP"
                 ? userTickIcon
                 : statusName === "maybeRSVP"
-                ? helpIcon
-                : userCrossIcon;
+                  ? helpIcon
+                  : userCrossIcon;
 
             const statusLabel =
               statusName === "attendingRSVP"
                 ? "Attending"
                 : statusName === "maybeRSVP"
-                ? "Maybe"
-                : "Declined";
+                  ? "Maybe"
+                  : "Declined";
 
             return (
-              <IonCol key={statusName} className={statusClass}>
+              <IonCol
+                key={statusName}
+                className={statusClass}
+              >
                 <IonItem className="rvsp_info">
                   <IonAvatar className="avatar">
-                    <IonImg className="ion-img" src={iconSrc} alt="Event" />
+                    <IonImg
+                      className="ion-img"
+                      src={iconSrc}
+                      alt="Event"
+                    />
                   </IonAvatar>
                   <IonLabel className="ion-label">
                     {statusData.total}
