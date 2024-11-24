@@ -23,7 +23,11 @@ const RsvpStatus: React.FC<RsvpStatusProps> = ({ event }) => {
   return (
     <IonGrid className="rsvp-status">
       {event?.counters && (
-        <IonLabel className="status-title">RSVP Status</IonLabel>
+        <IonRow>
+          <IonCol>
+            <IonLabel className="status-title">RSVP Status</IonLabel>
+          </IonCol>
+        </IonRow>
       )}
       <IonRow className="status-cards">
         {Object.entries(event?.counters || {})
