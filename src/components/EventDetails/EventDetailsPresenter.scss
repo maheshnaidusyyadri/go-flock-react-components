@@ -5,6 +5,21 @@
 body {
   padding: 0px !important;
 }
+
+.thumbnail-container {
+  max-width: 500px; /* Set the maximum width */
+  margin: 0 auto; /* Center the container */
+  width: 100%; /* Make it responsive */
+  overflow: hidden; /* Ensure content doesn't overflow */
+  position: relative; /* Position relative for child alignment */
+}
+
+.thumbnail {
+  width: 100%; /* Ensure it fits the container's width */
+  height: 100%; /* Fill the container height */
+  object-fit: cover; /* Crop the image if necessary */
+}
+
 .eventDetails {
   min-height: 100vh;
   padding: 0px !important;

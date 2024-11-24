@@ -265,7 +265,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         <IonImg src={image || noPreview} />
                       </IonThumbnail>
                     </IonCol>
-                    <IonCol>
+                    {/* <IonCol>
                       <IonThumbnail className="event_dp">
                         <IonImg src={noImage} />
                       </IonThumbnail>
@@ -279,7 +279,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       <IonThumbnail className="event_dp">
                         <IonImg src={noImage} />
                       </IonThumbnail>
-                    </IonCol>
+                    </IonCol> */}
                   </IonRow>
                 </IonGrid>
               )}
