@@ -8,5 +8,6 @@ export * from "./EventSettings/EventSettingsPresenter";
 export * from "./EventSplitBill/EventExpenseSummaryPresenter";
 export * from "./EventSplitBill/AddExpensePresenter";
 export * from "./InviteMembers/ManageMembersPresenter";
+export * from "./InviteMembers/InviteContactsPresenter";
 export * from "./PhoneNumberAuth/PhoneNumberAuthPresenter";
 export * from "./Profile/ProfilePresenter";

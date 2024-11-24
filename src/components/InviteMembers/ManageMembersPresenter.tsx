@@ -65,6 +65,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   removeMember,
   addAdmin,
   removeAdmin,
+  goToInviteContacts,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Track" | "Messaging"
@@ -143,7 +144,11 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   return (
     <>
       <IonPage className="invite_page">
-        <Header eventId={eventId} title="Manage members" showMenu={false} />
+        <Header
+          eventId={eventId}
+          title="Manage members"
+          showMenu={false}
+        />
         <IonContent className="invite_members ion-padding">
           <IonSegment
             className="segment-tabs"
@@ -203,7 +208,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                         className="form-group custom-input ion-padding-bottom"
                         onClick={showRecipientsPopup}
                       >
-                        <IonImg className="arrowIcon nolabel" src={arrowIcon} />
+                        <IonImg
+                          className="arrowIcon nolabel"
+                          src={arrowIcon}
+                        />
                         <CustomInput
                           fieldName={"recipien"}
                           isRequired={false}
@@ -215,13 +223,25 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                       </IonCol>
                     </IonRow>
                     {members.map((member, index) => (
-                      <IonItem key={index} className="list_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="list_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member?.roles?.includes("owner") && (
-                            <IonImg className="type" src={HostIcon} />
+                            <IonImg
+                              className="type"
+                              src={HostIcon}
+                            />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg className="type co" src={CoHostIcon} />
+                            <IonImg
+                              className="type co"
+                              src={CoHostIcon}
+                            />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -234,7 +254,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img src={Selected} alt="Selected" />
+                            <img
+                              src={Selected}
+                              alt="Selected"
+                            />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -243,8 +266,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                ? " (Co-host)"
-                                : "")}
+                                  ? " (Co-host)"
+                                  : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
@@ -334,7 +357,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     className="form-group custom-input ion-padding-bottom"
                     onClick={showRecipientsModal}
                   >
-                    <IonImg className="arrowIcon" src={arrowIcon} />
+                    <IonImg
+                      className="arrowIcon"
+                      src={arrowIcon}
+                    />
                     <CustomInput
                       placeholder={"Select Recipients"}
                       label={"Recipients"}
@@ -369,7 +395,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               {"Send message"}
             </IonButton>
           ) : (
-            <IonButton className="primary-btn rounded">
+            <IonButton
+              className="primary-btn rounded"
+              onClick={() => goToInviteContacts(eventId)}
+            >
               {"Invite Guests"}
             </IonButton>
           )}

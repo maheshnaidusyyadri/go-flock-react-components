@@ -41,7 +41,7 @@ const Footer: React.FC<FooterProps> = ({
     // Add later
     {
       key: "members",
-      href: `/invite-members/${eventId}`,
+      href: `/manage-members/${eventId}`,
       icon: activeTab == "members" ? membersActiveIcon : membersIcon,
       label: "Members",
       enabled: true, // Always enabled
@@ -85,7 +85,10 @@ const Footer: React.FC<FooterProps> = ({
             {enabledTabs.map((tab) => (
               <IonCol key={tab.key}>
                 <Link to={tab.href}>
-                  <img src={tab.icon} alt={`${tab.label} icon`} />
+                  <img
+                    src={tab.icon}
+                    alt={`${tab.label} icon`}
+                  />
                 </Link>
               </IonCol>
             ))}
