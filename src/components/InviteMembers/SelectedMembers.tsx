@@ -8,7 +8,8 @@ const SendSms: React.FC<{
   members: EventMember[];
   removeMember: (eventMember: EventMember) => Promise<boolean>;
   addMore?: () => void;
-}> = ({ eventId, members, removeMember, addMore }) => {
+  removeSelectedMember?: (contact: any) => void;
+}> = ({ eventId, members, removeMember, addMore, removeSelectedMember }) => {
   return (
     <>
       <IonContent className="ion-padding">
@@ -21,6 +22,7 @@ const SendSms: React.FC<{
           removeMember={removeMember}
           type={"Grid"}
           addMore={addMore}
+          onSelectMember={removeSelectedMember}
         />
       </IonContent>
       <IonFooter className="stickyFooter">

@@ -52,7 +52,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
       removeMember(selectedItem);
     }
   };
-  console.log("eventMembers", eventMembers);
+
   return (
     <div
       className={` ${

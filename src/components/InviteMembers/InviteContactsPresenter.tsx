@@ -30,7 +30,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
   contacts,
   importContactsFromDevice,
   addMembers,
-  members,
+  //members,
   removeMember,
 }) => {
   const [searchText, setSearchText] = useState("");
@@ -154,13 +154,15 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
         </>
       ) : (
         <SendSms
-          members={members}
+          //members={members}
+          members={selectedContacts}
           eventId={eventId}
           removeMember={removeMember}
           addMore={() => {
             setIsSmsSend(false);
             console.log("addMore");
           }}
+          removeSelectedMember={handleSelectContact}
         />
       )}
     </IonPage>
