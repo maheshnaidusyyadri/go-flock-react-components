@@ -5,5 +5,6 @@ declare const SendSms: React.FC<{
     members: EventMember[];
     removeMember: (eventMember: EventMember) => Promise<boolean>;
     addMore?: () => void;
+    removeSelectedMember?: (contact: any) => void;
 }>;
 export default SendSms;

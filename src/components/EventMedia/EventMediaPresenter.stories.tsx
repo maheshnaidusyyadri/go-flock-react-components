@@ -8,7 +8,6 @@ import {
   OwnerProfile,
 } from "../Common/MockData";
 
-import { UserMediaMetadata } from "@goflock/types/src";
 import { action } from "@storybook/addon-actions";
 import { withRouter } from "storybook-addon-remix-react-router";
 
@@ -31,12 +30,8 @@ WithNoMedia.args = {
   media: [],
 
   // Mock function to add media
-  addMedia: async (
-    mediaAsStrings: string[],
-    metadataList: UserMediaMetadata[]
-  ) => {
-    action("addMedia")(mediaAsStrings);
-    action("addMedia")(metadataList);
+  addMedia: async (files: FileList) => {
+    action("addMedia")(files);
 
     return ImagesMedia;
   },

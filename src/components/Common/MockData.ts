@@ -437,25 +437,24 @@ export const EventWithOneMember: Event = {
 export const EventWithInvitation: Event = {
   ...EventWithMembers,
   id: "event_54321",
-  invitationCard: {
-    id: "card_001",
-    cardType: "image",
-    url: "https://picsum.photos/200/300",
-    configuration: "default",
-    shared: true,
-  },
+  invitationCards: [
+    {
+      id: "card_001",
+      downloadUrl: "https://picsum.photos/200/300",
+      uploadedBy: "",
+      eventId: "",
+      type: "",
+      path: "",
+      createdAt: "",
+      isDeleted: false,
+    },
+  ],
 };
 
 export const EventWithTransactions: Event = {
   ...EventWithMembers,
   id: "event_543210",
-  invitationCard: {
-    id: "card_001",
-    cardType: "image",
-    url: "https://picsum.photos/200/300",
-    configuration: "default",
-    shared: true,
-  },
+  invitationCards: [],
   expenseSummary: [
     {
       userId: "admin_001",
