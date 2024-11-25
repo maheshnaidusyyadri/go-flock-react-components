@@ -10,14 +10,11 @@ import {
   IonImg,
   IonCard,
   IonText,
-  IonFooter,
-  IonButton,
   IonContent,
   IonPage,
 } from "@ionic/react";
 import noContacts from "../../images/no-contacts.svg";
 import Selected from "../../images/icons/selected.svg";
-import GoArrow from "../../images/icons/GoArrow.svg";
 import { InviteContactsProps } from "@goflock/types";
 import ProfileList from "../Common/Profiles/ProfileList";
 import { getDisplayName } from "../../utils/utils";
@@ -45,8 +42,8 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
     );
   };
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact?.name?.toLowerCase().includes(searchText.toLowerCase())
+  const filteredContacts = contacts.filter(
+    (contact) => contact?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
   const getContactsList = () => {
     importContactsFromDevice().then(() => {
@@ -60,16 +57,16 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
 
   return (
     <IonPage>
-      <Header eventId={eventId} title="Manage members" showMenu={false} />
+      <Header
+        eventId={eventId}
+        title="Manage members"
+        showMenu={false}
+      />
       {!isSmsSend ? (
         <>
           <IonContent className="members_page ion-padding">
             {contacts && contacts.length > 0 ? (
               <div>
-                <IonText className="paragraph">
-                  Type the username or phone number of your friends or
-                  colleagues to be able to invite them.
-                </IonText>
                 <IonToolbar>
                   <IonSearchbar
                     value={searchText}
@@ -95,7 +92,10 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                         className="list_item"
                         onClick={() => handleSelectContact(member)}
                       >
-                        <IonThumbnail slot="start" className="dp">
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member.profileImg ? (
                             <IonImg
                               src={member.profileImg}
@@ -108,7 +108,10 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                           )}
                           {selectedContacts.includes(member) && (
                             <span className="selection">
-                              <img src={Selected} alt="Selected" />
+                              <img
+                                src={Selected}
+                                alt="Selected"
+                              />
                             </span>
                           )}
                         </IonThumbnail>
@@ -131,14 +134,22 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
               </IonCard>
             )}
           </IonContent>
-          <IonFooter className="stickyFooter">
+          {/* <IonFooter className="stickyFooter">
             {contacts.length === 0 && (
-              <IonButton
-                className="primary-btn rounded"
-                onClick={() => getContactsList()}
-              >
-                {"Import contacts"}
-              </IonButton>
+              <>
+                <IonButton
+                  className="primary-btn rounded"
+                  onClick={() => getContactsList()}
+                >
+                  {"Import phone contacts"}
+                </IonButton>
+                <IonButton
+                  className="primary-btn rounded"
+                  onClick={() => importContactsFromGoogleContacts()}
+                >
+                  {"Import google contacts"}
+                </IonButton>
+              </>
             )}
             {selectedContacts && selectedContacts.length > 0 && (
               <IonFooter class="stickyFooter">
@@ -150,7 +161,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                 </IonButton>
               </IonFooter>
             )}
-          </IonFooter>
+          </IonFooter> */}
         </>
       ) : (
         <SendSms

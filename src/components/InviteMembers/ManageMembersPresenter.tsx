@@ -65,7 +65,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   removeMember,
   addAdmin,
   removeAdmin,
-  goToInviteContacts,
+  copyEventLink,
+  socialShareEventLink,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "Members" | "Track" | "Messaging"
@@ -385,7 +386,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               </IonCard>
             ))}
         </IonContent>
-        <IonFooter class="stickyFooter">
+        {/* Disabling invitation flow for now. We will only support link sharing. */}
+        {/* <IonFooter class="stickyFooter">
           {}
           {selectedSegment === "Messaging" && members && members.length > 0 ? (
             <IonButton
@@ -402,6 +404,28 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               {"Invite Guests"}
             </IonButton>
           )}
+        </IonFooter> */}
+        <IonFooter class="stickyFooter">
+          <IonRow>
+            <IonCol>
+              <IonButton
+                className="primary-btn rounded"
+                onClick={() => copyEventLink(eventId)}
+              >
+                {"Copy invitation link"}
+              </IonButton>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonButton
+                className="primary-btn rounded"
+                onClick={() => socialShareEventLink(eventId)}
+              >
+                {"Share invitation link"}
+              </IonButton>
+            </IonCol>
+          </IonRow>
         </IonFooter>
         <Footer
           eventId={eventId}
