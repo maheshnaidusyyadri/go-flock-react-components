@@ -1,0 +1,112 @@
+@use "../../styles/fonts" as *;
+@use "../../styles/countrySelection" as *;
+.onboard_cnt.guest-user {
+  .auth_screen {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+    img {
+      width: clamp(220px, 90vw, 335px);
+    }
+    .ion-title {
+      font-family: $GoFlockFont;
+      font-size: clamp(16px, 7.1vw, 28px);
+      line-height: 40px;
+      color: $GoFlockColor;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: static;
+      padding: 0;
+    }
+    .ion-text {
+      font-family: $GoFlockFont;
+      font-size: clamp(12px, 3.38vw, 14px);
+      line-height: 18px;
+      color: $secondaryColor;
+      font-weight: 400;
+      margin-bottom: 0px;
+      display: block;
+      position: static;
+    }
+  }
+  .step-content {
+    min-width: 100%;
+    width: 100%;
+    display: block;
+    top: 0;
+    transition: all 0.4s ease-in-out;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 15px;
+    .auth_screen {
+      .slide-img {
+        height: 240px;
+      }
+    }
+  }
+  .swiper {
+    height: auto;
+    padding-bottom: 30px;
+  }
+  .swiper-pagination {
+    display: flex;
+    top: 20px !important;
+    left: 0 !important;
+    bottom: inherit !important;
+    position: static;
+    justify-content: center;
+    .swiper-pagination-bullet {
+      background: #ecefea !important;
+      opacity: 1;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      &.swiper-pagination-bullet-active {
+        background: $GoFlockColor !important;
+      }
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: inherit;
+    transform: inherit;
+    margin-top: 0;
+    bottom: 0;
+    background: $GoFlockColor;
+    width: calc(50% - 26px);
+    text-align: center;
+    font-family: $GoFlockFont;
+    font-weight: 600;
+    color: $white;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: 50px;
+    height: 50px;
+    &:after {
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      line-height: 20px;
+      text-transform: capitalize !important;
+    }
+  }
+}
+
+.guest-auth-form {
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  background: $white;
+}
+
+.paragraph {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: $GoFlockFont;
+  line-height: 22px;
+  color: $secondaryColor;
+  margin: 0px 0 15px 0;
+  text-align: center;
+}

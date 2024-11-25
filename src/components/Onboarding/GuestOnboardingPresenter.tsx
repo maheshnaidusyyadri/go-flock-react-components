@@ -17,7 +17,7 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import "./OnboardingPresenter.scss";
+import "./GuestOnboardingPresenter.scss";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
