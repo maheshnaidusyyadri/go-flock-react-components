@@ -6,6 +6,7 @@ type HeaderProps = {
     showProfile?: boolean;
     showSignIn?: boolean;
     showLogo?: boolean;
+    logoPosition?: "left" | "middle";
     className?: string;
     showGoBack?: boolean;
     deleteEvent?: (eventId: string) => void;

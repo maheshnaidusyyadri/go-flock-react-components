@@ -1,6 +1,14 @@
-import { DeviceContext } from "@goflock/types";
+import { DeviceContext, EventMinDetails } from "@goflock/types";
 import { Contact, Event, Media, Profile } from "@goflock/types/src/index";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
+
+export const BdayEventForGuest: EventMinDetails = {
+  id: "Lz0XqK6sLWl7icDEWQ8b",
+  name: "Dhanush's 6th birthday",
+  hostedBy: "Mahesh & Gouthami",
+  type: "birthday",
+  visibility: "private",
+};
 
 export const HalloweenEvent: Event = {
   owner: "1Qfxir6gMkFVEOQJmsDWvnwag7hx",
@@ -568,6 +576,11 @@ export const cohostEventRelation: EventRelation = {
 export const guestEventRelation: EventRelation = {
   roles: [],
   visitType: "visitor",
+};
+
+export const unAuthEventRelation: EventRelation = {
+  roles: [],
+  visitType: "unauthorized",
 };
 
 export const rsvpGuestEventRelation: EventRelation = {

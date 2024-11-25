@@ -18,7 +18,8 @@ import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
 import ProfileIcon from "../../images/profile.png";
 import signInIcon from "../../images/icons/signIn.svg";
-import goflockLogo from "../../images/icons/goflock.svg";
+import goflockLogo from "../../images/icons/logo.svg";
+import goflockLogoWithTitle from "../../images/icons/logo-title.svg";
 
 type HeaderProps = {
   eventId?: string;
@@ -28,6 +29,7 @@ type HeaderProps = {
   showProfile?: boolean;
   showSignIn?: boolean;
   showLogo?: boolean;
+  logoPosition?: "left" | "middle";
   className?: string;
   showGoBack?: boolean;
   deleteEvent?: (eventId: string) => void;
@@ -43,6 +45,7 @@ const Header: React.FC<HeaderProps> = ({
   showSignIn = false,
   className = "",
   showLogo = false,
+  logoPosition = "left",
   showGoBack = true,
   deleteEvent,
   eventRelation,
@@ -88,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({
                 </IonThumbnail>
               </IonButton>
             )}
-            {showLogo && (
+            {showLogo && logoPosition === "left" && (
               <IonButton routerLink="/">
                 <IonThumbnail className="profile_icon">
                   <IonImg
@@ -99,6 +102,16 @@ const Header: React.FC<HeaderProps> = ({
               </IonButton>
             )}
           </IonButtons>
+          {showLogo && logoPosition === "middle" && (
+            <IonTitle className="page-title">
+              <img
+                id="logo"
+                src={goflockLogoWithTitle}
+                alt="ProfileIcon"
+                style={{ maxHeight: "40px", marginRight: "10px" }}
+              />
+            </IonTitle>
+          )}
           {title && <IonTitle className="page-title">{title}</IonTitle>}
           <IonButtons slot="end">
             {showMenu && (

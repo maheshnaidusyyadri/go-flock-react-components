@@ -1,157 +1,160 @@
-@use '../../styles/fonts' as *;
-@use '../../styles/buttons' as *;
-@use '../../styles/actionMenu' as *;
+@use "../../styles/fonts" as *;
+@use "../../styles/buttons" as *;
+@use "../../styles/actionMenu" as *;
 
 .main-header {
-    box-shadow: none !important;
-    .header-cnt {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        --background:#F6F6F6;
-        height: 60px; 
-        --border-color:transparent;
-        .page-title {
-            display: block;
-            text-align: center;
-            font-family: $GoFlockFont;
-            font-size: 14px;
-            color: $GoFlockColor;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            padding: 0px;
-        }
-        .menu_icon {
-            --size:30px
-            min-width: 30px;
-            img {
-                display: block;
-            }
-            &.contactList {
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border: 1px solid #E4E4E7;
-                border-radius: 50%;
-             //   background: $white;
-                ion-img {
-                    width: 20px;
-                    height: auto;
-                }
-            }
-        }
-        .profile_icon {
-            --size:30px;
-        }
-        .arrow_icon {
-            width: 30px;
-        }
-    }
-    &.sticky {
-        position: sticky;
-        top: 0px;
-        z-index: 99;
-    }
-    &.darkheader  {
-        .header-cnt {
-        //    background: $GoFlockColor;
-            .page-title {
-           //     color: $white;
-            }
-        }
-    }
-}
-
-.signIn_btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    .signin_text {
-     //   font-family: $GoFlockColor;
-        font-size: 14px;
-        line-height: 20px;
-      //  color: $GoFlockColor;
-        font-weight: 500;
-        margin-right: 8px;
-    }
-    img {
-        width: 20px;
-    }
-}
-
-.event-type-action {
+  box-shadow: none !important;
+  .header-cnt {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid #e4e4e7;
-    border-bottom: 1px solid #e4e4e7;
-    background: #f1fef8;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
-    min-height: 48px;
-    p {
-    //   color: $secondaryColor;
-    //   font-family: $GoFlockFont;
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 18px;
-      .type {
-      //  color: $GoFlockColor;
+    --background: #f6f6f6;
+    height: 60px;
+    --border-color: transparent;
+    .page-title {
+      display: block;
+      text-align: center;
+      font-family: $GoFlockFont;
+      font-size: 14px;
+      color: $GoFlockColor;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      padding: 0px;
+    }
+    .menu_icon {
+      --size: 30px min-width: 30px;
+      img {
+        display: block;
+      }
+      &.contactList {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #e4e4e7;
+        border-radius: 50%;
+        //   background: $white;
+        ion-img {
+          width: 20px;
+          height: auto;
+        }
       }
     }
+    .profile_icon {
+      --size: 30px;
+    }
+    .arrow_icon {
+      width: 30px;
+    }
+  }
+  &.sticky {
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+  }
+  &.darkheader {
+    .header-cnt {
+      //    background: $GoFlockColor;
+      .page-title {
+        //     color: $white;
+      }
+    }
+  }
+}
 
-    .next {
-      width: 20px;
+.signIn_btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .signin_text {
+    //   font-family: $GoFlockColor;
+    font-size: 14px;
+    line-height: 20px;
+    //  color: $GoFlockColor;
+    font-weight: 500;
+    margin-right: 8px;
+  }
+  img {
+    width: 20px;
+  }
+}
+
+.event-type-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e4e4e7;
+  border-bottom: 1px solid #e4e4e7;
+  background: #f1fef8;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
+  min-height: 48px;
+  p {
+    //   color: $secondaryColor;
+    //   font-family: $GoFlockFont;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    .type {
+      //  color: $GoFlockColor;
     }
   }
 
+  .next {
+    width: 20px;
+  }
+}
 
-  input::-webkit-outer-spin-button,
+input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-ion-content, ion-card, ion-item, ion-footer {
-    --background : #ffffff;
+ion-content,
+ion-card,
+ion-item,
+ion-footer {
+  --background: #ffffff;
 }
-ion-list, ion-footer {
-    background: #ffffff !important;
+ion-list,
+ion-footer {
+  background: #ffffff !important;
 }
 
 .info-alert {
-    border-radius: 6px;
-    border: 1px solid #DAFBEC;
-    background: #F6FEFA;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
-    font-family: $GoFlockFont;
-    font-size: 12px;
-    color: $secondaryColor;
-    font-weight: 400;
-    line-height: 20px;
-    padding: 14px;
-    display: block;
-    text-align: center;
-strong {
+  border-radius: 6px;
+  border: 1px solid #dafbec;
+  background: #f6fefa;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
+  font-family: $GoFlockFont;
+  font-size: 12px;
+  color: $secondaryColor;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 14px;
+  display: block;
+  text-align: center;
+  strong {
     font-weight: 600;
     color: $GoFlockColor;
+  }
 }
- 
-
-}
-
 
 .ion-select {
-    color: $GoFlockColor;
-    font-family: $GoFlockFont;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 18px;
-  }
+  color: $GoFlockColor;
+  font-family: $GoFlockFont;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+#logo {
+  height: 100%;
+}

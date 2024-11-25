@@ -80,7 +80,6 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   const [Isfilter, setIsfilter] = useState(false);
   const methods = useForm();
   const {
-    handleSubmit,
     formState: { errors },
     register,
     //control,
@@ -110,12 +109,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
       return "Dismiss as co-host";
     }
   };
-  const onSendMessage = (formData: any) => {
-    console.log("onSendMessage-formData", formData);
-  };
-  const onError = (err: any) => {
-    console.log("onSendMessage-err", err);
-  };
+
   const handleRecipientChange = (value: string) => {
     if (Isfilter) {
       setSelectedRecepients(value);

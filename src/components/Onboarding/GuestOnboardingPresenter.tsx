@@ -30,10 +30,15 @@ import chatIcon from "../../images/auth-3.svg";
 import expancesIcon from "../../images/auth-4.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomPhoneNumber from "../Common/CustomPhone";
-import { EventProps } from "@goflock/types";
 import OtpVerification from "../Common/OtpVerification";
+import Header from "../Header/Header";
+import { GuestOnboardingProps } from "@goflock/types";
 
-const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
+const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
+  eventMinDetails,
+  sendOTP,
+  verifyOTP,
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -51,7 +56,7 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
   const slides = [
     {
       image: EventsIcon,
-      title: "Create Events",
+      title: "Create Events & RSVP ",
       text: "And invite guests or friends receive RSVP",
     },
     {
@@ -88,6 +93,12 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
   };
   return (
     <IonPage>
+      <Header
+        title={""}
+        showLogo={true}
+        logoPosition="middle"
+        showGoBack={false}
+      ></Header>
       <IonContent className="onboard_cnt guest-user ion-padding">
         {!showOtpModal && (
           <>
@@ -120,12 +131,14 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
               <IonRow>
                 <IonCol>
                   <IonLabel className="info-alert">
-                    Hi! You are invited to <strong>Dhanush's Birthday</strong>.
+                    Hi! You are invited to{" "}
+                    <strong> {eventMinDetails.name} </strong>.
                   </IonLabel>
                   <p className="paragraph ion-padding-top">
-                    This is a personal event invitation by Mahesh Naidu. Verify
-                    your phone number to see full invitation, RSVP, share
-                    pictures from the event etc.
+                    This is a personal event invitation by{" "}
+                    <strong>{eventMinDetails.hostedBy}</strong>. Verify your
+                    phone number to see full invitation, RSVP, share pictures
+                    from the event, securely.
                   </p>
                 </IonCol>
               </IonRow>
@@ -149,7 +162,7 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
                     onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
                   >
                     <IonButton className="primary-btn rounded">
-                      {"Generate OTP"}
+                      {"Send OTP"}
                     </IonButton>
                   </IonCol>
                 </IonRow>
@@ -174,7 +187,7 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
                   className="primary-btn"
                   onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
                 >
-                  {"Verify & Process"}
+                  {"Verify"}
                 </IonButton>
               </IonFooter>
             </FormProvider>
@@ -185,4 +198,4 @@ const GuestOnboarding: React.FC<EventProps> = ({ sendOTP, verifyOTP }) => {
   );
 };
 
-export default GuestOnboarding;
+export default GuestOnboardingPresenter;

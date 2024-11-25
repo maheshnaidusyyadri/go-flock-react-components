@@ -25,9 +25,6 @@ import SendSms from "./SelectedMembers";
 const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
   eventId,
   contacts,
-  importContactsFromDevice,
-  addMembers,
-  //members,
   removeMember,
 }) => {
   const [searchText, setSearchText] = useState("");
@@ -45,15 +42,16 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
   const filteredContacts = contacts.filter(
     (contact) => contact?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
-  const getContactsList = () => {
-    importContactsFromDevice().then(() => {
-      console.log("Contacts imported");
-    });
-  };
-  const addSelectedContactsToEvent = async () => {
-    await addMembers(selectedContacts);
-    setIsSmsSend(true);
-  };
+
+  // const getContactsList = () => {
+  //   importContactsFromDevice().then(() => {
+  //     console.log("Contacts imported");
+  //   });
+  // };
+  // const addSelectedContactsToEvent = async () => {
+  //   await addMembers(selectedContacts);
+  //   setIsSmsSend(true);
+  // };
 
   return (
     <IonPage>

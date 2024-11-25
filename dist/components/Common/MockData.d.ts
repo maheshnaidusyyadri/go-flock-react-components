@@ -1,6 +1,7 @@
-import { DeviceContext } from '@goflock/types';
+import { DeviceContext, EventMinDetails } from '@goflock/types';
 import { Contact, Event, Media, Profile } from '@goflock/types/src/index';
 import { EventRelation } from '@goflock/types/src/models/event/EventRelation';
+export declare const BdayEventForGuest: EventMinDetails;
 export declare const HalloweenEvent: Event;
 export declare const BirthdayEvent: Event;
 export declare const OwnerProfile: Profile;
@@ -14,6 +15,7 @@ export declare const EventWithTransactions: Event;
 export declare const ownerEventRelation: EventRelation;
 export declare const cohostEventRelation: EventRelation;
 export declare const guestEventRelation: EventRelation;
+export declare const unAuthEventRelation: EventRelation;
 export declare const rsvpGuestEventRelation: EventRelation;
 export declare const rsvpNotAttendingGuestEventRelation: EventRelation;
 export declare const ImagesMedia: Media[];
