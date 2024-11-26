@@ -38,6 +38,14 @@ CreateDetailEventFlow.args = {
   goToEvent: (eventId: string) => {
     action("goToEvent")(eventId);
   },
+  generateInvitationDescription: (draftEvent: DraftEvent) => {
+    action("generateInvitationDescription")(draftEvent);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Happy birthday.. ");
+      }, 5000);
+    });
+  },
 };
 
 export const CreateQuickEventFlow = Template.bind({});
