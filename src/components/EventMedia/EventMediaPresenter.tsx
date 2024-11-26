@@ -16,7 +16,6 @@ import {
   IonToolbar,
   SegmentValue,
 } from "@ionic/react";
-import { Link } from "react-router-dom";
 import { EventMediaProps } from "@goflock/types";
 import { MasonryPhotoAlbum, Photo } from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
