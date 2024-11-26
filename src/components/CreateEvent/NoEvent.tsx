@@ -8,6 +8,7 @@ import {
   IonButton,
   IonModal,
   IonContent,
+  IonFooter,
 } from "@ionic/react";
 import Header from "../Header/Header";
 
@@ -45,18 +46,21 @@ const NoEvent: React.FC = ({}) => {
                   Here's a small text description for the content. Nothing more,
                   nothing less.
                 </p>
-                <IonButton
-                  color="primary"
-                  shape="round"
-                  size="large"
-                  id="open-modal"
-                >
-                  Create Event
-                </IonButton>
               </IonCol>
             </IonRow>
           </IonGrid>
         </IonContent>
+        <IonFooter className="ion-padding">
+          <IonButton
+            color="primary"
+            shape="round"
+            size="large"
+            id="open-modal"
+            expand="block"
+          >
+            Create Event
+          </IonButton>
+        </IonFooter>
       </IonPage>
 
       <IonModal

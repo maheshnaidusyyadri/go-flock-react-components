@@ -448,7 +448,11 @@ body {
     padding: 16px;
   }
 }
-
+.rsvp_success-cnt {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 .rsvp_success {
   box-shadow: none;
   padding: 32px 0px;
