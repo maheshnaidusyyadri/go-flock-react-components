@@ -56,9 +56,8 @@
       flex-direction: column;
       --border-color: transparent;
       width: 100%;
-      --background: url("../../images/icons/arrow-right.svg") no-repeat
-        calc(100% - 6px) center;
       --padding-start: 0;
+      --inner-padding-end: 0;
       .dp {
         margin: 0;
         width: 40px;
@@ -76,13 +75,12 @@
         }
       }
       .list-info {
-        display: block;
+        display: flex;
         padding: 0 0 0 12px;
         margin: 0px;
         .title-default {
           font-family: $GoFlockFont;
           font-size: 14px;
-          line-height: 20px;
           line-height: 18px;
           font-weight: 500;
           margin: 0;
@@ -94,8 +92,6 @@
         }
       }
       &.delete {
-        --background: url("../../images/icons/arrow-right-red.svg") no-repeat
-          calc(100% - 6px) center;
         .list-info {
           .title-default {
             color: #dc2626;

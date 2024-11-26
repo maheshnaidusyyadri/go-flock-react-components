@@ -443,7 +443,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         </IonGrid>
       </IonContent>
       {["admin"].includes(eventRelation?.visitType) && (
-        <IonFooter className="stickyFooter no-padding-bottom">
+        <IonFooter className="ion-padding">
           <IonButton
             className="primary-btn rounded"
             onClick={() => inviteMembers(event.id)}
@@ -455,7 +455,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       )}
       {!["owner"].includes(eventRelation?.visitType) &&
         !(eventRelation?.rsvp && eventRelation.rsvp?.response) && (
-          <IonFooter className="stickyFooter">
+          <IonFooter className="ion-padding-start ion-padding-end ion-padding-bottom">
             <IonCard className="rsvp_card">
               <IonLabel className="rsvp_title">Are you going?</IonLabel>
               <IonList class="rsvp_actions" onClick={toggleGogingClass}>

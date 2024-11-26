@@ -24,6 +24,7 @@ ion-button {
   color: $white;
   --box-shadow: none;
   text-transform: capitalize;
+  margin: 0;
   &.rounded {
     --border-radius: 50px;
   }
