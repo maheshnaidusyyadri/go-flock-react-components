@@ -286,7 +286,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         src={event.invitationCards?.at(0)?.downloadUrl}
                         alt="Event"
                       />
-                      <span className="edit-icon">
+                      <span
+                        className="edit-icon"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
                         <IonImg src={EditIcon} />
                       </span>
                     </IonThumbnail>
