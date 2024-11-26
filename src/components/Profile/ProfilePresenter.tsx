@@ -14,6 +14,7 @@ import {
   IonActionSheet,
   IonGrid,
   IonAvatar,
+  IonIcon,
 } from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
 import Header from "../Header/Header";
@@ -23,6 +24,9 @@ import LogOutIcon from "../../images/icons/logOut.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
 import PrivacyPolicy from "./PrivacyPolicy";
 import backArrow from "../.././images/icons/back-arrow.svg";
+import rightArrow from "../.././images/icons/arrow-right.svg";
+import rightArrowRed from "../.././images/icons/arrow-right-red.svg";
+
 import EditProfile from "./EditProfile";
 import { getDisplayName } from "../../utils/utils";
 const ProfilePresenter: React.FC<ProfileProps> = ({
@@ -74,6 +78,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Profile</IonTitle>
+                  <IonIcon src={rightArrow}></IonIcon>
                 </IonLabel>
               </IonItem>
               <IonItem className="list_item" onClick={() => setIsOpen(true)}>
@@ -82,6 +87,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Privacy</IonTitle>
+                  <IonIcon src={rightArrow}></IonIcon>
                 </IonLabel>
               </IonItem>
 
@@ -91,6 +97,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Log Out</IonTitle>
+                  <IonIcon src={rightArrow}></IonIcon>
                 </IonLabel>
               </IonItem>
               <IonItem className="list_item delete" id="open-delete-action">
@@ -103,6 +110,7 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Delete Account</IonTitle>
+                  <IonIcon src={rightArrowRed}></IonIcon>
                 </IonLabel>
               </IonItem>
             </IonList>

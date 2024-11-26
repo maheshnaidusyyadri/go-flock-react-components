@@ -99,35 +99,11 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
         logoPosition="middle"
         showGoBack={false}
       ></Header>
-      <IonContent className="onboard_cnt guest-user ion-padding">
-        {!showOtpModal && (
-          <>
-            <Swiper
-              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-              className="guest-onboarding"
-              autoplay={true}
-              pagination={true}
-              loop={true}
-              navigation={false} // Hide navigation on the last slide
-              onSlideChange={handleSlideChange}
-            >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={index}>
-                  <IonGrid className="step-content">
-                    <IonCard className="auth_screen">
-                      <IonImg
-                        className="slide-img"
-                        src={slide.image}
-                        alt={slide.title}
-                      />
-                      <IonTitle className="ion-title">{slide.title}</IonTitle>
-                      <IonText className="ion-text">{slide.text}</IonText>
-                    </IonCard>
-                  </IonGrid>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <IonGrid className="guest-auth-form ">
+      {/* <IonContent className="onboard_cnt guest-user ion-padding"> */}
+      {!showOtpModal && (
+        <>
+          <IonContent className="onboard_cnt guest-user ion-padding">
+            <IonGrid className="guest-auth-form ion-no-padding">
               <IonRow>
                 <IonCol>
                   <IonLabel className="info-alert">
@@ -157,43 +133,72 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
                     />
                   </IonCol>
                 </IonRow>
-                <IonRow>
-                  <IonCol
-                    onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
-                  >
-                    <IonButton className="primary-btn rounded">
-                      {"Send OTP"}
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
               </FormProvider>
             </IonGrid>
-          </>
-        )}
-        {showOtpModal && (
-          <IonGrid className={`rsvp_modal ${showOtpModal ? "active" : ""}`}>
-            <FormProvider {...methods}>
-              <OtpVerification
-                control={control}
-                phoneNumber={phoneNumber}
-                errors={errors}
-                fieldName="otp"
-                isRequired={true}
-              />
-              <IonFooter className="stickyFooter no-padding">
-                <IonButton
-                  expand="block"
-                  shape="round"
-                  className="primary-btn"
-                  onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
-                >
-                  {"Verify"}
-                </IonButton>
-              </IonFooter>
-            </FormProvider>
-          </IonGrid>
-        )}
-      </IonContent>
+            <Swiper
+              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+              className="guest-onboarding"
+              autoplay={false}
+              pagination={true}
+              loop={true}
+              navigation={false} // Hide navigation on the last slide
+              onSlideChange={handleSlideChange}
+            >
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <IonGrid className="step-content">
+                    <IonCard className="auth_screen">
+                      <IonImg
+                        className="slide-img"
+                        src={slide.image}
+                        alt={slide.title}
+                      />
+                      <IonTitle className="ion-title">{slide.title}</IonTitle>
+                      <IonText className="ion-text">{slide.text}</IonText>
+                    </IonCard>
+                  </IonGrid>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </IonContent>
+          <IonFooter className="ion-padding">
+            <IonButton
+              className="primary-btn rounded"
+              onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
+            >
+              {"Send OTP"}
+            </IonButton>
+          </IonFooter>
+        </>
+      )}
+      {showOtpModal && (
+        <>
+          <IonContent className="ion-padding">
+            {/* <IonGrid className={`rsvp_modal ${showOtpModal ? "active" : ""}`}> */}
+            <IonGrid className="varify-cnt ion-no-padding">
+              <FormProvider {...methods}>
+                <OtpVerification
+                  control={control}
+                  phoneNumber={phoneNumber}
+                  errors={errors}
+                  fieldName="otp"
+                  isRequired={true}
+                />
+              </FormProvider>
+            </IonGrid>
+          </IonContent>
+          <IonFooter className="ion-padding">
+            <IonButton
+              expand="block"
+              shape="round"
+              className="primary-btn"
+              onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
+            >
+              {"Verify"}
+            </IonButton>
+          </IonFooter>
+        </>
+      )}
     </IonPage>
   );
 };

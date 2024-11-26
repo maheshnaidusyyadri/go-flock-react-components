@@ -366,7 +366,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                               <CustomModalSelect
                                 control={control}
                                 label="Event Type"
-                                fieldName="eventSelection"
+                                fieldName="eventType"
                                 placeholder="Select Type"
                                 options={[
                                   {
