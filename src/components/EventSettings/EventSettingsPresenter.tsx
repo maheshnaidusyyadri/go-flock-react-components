@@ -112,10 +112,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={galleryIcon}
-                  alt="Media"
-                />
+                <IonImg src={galleryIcon} alt="Media" />
               </IonThumbnail>
               Media Sharing
             </IonLabel>
@@ -131,10 +128,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={billsIcon}
-                  alt="Add Expenses"
-                />
+                <IonImg src={billsIcon} alt="Add Expenses" />
               </IonThumbnail>
               Split Bills
             </IonLabel>
@@ -149,10 +143,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={dollarIcon}
-                  alt="chat"
-                />
+                <IonImg src={dollarIcon} alt="chat" />
               </IonThumbnail>
               Currency
             </IonLabel>
@@ -175,10 +166,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={galleryIcon}
-                  alt="Media"
-                />
+                <IonImg src={galleryIcon} alt="Media" />
               </IonThumbnail>
               Event Visibility
             </IonLabel>

@@ -50,7 +50,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
       setValue("name", profile.prefName);
     }
     if (profile.phone) {
-      setValue("phone", "+" + profile.phone);
+      setValue("phone", profile.phone);
     }
   }, [profile.prefName, profile.phone]);
 

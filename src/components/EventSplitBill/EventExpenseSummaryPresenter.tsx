@@ -3,6 +3,7 @@ import { EventExpenseSummaryProps } from "@goflock/types/src/index";
 import "./EventSplitBillPresenter.scss";
 import Footer from "../Footer/Footer";
 import {
+  IonAvatar,
   IonButton,
   IonCol,
   IonContent,
@@ -23,7 +24,7 @@ import Header from "../Header/Header";
 import EditIcon from "../../images/icons/Edit.svg";
 import DeleteIcon from "../../images/icons/Delete.svg";
 import EmptyBill from "../Common/Icons/EmptyBill";
-import userDefault from "../../images/userPlaceholder.svg";
+import { getDisplayName } from "../../utils/utils";
 
 const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   event,
@@ -144,7 +145,12 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                         <IonLabel className="transaction-info ion-no-margin">
                           <IonItem className="transaction-user">
                             <IonThumbnail className="user-dp ion-no-margin">
-                              <IonImg src={userDefault}></IonImg>
+                              {expense && expense.name && (
+                                <IonAvatar className="profile-dp">
+                                  {getDisplayName(expense?.name)}
+                                </IonAvatar>
+                              )}
+                              {/* <IonImg src={userDefault}></IonImg> */}
                             </IonThumbnail>
                             <h2>{expense.userId}</h2>
                           </IonItem>

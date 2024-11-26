@@ -77,6 +77,9 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   const [selectedRecepients, setSelectedRecepients] = useState<string | "null">(
     "Birthdays"
   );
+  const [selectedRecepient, SetSelectedRecepient] = useState<string | "null">(
+    ""
+  );
   const [Isfilter, setIsfilter] = useState(false);
   const methods = useForm();
   const {
@@ -96,23 +99,31 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     }
   };
   const handleCohost = () => {
-    if (selectedUser && selectedUser?.roles?.includes("member")) {
-      addAdmin(selectedUser);
-    } else if (selectedUser && selectedUser?.roles?.includes("admin")) {
-      removeAdmin(selectedUser);
+    if (selectedUser) {
+      let roles = selectedUser.roles || [];
+      if (roles.includes("admin") && roles.includes("member")) {
+        removeAdmin(selectedUser);
+      } else if (roles.includes("member")) {
+        addAdmin(selectedUser);
+      }
     }
   };
   const getActionName = () => {
-    if (selectedUser && selectedUser?.roles?.includes("member")) {
-      return "Make co-host";
-    } else if (selectedUser && selectedUser?.roles?.includes("admin")) {
-      return "Dismiss as co-host";
+    if (selectedUser) {
+      let roles = selectedUser.roles || [];
+      if (roles.includes("admin") && roles.includes("member")) {
+        return "Dismiss as co-host";
+      }
+      if (roles.includes("member")) {
+        return "Make co-host";
+      }
     }
+    return "No action available";
   };
 
   const handleRecipientChange = (value: string) => {
     if (Isfilter) {
-      setSelectedRecepients(value);
+      SetSelectedRecepient(value);
       setValue("recipien", value);
       setShowRecepients(false);
     } else {
@@ -139,11 +150,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   return (
     <>
       <IonPage className="invite_page">
-        <Header
-          eventId={eventId}
-          title="Manage members"
-          showMenu={false}
-        />
+        <Header eventId={eventId} title="Manage members" showMenu={false} />
         <IonContent className="invite_members ion-padding">
           <IonSegment
             className="segment-tabs"
@@ -203,10 +210,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                         className="form-group custom-input ion-padding-bottom"
                         onClick={showRecipientsPopup}
                       >
-                        <IonImg
-                          className="arrowIcon nolabel"
-                          src={arrowIcon}
-                        />
+                        <IonImg className="arrowIcon nolabel" src={arrowIcon} />
                         <CustomInput
                           fieldName={"recipien"}
                           isRequired={false}
@@ -214,29 +218,18 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           errorText={"Recipients"}
                           register={register}
                           readOnly={true}
+                          defaultValue={selectedRecepient}
                         />
                       </IonCol>
                     </IonRow>
                     {members.map((member, index) => (
-                      <IonItem
-                        key={index}
-                        className="list_item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                      <IonItem key={index} className="list_item">
+                        <IonThumbnail slot="start" className="dp">
                           {member?.roles?.includes("owner") && (
-                            <IonImg
-                              className="type"
-                              src={HostIcon}
-                            />
+                            <IonImg className="type" src={HostIcon} />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg
-                              className="type co"
-                              src={CoHostIcon}
-                            />
+                            <IonImg className="type co" src={CoHostIcon} />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -249,10 +242,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img
-                              src={Selected}
-                              alt="Selected"
-                            />
+                            <img src={Selected} alt="Selected" />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -261,21 +251,25 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                  ? " (Co-host)"
-                                  : "")}
+                                ? " (Co-host)"
+                                : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
                         {!member?.roles?.includes("owner") && (
                           <IonItem className="member-actions">
-                            <IonLabel class="notifies ion-no-margin">
-                              <IonImg
-                                className="notifies-icon"
-                                src={NotificationIcon}
-                              />
-                              <IonBadge className="count">2</IonBadge>
-                            </IonLabel>
+                            {member?.notificationCount && (
+                              <IonLabel class="notifies ion-no-margin">
+                                <IonImg
+                                  className="notifies-icon"
+                                  src={NotificationIcon}
+                                />
+                                <IonBadge className="count">
+                                  {member.notificationCount}
+                                </IonBadge>
+                              </IonLabel>
+                            )}
 
                             <IonImg
                               onClick={() => {
@@ -352,10 +346,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     className="form-group custom-input ion-padding-bottom"
                     onClick={showRecipientsModal}
                   >
-                    <IonImg
-                      className="arrowIcon"
-                      src={arrowIcon}
-                    />
+                    <IonImg className="arrowIcon" src={arrowIcon} />
                     <CustomInput
                       placeholder={"Select Recipients"}
                       label={"Recipients"}
@@ -466,18 +457,20 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           showRecepients ? "custom-action-modal open" : "custom-action-modal"
         }
       >
-        <>
-          <CustomSelectRecipients
-            onChange={handleRecipientChange}
-            defaultValue={selectedRecepients}
-          />
-          {showRecepients && (
-            <IonLabel
-              onClick={() => toggleRecipientsPopup(false)}
-              className="overlay"
-            ></IonLabel>
-          )}
-        </>
+        {showRecepients && (
+          <>
+            <CustomSelectRecipients
+              onChange={handleRecipientChange}
+              defaultValue={Isfilter ? selectedRecepient : selectedRecepients}
+            />
+            {showRecepients && (
+              <IonLabel
+                onClick={() => toggleRecipientsPopup(false)}
+                className="overlay"
+              ></IonLabel>
+            )}
+          </>
+        )}
       </IonGrid>
     </>
   );
