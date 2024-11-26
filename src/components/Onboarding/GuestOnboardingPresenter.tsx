@@ -17,7 +17,7 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import "./OnboardingPresenter.scss";
+import "./GuestOnboardingPresenter.scss";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/pagination";
@@ -83,7 +83,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
     });
   };
   const handleVerifyOTP = (formData: any) => {
-    verifyOTP(formData.otp).then((result) => {
+    verifyOTP(formData.phone, formData.otp).then((result) => {
       console.log("veifyOtp-res", result);
     });
   };
@@ -102,7 +102,32 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
       <IonContent className="onboard_cnt guest-user ion-padding">
         {!showOtpModal && (
           <>
-            <IonGrid className="">
+            <Swiper
+              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+              className="guest-onboarding"
+              autoplay={true}
+              pagination={true}
+              loop={true}
+              navigation={false} // Hide navigation on the last slide
+              onSlideChange={handleSlideChange}
+            >
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <IonGrid className="step-content">
+                    <IonCard className="auth_screen">
+                      <IonImg
+                        className="slide-img"
+                        src={slide.image}
+                        alt={slide.title}
+                      />
+                      <IonTitle className="ion-title">{slide.title}</IonTitle>
+                      <IonText className="ion-text">{slide.text}</IonText>
+                    </IonCard>
+                  </IonGrid>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <IonGrid className="guest-auth-form ">
               <IonRow>
                 <IonCol>
                   <IonLabel className="info-alert">
@@ -142,37 +167,6 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
                   </IonCol>
                 </IonRow>
               </FormProvider>
-              {/* <IonRow>
-                <IonCol>
-                  <Swiper
-                    modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-                    className="guest-onboarding"
-                    autoplay={true}
-                    pagination={true}
-                    loop={true}
-                    navigation={false} // Hide navigation on the last slide
-                    onSlideChange={handleSlideChange}
-                  >
-                    {slides.map((slide, index) => (
-                      <SwiperSlide key={index}>
-                        <IonGrid className="step-content">
-                          <IonCard className="auth_screen">
-                            <IonImg
-                              className="slide-img"
-                              src={slide.image}
-                              alt={slide.title}
-                            />
-                            <IonTitle className="ion-title">
-                              {slide.title}
-                            </IonTitle>
-                            <IonText className="ion-text">{slide.text}</IonText>
-                          </IonCard>
-                        </IonGrid>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </IonCol>
-              </IonRow> */}
             </IonGrid>
           </>
         )}
