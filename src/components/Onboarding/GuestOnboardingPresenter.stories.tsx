@@ -27,11 +27,11 @@ GuestInvitation.args = {
     action("sendOTP")(`Sending OTP to ${phoneNumber}`);
     return true;
   },
-  verifyOTP: async (phoneNumber, otp) => {
-    action("verifyOTP")(`Verifying OTP: ${otp} for ${phoneNumber}`);
+  verifyOTP: async (otp) => {
+    action("verifyOTP")(`Verifying OTP: ${otp}`);
     return true;
   },
-  onSuccessfulAuth() {
+  onSuccessfulVerification() {
     console.log("onSuccessfulAuth");
   },
 };

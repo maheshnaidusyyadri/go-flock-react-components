@@ -83,7 +83,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
     });
   };
   const handleVerifyOTP = (formData: any) => {
-    verifyOTP(formData.phone, formData.otp).then((result) => {
+    verifyOTP(formData.otp).then((result) => {
       console.log("veifyOtp-res", result);
     });
   };
