@@ -1,8 +1,8 @@
 import React from "react";
 import OtpInput from "react-otp-input";
 import { Controller } from "react-hook-form";
-import { IonCard, IonGrid, IonImg, IonLabel, IonText } from "@ionic/react";
-import Mobile from "../../images/otp_varification.svg";
+import { IonCard, IonGrid, IonLabel, IonText } from "@ionic/react";
+import Mobile from "./Icons/Mobile";
 
 type OtpVerificationProps = {
   control?: any;
@@ -28,9 +28,9 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
   };
   return (
     <IonGrid className="varification-sec">
-      <IonCard className="auth-cnt">
+      <IonCard className="auth-cnt ion-no-margin">
         <IonLabel className="auth-title">Verify Account</IonLabel>
-        <IonImg className="mobile" alt="Go Flock" src={Mobile} />
+        <Mobile />
         <IonText className="vatification-title">Mobile Verification</IonText>
         <IonText className="subtitle">
           To continue, please enter the OTP we just sent to{" "}

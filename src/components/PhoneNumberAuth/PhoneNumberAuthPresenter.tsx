@@ -64,14 +64,10 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
 
   return (
     <IonPage className="authpage">
-      <IonContent
-        className={`generate_cnt ion-padding ${isActive ? "" : "active"}`}
-        fullscreen
-        hidden
-      >
-        {!otpSent ? (
-          <>
-            <IonGrid className="auth_sec">
+      {!otpSent ? (
+        <>
+          <IonContent className="ion-padding">
+            <IonGrid className="auth_sec ion-no-padding">
               <IonCard className="auth_cnt">
                 <IonImg className="logo" alt="Invitoz" src={Logo} />
                 <IonLabel className="auth-title">
@@ -96,6 +92,8 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 </div>
               </FormProvider>
             </IonGrid>
+          </IonContent>
+          <IonFooter className="ion-padding">
             <IonButton
               expand="block"
               shape="round"
@@ -104,10 +102,12 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
             >
               Generate OTP
             </IonButton>
-          </>
-        ) : (
-          <>
-            <FormProvider {...methods}>
+          </IonFooter>
+        </>
+      ) : (
+        <>
+          <FormProvider {...methods}>
+            <IonContent>
               <OtpVerification
                 control={control}
                 phoneNumber={phoneNumber}
@@ -115,20 +115,20 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 fieldName="otp"
                 isRequired={true}
               />
-              <IonFooter className="stickyFooter">
-                <IonButton
-                  expand="block"
-                  shape="round"
-                  className="primary-btn"
-                  onClick={handleSubmit(handleVerifyOTP)}
-                >
-                  {"Verify OTP"}
-                </IonButton>
-              </IonFooter>
-            </FormProvider>
-          </>
-        )}
-      </IonContent>
+            </IonContent>
+            <IonFooter className="stickyFooter">
+              <IonButton
+                expand="block"
+                shape="round"
+                className="primary-btn"
+                onClick={handleSubmit(handleVerifyOTP)}
+              >
+                {"Verify OTP"}
+              </IonButton>
+            </IonFooter>
+          </FormProvider>
+        </>
+      )}
     </IonPage>
   );
 };
