@@ -13,6 +13,7 @@ import {
   IonList,
   IonActionSheet,
   IonGrid,
+  IonAvatar,
   IonIcon,
 } from "@ionic/react";
 import { ProfileProps } from "@goflock/types/src/index";
@@ -27,6 +28,7 @@ import rightArrow from "../.././images/icons/arrow-right.svg";
 import rightArrowRed from "../.././images/icons/arrow-right-red.svg";
 
 import EditProfile from "./EditProfile";
+import { getDisplayName } from "../../utils/utils";
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
   setPreferredName,
@@ -53,9 +55,15 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
         />
         <IonContent className="ion-padding">
           <IonCard className="profile_card">
-            <IonImg className="dp" src={profile.pictureUrl}></IonImg>
+            {profile && profile.pictureUrl ? (
+              <IonImg className="dp" src={profile.pictureUrl}></IonImg>
+            ) : (
+              <IonAvatar className="profile-dp">
+                {getDisplayName(profile?.prefName)}
+              </IonAvatar>
+            )}
             <IonTitle className="name">{profile.prefName}</IonTitle>
-            <IonText className="number">{"+" + profile.phone}</IonText>
+            <IonText className="number">{profile.phone}</IonText>
           </IonCard>
 
           <IonGrid className="pad0 profile_settings">

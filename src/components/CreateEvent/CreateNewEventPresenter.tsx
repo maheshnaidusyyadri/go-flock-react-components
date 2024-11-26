@@ -31,16 +31,20 @@ import mediaIcon from "../../images/icons/media_circle.svg";
 import recordsIcon from "../../images/icons/record_circle.svg";
 import currencyIcon from "../../images/icons/currency.svg";
 import nextIcon from "../../images/icons/next.svg";
-
+import vacationIcon from "../../images/icons/vacation.svg";
+import birthdayIcon from "../../images/icons/birthday.svg";
+import marriageIcon from "../../images/icons/marriage.svg";
+import graduationIcon from "../../images/icons/graduation.svg";
+import moreIcon from "../../images/icons/more.svg";
 import PlaceSearch from "./PlaceSearch";
 import { EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
-import CustomSelect from "../Common/CustomSelect";
 import CustomDateTime from "../Common/CustomDateTime";
 import moment from "moment";
 import LexicalEditor from "../Common/LexicalEditor/CustomLexicalEditor";
+import CustomModalSelect from "../Common/CustomModalSelect";
 
 const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   searchLocation,
@@ -261,10 +265,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           <>
             <IonContent className="ion-padding action_screen">
               <IonGrid className="action_screen_cnt">
-                <IonImg
-                  alt="Successfully Created Event"
-                  src={Success}
-                />
+                <IonImg alt="Successfully Created Event" src={Success} />
                 <IonLabel className="action_title">
                   Successfully Created Event
                 </IonLabel>
@@ -311,10 +312,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     )}
                   </>
                 }
-                <IonImg
-                  className="next"
-                  src={nextIcon}
-                />
+                <IonImg className="next" src={nextIcon} />
               </IonLabel>
             )}
             <IonContent className="ion-padding create_event">
@@ -346,7 +344,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         <>
                           <IonRow>
                             <IonCol className="form-group ion-padding-bottom">
-                              <CustomSelect
+                              {/* <CustomSelect
                                 control={control}
                                 label="Event Type"
                                 fieldName="eventType"
@@ -364,6 +362,50 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                                 errors={errors}
                                 errorText="Event Type"
                                 //onIonChange={(e: any) => setEventType(e)}
+                              /> */}
+                              <CustomModalSelect
+                                control={control}
+                                label="Event Type"
+                                fieldName="eventType"
+                                placeholder="Select Type"
+                                options={[
+                                  {
+                                    value: "Birthday",
+                                    label: "Birthday",
+                                    icon: birthdayIcon,
+                                    type: "birthday",
+                                  },
+                                  {
+                                    value: "Vacation trip",
+                                    label: "Vacation trip",
+                                    icon: vacationIcon,
+                                    type: "vacation",
+                                  },
+                                  {
+                                    value: "Baby shower",
+                                    label: "Baby shower",
+                                    icon: marriageIcon,
+                                    type: "baby_shower",
+                                  },
+                                  {
+                                    value: "Graduation",
+                                    label: "Graduation",
+                                    icon: graduationIcon,
+                                    type: "reunion",
+                                  },
+                                  {
+                                    value: "Others",
+                                    label: "Others",
+                                    icon: moreIcon,
+                                    type: "other",
+                                  },
+                                ]}
+                                isRequired={true}
+                                errors={errors}
+                                errorText="Event Type"
+                                register={register}
+                                setValue={setValue}
+                                clearErrors={clearErrors}
                               />
                             </IonCol>
                           </IonRow>
@@ -547,8 +589,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         currentMode === "detail" && currentStep === 4
                           ? getStepClass(4)
                           : currentMode === "quick" && currentStep === 2
-                            ? getStepClass(2)
-                            : ""
+                          ? getStepClass(2)
+                          : ""
                       }`}
                     >
                       <IonLabel className="step_title">
@@ -606,10 +648,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             </IonRadio>
                           </IonRadioGroup>
                           {errors?.eventVisibility && (
-                            <IonText
-                              color="danger"
-                              style={{ fontSize: 12 }}
-                            >
+                            <IonText color="danger" style={{ fontSize: 12 }}>
                               *{" "}
                               {typeof errors.eventVisibility.message ===
                               "string"
@@ -628,8 +667,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         currentMode === "detail" && currentStep === 5
                           ? getStepClass(5)
                           : currentMode === "quick" && currentStep === 3
-                            ? getStepClass(3)
-                            : ""
+                          ? getStepClass(3)
+                          : ""
                       }`}
                     >
                       <IonLabel className="step_title">Settings*</IonLabel>
@@ -658,10 +697,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                               justify="space-between"
                             >
                               <span>
-                                <img
-                                  src={mediaIcon}
-                                  alt="Media"
-                                />
+                                <img src={mediaIcon} alt="Media" />
                               </span>
                               <p>
                                 <strong>Media</strong> Securely share pictures
@@ -692,10 +728,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                               justify="space-between"
                             >
                               <span>
-                                <img
-                                  src={recordsIcon}
-                                  alt="Record expenses"
-                                />
+                                <img src={recordsIcon} alt="Record expenses" />
                               </span>
                               <p>
                                 <strong>Record expenses</strong> Securely
@@ -743,10 +776,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           )}
                           {/* Error message for Currency */}
                           {errors?.currency && selectedRecord && (
-                            <IonText
-                              color="danger"
-                              style={{ fontSize: 12 }}
-                            >
+                            <IonText color="danger" style={{ fontSize: 12 }}>
                               *
                               {typeof errors.currency.message === "string"
                                 ? errors.currency.message
@@ -754,10 +784,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             </IonText>
                           )}
                           {errors?.record && !selectedMedia && (
-                            <IonText
-                              color="danger"
-                              style={{ fontSize: 12 }}
-                            >
+                            <IonText color="danger" style={{ fontSize: 12 }}>
                               *
                               {typeof errors.record.message === "string"
                                 ? errors.record.message

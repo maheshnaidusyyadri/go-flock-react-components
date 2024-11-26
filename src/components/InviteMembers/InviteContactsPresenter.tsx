@@ -39,8 +39,8 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
     );
   };
 
-  const filteredContacts = contacts.filter(
-    (contact) => contact?.name?.toLowerCase().includes(searchText.toLowerCase())
+  const filteredContacts = contacts.filter((contact) =>
+    contact?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
 
   // const getContactsList = () => {
@@ -55,11 +55,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
 
   return (
     <IonPage>
-      <Header
-        eventId={eventId}
-        title="Manage members"
-        showMenu={false}
-      />
+      <Header eventId={eventId} title="Manage members" showMenu={false} />
       {!isSmsSend ? (
         <>
           <IonContent className="members_page ion-padding">
@@ -90,10 +86,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                         className="list_item"
                         onClick={() => handleSelectContact(member)}
                       >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
-                        >
+                        <IonThumbnail slot="start" className="dp">
                           {member.profileImg ? (
                             <IonImg
                               src={member.profileImg}
@@ -106,10 +99,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                           )}
                           {selectedContacts.includes(member) && (
                             <span className="selection">
-                              <img
-                                src={Selected}
-                                alt="Selected"
-                              />
+                              <img src={Selected} alt="Selected" />
                             </span>
                           )}
                         </IonThumbnail>

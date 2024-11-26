@@ -170,6 +170,7 @@ export const EventWithMembers: Event = {
       email: "alice.smith@example.com",
       profileImg:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5q9GlWCAoQHPpOiDOECuYUeXW9MQP7Ddt-Q&s",
+      notificationCount: 2,
     },
     {
       id: "admin_002",
@@ -178,6 +179,7 @@ export const EventWithMembers: Event = {
       email: "bob.johnson@example.com",
       profileImg:
         "https://www.shutterstock.com/image-photo/smiling-african-american-millennial-businessman-600nw-1437938108.jpg",
+      notificationCount: 10,
     },
     {
       id: "member_001",
@@ -188,6 +190,7 @@ export const EventWithMembers: Event = {
         response: "attending",
         count: 2,
       },
+      notificationCount: 4,
     },
     {
       id: "member_002",
@@ -198,6 +201,7 @@ export const EventWithMembers: Event = {
         response: "maybe",
         count: 1,
       },
+      notificationCount: 6,
     },
     {
       id: "member_003",
@@ -208,6 +212,7 @@ export const EventWithMembers: Event = {
         response: "not-attending",
         count: 1,
       },
+      notificationCount: 8,
     },
     {
       id: "member_004",
@@ -218,6 +223,7 @@ export const EventWithMembers: Event = {
         response: "attending",
         count: 3,
       },
+      notificationCount: 10,
     },
     {
       id: "member_005",
@@ -228,6 +234,7 @@ export const EventWithMembers: Event = {
         response: "not-answered",
         count: 0,
       },
+      notificationCount: 12,
     },
   ],
   counters: {
@@ -382,6 +389,7 @@ export const EventWithOneMember: Event = {
       name: "Alice Smith",
       email: "alice.smith@example.com",
       roles: ["owner"],
+      notificationCount: 10,
     },
     {
       id: "admin_002",
@@ -389,6 +397,7 @@ export const EventWithOneMember: Event = {
       name: "Alice Smith",
       email: "alice.smith@example.com",
       roles: ["member"],
+      notificationCount: 5,
     },
     {
       id: "admin_003",
@@ -396,6 +405,7 @@ export const EventWithOneMember: Event = {
       name: "Alice Smith",
       email: "alice.smith@example.com",
       roles: ["admin"],
+      notificationCount: 6,
     },
     {
       id: "admin_004",
@@ -403,6 +413,7 @@ export const EventWithOneMember: Event = {
       name: "Alice Smith",
       email: "alice.smith@example.com",
       roles: ["admin"],
+      notificationCount: 7,
     },
   ],
   settings: {
@@ -468,11 +479,13 @@ export const EventWithTransactions: Event = {
       userId: "admin_001",
       amount: 10,
       currency: "USD",
+      name: "David Morrell",
     },
     {
       userId: "member_001",
       amount: -10,
       currency: "USD",
+      name: "David",
     },
   ],
   transactions: [
