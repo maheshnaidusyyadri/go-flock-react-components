@@ -17,6 +17,7 @@ const Template: StoryFn<CreateNewEventProps> = (args) => (
 
 export const CreateDetailEventFlow = Template.bind({});
 CreateDetailEventFlow.args = {
+  eventType: "Birthday",
   mode: "detail",
   profile: OwnerProfile,
   searchLocation: async (query: string) => {

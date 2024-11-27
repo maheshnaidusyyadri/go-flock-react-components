@@ -24,7 +24,6 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   onSuccessfulVerification,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isActive] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
 
   const methods = useForm();

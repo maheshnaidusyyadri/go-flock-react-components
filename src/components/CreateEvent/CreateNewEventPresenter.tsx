@@ -52,6 +52,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   createEvent,
   goToEvent,
   mode = "detail",
+  eventType,
 }) => {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
@@ -406,6 +407,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                                 register={register}
                                 setValue={setValue}
                                 clearErrors={clearErrors}
+                                defaultValue={eventType}
                               />
                             </IonCol>
                           </IonRow>
