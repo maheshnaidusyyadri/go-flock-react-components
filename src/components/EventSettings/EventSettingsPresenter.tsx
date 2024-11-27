@@ -134,6 +134,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
             </IonLabel>
             <IonItem>
               <IonToggle
+                className="ion-toggle"
                 checked={splitBills}
                 onIonChange={handleToggleSplitBills}
                 disabled={isLoading}

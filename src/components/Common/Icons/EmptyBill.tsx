@@ -3,7 +3,7 @@ const EmptyBill: React.FC = ({}) => {
   return (
     <>
       <svg
-        width="344"
+        width="auto"
         height="343"
         viewBox="0 0 344 343"
         fill="none"
