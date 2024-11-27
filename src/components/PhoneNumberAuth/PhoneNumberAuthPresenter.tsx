@@ -68,7 +68,11 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           <IonContent className="ion-padding">
             <IonGrid className="auth_sec ion-no-padding">
               <IonCard className="auth_cnt">
-                <IonImg className="logo" alt="Invitoz" src={Logo} />
+                <IonImg
+                  className="logo"
+                  alt="Invitoz"
+                  src={Logo}
+                />
                 <IonLabel className="auth-title">
                   Enter Your Phone Number
                 </IonLabel>
