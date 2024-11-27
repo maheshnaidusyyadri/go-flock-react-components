@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ArrowIcon from "../../images/icons/DownArrow.svg";
+
 import {
   IonLabel,
   IonGrid,
@@ -10,6 +12,7 @@ import {
   IonInput,
   IonModal,
   IonContent,
+  IonIcon,
 } from "@ionic/react";
 import {
   Controller,
@@ -67,7 +70,7 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
       )}
       <IonGrid
         onClick={() => setShowModal(true)}
-        className="ion-no-margin ion-no-padding"
+        className="ion-no-margin ion-no-padding relative"
       >
         <Controller
           name={fieldName}
@@ -86,6 +89,7 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
             />
           )}
         />
+        <IonIcon className="placeholder-icon" src={ArrowIcon} />
       </IonGrid>
       <IonModal
         isOpen={showModal}
