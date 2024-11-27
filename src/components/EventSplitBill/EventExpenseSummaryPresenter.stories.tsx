@@ -29,4 +29,6 @@ export const EventWithNoTransactionsAndSummary = Template.bind({});
 EventWithNoTransactionsAndSummary.args = {
   ...EventWithTransactionsAndSummary.args,
   event: EventWithMembers,
+  transactions: [],
+  expenses: [],
 };
