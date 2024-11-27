@@ -28,7 +28,7 @@ const EventListPresenter: React.FC<EventListProps> = ({
         showLogo={false}
         showContactList={false}
         showGoBack={true}
-        showProfile={true}
+        showProfile={false}
       />
       <IonContent className="ion-padding">
         {/* <IonLabel className="event-name">{profile.prefName}'s Events</IonLabel> */}

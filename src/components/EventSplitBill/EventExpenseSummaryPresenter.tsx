@@ -61,7 +61,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         title={`Expenses`}
         showMenu={false}
         showContactList={false}
-        showProfile={true}
+        showProfile={false}
       />
       <IonContent className="event_transactions ion-padding">
         <IonSegment

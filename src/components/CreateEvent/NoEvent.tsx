@@ -28,7 +28,7 @@ const NoEvent: React.FC = ({}) => {
           showLogo={true}
           showMenu={false}
           showContactList={false}
-          showProfile={true}
+          showProfile={false}
         />
         <IonContent className="ion-padding">
           <IonGrid>

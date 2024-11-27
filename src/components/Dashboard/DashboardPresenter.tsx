@@ -16,7 +16,7 @@ import Header from "../Header/Header";
 import EventTypeSelection from "../Common/Events/EventTypeSelection";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
-  // profile,
+  profile,
   activeEvents,
   myEvents,
   createNewEvent,
@@ -37,6 +37,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         showLogo={true}
         title={""}
         showProfile={true}
+        profile={profile}
       />
       <IonContent className="dashboard ion-padding">
         <IonSegment

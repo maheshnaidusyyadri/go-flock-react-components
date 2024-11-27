@@ -259,7 +259,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           title="Create Event"
           showMenu={false}
           showContactList={false}
-          showProfile={true}
+          showProfile={false}
         />
 
         {showSuccess ? (

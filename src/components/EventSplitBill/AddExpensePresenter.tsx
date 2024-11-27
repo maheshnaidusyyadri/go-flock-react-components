@@ -347,7 +347,8 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
         title="Add expense"
         showMenu={false}
         showContactList={false}
-        showProfile={true}
+        showProfile={false}
+        profile={profile}
       />
       <IonContent className="ion-padding expense_page">
         <IonList className="stepper-container ion-no-margin ion-margin-bottom">
