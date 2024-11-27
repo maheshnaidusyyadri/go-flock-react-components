@@ -131,7 +131,9 @@ const Header: React.FC<HeaderProps> = ({
             {showProfile && (
               <IonButton routerLink="/profile">
                 {profile && profile.pictureUrl ? (
-                  <IonImg className="dp" src={profile.pictureUrl}></IonImg>
+                  <IonThumbnail className="dp">
+                    <IonImg src={profile.pictureUrl}></IonImg>
+                  </IonThumbnail>
                 ) : profile?.prefName ? (
                   <IonAvatar className="profile-dp">
                     {getDisplayName(profile.prefName)}
