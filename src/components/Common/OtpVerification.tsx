@@ -54,15 +54,16 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
                 <OtpInput
                   value={value}
                   onChange={(otp) => {
-                    onChange(otp);
-                    if (otp.length === 6) {
-                      //setValue(fieldName, otp);
-                    }
+                    const numericOtp = otp.replace(/\D/g, "");
+                    onChange(numericOtp);
                   }}
                   numInputs={6}
                   renderInput={(props) => (
                     <input
                       {...props}
+                      type="number"
+                      inputMode="numeric"
+                      pattern="\d*"
                       style={{
                         width: "40px",
                         height: "40px",
