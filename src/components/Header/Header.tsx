@@ -11,6 +11,7 @@ import {
   IonToolbar,
   IonButtons,
   IonButton,
+  IonAvatar,
 } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
@@ -20,6 +21,9 @@ import ProfileIcon from "../../images/profile.png";
 import signInIcon from "../../images/icons/signIn.svg";
 import goflockLogo from "../../images/icons/logo.svg";
 import goflockLogoWithTitle from "../../images/icons/logo-title.svg";
+import { Profile } from "@goflock/types";
+import { EventRelation } from "@goflock/types/dist/models/event/EventRelation";
+import { getDisplayName } from "../../utils/utils";
 
 type HeaderProps = {
   eventId?: string;
@@ -33,7 +37,8 @@ type HeaderProps = {
   className?: string;
   showGoBack?: boolean;
   deleteEvent?: (eventId: string) => void;
-  eventRelation?: any;
+  eventRelation?: EventRelation;
+  profile?: Profile;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -49,6 +54,7 @@ const Header: React.FC<HeaderProps> = ({
   showGoBack = true,
   deleteEvent,
   eventRelation,
+  profile,
 }) => {
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
   const actions = [
@@ -84,20 +90,14 @@ const Header: React.FC<HeaderProps> = ({
             {showGoBack && (
               <IonButton routerLink={eventId ? `/event/${eventId}` : "/"}>
                 <IonThumbnail className="profile_icon">
-                  <IonImg
-                    src={backArrow}
-                    alt="Page Back"
-                  />
+                  <IonImg src={backArrow} alt="Page Back" />
                 </IonThumbnail>
               </IonButton>
             )}
             {showLogo && logoPosition === "left" && (
               <IonButton routerLink="/">
                 <IonThumbnail className="profile_icon">
-                  <IonImg
-                    src={goflockLogo}
-                    alt="ProfileIcon"
-                  />
+                  <IonImg src={goflockLogo} alt="ProfileIcon" />
                 </IonThumbnail>
               </IonButton>
             )}
@@ -116,44 +116,38 @@ const Header: React.FC<HeaderProps> = ({
           <IonButtons slot="end">
             {showMenu && (
               <IonButton>
-                <IonThumbnail
-                  id="open-action-sheet"
-                  className="menu_icon"
-                >
-                  <IonImg
-                    src={Menu}
-                    alt="More Details"
-                  />
+                <IonThumbnail id="open-action-sheet" className="menu_icon">
+                  <IonImg src={Menu} alt="More Details" />
                 </IonThumbnail>
               </IonButton>
             )}
             {showContactList && (
               <IonButton>
                 <IonThumbnail className="menu_icon contactList">
-                  <IonImg
-                    src={ContactListIcon}
-                    alt="Contact List"
-                  />
+                  <IonImg src={ContactListIcon} alt="Contact List" />
                 </IonThumbnail>
               </IonButton>
             )}
             {showProfile && (
               <IonButton routerLink="/profile">
-                <IonThumbnail className="profile_icon">
-                  <IonImg
-                    src={ProfileIcon}
-                    alt="ProfileIcon"
-                  />
-                </IonThumbnail>
+                {profile && profile.pictureUrl ? (
+                  <IonImg className="dp" src={profile.pictureUrl}></IonImg>
+                ) : profile?.prefName ? (
+                  <IonAvatar className="profile-dp">
+                    {getDisplayName(profile.prefName)}
+                  </IonAvatar>
+                ) : (
+                  <IonThumbnail className="profile_icon">
+                    <IonImg src={ProfileIcon} alt="ProfileIcon" />
+                  </IonThumbnail>
+                )}
               </IonButton>
             )}
+
             {showSignIn && (
               <IonLabel class="signIn_btn">
                 <IonText class="signin_text">Sign in</IonText>
-                <IonImg
-                  src={signInIcon}
-                  alt="ProfileIcon"
-                />
+                <IonImg src={signInIcon} alt="ProfileIcon" />
               </IonLabel>
             )}
           </IonButtons>

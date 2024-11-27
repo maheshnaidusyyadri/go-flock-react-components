@@ -19,7 +19,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({}) => {
         title=""
         showMenu={false}
         showContactList={false}
-        showProfile={true}
+        showProfile={false}
       />
       <IonGrid className="action_screen has_header">
         <IonGrid className="action_screen_cnt">
