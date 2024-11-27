@@ -152,7 +152,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
                 </IonCol>
               </IonRow>
               <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
+                <IonCol className="form-group non-editable ion-padding-bottom">
                   <CustomInput
                     placeholder={"Enter Phone Number"}
                     label={"Phone Number"}
