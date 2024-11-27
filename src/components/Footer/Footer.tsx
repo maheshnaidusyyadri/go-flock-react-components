@@ -30,11 +30,38 @@ const Footer: React.FC<FooterProps> = ({
   eventRelation,
   activeTab,
 }) => {
+  const showFooterAction = (type: string): boolean => {
+    switch (type) {
+      case "members":
+        return eventRelation.visitType !== "member";
+      case "media":
+        return settings.shareMedia;
+      case "expenses":
+        return (
+          settings.splitBills &&
+          (eventRelation.visitType === "owner" ||
+            eventRelation.visitType === "admin")
+        );
+      case "settings":
+        return (
+          eventRelation.visitType === "owner" ||
+          eventRelation.visitType === "admin"
+        );
+      default:
+        return false;
+    }
+  };
+  const getTabIcon = (
+    key: string,
+    activeKey: string,
+    activeIcon: any,
+    inactiveIcon: any
+  ) => (key === activeKey ? activeIcon : inactiveIcon);
   const allTabs = [
     {
       key: "invitation",
       href: `/event/${eventId}`,
-      icon: activeTab == "invitation" ? homeActiveIcon : homeIcon,
+      icon: getTabIcon("invitation", activeTab, homeActiveIcon, homeIcon),
       label: "Home",
       enabled: true, // Always enabled
     },
@@ -42,35 +69,30 @@ const Footer: React.FC<FooterProps> = ({
     {
       key: "members",
       href: `/manage-members/${eventId}`,
-      icon: activeTab == "members" ? membersActiveIcon : membersIcon,
+      icon: getTabIcon("members", activeTab, membersActiveIcon, membersIcon),
       label: "Members",
-      enabled: true, // Always enabled
+      enabled: showFooterAction("members"),
     },
     {
       key: "media",
       href: `/event-media/${eventId}`,
-      icon: activeTab == "media" ? mediaActiveIcon : mediaIcon,
+      icon: getTabIcon("media", activeTab, mediaActiveIcon, mediaIcon),
       label: "Media",
-      enabled: settings.shareMedia, // Controlled by shareMedia setting
+      enabled: showFooterAction("media"),
     },
     {
       key: "expenses",
       href: `/event-expenses/${eventId}`,
-      icon: activeTab == "expenses" ? splitActiveIcon : splitIcon,
+      icon: getTabIcon("expenses", activeTab, splitActiveIcon, splitIcon),
       label: "Split Bill",
-      enabled:
-        settings.splitBills &&
-        (eventRelation.visitType === "owner" ||
-          eventRelation.visitType === "admin"),
+      enabled: showFooterAction("expenses"),
     },
     {
       key: "settings",
       href: `/event-settings/${eventId}`,
-      icon: activeTab == "settings" ? settingsActiveIcon : settingsIcon,
+      icon: getTabIcon("settings", activeTab, settingsActiveIcon, settingsIcon),
       label: "Settings",
-      enabled:
-        eventRelation.visitType === "owner" ||
-        eventRelation.visitType === "admin",
+      enabled: showFooterAction("settings"),
     },
   ];
 
@@ -85,10 +107,7 @@ const Footer: React.FC<FooterProps> = ({
             {enabledTabs.map((tab) => (
               <IonCol key={tab.key}>
                 <Link to={tab.href}>
-                  <img
-                    src={tab.icon}
-                    alt={`${tab.label} icon`}
-                  />
+                  <img src={tab.icon} alt={`${tab.label} icon`} />
                 </Link>
               </IonCol>
             ))}
