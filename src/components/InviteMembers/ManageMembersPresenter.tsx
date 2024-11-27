@@ -33,17 +33,18 @@ import NotificationIcon from "../../images/icons/notification.svg";
 import userSearchIcon from "../../images/icons/userSearch.svg";
 import membersIcon from "../../images/icons/members.svg";
 import messagesIcon from "../../images/icons/messages.svg";
-import arrowIcon from "../../images/icons/DownArrow.svg";
+import allIcon from "../../images/rsvp/all.svg";
+import attendingIcon from "../../images/rsvp/attending.svg";
+import notAttendingIcon from "../../images/rsvp/notAttending.svg";
+import notSureIcon from "../../images/rsvp/notSure.svg";
 
 import { getDisplayName } from "../../utils/utils";
 import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
 import RsvpStatus from "../Common/RsvpStatus";
-//import CustomSelect from "../Common/CustomSelect";
 import IonTextarea from "../Common/CustomTextarea";
 import { FormProvider, useForm } from "react-hook-form";
-import CustomInput from "../Common/CustomInput";
-import CustomSelectRecipients from "./CustomSelectRecipients";
+import CustomModalSelect from "../Common/CustomModalSelect";
 
 interface EventMember {
   id?: string;
@@ -73,26 +74,69 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   >("Track");
   const [showAction, setShowAction] = useState(false);
   const [selectedUser, setSelectedUser] = useState<EventMember | null>(null);
-  const [showRecepients, setShowRecepients] = useState(false);
-  const [selectedRecepients, setSelectedRecepients] = useState<string | "null">(
-    "Birthdays"
-  );
-  const [selectedRecepient, SetSelectedRecepient] = useState<string | "null">(
-    ""
-  );
-  const [Isfilter, setIsfilter] = useState(false);
+  const [recipientsList, SetRecipientsList] = useState<
+    { value: string; label: string }[]
+  >([]);
   const methods = useForm();
   const {
     formState: { errors },
     register,
-    //control,
     setValue,
     clearErrors,
+    control,
   } = useForm();
   useEffect(() => {
-    setValue("recipien", "ALL");
-  }, []);
-
+    if (!event?.counters) return;
+    const { attendingRSVP, maybeRSVP, declinedRSVP, totalRSVP } =
+      event.counters;
+    const options = [
+      {
+        value: `All${
+          totalRSVP && totalRSVP.total > 0 ? `(${totalRSVP.total})` : ""
+        }`,
+        label: `All${
+          totalRSVP && totalRSVP.total > 0 ? `(${totalRSVP.total})` : ""
+        }`,
+        icon: allIcon,
+      },
+      {
+        value: `Attending${
+          attendingRSVP && attendingRSVP.total > 0
+            ? `(${attendingRSVP.total})`
+            : ""
+        }`,
+        label: `Attending${
+          attendingRSVP && attendingRSVP.total > 0
+            ? `(${attendingRSVP.total})`
+            : ""
+        }`,
+        icon: attendingIcon,
+      },
+      {
+        value: `Maybe${
+          maybeRSVP && maybeRSVP.total > 0 ? `(${maybeRSVP.total})` : ""
+        }`,
+        label: `Maybe${
+          maybeRSVP && maybeRSVP.total > 0 ? `(${maybeRSVP.total})` : ""
+        }`,
+        icon: notSureIcon,
+      },
+      {
+        value: `Declined${
+          declinedRSVP && declinedRSVP.total > 0
+            ? `(${declinedRSVP.total})`
+            : ""
+        }`,
+        label: `Declined${
+          declinedRSVP && declinedRSVP.total > 0
+            ? `(${declinedRSVP.total})`
+            : ""
+        }`,
+        icon: notAttendingIcon,
+      },
+    ];
+    SetRecipientsList(options);
+  }, [event]);
   const handleDelete = () => {
     if (selectedUser) {
       removeMember(selectedUser);
@@ -120,33 +164,6 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     }
     return "No action available";
   };
-
-  const handleRecipientChange = (value: string) => {
-    if (Isfilter) {
-      SetSelectedRecepient(value);
-      setValue("recipien", value);
-      setShowRecepients(false);
-    } else {
-      setSelectedRecepients(value);
-      setValue("recipient", value);
-      setShowRecepients(false);
-      clearErrors("recipient");
-    }
-    console.log("Selected Event:", value);
-  };
-  const showRecipientsModal = () => {
-    setIsfilter(false);
-    setShowRecepients(true);
-  };
-  const showRecipientsPopup = () => {
-    setIsfilter(true);
-    setShowRecepients(true);
-  };
-  const toggleRecipientsPopup = (shouldShow = false) => {
-    setIsfilter(shouldShow);
-    setShowRecepients(shouldShow);
-  };
-
   return (
     <>
       <IonPage className="invite_page">
@@ -178,47 +195,21 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               <IonGrid className="menbers_list ion-no-padding">
                 {members && members.length > 0 ? (
                   <IonList className="list_wrap event_members">
-                    {/* <IonRow>
+                    <IonRow>
                       <IonCol className="form-group ion-padding-bottom">
-                        <CustomSelect
+                        <CustomModalSelect
                           control={control}
-                          label=""
-                          fieldName="recipients"
+                          label=" "
+                          fieldName="recipien"
                           placeholder="Select Recipients"
-                          defaultValue={"All(125)"}
-                          options={[
-                            { value: "All(125)", label: "All(125)" },
-                            { value: "Vacations", label: "Not Attending(40)" },
-                            {
-                              value: "Attending(10)",
-                              label: "Attending(10)",
-                            },
-                            {
-                              value: "Not Responding(30)",
-                              label: "Not Responding(30)",
-                            },
-                            { value: "Not Sure(20)", label: "Not Sure(20)" },
-                          ]}
+                          options={recipientsList}
                           isRequired={false}
                           errors={errors}
                           errorText="Recipients"
-                        />
-                      </IonCol>
-                    </IonRow> */}
-                    <IonRow>
-                      <IonCol
-                        className="form-group custom-input ion-padding-bottom"
-                        onClick={showRecipientsPopup}
-                      >
-                        <IonImg className="arrowIcon nolabel" src={arrowIcon} />
-                        <CustomInput
-                          fieldName={"recipien"}
-                          isRequired={false}
-                          errors={errors}
-                          errorText={"Recipients"}
                           register={register}
-                          readOnly={true}
-                          defaultValue={selectedRecepient}
+                          setValue={setValue}
+                          clearErrors={clearErrors}
+                          defaultValue={recipientsList[0].value}
                         />
                       </IonCol>
                     </IonRow>
@@ -270,7 +261,6 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                                 </IonBadge>
                               </IonLabel>
                             )}
-
                             <IonImg
                               onClick={() => {
                                 if (member) {
@@ -314,49 +304,20 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                     />
                   </IonCol>
                 </IonRow>
-                {/* <IonRow>
+                <IonRow>
                   <IonCol className="form-group ion-padding-bottom">
-                    <CustomSelect
+                    <CustomModalSelect
                       control={control}
                       label="Recipients"
                       fieldName="recipient"
                       placeholder="Select Recipients"
-                      options={[
-                        { value: "All(125)", label: "All(125)" },
-                        { value: "Vacations", label: "Not Attending(40)" },
-                        {
-                          value: "Attending(10)",
-                          label: "Attending(10)",
-                        },
-                        {
-                          value: "Not Responding(30)",
-                          label: "Not Responding(30)",
-                        },
-                        { value: "Not Sure(20)", label: "Not Sure(20)" },
-                      ]}
+                      options={recipientsList}
                       isRequired={true}
                       errors={errors}
                       errorText="Recipients"
-                      //onIonChange={(e: any) => setEventType(e)}
-                    />
-                  </IonCol>
-                </IonRow> */}
-                <IonRow>
-                  <IonCol
-                    className="form-group custom-input ion-padding-bottom"
-                    onClick={showRecipientsModal}
-                  >
-                    <IonImg className="arrowIcon" src={arrowIcon} />
-                    <CustomInput
-                      placeholder={"Select Recipients"}
-                      label={"Recipients"}
-                      fieldName={"recipient"}
-                      isRequired={true}
-                      errors={errors}
-                      errorText={"Recipients"}
                       register={register}
-                      readOnly={true}
-                      defaultValue={selectedRecepients}
+                      setValue={setValue}
+                      clearErrors={clearErrors}
                     />
                   </IonCol>
                 </IonRow>
@@ -451,27 +412,6 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           },
         ]}
       />
-
-      <IonGrid
-        className={
-          showRecepients ? "custom-action-modal open" : "custom-action-modal"
-        }
-      >
-        {showRecepients && (
-          <>
-            <CustomSelectRecipients
-              onChange={handleRecipientChange}
-              defaultValue={Isfilter ? selectedRecepient : selectedRecepients}
-            />
-            {showRecepients && (
-              <IonLabel
-                onClick={() => toggleRecipientsPopup(false)}
-                className="overlay"
-              ></IonLabel>
-            )}
-          </>
-        )}
-      </IonGrid>
     </>
   );
 };

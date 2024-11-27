@@ -17,7 +17,6 @@ import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
 import Menu from "../../images/icons/menu.svg";
 import ContactListIcon from "../../images/icons/ContactList.svg";
-import ProfileIcon from "../../images/profile.png";
 import signInIcon from "../../images/icons/signIn.svg";
 import goflockLogo from "../../images/icons/logo.svg";
 import goflockLogoWithTitle from "../../images/icons/logo-title.svg";
@@ -139,9 +138,7 @@ const Header: React.FC<HeaderProps> = ({
                     {getDisplayName(profile.prefName)}
                   </IonAvatar>
                 ) : (
-                  <IonThumbnail className="profile_icon">
-                    <IonImg src={ProfileIcon} alt="ProfileIcon" />
-                  </IonThumbnail>
+                  ""
                 )}
               </IonButton>
             )}

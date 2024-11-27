@@ -273,28 +273,11 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const handleAddTransaction = async (formData: any) => {
     setIsLoading(true);
     setError(null);
-    // let transaction: Transaction = {
-    //   eventId: event.id,
-    //   deleted: false,
-    //   description: "Sample transaction",
-    //   amount: 100,
-    //   date: new Date().toISOString(),
-    //   paidUserId: profile.id,
-    //   //splitAmongUserIds: [profile.id],
-    //   splitAmongUserIds: [
-    //     {
-    //       userId: profile.id,
-    //       amount: 100,
-    //       currency: "USD",
-    //     },
-    //   ],
-    //   currency: "USD",
-    // };
     let transaction: Transaction = {
       eventId: event.id,
       deleted: false,
       description: formData.billName,
-      amount: formData.totalAmount,
+      amount: parseFloat(formData.totalAmount),
       date: new Date().toISOString(),
       paidUserId: selectedPaidBy.id,
       splitAmongUserIds: [],
@@ -303,6 +286,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     };
     if (selectedMember && selectedMember.length > 0) {
       transaction.splitAmongUserIds = selectedMember.map((member: any) => ({
+        //UserSplit
         userId: member.id,
         amount: member.amount,
         currency: "USD",
