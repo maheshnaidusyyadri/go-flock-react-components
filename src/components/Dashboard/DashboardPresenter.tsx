@@ -39,7 +39,7 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         showProfile={true}
         profile={profile}
       />
-      <IonContent className="dashboard ion-padding">
+      <IonContent className="dashboard ion-padding-end ion-padding-start ion-padding-bottom">
         <IonSegment
           className="segment-tabs"
           value={selectedSegment}

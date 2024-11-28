@@ -43,6 +43,7 @@
       height: 48px;
       width: 100%;
       padding: 0 15px;
+      color: $GoFlockColor;
     }
     .flag-dropdown {
       position: static;
@@ -111,6 +112,7 @@
               font-weight: 400;
               color: $GoFlockColor;
               padding-top: 6px;
+              background: $white;
             }
           }
           &.no-entries-message {
@@ -256,6 +258,7 @@
       justify-content: center;
       input {
         border-bottom: 1px solid $GoFlockColor !important;
+        background: $white;
         &:focus-visible {
           outline: none;
         }

@@ -93,24 +93,40 @@ body {
       .native-wrapper {
         position: relative;
         padding-left: 15px;
+        color: $secondaryColor;
+        font-size: 14px;
+        font-family: $GoFlockFont;
+        font-weight: 400;
         &:after {
           content: "$";
           position: absolute;
           left: 0px;
           top: 50%;
           transform: translateY(-50%);
+          color: $secondaryColor;
+          font-size: 14px;
+          font-family: $GoFlockFont;
+          font-weight: 400;
         }
       }
     }
     &.safix .native-wrapper {
       position: relative;
       padding-right: 15px;
+      color: $secondaryColor;
+      font-size: 14px;
+      font-family: $GoFlockFont;
+      font-weight: 400;
       &:after {
         content: "%";
         position: absolute;
         right: 0px;
         top: 50%;
         transform: translateY(-50%);
+        color: $secondaryColor;
+        font-size: 14px;
+        font-family: $GoFlockFont;
+        font-weight: 400;
       }
     }
   }

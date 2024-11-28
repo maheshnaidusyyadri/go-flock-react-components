@@ -69,9 +69,14 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
       {error && <p>{error}</p>}
 
       {locations?.length > 0 && (
-        <IonList>
+        <IonList className="locations-list">
           {locations.map((location, index) => (
-            <IonItem key={index} button onClick={() => handleSelect(location)}>
+            <IonItem
+              className="location-item"
+              key={index}
+              button
+              onClick={() => handleSelect(location)}
+            >
               <IonLabel>{location.name}</IonLabel>
             </IonItem>
           ))}

@@ -137,9 +137,7 @@ const Header: React.FC<HeaderProps> = ({
                   <IonAvatar className="profile-dp">
                     {getDisplayName(profile.prefName)}
                   </IonAvatar>
-                ) : (
-                  ""
-                )}
+                ) : null}
               </IonButton>
             )}
 

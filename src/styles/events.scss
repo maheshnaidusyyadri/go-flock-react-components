@@ -260,6 +260,7 @@
     .card-label {
       display: block;
       font-family: $GoFlockFont;
+      color: $GoFlockColor;
       font-size: 14px;
       font-size: clamp(12px, 3.38vw, 14px);
       font-weight: 400;

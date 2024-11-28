@@ -412,7 +412,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             </IonCol>
                           </IonRow>
                           <IonRow>
-                            <IonCol className="form-group ion-padding-bottom">
+                            <IonCol className="form-group location ion-padding-bottom">
                               <IonLabel className="form-label">
                                 Location*
                               </IonLabel>

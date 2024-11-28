@@ -168,7 +168,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     <>
       <IonPage className="invite_page">
         <Header eventId={eventId} title="Manage members" showMenu={false} />
-        <IonContent className="invite_members ion-padding">
+        <IonContent className="invite_members ion-padding-end ion-padding-start ion-padding-bottom">
           <IonSegment
             className="segment-tabs"
             value={selectedSegment}
