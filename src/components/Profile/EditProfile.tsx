@@ -10,12 +10,13 @@ import {
   IonRow,
   IonGrid,
   IonFooter,
+  IonAvatar,
 } from "@ionic/react";
-import ProfileDp from "../../images/profile.png";
 import Header from "../Header/Header";
 import { Profile } from "@goflock/types";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
+import { getDisplayName } from "../../utils/utils";
 
 type EditProfileProps = {
   profile: Profile;
@@ -121,10 +122,13 @@ const EditProfile: React.FC<EditProfileProps> = ({
       <IonContent className="profile_edit_cnt">
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
-            <IonImg
-              className="dp"
-              src={image || profile.pictureUrl || ProfileDp}
-            ></IonImg>
+            {image || profile.pictureUrl ? (
+              <IonImg className="dp" src={image || profile.pictureUrl}></IonImg>
+            ) : profile?.prefName ? (
+              <IonAvatar className="profile-dp">
+                {getDisplayName(profile.prefName)}
+              </IonAvatar>
+            ) : null}
             <span
               className="dp_edit"
               onClick={() => fileInputRef.current?.click()}
