@@ -34,6 +34,15 @@ import SelectMembers from "./SelectExpense";
 //import { EventMember, Transaction } from "@goflock/types";
 import { EventMember, Transaction } from "@goflock/types/src/index";
 import { getDisplayName } from "../../utils/utils";
+
+interface ExpenseMember {
+  id: string;
+  name: string;
+  amount: number;
+  percentage: number;
+  isPaidBy: boolean;
+}
+
 const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   profile,
   event,
@@ -42,24 +51,23 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const [] = useState<EventVisibility>();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 3;
-  const [contactsList, setContactsList] = useState<EventMember[]>([]);
+  const [eventMemberList, setEventMemberList] = useState<EventMember[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isFromPaidBy, setIsFromPaidBy] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [selectedMember, setSelectedMembers] = useState<any>([]);
-  const [selectedEqallAmount, setSelectedEqallAmount] = useState<any>([]);
-  // @ts-ignore
-  const [selectedPaidBy, setselectedPaidBy] = useState<any>(null);
-  const [selectedAmount, setTotalAmount] = useState<any>(null);
-  const [sumOfSelectedAmt, setSumOfSelectedAmt] = useState<any>(null);
+  const [selectedMembers, setSelectedMembers] = useState<ExpenseMember[]>([]);
+  const [selectedEqallAmount, setSelectedEqallAmount] = useState<
+    ExpenseMember[]
+  >([]);
+  const [selectedPaidBy, setselectedPaidBy] = useState<ExpenseMember>();
+  const [selectedAmount, setTotalAmount] = useState<number>(0);
+  const [sumOfSelectedAmt, setSumOfSelectedAmt] = useState<number>(0);
   const [selectedSegment, setSelectedSegment] = useState<
     "equal" | "amount" | "percentage"
   >("equal");
 
-  // @ts-ignore
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  // @ts-ignore
-  const [error, setError] = useState<string | null>(null);
+  const [, setIsLoading] = useState<boolean>(false);
+  const [, setError] = useState<string | null>(null);
 
   const methods = useForm();
   const {
@@ -84,7 +92,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     console.log("currentStep", currentStep);
     setShowError(false);
     if (currentStep === 2) {
-      let totalSelectedAmount = selectedMember.map((total: any) => {
+      let totalSelectedAmount = selectedMembers.map((total: any) => {
         return parseFloat(total.amount);
       });
       console.log("totalSelectedAmount (as floats)", totalSelectedAmount);
@@ -98,43 +106,43 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
         sumOfSelectedAmount
       );
       // Parse the selected amount for comparison
-      let selectedAmountInt = parseFloat(selectedAmount || "0");
-      console.log("selectedAmountInt", selectedAmountInt);
+      console.log("sumOfSelectedAmount", typeof sumOfSelectedAmount);
+      console.log("selectedAmount", typeof selectedAmount);
+      console.log(Number(sumOfSelectedAmount) === Number(selectedAmount));
+      console.log(sumOfSelectedAmount !== selectedAmount);
+
       setSumOfSelectedAmt(sumOfSelectedAmount);
       // const tolerance = 0.01;
       // if (Math.abs(sumOfSelectedAmount - selectedAmountInt) > tolerance) {
       //   setShowError(true);
       //   return;
       // }
-      if (sumOfSelectedAmount !== selectedAmountInt) {
+      if (Number(sumOfSelectedAmount) !== Number(selectedAmount)) {
         setShowError(true);
         return;
       }
-    }
-
-    if (currentStep === 1) {
-      const validSelectedAmount =
-        selectedAmount !== null ? parseFloat(selectedAmount) : 0;
+    } else if (currentStep === 1) {
+      const validSelectedAmount = selectedAmount;
 
       const shareAmount =
-        selectedMember.length > 0
-          ? validSelectedAmount / selectedMember.length
+        selectedMembers.length > 0
+          ? validSelectedAmount / selectedMembers.length
           : 0;
 
-      selectedMember.forEach((memberItem: any) => {
+      selectedMembers.forEach((memberItem: any) => {
         memberItem.amount = getDecimalValue(shareAmount);
         memberItem.percentage =
           validSelectedAmount > 0
             ? getDecimalValue((shareAmount / validSelectedAmount) * 100)
             : 0;
       });
-      const sumOfSelectedAmount = selectedMember.reduce(
+      const sumOfSelectedAmount = selectedMembers.reduce(
         (acc: number, curr: any) => acc + parseFloat(curr.amount),
         0
       );
 
       console.log("shareAmount", shareAmount);
-      console.log("selectedMember after distribution", selectedMember);
+      console.log("selectedMember after distribution", selectedMembers);
       console.log(
         "sumOfSelectedAmount after distribution",
         sumOfSelectedAmount
@@ -144,14 +152,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
       console.log("remainingAmount to be adjusted", remainingAmount);
 
-      const isSelectedPaidByInList = selectedMember.some(
+      const isSelectedPaidByInList = selectedMembers.some(
         (member: any) => member.id === selectedPaidBy?.id
       );
 
-      let updatedSelectedMember = [...selectedMember];
+      let updatedSelectedMember = [...selectedMembers];
 
       if (isSelectedPaidByInList) {
-        updatedSelectedMember = selectedMember.map((member: any) => {
+        updatedSelectedMember = selectedMembers.map((member: any) => {
           if (member.id === selectedPaidBy?.id) {
             const updatedAmount = parseFloat(member.amount) + remainingAmount;
             const updatedPercentage =
@@ -165,12 +173,10 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
           return member;
         });
       } else {
-        updatedSelectedMember[0].amount = (
-          parseFloat(updatedSelectedMember[0].amount) + remainingAmount
-        ).toFixed(2);
+        updatedSelectedMember[0].amount =
+          updatedSelectedMember[0].amount + remainingAmount;
         const updatedFirstMemberPercentage =
-          (parseFloat(updatedSelectedMember[0].amount) / validSelectedAmount) *
-          100;
+          (updatedSelectedMember[0].amount / validSelectedAmount) * 100;
         updatedSelectedMember[0].percentage = getDecimalValue(
           updatedFirstMemberPercentage
         );
@@ -185,6 +191,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
     if (currentStep < totalSteps) setCurrentStep((prev) => prev + 1);
   };
+
   const prevStep = () => {
     if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
@@ -214,7 +221,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
 
   useEffect(() => {
     console.log("event.members", event);
-    setContactsList(event.members);
+    setEventMemberList(event.members);
   }, [event]);
 
   const handleMemberSelect = (selected: string[] | string | null | any) => {
@@ -236,14 +243,16 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     setIsFromPaidBy(true);
     setIsOpen(true);
   };
+
   const handleChooseMembersClick = () => {
     setIsFromPaidBy(false);
     setIsOpen(true);
   };
+
   const handleClose = () => {
     if (isFromPaidBy) {
       setValue("paidBy", null);
-      setselectedPaidBy(null);
+      setselectedPaidBy(undefined);
       trigger();
     } else {
       setValue("splitAmong", null);
@@ -252,8 +261,9 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
     }
     setIsOpen(false);
   };
+
   const handleRemove = (memberToRemove: any) => {
-    const updatedMembers = selectedMember.filter(
+    const updatedMembers = selectedMembers.filter(
       (member: any) => member.id !== memberToRemove.id
     );
     setSelectedMembers(updatedMembers);
@@ -279,16 +289,16 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
       description: formData.billName,
       amount: parseFloat(formData.totalAmount),
       date: new Date().toISOString(),
-      paidUserId: selectedPaidBy.id,
+      paidUserId: selectedPaidBy?.id!,
       splitAmongUserIds: [],
       currency: "USD",
       addedByUserId: profile.id,
     };
-    if (selectedMember && selectedMember.length > 0) {
-      transaction.splitAmongUserIds = selectedMember.map((member: any) => ({
+    if (selectedMembers && selectedMembers.length > 0) {
+      transaction.splitAmongUserIds = selectedMembers.map((member: any) => ({
         //UserSplit
         userId: member.id,
-        amount: member.amount,
+        amount: member.amount as number,
         currency: "USD",
       }));
     }
@@ -304,11 +314,11 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const handleAmountChange = (value: string, index: number) => {
     const amount = parseFloat(value) || 0;
     const updatedPercentage = (amount / (selectedAmount || 0)) * 100;
-    const updatedMembers = [...selectedMember];
+    const updatedMembers = [...selectedMembers];
     updatedMembers[index] = {
       ...updatedMembers[index],
       amount: amount,
-      percentage: updatedPercentage.toFixed(2), // Update corresponding percentage
+      percentage: updatedPercentage, // Update corresponding percentage
     };
     setSelectedMembers(updatedMembers);
   };
@@ -316,11 +326,11 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
   const handlePercentageChange = (value: string, index: number) => {
     const percentage = parseFloat(value) || 0;
     const updatedAmount = ((selectedAmount || 0) * percentage) / 100;
-    const updatedMembers = [...selectedMember];
+    const updatedMembers = [...selectedMembers];
     updatedMembers[index] = {
       ...updatedMembers[index],
       percentage: percentage,
-      amount: updatedAmount.toFixed(2), // Update corresponding dollar amount
+      amount: updatedAmount, // Update corresponding dollar amount
     };
     setSelectedMembers(updatedMembers);
   };
@@ -411,7 +421,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <IonCol></IonCol>
               </IonRow>
               <IonGrid class="profile-list">
-                {selectedMember.map((eventMember: any) => (
+                {selectedMembers.map((eventMember: any) => (
                   <IonList
                     key={eventMember.id}
                     className="profile-item"
@@ -475,8 +485,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                   <IonCol size="12">
                     <IonList className="list_wrap">
                       {selectedEqallAmount.map((Item: any, index: any) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
+                        <IonItem
+                          key={index}
+                          className="user_item"
+                        >
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {Item.profileImg ? (
                               <IonAvatar className="profile-avatar">
                                 <IonImg
@@ -505,9 +521,15 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <IonRow id="radio-page">
                   <IonCol size="12">
                     <IonList className="list_wrap expense_tabs">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
+                      {selectedMembers.map((Item: any, index: any) => (
+                        <IonItem
+                          key={index}
+                          className="user_item"
+                        >
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {Item.profileImg ? (
                               <IonAvatar className="profile-avatar">
                                 <IonImg
@@ -547,9 +569,15 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 <IonRow id="library-page">
                   <IonCol size="12">
                     <IonList className="list_wrap expense_tabs">
-                      {selectedMember.map((Item: any, index: any) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
+                      {selectedMembers.map((Item: any, index: any) => (
+                        <IonItem
+                          key={index}
+                          className="user_item"
+                        >
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {Item.profileImg ? (
                               <IonAvatar className="profile-avatar">
                                 <IonImg
@@ -630,9 +658,15 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
           {currentStep == 3 && (
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
-                {selectedMember.map((Item: any, index: any) => (
-                  <IonItem key={index} className="user_item">
-                    <IonThumbnail slot="start" className="dp">
+                {selectedMembers.map((Item: any, index: any) => (
+                  <IonItem
+                    key={index}
+                    className="user_item"
+                  >
+                    <IonThumbnail
+                      slot="start"
+                      className="dp"
+                    >
                       {Item.profileImg ? (
                         <IonAvatar className="profile-avatar">
                           <IonImg
@@ -688,7 +722,7 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
           <>
             <SelectMembers
               title={isFromPaidBy ? "Who paid" : "Choose members"}
-              members={contactsList}
+              members={eventMemberList}
               isMultiple={!isFromPaidBy}
               onMemberSelect={handleMemberSelect}
               modalClose={handleClose}
