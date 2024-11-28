@@ -13,6 +13,8 @@ interface CustomSelectProps {
     register?: UseFormRegister<any>;
     setValue: UseFormSetValue<any>;
     clearErrors: UseFormClearErrors<any>;
+    onChangeSelect?: (e: CustomEvent | string) => void;
+    filterApply?: boolean;
 }
 declare const CustomModalSelect: React.FC<CustomSelectProps>;
 export default CustomModalSelect;
