@@ -9,8 +9,14 @@ import {
   IonModal,
   IonContent,
 } from "@ionic/react";
-import clockIcon from "../../images/Clock.svg";
 import SettingsCircle from "./Icons/SettingsCircle";
+import inviteIcon from "../../images/icons/invite.svg";
+import editIcon from "../../images/icons/Edit.svg";
+import imageIcon from "../../images/icons/image.svg";
+import copyIcon from "../../images/icons/copy2.svg";
+import checklistIcon from "../../images/icons/checklist2.svg";
+import eyeIcon from "../../images/icons/Eye.svg";
+import deleteIcon from "../../images/icons/Delete.svg";
 
 interface CustomActionsProps {
   isOpen: boolean;
@@ -20,7 +26,37 @@ interface CustomActionsProps {
 const CustomActions: React.FC<CustomActionsProps> = ({ isOpen, onClose }) => {
   const options = [
     {
-      icon: clockIcon,
+      icon: inviteIcon,
+      label: "Invite",
+      type: "invite",
+    },
+    {
+      icon: editIcon,
+      label: "Edit",
+      type: "edit",
+    },
+    {
+      icon: imageIcon,
+      label: "Image",
+      type: "image",
+    },
+    {
+      icon: copyIcon,
+      label: "Copy",
+      type: "copy",
+    },
+    {
+      icon: checklistIcon,
+      label: "Checklist",
+      type: "checklist",
+    },
+    {
+      icon: eyeIcon,
+      label: "Guest View",
+      type: "guest",
+    },
+    {
+      icon: deleteIcon,
       label: "Delete",
       type: "delete",
     },
@@ -45,7 +81,7 @@ const CustomActions: React.FC<CustomActionsProps> = ({ isOpen, onClose }) => {
               </p>
             </IonCol>
           </IonRow>
-          <IonRow className="action-grid">
+          <IonRow className="action-grid v2">
             {options.map((event, index) => (
               <IonCol
                 key={index}
@@ -54,8 +90,8 @@ const CustomActions: React.FC<CustomActionsProps> = ({ isOpen, onClose }) => {
               >
                 <IonThumbnail className="icon-thumb">
                   <IonImg src={event.icon} alt={event.label} />
+                  <IonText className="card-label">{event.label}</IonText>
                 </IonThumbnail>
-                <IonText className="card-label">{event.label}</IonText>
               </IonCol>
             ))}
           </IonRow>

@@ -273,6 +273,11 @@
       }
     }
   }
+  &.v2 {
+    .ion-col .icon-thumb {
+      flex-direction: column;
+    }
+  }
 }
 
 .custom-action-modal {
