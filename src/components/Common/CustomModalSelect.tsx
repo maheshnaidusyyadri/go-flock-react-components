@@ -37,6 +37,8 @@ interface CustomSelectProps {
   register?: UseFormRegister<any>;
   setValue: UseFormSetValue<any>;
   clearErrors: UseFormClearErrors<any>;
+  onChangeSelect?: (e: CustomEvent | string) => void;
+  filterApply?: boolean;
 }
 
 const CustomModalSelect: React.FC<CustomSelectProps> = ({
@@ -51,14 +53,23 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
   setValue,
   options,
   clearErrors,
+  onChangeSelect,
+  filterApply = false,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
-  const handleSelectEvent = (event: { label: string; value: string }) => {
+  const handleSelectEvent = (event: {
+    label: string;
+    value: string;
+    type: string;
+  }) => {
     setSelectedValue(event.label);
     setValue(fieldName, event.value);
     clearErrors(fieldName);
     setShowModal(false);
+    if (onChangeSelect) {
+      onChangeSelect(filterApply ? event.type : event.value);
+    }
   };
 
   return (

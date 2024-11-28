@@ -37,7 +37,7 @@ import marriageIcon from "../../images/icons/marriage.svg";
 import graduationIcon from "../../images/icons/graduation.svg";
 import moreIcon from "../../images/icons/more.svg";
 import PlaceSearch from "./PlaceSearch";
-import { EventVisibility } from "@goflock/types";
+import { Currency, EventVisibility } from "@goflock/types";
 import Header from "../Header/Header";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
@@ -53,6 +53,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   goToEvent,
   mode = "detail",
   eventType,
+  event,
+  isEditing,
+  updateEvent,
 }) => {
   const [selectedLocation, setSelectedLocation] =
     useState<LocationInfo | null>();
@@ -62,12 +65,14 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const tomorrow = new Date(currentDate.setDate(currentDate.getDate() + 1));
   const tomorrowISOString = tomorrow.toISOString();
   const [startDate, setStartDate] = useState<string>(tomorrowISOString); // Default to next day
-  const [endDate, setEndDate] = useState<string>(tomorrowISOString); // Default to next day
+  const [endDate, setEndDate] = useState<string>(""); // Default to next day
   const [locationError, setLocationError] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedMedia, setSelectedMedia] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState(null);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency | null>(
+    null
+  );
   const [currentMode, setCurrentMode] = useState(mode);
   const [showSuccess, setShowSuccess] = useState(false);
   const [newEventId, setNewEventId] = useState("");
@@ -86,11 +91,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [endTime, setEndTime] = useState("");
   const [generatedInvitationDescription, setGeneratedInvitationDescription] =
     useState("");
-
+  console.log("event-event", event);
+  console.log("isEditing-isEditing", isEditing);
   useEffect(() => {
-    if (startDate) {
-      // setValue("endDate", startDate);
-    }
     if (startDate && endDate && startTime && startDate == endDate) {
       const startDateObj = new Date(startDate);
       const startTimeObj = new Date(startTime);
@@ -101,7 +104,43 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       setEndTime(startDateObj.toISOString());
     }
   }, [startDate, startTime, endDate]);
-
+  useEffect(() => {
+    if (isEditing) {
+      setValue("event", event?.name);
+      setValue("eventType", event?.type);
+      setSelectedLocation(event?.location);
+      setValue("hostedBy", event?.hostedBy);
+      // setValue("startDate", event.time?.startDate);
+      setStartDate(event?.time?.startDate || "");
+      setValue("startTime", event?.time?.startTime);
+      setEndDate(event?.time?.endDate || "");
+      setValue("endTime", event?.time?.endTime);
+      setSelectedRecord(event?.settings?.shareMedia || false);
+      setSelectedMedia(event?.settings?.splitBills || false);
+      setEventVisibility(event?.settings?.eventVisibility);
+      // setValue("description", event.description);
+      setGeneratedInvitationDescription(event?.description || "");
+      setSelectedCurrency(event?.settings?.currency || null);
+    } else {
+      setValue("eventType", setEventType(eventType || ""));
+    }
+  }, [event, isEditing, eventType]);
+  const setEventType = (type: string) => {
+    let eventTypes: Record<string, string> = {
+      birthday: "Birthday",
+      get_togather: "Get Together",
+      vacation: "Vacation",
+      family_event: "Family Event",
+      gender_reveal: "Gender Reveal",
+      baby_shower: "Baby Shower",
+      anniversary: "Anniversary",
+      wedding: "Wedding",
+      reunion: "Reunion",
+      party: "Party",
+      other: "Other",
+    };
+    return eventTypes[type];
+  };
   // Handle creating an event
   const handleCreateEvent = async (data: any) => {
     console.log("formData", data);
@@ -144,7 +183,9 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       },
     };
     try {
-      let newEvent: Event = await createEvent(draftEvent);
+      let newEvent: Event = await (isEditing
+        ? updateEvent(draftEvent)
+        : createEvent(draftEvent));
       if (newEvent.id) {
         setShowSuccess(true);
         setNewEventId(newEvent.id);
@@ -345,25 +386,6 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         <>
                           <IonRow>
                             <IonCol className="form-group ion-padding-bottom">
-                              {/* <CustomSelect
-                                control={control}
-                                label="Event Type"
-                                fieldName="eventType"
-                                placeholder="Select Type"
-                                options={[
-                                  { value: "Birthday", label: "Birthday" },
-                                  { value: "Vacations", label: "Vacations" },
-                                  {
-                                    value: "GetTogether",
-                                    label: "Get together",
-                                  },
-                                  { value: "Other", label: "Other" },
-                                ]}
-                                isRequired={true}
-                                errors={errors}
-                                errorText="Event Type"
-                                //onIonChange={(e: any) => setEventType(e)}
-                              /> */}
                               <CustomModalSelect
                                 control={control}
                                 label="Event Type"
@@ -407,7 +429,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                                 register={register}
                                 setValue={setValue}
                                 clearErrors={clearErrors}
-                                defaultValue={eventType}
+                                //defaultValue={eventType}
                               />
                             </IonCol>
                           </IonRow>
@@ -524,7 +546,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           month: "long",
                           day: "2-digit",
                         }}
-                        //  defaultValue={endDate}
+                        defaultValue={endDate}
                         onDateChange={(value: any) => {
                           setEndDate(value);
                         }}

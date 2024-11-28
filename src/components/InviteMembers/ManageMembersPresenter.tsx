@@ -57,6 +57,7 @@ interface EventMember {
   addedByUid?: string;
   phone?: string;
   roles?: RoleType[];
+  notificationCount?: number;
 }
 const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   eventId,
@@ -77,6 +78,12 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   const [recipientsList, SetRecipientsList] = useState<
     { value: string; label: string }[]
   >([]);
+  const [filterMember, setFilterMember] = useState("all");
+  const [isFromFilter, setIsFromFilter] = useState(false);
+  const [filteredMembersList, setFilteredMembersList] = useState<EventMember[]>(
+    []
+  );
+
   const methods = useForm();
   const {
     formState: { errors },
@@ -98,6 +105,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           totalRSVP && totalRSVP.total > 0 ? `(${totalRSVP.total})` : ""
         }`,
         icon: allIcon,
+        type: "all",
       },
       {
         value: `Attending${
@@ -111,6 +119,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             : ""
         }`,
         icon: attendingIcon,
+        type: "attending",
       },
       {
         value: `Maybe${
@@ -120,6 +129,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           maybeRSVP && maybeRSVP.total > 0 ? `(${maybeRSVP.total})` : ""
         }`,
         icon: notSureIcon,
+        type: "maybe",
       },
       {
         value: `Declined${
@@ -133,10 +143,19 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             : ""
         }`,
         icon: notAttendingIcon,
+        type: "not-attending",
       },
     ];
     SetRecipientsList(options);
   }, [event]);
+  useEffect(() => {
+    const filteredMembers = members.filter((item: any) => {
+      if (filterMember === "all") return true;
+      return item.rsvp.response === filterMember;
+    });
+    setFilteredMembersList(filteredMembers);
+  }, [filterMember, members]);
+
   const handleDelete = () => {
     if (selectedUser) {
       removeMember(selectedUser);
@@ -163,6 +182,11 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
       }
     }
     return "No action available";
+  };
+  const handleFilter = (selectedItem: any) => {
+    setIsFromFilter(true);
+    setFilterMember(selectedItem);
+    console.log("handleFilter", selectedItem);
   };
   return (
     <>
@@ -193,27 +217,37 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           {selectedSegment === "Members" && (
             <IonGrid className="members_page ion-no-padding">
               <IonGrid className="menbers_list ion-no-padding">
-                {members && members.length > 0 ? (
+                {((filteredMembersList &&
+                  filteredMembersList.length == 0 &&
+                  isFromFilter) ||
+                  (filteredMembersList &&
+                    filteredMembersList.length > 0 &&
+                    !isFromFilter) ||
+                  isFromFilter) && (
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <CustomModalSelect
+                        control={control}
+                        label=""
+                        fieldName="recipien"
+                        placeholder="Select Recipients"
+                        options={recipientsList}
+                        isRequired={false}
+                        errors={errors}
+                        errorText="Recipients"
+                        register={register}
+                        setValue={setValue}
+                        clearErrors={clearErrors}
+                        defaultValue={recipientsList[0].value}
+                        onChangeSelect={handleFilter}
+                        filterApply={true}
+                      />
+                    </IonCol>
+                  </IonRow>
+                )}
+                {filteredMembersList && filteredMembersList.length > 0 ? (
                   <IonList className="list_wrap event_members">
-                    <IonRow>
-                      <IonCol className="form-group ion-padding-bottom">
-                        <CustomModalSelect
-                          control={control}
-                          label=" "
-                          fieldName="recipien"
-                          placeholder="Select Recipients"
-                          options={recipientsList}
-                          isRequired={false}
-                          errors={errors}
-                          errorText="Recipients"
-                          register={register}
-                          setValue={setValue}
-                          clearErrors={clearErrors}
-                          defaultValue={recipientsList[0].value}
-                        />
-                      </IonCol>
-                    </IonRow>
-                    {members.map((member, index) => (
+                    {filteredMembersList.map((member, index) => (
                       <IonItem key={index} className="list_item">
                         <IonThumbnail slot="start" className="dp">
                           {member?.roles?.includes("owner") && (
@@ -276,6 +310,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                       </IonItem>
                     ))}
                   </IonList>
+                ) : isFromFilter ? (
+                  <IonText class="subtitle">No Result Found</IonText>
                 ) : (
                   <IonCard className="nodata">
                     <IonImg src={noMembers} />

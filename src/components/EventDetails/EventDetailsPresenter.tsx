@@ -188,10 +188,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       kidsCount: kidsCount,
       adultsCount: adultCount,
     };
-    submitRSVP(event.id, rsvp).then((res) => {
-      console.log("submitRSVP-res", res);
-      setShowSuccess(!showSuccess);
-    });
+    submitRSVP(event.id, rsvp)
+      .then((res) => {
+        console.log("submitRSVP-res", res);
+        setShowSuccess(true);
+      })
+      .catch((err) => {
+        console.error("submitRSVP-error", err);
+      });
   };
   const successRSVP = () => {
     reset();
