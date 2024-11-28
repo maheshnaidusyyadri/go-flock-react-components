@@ -148,8 +148,9 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     ];
     SetRecipientsList(options);
   }, [event]);
+
   useEffect(() => {
-    const filteredMembers = members.filter((item: any) => {
+    const filteredMembers = members?.filter((item: any) => {
       if (filterMember === "all") return true;
       return item.rsvp.response === filterMember;
     });
@@ -191,7 +192,11 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   return (
     <>
       <IonPage className="invite_page">
-        <Header eventId={eventId} title="Manage members" showMenu={false} />
+        <Header
+          eventId={eventId}
+          title="Manage members"
+          showMenu={false}
+        />
         <IonContent className="invite_members ion-padding-end ion-padding-start ion-padding-bottom">
           <IonSegment
             className="segment-tabs"
@@ -248,13 +253,25 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                 {filteredMembersList && filteredMembersList.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {filteredMembersList.map((member, index) => (
-                      <IonItem key={index} className="list_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="list_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member?.roles?.includes("owner") && (
-                            <IonImg className="type" src={HostIcon} />
+                            <IonImg
+                              className="type"
+                              src={HostIcon}
+                            />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg className="type co" src={CoHostIcon} />
+                            <IonImg
+                              className="type co"
+                              src={CoHostIcon}
+                            />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -267,7 +284,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img src={Selected} alt="Selected" />
+                            <img
+                              src={Selected}
+                              alt="Selected"
+                            />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -276,8 +296,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                ? " (Co-host)"
-                                : "")}
+                                  ? " (Co-host)"
+                                  : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
