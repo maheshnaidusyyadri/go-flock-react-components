@@ -23,6 +23,7 @@ import goflockLogoWithTitle from "../../images/icons/logo-title.svg";
 import { Profile } from "@goflock/types";
 import { EventRelation } from "@goflock/types/dist/models/event/EventRelation";
 import { getDisplayName } from "../../utils/utils";
+import CustomActions from "../Common/CustomActions";
 
 type HeaderProps = {
   eventId?: string;
@@ -80,6 +81,11 @@ const Header: React.FC<HeaderProps> = ({
         return false;
     }
   });
+  const [showActionMenu, setShowActionMenu] = useState(false);
+
+  const handleActionClose = () => {
+    setShowActionMenu(false);
+  };
 
   return (
     <>
@@ -115,7 +121,11 @@ const Header: React.FC<HeaderProps> = ({
           <IonButtons slot="end">
             {showMenu && (
               <IonButton>
-                <IonThumbnail id="open-action-sheet" className="menu_icon">
+                <IonThumbnail
+                  id="open-action-sheet"
+                  className="menu_icon"
+                  onClick={() => setShowActionMenu(true)}
+                >
                   <IonImg src={Menu} alt="More Details" />
                 </IonThumbnail>
               </IonButton>
@@ -150,8 +160,11 @@ const Header: React.FC<HeaderProps> = ({
           </IonButtons>
         </IonToolbar>
       </IonHeader>
+      {showActionMenu && (
+        <CustomActions isOpen={showActionMenu} onClose={handleActionClose} />
+      )}
 
-      {showMenu && (
+      {showMenu && false && (
         <IonActionSheet
           trigger="open-action-sheet"
           className="action-menu-end"
