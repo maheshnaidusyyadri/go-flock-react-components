@@ -41,10 +41,25 @@ CreateDetailEventFlow.args = {
   },
 };
 
+export const EditEventFlow = Template.bind({});
+CreateDetailEventFlow.args = {
+  ...CreateDetailEventFlow.args,
+  mode: "quick",
+};
+
 export const CreateQuickEventFlow = Template.bind({});
 CreateQuickEventFlow.args = {
   ...CreateDetailEventFlow.args,
-  mode: "quick",
+  isEditing: true,
+  event: EventWithMembers,
+  updateEvent: (event: DraftEvent) => {
+    action("updateEvent")(event);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(EventWithMembers);
+      }, 5000);
+    });
+  },
 };
 
 export const ErrorState = Template.bind({});
