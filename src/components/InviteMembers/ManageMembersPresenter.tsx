@@ -152,7 +152,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   useEffect(() => {
     const filteredMembers = members?.filter((item: any) => {
       if (filterMember === "all") return true;
-      return item.rsvp.response === filterMember;
+      return item?.rsvp?.response === filterMember;
     });
     setFilteredMembersList(filteredMembers);
   }, [filterMember, members]);

@@ -11,20 +11,29 @@ type OtpVerificationProps = {
   fieldName?: any;
   isRequired?: boolean;
   phoneNumber?: any;
+  sendOTP?: (phoneNumberWithCountryCode: string) => Promise<boolean>;
 };
 
 const OtpVerification: React.FC<OtpVerificationProps> = ({
   control,
-  //setValue,
   errors,
   fieldName,
   isRequired = false,
   phoneNumber,
+  sendOTP,
 }) => {
   const resendOTP = () => {
-    alert(
-      `OTP has been sent successfully to your registered number: ${""} ${phoneNumber}`
-    );
+    if (sendOTP) {
+      sendOTP(`${phoneNumber}`)
+        .then((res) => {
+          console.error("send OTP", res);
+        })
+        .catch((err) => {
+          console.error("Failed to send OTP", err);
+        });
+    } else {
+      console.log("ResendOTP-Method is undefined");
+    }
   };
   return (
     <IonGrid className="varification-sec">

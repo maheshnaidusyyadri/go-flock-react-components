@@ -183,6 +183,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
                   errors={errors}
                   fieldName="otp"
                   isRequired={true}
+                  sendOTP={sendOTP}
                 />
               </FormProvider>
             </IonGrid>
