@@ -34,8 +34,6 @@ import Footer from "../Footer/Footer";
 import DisplayDate from "../../utils/DisplayDate";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
-import CopyIcon from "../../images/icons/copy.svg";
-import Copy from "../../images/icons/copy_white.svg";
 import kidsIcon from "../../images/Kids.svg";
 import adultsIcon from "../../images/Adults.svg";
 import plusIcon from "../../images/icons/Plus.svg";
@@ -56,7 +54,6 @@ import EditIcon from "../../images/icons/Edit.svg";
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
-  inviteMembers,
   navigateToEventLocation,
   deleteEvent,
   submitRSVP,
@@ -211,7 +208,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         showGoBack={false}
         eventId={event.id}
         title={event.name}
-        showMenu={true}
+        showMenu={
+          eventRelation?.roles?.includes("admin") ||
+          eventRelation?.roles?.includes("owner")
+        }
         showContactList={false}
         deleteEvent={deleteEvent}
         eventRelation={eventRelation}
@@ -398,7 +398,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   />
                 </IonThumbnail>
               </IonItem>
-              {!["admin", "owner"].includes(eventRelation?.visitType) && (
+              {
                 <>
                   <IonItemDivider className="devider"></IonItemDivider>
                   <IonItem className="ion-list">
@@ -425,36 +425,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     )}
                   </IonItem>
                 </>
-              )}
+              }
             </IonList>
           </IonCard>
-          {["admin"].includes(eventRelation?.visitType) && (
-            <>
-              <IonItemDivider className="devider"></IonItemDivider>
-              <IonItem className="copy_event">
-                <IonText class="copy_text">
-                  This is a public event. Copy event link & share it with other!
-                  🚀
-                </IonText>
-                <IonThumbnail class="copy_icon">
-                  <IonImg src={CopyIcon}></IonImg>
-                </IonThumbnail>
-              </IonItem>
-            </>
-          )}
         </IonGrid>
       </IonContent>
-      {["admin"].includes(eventRelation?.visitType) && (
-        <IonFooter className="ion-padding">
-          <IonButton
-            className="primary-btn rounded"
-            onClick={() => inviteMembers(event.id)}
-          >
-            <IonImg src={Copy} />
-            Copy link
-          </IonButton>
-        </IonFooter>
-      )}
       {!["owner"].includes(eventRelation?.visitType) &&
         !(eventRelation?.rsvp && eventRelation.rsvp?.response) && (
           <IonFooter className="ion-padding-start ion-padding-end ion-padding-bottom">
