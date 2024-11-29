@@ -45,10 +45,8 @@ import minusIcon from "../../images/icons/Minus.svg";
 import backArrow from "../../images/icons/back-arrow.svg";
 import reUpdateIcon from "../../images/icons/reUpdate.svg";
 import AddressDisplay from "../Common/AddressDisplay";
-import CustomPhoneNumber from "../Common/CustomPhone";
 import CustomTextarea from "../Common/CustomTextarea";
 import RSVPSuccess from "../../images/RSVP_success.svg";
-import OtpVerification from "../Common/OtpVerification";
 import { getDisplayNamewithchr } from "../../utils/utils";
 import Yes from "../Common/Icons/Yes";
 import No from "../Common/Icons/No";
@@ -63,17 +61,14 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   deleteEvent,
   submitRSVP,
   profile,
-  sendOTP,
-  verifyOTP,
   addInvitationCards,
 }) => {
   const [isInviteActive, setIsInviteActive] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setIsOpen] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
   const [adultCount, setAdultCount] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [activeOption, setActiveOption] = useState("yes");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const methods = useForm();
@@ -81,7 +76,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     handleSubmit,
     formState: { errors },
     register,
-    control,
     reset,
   } = useForm();
 
@@ -131,26 +125,16 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       //setShowValidation(true);
     }
   };
-  const handleGenerateOtp = (formData: any) => {
+  const handleRsvpSubmission = (formData: any) => {
     if (adultCount === 0 && kidsCount === 0 && activeOption !== "no") {
       setShowValidation(true);
       return;
     } else {
       setShowValidation(false);
     }
-    if (profile) {
-      handleSubmitRSVP(formData);
-      //setShowSuccess(!showSuccess);
-    } else {
-      console.log("formData", formData);
-      let phoneNumber = formData.phone;
-      sendOTP(phoneNumber).then((result) => {
-        console.log("Send-Otp-res", result);
-        setIsOpen(!isOpen);
-      });
-    }
-    console.log("handleGenerateOtp", formData);
+    submitRsvpAction(formData);
   };
+
   const onGenerateError = (error: any) => {
     console.log("onGenerateError", error);
     if (adultCount === 0 && kidsCount === 0 && activeOption !== "no") {
@@ -160,17 +144,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       setShowValidation(false);
     }
   };
-  const handleVerifyOTP = (formData: any) => {
-    console.log("handleVerifyOTP-Data", formData);
-    verifyOTP(formData.phone, formData.otp).then((result) => {
-      console.log("veifyOtp-res", result);
-      if (result) {
-        handleSubmitRSVP(formData);
-      }
-    });
-  };
-  const handleSubmitRSVP = (formData: any) => {
-    console.log("handleSubmitRSVP", formData);
+
+  const submitRsvpAction = (formData: any) => {
     let response: "attending" | "not-attending" | "maybe" | "not-answered" =
       "attending";
     if (activeOption === "no") {
@@ -187,7 +162,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       comment: formData.note || "",
       kidsCount: kidsCount,
       adultsCount: adultCount,
+      name: formData.name,
     };
+
+    console.log(rsvp);
+
     submitRSVP(event.id, rsvp)
       .then((res) => {
         console.log("submitRSVP-res", res);
@@ -197,6 +176,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         console.error("submitRSVP-error", err);
       });
   };
+
   const successRSVP = () => {
     reset();
     setShowSuccess(false);
@@ -205,6 +185,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     setKidsCount(0);
     setAdultCount(0);
   };
+
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -324,48 +305,52 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <IonList className="listitems">
               {!["admin", "owner"].includes(eventRelation?.visitType) &&
                 eventRelation?.rsvp && (
-                  <IonItem className="ion-list">
-                    <IonCard className="venue_info">
-                      <IonThumbnail className="dp">
+                  <>
+                    <IonItemDivider className="devider"></IonItemDivider>
+                    <IonItem className="ion-list">
+                      <IonCard className="venue_info">
+                        <IonThumbnail className="dp">
+                          <IonImg
+                            src={goingIcon}
+                            alt=" "
+                          />
+                        </IonThumbnail>
+                        <IonCardContent className="event_titles">
+                          <IonCardTitle
+                            className={`event_title ${
+                              eventRelation.rsvp.response === "attending"
+                                ? "going"
+                                : eventRelation.rsvp.response ===
+                                    "not-attending"
+                                  ? "not-going"
+                                  : eventRelation.rsvp.response === "maybe"
+                                    ? "not-sure"
+                                    : ""
+                            }`}
+                          >
+                            {eventRelation.rsvp.response == "attending"
+                              ? "Going"
+                              : eventRelation.rsvp.response == "not-attending"
+                                ? "Not Going"
+                                : eventRelation.rsvp.response == "maybe"
+                                  ? "Not sure"
+                                  : ""}
+                          </IonCardTitle>
+                          <IonCardSubtitle className="event_subtitle">
+                            {eventRelation.rsvp.adultsCount} Adults,{" "}
+                            {eventRelation.rsvp.kidsCount} children
+                          </IonCardSubtitle>
+                        </IonCardContent>
+                      </IonCard>
+                      <IonThumbnail className="event_type">
                         <IonImg
-                          src={goingIcon}
-                          alt=" "
+                          src={reUpdateIcon}
+                          alt=""
+                          onClick={toggleGogingClass}
                         />
                       </IonThumbnail>
-                      <IonCardContent className="event_titles">
-                        <IonCardTitle
-                          className={`event_title ${
-                            eventRelation.rsvp.response === "attending"
-                              ? "going"
-                              : eventRelation.rsvp.response === "not-attending"
-                                ? "not-going"
-                                : eventRelation.rsvp.response === "maybe"
-                                  ? "not-sure"
-                                  : ""
-                          }`}
-                        >
-                          {eventRelation.rsvp.response == "attending"
-                            ? "Going"
-                            : eventRelation.rsvp.response == "not-attending"
-                              ? "Not Going"
-                              : eventRelation.rsvp.response == "maybe"
-                                ? "Not sure"
-                                : ""}
-                        </IonCardTitle>
-                        <IonCardSubtitle className="event_subtitle">
-                          {eventRelation.rsvp.adultsCount} Adults,{" "}
-                          {eventRelation.rsvp.kidsCount} children
-                        </IonCardSubtitle>
-                      </IonCardContent>
-                    </IonCard>
-                    <IonThumbnail className="event_type">
-                      <IonImg
-                        src={reUpdateIcon}
-                        alt=""
-                        onClick={toggleGogingClass}
-                      />
-                    </IonThumbnail>
-                  </IonItem>
+                    </IonItem>
+                  </>
                 )}
               <IonItemDivider className="devider"></IonItemDivider>
               <IonItem className="ion-list">
@@ -663,31 +648,18 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       </IonCol>
                     </IonRow>
                   )}
-                  {!profile && (
+                  {(!profile || profile.prefName === "") && (
                     <>
                       <IonRow>
                         <IonCol className="form-group ion-padding-bottom">
                           <CustomInput
                             placeholder={"Enter your name"}
-                            label={"Name"}
+                            label={"Your Name"}
                             fieldName={"name"}
                             isRequired={true}
                             errors={errors}
                             errorText={"Name"}
                             register={register}
-                          />
-                        </IonCol>
-                      </IonRow>
-                      <IonRow>
-                        <IonCol className="form-group">
-                          <CustomPhoneNumber
-                            control={control}
-                            fieldName="phone"
-                            isRequired={true}
-                            errors={errors}
-                            register={register}
-                            errorText={"Mobile Number"}
-                            onPhoneChange={(e: any) => setPhoneNumber(e)}
                           />
                         </IonCol>
                       </IonRow>
@@ -698,7 +670,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </IonContent>
             <IonFooter
               className="stickyFooter"
-              onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
+              onClick={handleSubmit(handleRsvpSubmission, onGenerateError)}
             >
               <IonButton className="primary-btn rounded">
                 {profile ? "Submit" : "Send OTP"}
@@ -708,31 +680,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         )}
       </IonGrid>
 
-      {isOpen && (
-        <IonGrid className={`rsvp_modal ${isOpen ? "active" : ""}`}>
-          <FormProvider {...methods}>
-            <IonContent>
-              <OtpVerification
-                control={control}
-                phoneNumber={phoneNumber}
-                errors={errors}
-                fieldName="otp"
-                isRequired={true}
-              />
-            </IonContent>
-            <IonFooter>
-              <IonButton
-                expand="block"
-                shape="round"
-                className="primary-btn"
-                onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
-              >
-                {"Verify OTP"}
-              </IonButton>
-            </IonFooter>
-          </FormProvider>
-        </IonGrid>
-      )}
+      {/* On successful RSVP */}
       {showSuccess && (
         <IonGrid
           className={`rsvp_modal success_modal ${showSuccess ? "active" : ""}`}

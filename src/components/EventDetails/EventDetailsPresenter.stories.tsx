@@ -33,7 +33,7 @@ PublicEventHostViewWithInvitation.args = {
   eventRelation: ownerEventRelation,
   submitRSVP: (eventId, rsvp) => {
     action("submitRSVP")(`Event ID: ${eventId}`, rsvp);
-    return Promise.resolve();
+    return Promise.resolve(true);
   },
   inviteMembers: (eventId) => action("inviteMembers")(`Event ID: ${eventId}`),
   editEvent: (eventId) => action("editEvent")(`Event ID: ${eventId}`),
