@@ -387,6 +387,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           <IonRow>
                             <IonCol className="form-group ion-padding-bottom">
                               <CustomModalSelect
+                                title="Event Type"
+                                subTitle="Select event type"
                                 control={control}
                                 label="Event Type"
                                 fieldName="eventType"

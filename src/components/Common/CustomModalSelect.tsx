@@ -39,6 +39,8 @@ interface CustomSelectProps {
   clearErrors: UseFormClearErrors<any>;
   onChangeSelect?: (e: CustomEvent | string) => void;
   filterApply?: boolean;
+  title?: string;
+  subTitle?: string;
 }
 
 const CustomModalSelect: React.FC<CustomSelectProps> = ({
@@ -55,6 +57,8 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
   clearErrors,
   onChangeSelect,
   filterApply = false,
+  title = "",
+  subTitle = "",
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
@@ -114,10 +118,8 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
             <IonRow>
               <IonCol className="actions-head ion-padding-bottom">
                 <SettingsCircle />
-                <h3 className="ion-text-center action-title">Event type</h3>
-                <p className="ion-text-center action-subtitle">
-                  Select event type
-                </p>
+                <h3 className="ion-text-center action-title">{title}</h3>
+                <p className="ion-text-center action-subtitle">{subTitle}</p>
               </IonCol>
             </IonRow>
             <IonRow className="action-grid">

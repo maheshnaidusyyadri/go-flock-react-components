@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   IonHeader,
   IonTitle,
-  IonActionSheet,
   IonThumbnail,
   IonImg,
   IonLabel,
@@ -20,7 +19,7 @@ import ContactListIcon from "../../images/icons/ContactList.svg";
 import signInIcon from "../../images/icons/signIn.svg";
 import goflockLogo from "../../images/icons/logo.svg";
 import goflockLogoWithTitle from "../../images/icons/logo-title.svg";
-import { Profile } from "@goflock/types";
+import { Media, Profile } from "@goflock/types";
 import { EventRelation } from "@goflock/types/dist/models/event/EventRelation";
 import { getDisplayName } from "../../utils/utils";
 import CustomActions from "../Common/CustomActions";
@@ -39,6 +38,10 @@ type HeaderProps = {
   deleteEvent?: (eventId: string) => void;
   eventRelation?: EventRelation;
   profile?: Profile;
+  inviteMembers?: (eventId: string) => void;
+  addInvitationCards?: (files: FileList) => Promise<Media[]>;
+  copyEventLink?: (eventId: string) => void;
+  editEvent?: (eventId: string) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -55,34 +58,12 @@ const Header: React.FC<HeaderProps> = ({
   deleteEvent,
   eventRelation,
   profile,
+  inviteMembers,
+  addInvitationCards,
+  copyEventLink,
+  editEvent,
 }) => {
-  const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
-  const actions = [
-    { text: "Copy link" },
-    { text: "Edit Event" },
-    { text: "Add Checklist" },
-    { text: "Invite Guest" },
-    { text: "Delete Event" },
-  ];
-  const allowedActions = actions.filter((action) => {
-    switch (eventRelation?.visitType) {
-      case "admin":
-        return [
-          "Copy link",
-          "Edit Event",
-          "Add Checklist",
-          "Delete Event",
-        ].includes(action.text);
-      case "owner":
-        return true;
-      case "member":
-        return ["Copy link"].includes(action.text);
-      default:
-        return false;
-    }
-  });
   const [showActionMenu, setShowActionMenu] = useState(false);
-
   const handleActionClose = () => {
     setShowActionMenu(false);
   };
@@ -161,48 +142,18 @@ const Header: React.FC<HeaderProps> = ({
         </IonToolbar>
       </IonHeader>
       {showActionMenu && (
-        <CustomActions isOpen={showActionMenu} onClose={handleActionClose} />
+        <CustomActions
+          isOpen={showActionMenu}
+          onClose={handleActionClose}
+          deleteEvent={deleteEvent}
+          eventRelation={eventRelation}
+          eventId={eventId}
+          inviteMembers={inviteMembers}
+          addInvitationCards={addInvitationCards}
+          copyEventLink={copyEventLink}
+          editEvent={editEvent}
+        />
       )}
-
-      {showMenu && false && (
-        <IonActionSheet
-          trigger="open-action-sheet"
-          className="action-menu-end"
-          buttons={allowedActions.map((act) => ({
-            text: act.text,
-            handler: () => {
-              if (act.text == "Delete Event") {
-                setShowDeleteActionSheet(true);
-              }
-            },
-          }))}
-        ></IonActionSheet>
-      )}
-      <IonActionSheet
-        className="action-menu-end"
-        isOpen={showDeleteActionSheet} // Controls visibility of delete action sheet
-        onDidDismiss={() => setShowDeleteActionSheet(false)} // Dismiss delete action sheet
-        buttons={[
-          {
-            text: "Delete Event",
-            role: "destructive",
-            data: {
-              action: "delete",
-            },
-            cssClass: "fill-btn",
-            handler: () => {
-              deleteEvent?.(eventId!);
-            },
-          },
-          {
-            text: "Cancel",
-            data: {
-              action: "cancel",
-            },
-            cssClass: "rounded",
-          },
-        ]}
-      ></IonActionSheet>
     </>
   );
 };
