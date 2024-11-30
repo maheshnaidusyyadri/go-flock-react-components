@@ -123,7 +123,10 @@ const EditProfile: React.FC<EditProfileProps> = ({
         <IonCard className="profile_edit_card">
           <span className="dp_wrap">
             {image || profile.pictureUrl ? (
-              <IonImg className="dp" src={image || profile.pictureUrl}></IonImg>
+              <IonImg
+                className="dp"
+                src={image || profile.pictureUrl}
+              ></IonImg>
             ) : profile?.prefName ? (
               <IonAvatar className="profile-dp">
                 {getDisplayName(profile.prefName)}
@@ -142,7 +145,7 @@ const EditProfile: React.FC<EditProfileProps> = ({
                 <IonCol className="form-group ion-padding-bottom">
                   <CustomInput
                     placeholder={"Enter your name"}
-                    label={"Event Name"}
+                    label={"Name"}
                     fieldName={"name"}
                     isRequired={true}
                     errors={errors}

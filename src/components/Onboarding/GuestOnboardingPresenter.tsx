@@ -107,14 +107,15 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
               <IonRow>
                 <IonCol>
                   <IonLabel className="info-alert">
-                    Hi! You are invited to{" "}
-                    <strong> {eventMinDetails.name} </strong>.
+                    You are invited to <strong> {eventMinDetails.name} </strong>
+                    .
                   </IonLabel>
                   <p className="paragraph ion-padding-top">
-                    This is a personal event invitation by{" "}
-                    <strong>{eventMinDetails.hostedBy}</strong>. Verify your
-                    phone number to see full invitation, RSVP, share pictures
-                    from the event, securely.
+                    You’ve received a personal event invitation from{" "}
+                    <strong>{eventMinDetails.hostedBy}</strong>! Please verify
+                    your phone number to access the full invitation, RSVP, and
+                    collaborate by securely sharing photos and memories from the
+                    event.
                   </p>
                 </IonCol>
               </IonRow>
