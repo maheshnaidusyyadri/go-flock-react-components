@@ -7,8 +7,9 @@
     width: 100%;
     margin: 0;
     box-shadow: none;
-    img {
-      width: clamp(220px, 90vw, 335px);
+    svg {
+      width: clamp(200px, 90vw, 250px);
+      height: auto;
     }
     .ion-title {
       font-family: $GoFlockFont;

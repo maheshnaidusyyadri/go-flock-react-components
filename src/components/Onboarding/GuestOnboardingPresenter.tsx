@@ -6,7 +6,6 @@ import {
   IonicSlides,
   IonGrid,
   IonCard,
-  IonImg,
   IonCol,
   IonFooter,
   IonButton,
@@ -24,10 +23,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "@ionic/react/css/ionic-swiper.css";
 
-import EventsIcon from "../../images/auth-1.svg";
-import mediaIcon from "../../images/auth-2.svg";
-import chatIcon from "../../images/auth-3.svg";
-import expancesIcon from "../../images/auth-4.svg";
+import EventsIcon from "../Common/Icons/Events";
+import MediaIcon from "../Common/Icons/Media";
+import ChatIcon from "../Common/Icons/Chat";
+import ExpancesIcon from "../Common/Icons/Split";
+
 import { FormProvider, useForm } from "react-hook-form";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import OtpVerification from "../Common/OtpVerification";
@@ -55,22 +55,22 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
 
   const slides = [
     {
-      image: EventsIcon,
+      icon: <EventsIcon />,
       title: "Create Events & RSVP ",
       text: "And invite guests or friends receive RSVP",
     },
     {
-      image: mediaIcon,
+      icon: <MediaIcon />,
       title: "Share Photos",
       text: "Capture the fleeting moment in photographs!",
     },
     {
-      image: chatIcon,
+      icon: <ChatIcon />,
       title: "Chat with the Group",
       text: "Engage in lively conversation among members and ravel in the event!",
     },
     {
-      image: expancesIcon,
+      icon: <ExpancesIcon />,
       title: "Split expenses",
       text: "Capture the fleeting moment in photographs!",
     },
@@ -148,11 +148,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
                 <SwiperSlide key={index}>
                   <IonGrid className="step-content">
                     <IonCard className="auth_screen">
-                      <IonImg
-                        className="slide-img"
-                        src={slide.image}
-                        alt={slide.title}
-                      />
+                      {slide.icon}
                       <IonTitle className="ion-title">{slide.title}</IonTitle>
                       <IonText className="ion-text">{slide.text}</IonText>
                     </IonCard>
