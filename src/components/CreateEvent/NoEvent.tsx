@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import {
   IonCol,
   IonGrid,
-  IonImg,
   IonPage,
   IonRow,
   IonButton,
@@ -12,8 +11,8 @@ import {
 } from "@ionic/react";
 import Header from "../Header/Header";
 
-import Noevent from "../../images/Noevent.svg";
 import EventType from "../Common/EventType";
+import Noevent from "../Common/Icons/NoEventIcon";
 
 const NoEvent: React.FC = ({}) => {
   const modal = useRef<HTMLIonModalElement>(null);
@@ -34,7 +33,7 @@ const NoEvent: React.FC = ({}) => {
           <IonGrid>
             <IonRow>
               <IonCol>
-                <IonImg src={Noevent} />
+                <Noevent />
               </IonCol>
             </IonRow>
             <IonRow>
@@ -52,7 +51,7 @@ const NoEvent: React.FC = ({}) => {
         </IonContent>
         <IonFooter className="ion-padding">
           <IonButton
-            color="primary"
+            className="primary-btn"
             shape="round"
             size="large"
             id="open-modal"
