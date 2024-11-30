@@ -6,6 +6,7 @@ type OtpVerificationProps = {
     fieldName?: any;
     isRequired?: boolean;
     phoneNumber?: any;
+    sendOTP?: (phoneNumberWithCountryCode: string) => Promise<boolean>;
 };
 declare const OtpVerification: React.FC<OtpVerificationProps>;
 export default OtpVerification;

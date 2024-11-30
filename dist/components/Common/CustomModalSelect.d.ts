@@ -15,6 +15,8 @@ interface CustomSelectProps {
     clearErrors: UseFormClearErrors<any>;
     onChangeSelect?: (e: CustomEvent | string) => void;
     filterApply?: boolean;
+    title?: string;
+    subTitle?: string;
 }
 declare const CustomModalSelect: React.FC<CustomSelectProps>;
 export default CustomModalSelect;

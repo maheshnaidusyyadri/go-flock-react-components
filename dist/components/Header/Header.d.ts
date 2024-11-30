@@ -1,4 +1,4 @@
-import { Profile } from '@goflock/types';
+import { Media, Profile } from '@goflock/types';
 import { EventRelation } from '@goflock/types/dist/models/event/EventRelation';
 type HeaderProps = {
     eventId?: string;
@@ -14,6 +14,10 @@ type HeaderProps = {
     deleteEvent?: (eventId: string) => void;
     eventRelation?: EventRelation;
     profile?: Profile;
+    inviteMembers?: (eventId: string) => void;
+    addInvitationCards?: (files: FileList) => Promise<Media[]>;
+    copyEventLink?: (eventId: string) => void;
+    editEvent?: (eventId: string) => void;
 };
 declare const Header: React.FC<HeaderProps>;
 export default Header;
