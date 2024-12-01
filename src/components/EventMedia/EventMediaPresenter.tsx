@@ -7,6 +7,8 @@ import {
   IonFooter,
   IonGrid,
   IonImg,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
   IonLabel,
   IonPage,
   IonRow,
@@ -36,7 +38,6 @@ import PhotoIcon from "../../images/icons/photos.svg";
 import VideoIcon from "../../images/icons/videos.svg";
 import VideoType from "../../images/icons/videoType.svg";
 import ImageType from "../../images/icons/imageType.svg";
-import DocumentsIcon from "../../images/icons/documents.svg";
 import { Video } from "yet-another-react-lightbox/plugins";
 
 import ShareIcon from "../../images/icons/Share.svg";
@@ -62,6 +63,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   media,
   addMedia,
   deleteMedia,
+  fetchImagePathsWithPagination,
 }) => {
   //const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,6 +75,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
   const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
+  const [operationInProgress, setOperationInProgress] = useState(false);
 
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect
@@ -83,17 +86,15 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           return photo.metadata.type.includes("image");
         if (selectedSegment === "video")
           return photo.metadata.type.includes("video");
-        if (selectedSegment === "document")
-          return photo.metadata.type.includes("document");
         return false;
       })
       .map((mediaItem: any) => ({
-        ...mediaItem,
         src: mediaItem.downloadUrl,
-        label: "Open image in a lightbox",
-        width: mediaItem.metadata.width || 0,
-        height: mediaItem.metadata.height || 0,
-        ...(mediaItem.metadata.type.includes("video")
+        key: mediaItem.id,
+        label: mediaItem.metadata?.name || "image",
+        width: mediaItem.metadata?.width || 0,
+        height: mediaItem.metadata?.height || 0,
+        ...(mediaItem.metadata?.type.includes("video")
           ? {
               type: mediaItem.metadata.type.includes("video") ? "video" : "",
               sources: [
@@ -106,7 +107,9 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 src: mediaItem.thumbnailUrl,
                 width: breakpoint,
                 height: Math.round(
-                  (mediaItem.height / mediaItem.width) * breakpoint
+                  (mediaItem.metadata?.height ||
+                    0 / mediaItem.metadata?.width! ||
+                    1) * breakpoint
                 ),
               })),
             }
@@ -116,7 +119,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 src: mediaItem.downloadUrl,
                 width: breakpoint,
                 height: Math.round(
-                  (mediaItem.height / mediaItem.width) * breakpoint
+                  (mediaItem.metadata?.height ||
+                    0 / mediaItem.metadata?.width!) * breakpoint
                 ),
               })),
             }),
@@ -129,9 +133,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     if (!media) {
       return;
     }
-
-    console.log("using media");
-    console.log(media);
 
     let results = media.map((photo: any) => ({
       ...photo,
@@ -168,8 +169,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           }),
     }));
 
-    console.log(results);
-
     setPhotos(results);
     const handleContextMenu = (event: any) => {
       event.preventDefault();
@@ -184,6 +183,19 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     const count = photos?.filter((photo) => photo.selected).length;
     setSelectedCount(count);
   }, [photos]);
+
+  useEffect(() => {
+    loadImages();
+  }, []);
+
+  const loadImages = () => {
+    if (fetchImagePathsWithPagination) {
+      setOperationInProgress(true);
+      fetchImagePathsWithPagination().finally(() => {
+        setOperationInProgress(false);
+      });
+    }
+  };
 
   const areAllSelected = photos?.length > 0 && selectedCount === photos.length;
   const handleEditMode = () => {
@@ -256,14 +268,20 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       .filter((filterItem) => filterItem.selected)
       .map((mediaItem) => mediaItem.id);
     console.log("mediaIds-mediaIds", mediaIds);
-    await deleteMedia(mediaIds);
-    setPhotos((prevPhotos) => {
-      // Filter out the selected photos
-      return prevPhotos.filter((photo) => !photo.selected);
-    });
-    // Optionally, you might want to reset the selection count and edit mode
-    setIsEditMode(false);
-    setSelectedCount(0);
+    setOperationInProgress(true);
+    deleteMedia(mediaIds)
+      .then(() => {
+        setPhotos((prevPhotos) => {
+          // Filter out the selected photos
+          return prevPhotos.filter((photo) => !photo.selected);
+        });
+        // Optionally, you might want to reset the selection count and edit mode
+        setIsEditMode(false);
+        setSelectedCount(0);
+      })
+      .finally(() => {
+        setOperationInProgress(false);
+      });
   };
 
   // @ts-ignore
@@ -320,8 +338,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       return;
     }
 
+    setOperationInProgress(true);
     // Call addMedia with arrays of base64 strings and metadata
-    await addMedia(files);
+    addMedia(files).finally(() => {
+      setOperationInProgress(false);
+    });
   };
 
   return (
@@ -332,6 +353,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         showContactList={false}
         title={"Media"}
         showProfile={false}
+        showProgressBar={operationInProgress}
       />
       <IonContent className="ion-padding eventMedia1">
         {isEditMode && (
@@ -351,12 +373,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -377,9 +405,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <IonSegmentButton value="video">
               <IonImg src={VideoIcon} />
             </IonSegmentButton>
-            <IonSegmentButton value="document">
-              <IonImg src={DocumentsIcon} />
-            </IonSegmentButton>
           </IonSegment>
           {photos && photos.length > 0 ? (
             <div onContextMenu={handleEditMode}>
@@ -389,7 +414,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 render={{
                   // render custom styled link
                   link: (props) => (
-                    <StyledLink {...props} isEditView={isEditMode} />
+                    <StyledLink
+                      {...props}
+                      isEditView={isEditMode}
+                    />
                   ),
                   // render image selection icon
                   extras: (_, { photo: { selected, type }, index }) => (
@@ -411,12 +439,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type_declaration" src={VideoType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={VideoType}
+                          />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type_declaration" src={ImageType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={ImageType}
+                          />
                         </>
                       )}
                     </>
@@ -503,15 +537,27 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             onDidDismiss={() => setError(null)}
           />
         )}
-      </IonContent>
-      <IonFooter className="stickyFooter">
-        <IonButton
-          className="primary-btn rounded"
-          onClick={() => fileInputRef.current?.click()}
+        <IonInfiniteScroll
+          onIonInfinite={async (e) => {
+            loadImages();
+            (e.target as HTMLIonInfiniteScrollElement).complete();
+          }}
+          threshold="100px"
+          disabled={false}
         >
-          Add Media
-        </IonButton>
-      </IonFooter>
+          <IonInfiniteScrollContent loadingText="Loading more images..." />
+        </IonInfiniteScroll>
+      </IonContent>
+      {!isEditMode && (
+        <IonFooter className="stickyFooter">
+          <IonButton
+            className="primary-btn rounded"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            Add Media
+          </IonButton>
+        </IonFooter>
+      )}
       {isEditMode ? (
         <>
           <IonFooter className="footer">
@@ -522,22 +568,34 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     className="ion-no-padding"
                     onClick={handleShareSelected}
                   >
-                    <img src={ShareIcon} alt="Share" />
+                    <img
+                      src={ShareIcon}
+                      alt="Share"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDownloadSelected}
                   >
-                    <img src={Download} alt="Split Bill" />
+                    <img
+                      src={Download}
+                      alt="Split Bill"
+                    />
                   </IonCol>
                   <IonCol className="ion-no-padding">
-                    <img src={save} alt="save" />
+                    <img
+                      src={save}
+                      alt="save"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDeleteSelected}
                   >
-                    <img src={Delete} alt="Delete" />
+                    <img
+                      src={Delete}
+                      alt="Delete"
+                    />
                   </IonCol>
                 </IonRow>
               </IonGrid>
