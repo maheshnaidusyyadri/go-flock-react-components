@@ -11,13 +11,16 @@ type HeaderProps = {
     logoPosition?: "left" | "middle";
     className?: string;
     showGoBack?: boolean;
-    deleteEvent?: (eventId: string) => void;
+    showProgressBar?: boolean;
     eventRelation?: EventRelation;
     profile?: Profile;
+    leftButtonAction?: () => void;
+    rightButtonAction?: () => void;
     inviteMembers?: (eventId: string) => void;
     addInvitationCards?: (files: FileList) => Promise<Media[]>;
     copyEventLink?: (eventId: string) => void;
     editEvent?: (eventId: string) => void;
+    deleteEvent?: (eventId: string) => void;
 };
 declare const Header: React.FC<HeaderProps>;
 export default Header;

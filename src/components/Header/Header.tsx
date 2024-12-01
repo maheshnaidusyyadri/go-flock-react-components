@@ -37,13 +37,15 @@ type HeaderProps = {
   className?: string;
   showGoBack?: boolean;
   showProgressBar?: boolean;
-  deleteEvent?: (eventId: string) => void;
   eventRelation?: EventRelation;
   profile?: Profile;
+  leftButtonAction?: () => void;
+  rightButtonAction?: () => void;
   inviteMembers?: (eventId: string) => void;
   addInvitationCards?: (files: FileList) => Promise<Media[]>;
   copyEventLink?: (eventId: string) => void;
   editEvent?: (eventId: string) => void;
+  deleteEvent?: (eventId: string) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -58,17 +60,26 @@ const Header: React.FC<HeaderProps> = ({
   logoPosition = "left",
   showGoBack = true,
   showProgressBar = false,
-  deleteEvent,
   eventRelation,
   profile,
   inviteMembers,
   addInvitationCards,
   copyEventLink,
   editEvent,
+  leftButtonAction,
+  deleteEvent,
 }) => {
   const [showActionMenu, setShowActionMenu] = useState(false);
   const handleActionClose = () => {
     setShowActionMenu(false);
+  };
+
+  const handleLeftButtonAction = () => {
+    if (leftButtonAction) {
+      leftButtonAction();
+    } else {
+      window.history.back();
+    }
   };
 
   return (
@@ -77,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({
         <IonToolbar className="header-cnt">
           <IonButtons slot="start">
             {showGoBack && (
-              <IonButton routerLink={eventId ? `/event/${eventId}` : "/"}>
+              <IonButton onClick={() => handleLeftButtonAction()}>
                 <IonThumbnail className="profile_icon">
                   <IonImg
                     src={backArrow}
