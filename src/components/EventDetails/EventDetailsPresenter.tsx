@@ -48,6 +48,7 @@ import Yes from "../Common/Icons/Yes";
 import No from "../Common/Icons/No";
 import NotSure from "../Common/Icons/NotSure";
 import EditIcon from "../../images/icons/Edit.svg";
+import { Helmet } from "react-helmet";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -210,6 +211,20 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   return (
     <IonPage>
+      <Helmet>
+        <meta
+          property="og:title"
+          content="Your page title"
+        />
+        <meta
+          property="og:description"
+          content="Your page description"
+        />
+        <meta
+          property="og:image"
+          content="Your image URL"
+        />
+      </Helmet>
       <Header
         showLogo={true}
         showGoBack={false}
