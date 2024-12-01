@@ -49,7 +49,7 @@
       width: 30px;
     }
     .dp {
-      --size:40px;
+      --size: 40px;
       --border-radius: 50%;
     }
     .profile-dp {
@@ -180,4 +180,21 @@ ion-footer {
   font-weight: 600;
   font-size: 14px;
   color: $GoFlockColor;
+}
+
+ion-progress-bar::part(track) {
+  background: #f16122;
+}
+
+ion-progress-bar::part(progress) {
+  background: #2bbcff;
+}
+
+ion-progress-bar::part(stream) {
+  background-image: radial-gradient(
+    ellipse at center,
+    #00d0ff 0%,
+    #00d0ff 30%,
+    transparent 30%
+  );
 }
