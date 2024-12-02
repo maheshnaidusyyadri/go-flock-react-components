@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { EventExpenseSummaryProps } from "@goflock/types/src/index";
 import "./EventSplitBillPresenter.scss";
 import Footer from "../Footer/Footer";
@@ -41,9 +41,6 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [showFooter, setShowFooter] = useState(true);
-  let lastScrollTop = useRef(0);
-  let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const handleDeleteTransaction = async (transactionId: string) => {
     setIsLoading(true);
@@ -56,32 +53,6 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
       setIsLoading(false);
     }
   };
-  const handleScroll = (e: any) => {
-    const currentScrollTop = e.detail.scrollTop;
-    if (currentScrollTop > lastScrollTop) {
-      // Scrolling down
-      if (showFooter) {
-        setShowFooter(false);
-        console.log("Footer hidden");
-      }
-    } else if (currentScrollTop < lastScrollTop) {
-      // Scrolling up
-      if (!showFooter) {
-        setShowFooter(true);
-        console.log("Footer shown");
-      }
-    }
-    // Clear the previous timeout if it exists
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-    // Set a timeout to show the footer after scrolling stops
-    scrollTimeout.current = setTimeout(() => {
-      setShowFooter(true);
-      console.log("Footer shown after scroll stops");
-    }, 1000); // Adjust timeout duration as needed
-    lastScrollTop = currentScrollTop;
-  };
 
   return (
     <IonPage>
@@ -92,11 +63,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         showContactList={false}
         showProfile={false}
       />
-      <IonContent
-        className="event_transactions ion-padding-end ion-padding-start ion-padding-bottom"
-        onIonScroll={handleScroll}
-        scrollEvents={true}
-      >
+      <IonContent className="event_transactions ion-padding-end ion-padding-start ion-padding-bottom">
         <IonSegment
           className="segment-tabs"
           value={selectedSegment}
@@ -113,7 +80,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
               transactions.map((transaction) => (
                 <IonRow>
                   <IonCol className="ion-padding-top">
-                    <IonList key={transaction.id} className="transaction-list">
+                    <IonList
+                      key={transaction.id}
+                      className="transaction-list"
+                    >
                       <IonItem
                         className="transaction-item ion-no-margin"
                         lines="none"
@@ -127,7 +97,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                           className="transaction-actions ion-no-margin"
                         >
                           <p>${transaction.amount}</p>
-                          <IonLabel class="action-btns" slot="end">
+                          <IonLabel
+                            class="action-btns"
+                            slot="end"
+                          >
                             <IonButton
                               className="icon-btn"
                               onClick={() =>
@@ -222,7 +195,6 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         activeTab={"expenses"}
         settings={event.settings}
         eventRelation={eventRelation}
-        hideFooter={showFooter}
       />
     </IonPage>
   );

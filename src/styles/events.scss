@@ -254,6 +254,7 @@
       ion-img {
         width: auto;
         height: auto;
+        padding: 5px;
       }
     }
     .card-label {
@@ -275,7 +276,7 @@
   &.v2 {
     .ion-col .icon-thumb {
       flex-direction: column;
-      --size: 21.5vw;
+      --size: 75px;
     }
   }
 }
