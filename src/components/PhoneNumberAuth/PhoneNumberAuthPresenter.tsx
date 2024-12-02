@@ -116,7 +116,7 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 sendOTP={sendOTP}
               />
             </IonContent>
-            <IonFooter className="stickyFooter">
+            <IonFooter className="stickyFooter ion-padding">
               <IonButton
                 expand="block"
                 shape="round"

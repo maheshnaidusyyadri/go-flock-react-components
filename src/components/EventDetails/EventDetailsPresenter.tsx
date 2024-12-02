@@ -12,7 +12,6 @@ import {
   IonContent,
   IonFooter,
   IonGrid,
-  IonHeader,
   IonImg,
   IonItem,
   IonItemDivider,
@@ -40,7 +39,6 @@ import plusIcon from "../../images/icons/Plus.svg";
 import goingIcon from "../../images/icons/going.svg";
 
 import minusIcon from "../../images/icons/Minus.svg";
-import backArrow from "../../images/icons/back-arrow.svg";
 import reUpdateIcon from "../../images/icons/reUpdate.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 import CustomTextarea from "../Common/CustomTextarea";
@@ -70,6 +68,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [kidsCount, setKidsCount] = useState(0);
   const [activeOption, setActiveOption] = useState("yes");
   const [showSuccess, setShowSuccess] = useState(false);
+  const [operationInProgress, setOperationInProgress] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const methods = useForm();
   const {
@@ -165,8 +164,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       name: formData.name,
     };
 
-    console.log(rsvp);
-
+    setOperationInProgress(true);
     submitRSVP(event.id, rsvp)
       .then((res) => {
         console.log("submitRSVP-res", res);
@@ -174,6 +172,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       })
       .catch((err) => {
         console.error("submitRSVP-error", err);
+      })
+      .finally(() => {
+        setOperationInProgress(false);
       });
   };
 
@@ -197,7 +198,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     }
 
     // Call addMedia with arrays of base64 strings and metadata
-    await addInvitationCards(files);
+    setOperationInProgress(true);
+    addInvitationCards(files).finally(() => {
+      setOperationInProgress(false);
+    });
   };
 
   if (eventRelation.visitType === "unauthorized") {
@@ -216,6 +220,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           eventRelation?.roles?.includes("owner")
         }
         showContactList={false}
+        showProgressBar={operationInProgress}
         deleteEvent={deleteEvent}
         eventRelation={eventRelation}
         inviteMembers={inviteMembers}
@@ -270,23 +275,24 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 </IonGrid>
               )}
             {event.invitationCards && event.invitationCards.length > 0 && (
-              <IonGrid className="invitation-cards">
-                <IonRow className="ion-row">
-                  <IonCol>
-                    <IonThumbnail className="event_dp">
-                      <IonImg
-                        src={event.invitationCards?.at(0)?.downloadUrl}
-                        alt="Event"
-                      />
+              <IonRow className="invitation-cards ion-row">
+                <IonCol>
+                  <IonThumbnail className="event_dp">
+                    <IonImg
+                      src={event.invitationCards?.at(0)?.downloadUrl}
+                      alt="Event"
+                    />
+                    {["admin", "owner"].includes(eventRelation?.visitType) && (
                       <span
                         className="edit-icon"
                         onClick={() => fileInputRef.current?.click()}
                       >
                         <IonImg src={EditIcon} />
                       </span>
-                    </IonThumbnail>
-                  </IonCol>
-                  {/* <IonCol>
+                    )}
+                  </IonThumbnail>
+                </IonCol>
+                {/* <IonCol>
                     <IonThumbnail className="event_dp">
                       <IonImg src={noImage} />
                     </IonThumbnail>
@@ -301,14 +307,18 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       <IonImg src={noImage} />
                     </IonThumbnail>
                   </IonCol> */}
-                </IonRow>
-              </IonGrid>
+              </IonRow>
             )}
-            <IonText className="event_brief">
-              <div
-                dangerouslySetInnerHTML={{ __html: event.description }}
-              ></div>
-            </IonText>
+            <IonRow>
+              <IonCol>
+                <IonItemDivider className="devider"></IonItemDivider>
+                <IonText className="event_brief">
+                  <div
+                    dangerouslySetInnerHTML={{ __html: event.description }}
+                  ></div>
+                </IonText>
+              </IonCol>
+            </IonRow>
             <IonList className="listitems">
               {!["admin", "owner"].includes(eventRelation?.visitType) &&
                 eventRelation?.rsvp && (
@@ -504,14 +514,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       >
         {isInviteActive && (
           <>
-            <IonHeader class="modal_header">
-              <IonImg
-                src={backArrow}
-                alt="Page Back"
-                onClick={toggleGogingClass}
-              />
-              <IonLabel>Are you going?</IonLabel>
-            </IonHeader>
+            <Header
+              title={"Are you going?"}
+              showGoBack={true}
+              leftButtonAction={toggleGogingClass}
+              showProgressBar={operationInProgress}
+            ></Header>
             <IonContent>
               <IonList className="rsvp_actions">
                 <IonItem

@@ -11,6 +11,7 @@ import {
   IonButtons,
   IonButton,
   IonAvatar,
+  IonProgressBar,
 } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
@@ -35,13 +36,16 @@ type HeaderProps = {
   logoPosition?: "left" | "middle";
   className?: string;
   showGoBack?: boolean;
-  deleteEvent?: (eventId: string) => void;
+  showProgressBar?: boolean;
   eventRelation?: EventRelation;
   profile?: Profile;
+  leftButtonAction?: () => void;
+  rightButtonAction?: () => void;
   inviteMembers?: (eventId: string) => void;
   addInvitationCards?: (files: FileList) => Promise<Media[]>;
   copyEventLink?: (eventId: string) => void;
   editEvent?: (eventId: string) => void;
+  deleteEvent?: (eventId: string) => void;
 };
 
 const Header: React.FC<HeaderProps> = ({
@@ -55,17 +59,27 @@ const Header: React.FC<HeaderProps> = ({
   showLogo = false,
   logoPosition = "left",
   showGoBack = true,
-  deleteEvent,
+  showProgressBar = false,
   eventRelation,
   profile,
   inviteMembers,
   addInvitationCards,
   copyEventLink,
   editEvent,
+  leftButtonAction,
+  deleteEvent,
 }) => {
   const [showActionMenu, setShowActionMenu] = useState(false);
   const handleActionClose = () => {
     setShowActionMenu(false);
+  };
+
+  const handleLeftButtonAction = () => {
+    if (leftButtonAction) {
+      leftButtonAction();
+    } else {
+      window.history.back();
+    }
   };
 
   return (
@@ -74,16 +88,22 @@ const Header: React.FC<HeaderProps> = ({
         <IonToolbar className="header-cnt">
           <IonButtons slot="start">
             {showGoBack && (
-              <IonButton routerLink={eventId ? `/event/${eventId}` : "/"}>
+              <IonButton onClick={() => handleLeftButtonAction()}>
                 <IonThumbnail className="profile_icon">
-                  <IonImg src={backArrow} alt="Page Back" />
+                  <IonImg
+                    src={backArrow}
+                    alt="Page Back"
+                  />
                 </IonThumbnail>
               </IonButton>
             )}
             {showLogo && logoPosition === "left" && (
               <IonButton routerLink="/">
                 <IonThumbnail className="profile_icon">
-                  <IonImg src={goflockLogo} alt="ProfileIcon" />
+                  <IonImg
+                    src={goflockLogo}
+                    alt="ProfileIcon"
+                  />
                 </IonThumbnail>
               </IonButton>
             )}
@@ -107,14 +127,20 @@ const Header: React.FC<HeaderProps> = ({
                   className="menu_icon"
                   onClick={() => setShowActionMenu(true)}
                 >
-                  <IonImg src={Menu} alt="More Details" />
+                  <IonImg
+                    src={Menu}
+                    alt="More Details"
+                  />
                 </IonThumbnail>
               </IonButton>
             )}
             {showContactList && (
               <IonButton>
                 <IonThumbnail className="menu_icon contactList">
-                  <IonImg src={ContactListIcon} alt="Contact List" />
+                  <IonImg
+                    src={ContactListIcon}
+                    alt="Contact List"
+                  />
                 </IonThumbnail>
               </IonButton>
             )}
@@ -135,10 +161,16 @@ const Header: React.FC<HeaderProps> = ({
             {showSignIn && (
               <IonLabel class="signIn_btn">
                 <IonText class="signin_text">Sign in</IonText>
-                <IonImg src={signInIcon} alt="ProfileIcon" />
+                <IonImg
+                  src={signInIcon}
+                  alt="ProfileIcon"
+                />
               </IonLabel>
             )}
           </IonButtons>
+          {showProgressBar && (
+            <IonProgressBar type="indeterminate"></IonProgressBar>
+          )}
         </IonToolbar>
       </IonHeader>
       {showActionMenu && (
