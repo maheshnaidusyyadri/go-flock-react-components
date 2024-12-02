@@ -158,6 +158,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
       return item?.rsvp?.response === filterMember;
     });
     setFilteredMembersList(filteredMembers);
+    console.log("membersList", members);
   }, [filterMember, members]);
 
   const handleDelete = () => {

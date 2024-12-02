@@ -201,7 +201,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   };
 
   const areAllSelected = photos?.length > 0 && selectedCount === photos.length;
-  const handleEditMode = () => {
+  const handleEditMode = (index: number) => {
+    setPhotos((prevPhotos) => {
+      const newPhotos = [...prevPhotos];
+      newPhotos[index].selected = !newPhotos[index].selected;
+      return newPhotos;
+    });
     setIsEditMode(true);
   };
 
@@ -434,18 +439,25 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             </IonSegmentButton>
           </IonSegment>
           {photos && photos.length > 0 ? (
-            <div onContextMenu={handleEditMode}>
-              <MasonryPhotoAlbum
-                photos={photos}
-                // @ts-ignore
-                render={{
-                  // render custom styled link
-                  link: (props) => (
-                    <StyledLink {...props} isEditView={isEditMode} />
-                  ),
-                  // render image selection icon
-                  extras: (_, { photo: { selected, type }, index }) => (
-                    <>
+            // <div onContextMenu={handleEditMode}>
+            <MasonryPhotoAlbum
+              photos={photos}
+              // @ts-ignore
+              render={{
+                link: (props) => (
+                  <StyledLink {...props} isEditView={isEditMode} />
+                ),
+
+                // render image selection icon
+                extras: (_, { photo: { selected, type }, index }) => (
+                  <>
+                    <div
+                      onContextMenu={(event) => {
+                        event.preventDefault();
+                        handleEditMode(index);
+                      }}
+                      className="media-type"
+                    >
                       {isEditMode && (
                         <SelectIcon
                           selected={!selected}
@@ -471,50 +483,50 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                           <IonImg class="type_declaration" src={ImageType} />
                         </>
                       )}
-                    </>
-                  ),
-                }}
-                // custom components' props
-                componentsProps={{
-                  link: ({ photo: { href } }) =>
-                    // add target="_blank" and rel="noreferrer noopener" to external links
-                    href?.startsWith("http")
-                      ? { target: "_blank", rel: "noreferrer noopener" }
-                      : undefined,
-                }}
-                // on click callback
-                onClick={({ event, photo, index }) => {
-                  setLightboxIndex(index);
-                  if (!isEditMode) {
-                    // let a link open in a new tab / new window / download
-                    if (event.shiftKey || event.altKey || event.metaKey) return;
-                    // prevent the default link behavior
-                    event.preventDefault();
-                    // open photo in a lightbox
-                    setLightboxPhoto(photo);
-                  } else {
-                    setPhotos((prevPhotos) => {
-                      const newPhotos = [...prevPhotos];
-                      newPhotos[index].selected = !newPhotos[index].selected;
-                      return newPhotos;
-                    });
-                  }
-                }}
-                // describe photo album size in different viewports
-                sizes={{
-                  size: "1168px",
-                  sizes: [
-                    {
-                      viewport: "(max-width: 1200px)",
-                      size: "calc(100vw - 32px)",
-                    },
-                  ],
-                }}
-                // re-calculate the layout only at specific breakpoints
-                breakpoints={[220, 360, 480, 600, 900, 1200]}
-              />
-            </div>
+                    </div>
+                  </>
+                ),
+              }}
+              // custom components' props
+              componentsProps={{
+                link: ({ photo: { href } }) =>
+                  // add target="_blank" and rel="noreferrer noopener" to external links
+                  href?.startsWith("http")
+                    ? { target: "_blank", rel: "noreferrer noopener" }
+                    : undefined,
+              }}
+              // on click callback
+              onClick={({ event, photo, index }) => {
+                setLightboxIndex(index);
+                if (!isEditMode) {
+                  // let a link open in a new tab / new window / download
+                  if (event.shiftKey || event.altKey || event.metaKey) return;
+                  // prevent the default link behavior
+                  event.preventDefault();
+                  // open photo in a lightbox
+                  setLightboxPhoto(photo);
+                } else {
+                  setPhotos((prevPhotos) => {
+                    const newPhotos = [...prevPhotos];
+                    newPhotos[index].selected = !newPhotos[index].selected;
+                    return newPhotos;
+                  });
+                }
+              }}
+              sizes={{
+                size: "1168px",
+                sizes: [
+                  {
+                    viewport: "(max-width: 1200px)",
+                    size: "calc(100vw - 32px)",
+                  },
+                ],
+              }}
+              // re-calculate the layout only at specific breakpoints
+              breakpoints={[220, 360, 480, 600, 900, 1200]}
+            />
           ) : (
+            // </div>
             <IonImg src={NoMedia} />
           )}
         </IonGrid>
