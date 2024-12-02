@@ -34,8 +34,8 @@ const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({}) => {
         className="action_screen ion-padding"
         fullscreen
       >
-        <IonGrid className="onboarding_sec">
-          <IonCard className="auth_cnt">
+        <IonGrid className="onboarding-sec">
+          <IonCard className="auth-cnt">
             <IonImg
               className="welcome"
               alt="Welcome to Go Flock"

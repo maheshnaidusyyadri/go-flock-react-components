@@ -39,26 +39,26 @@
   justify-content: center;
   height: 100%;
 }
-.auth_cnt {
+.auth-cnt {
   display: block;
   text-align: center;
   margin: 0px;
   box-shadow: none;
   padding: 0px;
   box-shadow: none;
-  .logo {
+  svg {
     display: block;
     margin: 0 auto 20px;
     width: clamp(150px, 48vw, 200px);
   }
 }
-.onboarding_sec {
+.onboarding-sec {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 165px);
-  .auth_cnt {
+  .auth-cnt {
     img.welcome {
       margin: 0 auto 45px;
       width: clamp(200px, 75vw, 300px);
