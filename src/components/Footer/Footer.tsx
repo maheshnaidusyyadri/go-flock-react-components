@@ -22,6 +22,7 @@ interface FooterProps {
   activeTab: "invitation" | "members" | "media" | "expenses" | "settings";
   settings: EventSettings;
   eventRelation: EventRelation;
+  hideFooter: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -29,6 +30,7 @@ const Footer: React.FC<FooterProps> = ({
   settings,
   eventRelation,
   activeTab,
+  hideFooter = false,
 }) => {
   const showFooterAction = (type: string): boolean => {
     switch (type) {
@@ -100,7 +102,7 @@ const Footer: React.FC<FooterProps> = ({
   const enabledTabs = allTabs.filter((tab) => tab.enabled);
 
   return (
-    <IonFooter className="footer">
+    <IonFooter className={!hideFooter ? "footer hidefooter" : "footer"}>
       <IonToolbar>
         <IonGrid className="ion-padding footer-cnt">
           <IonRow>

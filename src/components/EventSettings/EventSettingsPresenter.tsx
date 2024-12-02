@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./EventSettingsPresenter.scss";
 import {
   IonToggle,
@@ -41,6 +41,9 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
   const [visibility, setVisibility] = useState<EventVisibility>(
     eventSettings.eventVisibility
   );
+  const [showFooter, setShowFooter] = useState(true);
+  let lastScrollTop = useRef(0);
+  let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const handleToggleMediaSharing = async () => {
     setIsLoading(true);
@@ -97,6 +100,32 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
       setIsLoading(false);
     }
   };
+  const handleScroll = (e: any) => {
+    const currentScrollTop = e.detail.scrollTop;
+    if (currentScrollTop > lastScrollTop) {
+      // Scrolling down
+      if (showFooter) {
+        setShowFooter(false);
+        console.log("Footer hidden");
+      }
+    } else if (currentScrollTop < lastScrollTop) {
+      // Scrolling up
+      if (!showFooter) {
+        setShowFooter(true);
+        console.log("Footer shown");
+      }
+    }
+    // Clear the previous timeout if it exists
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+    // Set a timeout to show the footer after scrolling stops
+    scrollTimeout.current = setTimeout(() => {
+      setShowFooter(true);
+      console.log("Footer shown after scroll stops");
+    }, 1000); // Adjust timeout duration as needed
+    lastScrollTop = currentScrollTop;
+  };
 
   return (
     <IonPage>
@@ -107,15 +136,16 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         showContactList={false}
         className="sticky"
       />
-      <IonContent className="ion-padding">
+      <IonContent
+        className="ion-padding"
+        onIonScroll={handleScroll}
+        scrollEvents={true}
+      >
         <IonGrid className="settings_list ion-no-padding ion-no-margin">
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={galleryIcon}
-                  alt="Media"
-                />
+                <IonImg src={galleryIcon} alt="Media" />
               </IonThumbnail>
               Media Sharing
             </IonLabel>
@@ -131,10 +161,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={billsIcon}
-                  alt="Add Expenses"
-                />
+                <IonImg src={billsIcon} alt="Add Expenses" />
               </IonThumbnail>
               Split Bills
             </IonLabel>
@@ -150,10 +177,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={dollarIcon}
-                  alt="chat"
-                />
+                <IonImg src={dollarIcon} alt="chat" />
               </IonThumbnail>
               Currency
             </IonLabel>
@@ -176,10 +200,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
           <IonItem>
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
-                <IonImg
-                  src={galleryIcon}
-                  alt="Media"
-                />
+                <IonImg src={galleryIcon} alt="Media" />
               </IonThumbnail>
               Event Visibility
             </IonLabel>
@@ -205,6 +226,7 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
         activeTab={"settings"}
         settings={event.settings}
         eventRelation={eventRelation}
+        hideFooter={showFooter}
       />
     </IonPage>
   );

@@ -38,4 +38,9 @@
 
 ion-footer {
   box-shadow: none !important;
+  transition: all 0.5s ease-in-out;
+  &.hidefooter {
+    margin-bottom: -70px;
+    transition: all 0.3s ease-in-out;
+  }
 }

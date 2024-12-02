@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ManageMembersPresenter.scss";
 
 import {
@@ -83,6 +83,9 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   const [filteredMembersList, setFilteredMembersList] = useState<EventMember[]>(
     []
   );
+  const [showFooter, setShowFooter] = useState(true);
+  let lastScrollTop = useRef(0);
+  let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const methods = useForm();
   const {
@@ -189,11 +192,41 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     setFilterMember(selectedItem);
     console.log("handleFilter", selectedItem);
   };
+  const handleScroll = (e: any) => {
+    const currentScrollTop = e.detail.scrollTop;
+    if (currentScrollTop > lastScrollTop) {
+      // Scrolling down
+      if (showFooter) {
+        setShowFooter(false);
+        console.log("Footer hidden");
+      }
+    } else if (currentScrollTop < lastScrollTop) {
+      // Scrolling up
+      if (!showFooter) {
+        setShowFooter(true);
+        console.log("Footer shown");
+      }
+    }
+    // Clear the previous timeout if it exists
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+    // Set a timeout to show the footer after scrolling stops
+    scrollTimeout.current = setTimeout(() => {
+      setShowFooter(true);
+      console.log("Footer shown after scroll stops");
+    }, 1000); // Adjust timeout duration as needed
+    lastScrollTop = currentScrollTop;
+  };
   return (
     <>
       <IonPage className="invite_page">
         <Header eventId={eventId} title="Manage members" showMenu={false} />
-        <IonContent className="invite_members ion-padding-end ion-padding-start ion-padding-bottom">
+        <IonContent
+          className="invite_members ion-padding-end ion-padding-start ion-padding-bottom"
+          onIonScroll={handleScroll}
+          scrollEvents={true}
+        >
           <IonSegment
             className="segment-tabs"
             value={selectedSegment}
@@ -419,6 +452,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           activeTab={"members"}
           settings={event.settings}
           eventRelation={eventRelation}
+          hideFooter={showFooter}
         />
       </IonPage>
       <IonActionSheet
