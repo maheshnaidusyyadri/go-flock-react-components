@@ -41,6 +41,8 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showOtpModal, setShowOtpModal] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const methods = useForm();
   const {
@@ -77,15 +79,25 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
   ];
   const handleGenerateOtp = (formData: any) => {
     let phoneNumber = formData.phone;
-    sendOTP(phoneNumber).then((result) => {
-      console.log("Send-Otp-res", result);
-      setShowOtpModal(true);
-    });
+    setSendingOtp(true);
+    sendOTP(phoneNumber)
+      .then((result) => {
+        console.log("Send-Otp-res", result);
+        setShowOtpModal(true);
+      })
+      .finally(() => {
+        setSendingOtp(false);
+      });
   };
   const handleVerifyOTP = (formData: any) => {
-    verifyOTP(formData.otp).then((result) => {
-      console.log("veifyOtp-res", result);
-    });
+    setVerifyingOtp(true);
+    verifyOTP(formData.otp)
+      .then((result) => {
+        console.log("veifyOtp-res", result);
+      })
+      .finally(() => {
+        setVerifyingOtp(false);
+      });
   };
   const onGenerateError = (error: any) => {
     console.log("onGenerateError", error);
@@ -98,6 +110,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
         showLogo={true}
         logoPosition="middle"
         showGoBack={false}
+        showProgressBar={sendingOtp || verifyingOtp}
       ></Header>
       {/* <IonContent className="onboard_cnt guest-user ion-padding"> */}
       {!showOtpModal && (
@@ -160,10 +173,11 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
           </IonContent>
           <IonFooter className="ion-padding">
             <IonButton
+              disabled={sendingOtp}
               className="primary-btn rounded"
               onClick={handleSubmit(handleGenerateOtp, onGenerateError)}
             >
-              {"Send OTP"}
+              {sendingOtp ? "Sending OTP" : "Send OTP"}
             </IonButton>
           </IonFooter>
         </>
@@ -187,12 +201,13 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
           </IonContent>
           <IonFooter className="ion-padding">
             <IonButton
+              disabled={verifyingOtp}
               expand="block"
               shape="round"
               className="primary-btn"
               onClick={handleSubmit(handleVerifyOTP, onGenerateError)}
             >
-              {"Verify"}
+              {verifyingOtp ? "Verifying" : "Verify"}
             </IonButton>
           </IonFooter>
         </>
