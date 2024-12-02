@@ -21,11 +21,9 @@ import Header from "../Header/Header";
 import ProfileIcon from "../../images/icons/profile-circle.svg";
 import PrivacyIcon from "../../images/icons/shield-tick.svg";
 import LogOutIcon from "../../images/icons/logOut.svg";
-import DeleteIcon from "../../images/icons/Delete.svg";
 import PrivacyPolicy from "./PrivacyPolicy";
 import backArrow from "../.././images/icons/back-arrow.svg";
 import rightArrow from "../.././images/icons/arrow-right.svg";
-import rightArrowRed from "../.././images/icons/arrow-right-red.svg";
 
 import EditProfile from "./EditProfile";
 import { getDisplayName } from "../../utils/utils";
@@ -49,14 +47,17 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
     <>
       <IonPage>
         <Header
-          title="Profile Setting"
+          title="Profile Settings"
           showMenu={false}
           showContactList={false}
         />
         <IonContent className="ion-padding">
           <IonCard className="profile_card">
             {profile && profile.pictureUrl ? (
-              <IonImg className="dp" src={profile.pictureUrl}></IonImg>
+              <IonImg
+                className="dp"
+                src={profile.pictureUrl}
+              ></IonImg>
             ) : (
               <IonAvatar className="profile-dp">
                 {getDisplayName(profile?.prefName)}
@@ -73,17 +74,34 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 className="list_item"
                 onClick={() => setProfileOpen(true)}
               >
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={ProfileIcon} alt="Profile" />
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={ProfileIcon}
+                    alt="Profile"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Profile</IonTitle>
                   <IonIcon src={rightArrow}></IonIcon>
                 </IonLabel>
               </IonItem>
-              <IonItem className="list_item" onClick={() => setIsOpen(true)}>
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" />
+              <IonItem
+                className="list_item"
+                onClick={() => setIsOpen(true)}
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={PrivacyIcon}
+                    alt="Privacy"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Privacy</IonTitle>
@@ -91,26 +109,23 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonLabel>
               </IonItem>
 
-              <IonItem className="list_item" id="open-logout-action">
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" />
+              <IonItem
+                className="list_item"
+                id="open-logout-action"
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={LogOutIcon}
+                    alt="Log Out"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Log Out</IonTitle>
                   <IonIcon src={rightArrow}></IonIcon>
-                </IonLabel>
-              </IonItem>
-              <IonItem className="list_item delete" id="open-delete-action">
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg
-                    className="ion-img"
-                    src={DeleteIcon}
-                    alt="Delete Account"
-                  />
-                </IonThumbnail>
-                <IonLabel className="list-info">
-                  <IonTitle className="name">Delete Account</IonTitle>
-                  <IonIcon src={rightArrowRed}></IonIcon>
                 </IonLabel>
               </IonItem>
             </IonList>
@@ -177,7 +192,10 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             className="modal_close"
             onClick={() => setProfileOpen(false)}
           >
-            <img src={backArrow} alt="Page Back" />
+            <img
+              src={backArrow}
+              alt="Page Back"
+            />
           </IonLabel>
           <EditProfile
             profile={profile}
@@ -189,8 +207,14 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
       )}
       {isOpen && (
         <>
-          <IonLabel className="modal_close" onClick={() => setIsOpen(false)}>
-            <img src={backArrow} alt="Page Back" />
+          <IonLabel
+            className="modal_close"
+            onClick={() => setIsOpen(false)}
+          >
+            <img
+              src={backArrow}
+              alt="Page Back"
+            />
           </IonLabel>
           <PrivacyPolicy />
         </>
