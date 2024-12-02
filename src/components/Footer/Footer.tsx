@@ -101,7 +101,7 @@ const Footer: React.FC<FooterProps> = ({
   const enabledTabs = allTabs.filter((tab) => tab.enabled);
 
   return (
-    <IonFooter>
+    <IonFooter className="footer">
       <IonToolbar>
         <IonGrid className="ion-padding footer-cnt">
           <IonRow>

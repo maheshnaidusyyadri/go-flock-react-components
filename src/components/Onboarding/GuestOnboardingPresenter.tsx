@@ -56,8 +56,8 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
   const slides = [
     {
       icon: <EventsIcon />,
-      title: "Create Events & RSVP ",
-      text: "And invite guests or friends receive RSVP",
+      title: "Secure RSVP",
+      text: "Securely submit RSVP to help plan better!",
     },
     {
       icon: <MediaIcon />,
@@ -139,7 +139,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
             <Swiper
               modules={[Autoplay, Pagination, IonicSlides, Navigation]}
               className="guest-onboarding"
-              autoplay={false}
+              autoplay={true}
               pagination={true}
               loop={true}
               navigation={false} // Hide navigation on the last slide
