@@ -7,13 +7,12 @@ import {
   IonButton,
   IonLabel,
   IonText,
-  IonImg,
   IonGrid,
   IonCard,
   IonFooter,
 } from "@ionic/react";
 import { PhoneNumberAuthProps } from "@goflock/types/src/index";
-import Logo from "../../images/invitoz_dark.svg";
+import InvitozLogo from "../Common/Icons/Logo";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import OtpVerification from "../Common/OtpVerification";
@@ -67,12 +66,9 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         <>
           <IonContent className="ion-padding">
             <IonGrid className="auth_sec ion-no-padding">
-              <IonCard className="auth_cnt">
-                <IonImg
-                  className="logo"
-                  alt="Invitoz"
-                  src={Logo}
-                />
+              <IonCard className="auth-cnt">
+                {/* <IonImg className="logo" alt="Invitoz" src={Logo} /> */}
+                <InvitozLogo />
                 <IonLabel className="auth-title">
                   Enter Your Phone Number
                 </IonLabel>

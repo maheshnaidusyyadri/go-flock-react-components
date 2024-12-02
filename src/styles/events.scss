@@ -276,6 +276,7 @@
   &.v2 {
     .ion-col .icon-thumb {
       flex-direction: column;
+      --size: 21.5vw;
     }
   }
 }
@@ -319,3 +320,8 @@
     height: 100%;
   }
 }
+
+// .action-modal {
+//   --ion-color-step-350: red;
+//   --ion-background-color-step-350: #000;
+// }

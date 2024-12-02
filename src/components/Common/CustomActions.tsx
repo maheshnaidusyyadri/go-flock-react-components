@@ -134,8 +134,8 @@ const CustomActions: React.FC<CustomActionsProps> = ({
   return (
     <IonModal
       isOpen={isOpen}
-      initialBreakpoint={0.6}
-      breakpoints={[0, 0.6, 0.75]}
+      initialBreakpoint={0.5}
+      breakpoints={[0, 0.5, 0.75]}
       onDidDismiss={onClose}
       className="action-modal ion-padding-top"
     >
@@ -154,7 +154,7 @@ const CustomActions: React.FC<CustomActionsProps> = ({
             {filteredActions.map((action, index) => (
               <IonCol
                 key={index}
-                size="4"
+                size="3"
                 className={`ion-col ion-text-center`}
                 onClick={() => handleAction(action)}
               >
