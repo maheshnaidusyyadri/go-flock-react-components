@@ -98,8 +98,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   const handleClick = (option: React.SetStateAction<string>) => {
     setShowValidation(false);
-    setAdultCount(0);
-    setKidsCount(0);
+    // setAdultCount(0);
+    //setKidsCount(0);
     setActiveOption(option);
   };
   const incrementAdults = () => {
@@ -160,12 +160,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
     let rsvp: RSVP = {
       response: response,
-      count: kidsCount + adultCount,
+      count: 0,
       comment: formData.note || "",
-      kidsCount: kidsCount,
-      adultsCount: adultCount,
+      kidsCount: 0,
+      adultsCount: 0,
       name: formData.name,
     };
+    if (activeOption !== "no") {
+      rsvp.count = kidsCount + adultCount;
+      rsvp.kidsCount = kidsCount;
+      rsvp.adultsCount = adultCount;
+    }
 
     setOperationInProgress(true);
     submitRSVP(event.id, rsvp)
