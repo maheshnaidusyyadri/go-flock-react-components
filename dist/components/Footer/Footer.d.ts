@@ -5,6 +5,7 @@ interface FooterProps {
     activeTab: "invitation" | "members" | "media" | "expenses" | "settings";
     settings: EventSettings;
     eventRelation: EventRelation;
+    hideFooter?: boolean;
 }
 declare const Footer: React.FC<FooterProps>;
 export default Footer;

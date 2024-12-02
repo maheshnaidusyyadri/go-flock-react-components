@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ManageMembersPresenter.scss";
 
 import {
@@ -32,7 +32,6 @@ import CoHostIcon from "../../images/icons/co-host.svg";
 import NotificationIcon from "../../images/icons/notification.svg";
 import userSearchIcon from "../../images/icons/userSearch.svg";
 import membersIcon from "../../images/icons/members.svg";
-import messagesIcon from "../../images/icons/messages.svg";
 import allIcon from "../../images/rsvp/all.svg";
 import attendingIcon from "../../images/rsvp/attending.svg";
 import notAttendingIcon from "../../images/rsvp/notAttending.svg";
@@ -83,9 +82,6 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   const [filteredMembersList, setFilteredMembersList] = useState<EventMember[]>(
     []
   );
-  const [showFooter, setShowFooter] = useState(true);
-  let lastScrollTop = useRef(0);
-  let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const methods = useForm();
   const {
@@ -193,39 +189,17 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
     setFilterMember(selectedItem);
     console.log("handleFilter", selectedItem);
   };
-  const handleScroll = (e: any) => {
-    const currentScrollTop = e.detail.scrollTop;
-    if (currentScrollTop > lastScrollTop) {
-      // Scrolling down
-      if (showFooter) {
-        setShowFooter(false);
-        console.log("Footer hidden");
-      }
-    } else if (currentScrollTop < lastScrollTop) {
-      // Scrolling up
-      if (!showFooter) {
-        setShowFooter(true);
-        console.log("Footer shown");
-      }
-    }
-    // Clear the previous timeout if it exists
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-    // Set a timeout to show the footer after scrolling stops
-    scrollTimeout.current = setTimeout(() => {
-      setShowFooter(true);
-      console.log("Footer shown after scroll stops");
-    }, 1000); // Adjust timeout duration as needed
-    lastScrollTop = currentScrollTop;
-  };
+
   return (
     <>
       <IonPage className="invite_page">
-        <Header eventId={eventId} title="Manage members" showMenu={false} />
+        <Header
+          eventId={eventId}
+          title="Manage members"
+          showMenu={false}
+        />
         <IonContent
           className="invite_members ion-padding-end ion-padding-start ion-padding-bottom"
-          onIonScroll={handleScroll}
           scrollEvents={true}
         >
           <IonSegment
@@ -242,9 +216,6 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             </IonSegmentButton>
             <IonSegmentButton value="Members">
               <IonImg src={membersIcon} />
-            </IonSegmentButton>
-            <IonSegmentButton value="Messaging">
-              <IonImg src={messagesIcon} />
             </IonSegmentButton>
           </IonSegment>
 
@@ -285,13 +256,25 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                 {filteredMembersList && filteredMembersList.length > 0 ? (
                   <IonList className="list_wrap event_members">
                     {filteredMembersList.map((member, index) => (
-                      <IonItem key={index} className="list_item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="list_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member?.roles?.includes("owner") && (
-                            <IonImg className="type" src={HostIcon} />
+                            <IonImg
+                              className="type"
+                              src={HostIcon}
+                            />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg className="type co" src={CoHostIcon} />
+                            <IonImg
+                              className="type co"
+                              src={CoHostIcon}
+                            />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -304,7 +287,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                             </IonAvatar>
                           )}
                           <span className="selection">
-                            <img src={Selected} alt="Selected" />
+                            <img
+                              src={Selected}
+                              alt="Selected"
+                            />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
@@ -313,8 +299,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                ? " (Co-host)"
-                                : "")}
+                                  ? " (Co-host)"
+                                  : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
@@ -453,7 +439,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           activeTab={"members"}
           settings={event.settings}
           eventRelation={eventRelation}
-          hideFooter={showFooter}
+          hideFooter={true}
         />
       </IonPage>
       <IonActionSheet

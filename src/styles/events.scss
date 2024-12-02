@@ -248,13 +248,13 @@
       border: 1px solid rgba(24, 24, 27, 0.1);
       background: $white;
       box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.02);
-      --size: 28vw;
       display: flex;
       align-items: center;
       justify-content: center;
       ion-img {
         width: auto;
         height: auto;
+        padding: 5px;
       }
     }
     .card-label {
@@ -276,7 +276,7 @@
   &.v2 {
     .ion-col .icon-thumb {
       flex-direction: column;
-      --size: 21.5vw;
+      --size: 75px;
     }
   }
 }

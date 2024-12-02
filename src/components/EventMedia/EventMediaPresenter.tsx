@@ -76,9 +76,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
   const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
   const [operationInProgress, setOperationInProgress] = useState(false);
-  const [showFooter, setShowFooter] = useState(true);
-  let lastScrollTop = useRef(0);
-  let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect
@@ -352,32 +349,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       setOperationInProgress(false);
     });
   };
-  const handleScroll = (e: any) => {
-    const currentScrollTop = e.detail.scrollTop;
-    if (currentScrollTop > lastScrollTop) {
-      // Scrolling down
-      if (showFooter) {
-        setShowFooter(false);
-        console.log("Footer hidden");
-      }
-    } else if (currentScrollTop < lastScrollTop) {
-      // Scrolling up
-      if (!showFooter) {
-        setShowFooter(true);
-        console.log("Footer shown");
-      }
-    }
-    // Clear the previous timeout if it exists
-    if (scrollTimeout.current) {
-      clearTimeout(scrollTimeout.current);
-    }
-    // Set a timeout to show the footer after scrolling stops
-    scrollTimeout.current = setTimeout(() => {
-      setShowFooter(true);
-      console.log("Footer shown after scroll stops");
-    }, 1000); // Adjust timeout duration as needed
-    lastScrollTop = currentScrollTop;
-  };
 
   return (
     <IonPage>
@@ -389,11 +360,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         showProfile={false}
         showProgressBar={operationInProgress}
       />
-      <IonContent
-        className="ion-padding eventMedia1"
-        onIonScroll={handleScroll}
-        scrollEvents={true}
-      >
+      <IonContent className="ion-padding eventMedia1">
         {isEditMode && (
           <IonLabel class="slection_head">
             {isEditMode && (
@@ -411,12 +378,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select_action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -445,7 +418,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               // @ts-ignore
               render={{
                 link: (props) => (
-                  <StyledLink {...props} isEditView={isEditMode} />
+                  <StyledLink
+                    {...props}
+                    isEditView={isEditMode}
+                  />
                 ),
 
                 // render image selection icon
@@ -475,12 +451,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type_declaration" src={VideoType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={VideoType}
+                          />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type_declaration" src={ImageType} />
+                          <IonImg
+                            class="type_declaration"
+                            src={ImageType}
+                          />
                         </>
                       )}
                     </div>
@@ -526,8 +508,14 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               breakpoints={[220, 360, 480, 600, 900, 1200]}
             />
           ) : (
-            // </div>
-            <IonImg src={NoMedia} />
+            <IonRow>
+              <IonCol>
+                <IonImg
+                  src={NoMedia}
+                  className="no-media"
+                />
+              </IonCol>
+            </IonRow>
           )}
         </IonGrid>
         <Lightbox
@@ -598,22 +586,34 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     className="ion-no-padding"
                     onClick={handleShareSelected}
                   >
-                    <img src={ShareIcon} alt="Share" />
+                    <img
+                      src={ShareIcon}
+                      alt="Share"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDownloadSelected}
                   >
-                    <img src={Download} alt="Split Bill" />
+                    <img
+                      src={Download}
+                      alt="Split Bill"
+                    />
                   </IonCol>
                   <IonCol className="ion-no-padding">
-                    <img src={save} alt="save" />
+                    <img
+                      src={save}
+                      alt="save"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDeleteSelected}
                   >
-                    <img src={Delete} alt="Delete" />
+                    <img
+                      src={Delete}
+                      alt="Delete"
+                    />
                   </IonCol>
                 </IonRow>
               </IonGrid>
@@ -626,7 +626,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           eventId={eventId}
           settings={event.settings}
           eventRelation={eventRelation}
-          hideFooter={showFooter}
         />
       )}
     </IonPage>
