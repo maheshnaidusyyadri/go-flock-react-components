@@ -51,10 +51,7 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
       <IonLabel class="field-label phonenumber">Phone Number*</IonLabel>
 
       {selectedCountry && (
-        <IonText
-          className="countryname"
-          color="black"
-        >
+        <IonText className="countryname" color="black">
           {selectedCountry.name} ({"+" + selectedCountry.dialCode})
         </IonText>
       )}
@@ -69,10 +66,10 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
         }}
         render={({ field: { onChange, value } }) => (
           <PhoneInput
-            country={"us"}
+            country="us"
             value={value} // Ensure the input is controlled
             placeholder="Enter phone number"
-            preferredCountries={["in", "ca", "us"]}
+            preferredCountries={["us"]}
             enableSearch={true}
             countryCodeEditable={false}
             onChange={(phone: any, country) => {
@@ -87,11 +84,7 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
       />
       {/* Display error messages */}
       {errors?.[fieldName] && (
-        <IonText
-          color="danger"
-          className="error"
-          style={{ fontSize: 12 }}
-        >
+        <IonText color="danger" className="error" style={{ fontSize: 12 }}>
           {"* " + errors[fieldName]?.message}
         </IonText>
       )}

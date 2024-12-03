@@ -1,5 +1,5 @@
 import type React from "react";
-import { MdCheckCircleOutline, MdOutlineCircle,} from "react-icons/md";
+import { MdCheckCircleOutline, MdOutlineCircle } from "react-icons/md";
 
 // @ts-ignore
 import classes from "./SelectIcon.module.css";
@@ -17,11 +17,11 @@ export default function SelectIcon({
   color = "black",
   size = "22px",
 }: SelectIconProps) {
-  const Icon = selected ?  MdOutlineCircle : MdCheckCircleOutline;
+  const Icon = selected ? MdOutlineCircle : MdCheckCircleOutline;
 
   return (
-    <button
-      type="button"
+    <div
+      // type="button"
       onClick={onClick}
       className={classes.button}
       aria-label={selected ? "Deselect image" : "Select image"}
@@ -33,6 +33,6 @@ export default function SelectIcon({
         focusable={false}
         aria-hidden="true"
       />
-    </button>
+    </div>
   );
 }
