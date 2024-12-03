@@ -21,8 +21,6 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   myEvents,
   createNewEvent,
   openEvent,
-  // seeAllMyEvents,
-  // seeAllEvents,
 }) => {
   const [selectedSegment, setSelectedSegment] = useState<
     "AllEvents" | "MyEvents"

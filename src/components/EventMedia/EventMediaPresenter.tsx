@@ -17,6 +17,7 @@ import {
   IonToast,
   IonToolbar,
   SegmentValue,
+  useIonToast,
 } from "@ionic/react";
 import { EventMediaProps } from "@goflock/types";
 import { MasonryPhotoAlbum, Photo } from "react-photo-album";
@@ -76,6 +77,20 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
   const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
   const [operationInProgress, setOperationInProgress] = useState(false);
+
+  const [present] = useIonToast();
+
+  const presentToast = (
+    message: string,
+    position: "top" | "middle" | "bottom"
+  ) => {
+    present({
+      message: message,
+      color: "success",
+      duration: 1500,
+      position: position,
+    });
+  };
 
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect
@@ -183,10 +198,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     const count = photos?.filter((photo) => photo.selected).length;
     setSelectedCount(count);
   }, [photos]);
-
-  useEffect(() => {
-    loadImages();
-  }, []);
 
   const loadImages = () => {
     if (fetchImagePathsWithPagination) {
@@ -344,10 +355,14 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
     }
 
     setOperationInProgress(true);
-    // Call addMedia with arrays of base64 strings and metadata
-    addMedia(files).finally(() => {
-      setOperationInProgress(false);
-    });
+    addMedia(files)
+      .then((response) => {
+        console.log(response.length);
+        presentToast(`${response.length} files uploaded!`, "bottom");
+      })
+      .finally(() => {
+        setOperationInProgress(false);
+      });
   };
 
   return (

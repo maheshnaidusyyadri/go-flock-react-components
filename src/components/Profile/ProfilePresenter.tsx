@@ -50,6 +50,9 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           title="Profile Settings"
           showMenu={false}
           showContactList={false}
+          leftButtonAction={() => {
+            location.href = "/dashboard";
+          }}
         />
         <IonContent className="ion-padding">
           <IonCard className="profile_card">
