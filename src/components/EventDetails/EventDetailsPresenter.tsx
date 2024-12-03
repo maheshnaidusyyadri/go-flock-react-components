@@ -86,8 +86,8 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const presentToast = (position: "top" | "middle" | "bottom") => {
     present({
       message: "RSVP successful!",
-      color: "primary",
-      duration: 1500,
+      color: "success",
+      duration: 2000,
       position: position,
     });
   };
@@ -206,7 +206,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   const successRSVP = () => {
     handleConfetti();
-    presentToast("top");
+    presentToast("bottom");
     reset();
     setIsOpen(false);
     setIsInviteActive(false);

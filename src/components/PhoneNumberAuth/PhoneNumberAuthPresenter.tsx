@@ -24,6 +24,8 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
 }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
 
   const methods = useForm();
   const {
@@ -32,16 +34,20 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     register,
     control,
   } = useForm();
+
   const handleGenerateOTP = () => {
     if (phoneNumber.trim()) {
+      setSendingOtp(true);
       sendOTP(`${phoneNumber}`)
         .then(() => {
           setOtpSent(true); // OTP was sent successfully
           console.log(`Generating OTP for  ${phoneNumber}`);
+          setSendingOtp(false);
         })
         .catch(() => {
           console.error("Failed to send OTP");
           setOtpSent(false);
+          setSendingOtp(false);
         });
     } else {
       console.error("Phone number is empty");
@@ -51,12 +57,15 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
     console.log("onError", error);
   };
   const handleVerifyOTP = (formData: any) => {
+    setVerifyingOtp(true);
     verifyOTP(formData.otp)
       .then(() => {
         onSuccessfulVerification();
+        setVerifyingOtp(false);
       })
       .catch((error) => {
         console.error("Invalid OTP", error);
+        setVerifyingOtp(false);
       });
   };
 
@@ -94,12 +103,13 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           </IonContent>
           <IonFooter className="ion-padding">
             <IonButton
+              disabled={sendingOtp}
               expand="block"
               shape="round"
               className="primary-btn"
               onClick={handleSubmit(handleGenerateOTP, onError)}
             >
-              Generate OTP
+              {sendingOtp ? "Sending OTP" : "Send OTP"}
             </IonButton>
           </IonFooter>
         </>
@@ -118,12 +128,13 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
             </IonContent>
             <IonFooter className="stickyFooter ion-padding">
               <IonButton
+                disabled={verifyingOtp}
                 expand="block"
                 shape="round"
                 className="primary-btn"
                 onClick={handleSubmit(handleVerifyOTP)}
               >
-                {"Verify OTP"}
+                {verifyingOtp ? "Verifying OTP" : "Verify OTP"}
               </IonButton>
             </IonFooter>
           </FormProvider>
