@@ -21,6 +21,7 @@ import {
   IonRow,
   IonText,
   IonThumbnail,
+  useIonToast,
 } from "@ionic/react";
 
 import clockIcon from "../../images/icons/clock.svg";
@@ -42,12 +43,12 @@ import minusIcon from "../../images/icons/Minus.svg";
 import reUpdateIcon from "../../images/icons/reUpdate.svg";
 import AddressDisplay from "../Common/AddressDisplay";
 import CustomTextarea from "../Common/CustomTextarea";
-import RSVPSuccess from "../../images/RSVP_success.svg";
 import { getDisplayNamewithchr } from "../../utils/utils";
 import Yes from "../Common/Icons/Yes";
 import No from "../Common/Icons/No";
 import NotSure from "../Common/Icons/NotSure";
 import EditIcon from "../../images/icons/Edit.svg";
+import party from "party-js";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -67,8 +68,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [adultCount, setAdultCount] = useState(0);
   const [kidsCount, setKidsCount] = useState(0);
   const [activeOption, setActiveOption] = useState("yes");
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [operationInProgress, setOperationInProgress] = useState(false);
+  const [submitRSVPInProgress, setSubmitRSVPInProgress] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showFooter] = useState(true);
   // let lastScrollTop = useRef(0);
@@ -80,6 +80,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     register,
     reset,
   } = useForm();
+
+  const [present] = useIonToast();
+
+  const presentToast = (position: "top" | "middle" | "bottom") => {
+    present({
+      message: "RSVP successful!",
+      color: "primary",
+      duration: 1500,
+      position: position,
+    });
+  };
 
   const toggleGogingClass = () => {
     if (eventRelation.rsvp) {
@@ -172,23 +183,31 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       rsvp.adultsCount = adultCount;
     }
 
-    setOperationInProgress(true);
+    setSubmitRSVPInProgress(true);
     submitRSVP(event.id, rsvp)
       .then((res) => {
         console.log("submitRSVP-res", res);
-        setShowSuccess(true);
+        successRSVP();
       })
       .catch((err) => {
         console.error("submitRSVP-error", err);
       })
       .finally(() => {
-        setOperationInProgress(false);
+        setSubmitRSVPInProgress(false);
       });
   };
 
+  const handleConfetti = () => {
+    party.confetti(document.body, {
+      count: party.variation.range(100, 1000),
+      speed: party.variation.range(100, 300),
+    });
+  };
+
   const successRSVP = () => {
+    handleConfetti();
+    presentToast("top");
     reset();
-    setShowSuccess(false);
     setIsOpen(false);
     setIsInviteActive(false);
     setKidsCount(0);
@@ -205,9 +224,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       return;
     }
     // Call addMedia with arrays of base64 strings and metadata
-    setOperationInProgress(true);
+    setSubmitRSVPInProgress(true);
     addInvitationCards(files).finally(() => {
-      setOperationInProgress(false);
+      setSubmitRSVPInProgress(false);
     });
   };
 
@@ -255,7 +274,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           eventRelation?.roles?.includes("owner")
         }
         showContactList={false}
-        showProgressBar={operationInProgress}
+        showProgressBar={submitRSVPInProgress}
         deleteEvent={deleteEvent}
         eventRelation={eventRelation}
         inviteMembers={inviteMembers}
@@ -521,7 +540,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               title={"Are you going?"}
               showGoBack={true}
               leftButtonAction={toggleGogingClass}
-              showProgressBar={operationInProgress}
+              showProgressBar={submitRSVPInProgress}
             ></Header>
             <IonContent>
               <IonList className="rsvp_actions">
@@ -665,14 +684,19 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               className="stickyFooter"
               onClick={handleSubmit(handleRsvpSubmission, onGenerateError)}
             >
-              <IonButton className="primary-btn rounded">Confirm</IonButton>
+              <IonButton
+                disabled={submitRSVPInProgress}
+                className="primary-btn rounded"
+              >
+                {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
+              </IonButton>
             </IonFooter>
           </>
         )}
       </IonGrid>
 
       {/* On successful RSVP */}
-      {showSuccess && (
+      {/* {showSuccess && (
         <IonGrid
           className={`rsvp_modal success_modal ${showSuccess ? "active" : ""}`}
         >
@@ -693,7 +717,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             </IonButton>
           </IonFooter>
         </IonGrid>
-      )}
+      )} */}
     </IonPage>
   );
 };
