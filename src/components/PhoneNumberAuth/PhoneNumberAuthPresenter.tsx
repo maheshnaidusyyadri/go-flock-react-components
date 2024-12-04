@@ -96,6 +96,9 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                     register={register}
                     errorText={"Phone Number"}
                     onPhoneChange={(e: any) => setPhoneNumber(e)}
+                    // countryModal={(e: boolean) =>
+                    //   console.log("ecountryModal", e)
+                    // }
                   />
                 </div>
               </FormProvider>
