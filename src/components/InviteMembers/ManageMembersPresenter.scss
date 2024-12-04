@@ -619,3 +619,14 @@ body {
     }
   }
 }
+
+.noresults {
+  font-family: $GoFlockFont;
+  font-size: 16px;
+  color: $GoFlockColor;
+  font-weight: 500;
+  line-height: 24px;
+  display: block;
+  margin: 0 auto 8px;
+  text-align: center;
+}
