@@ -38,26 +38,13 @@ import notAttendingIcon from "../../images/rsvp/notAttending.svg";
 import notSureIcon from "../../images/rsvp/notSure.svg";
 
 import { getDisplayName } from "../../utils/utils";
-import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
 import RsvpStatus from "../Common/RsvpStatus";
 import IonTextarea from "../Common/CustomTextarea";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomModalSelect from "../Common/CustomModalSelect";
+import { EventMember } from "@goflock/types/dist/models/event/EventMember";
 
-interface EventMember {
-  id?: string;
-  flockId?: string;
-  eventId?: string;
-  name?: string;
-  phoneNumber?: string;
-  email?: string;
-  profileImg?: string;
-  addedByUid?: string;
-  phone?: string;
-  roles?: RoleType[];
-  notificationCount?: number;
-}
 const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   eventId,
   event,
@@ -295,7 +282,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                         </IonThumbnail>
                         <IonLabel className="member-info">
                           <h2>
-                            {member.name +
+                            {(member.rsvp?.name || member.name) +
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
@@ -462,7 +449,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           },
           {
             text: selectedUser
-              ? "Remove " + selectedUser.name || selectedUser.phone || ""
+              ? "Remove " + selectedUser.name || selectedUser.phoneNumber || ""
               : "",
             data: {
               action: "Delete",
