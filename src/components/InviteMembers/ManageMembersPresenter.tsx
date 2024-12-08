@@ -21,6 +21,7 @@ import {
   IonCol,
   IonGrid,
   IonBadge,
+  IonChip,
 } from "@ionic/react";
 import { ManageMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
@@ -275,7 +276,15 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           )}
                           <span className="selection">
                             <img
-                              src={Selected}
+                              src={
+                                member.rsvp?.response === "attending"
+                                  ? attendingIcon
+                                  : member.rsvp?.response === "maybe"
+                                    ? notSureIcon
+                                    : member.rsvp?.response === "not-attending"
+                                      ? notAttendingIcon
+                                      : Selected
+                              }
                               alt="Selected"
                             />
                           </span>
@@ -292,6 +301,16 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
+                        {member.rsvp?.adultsCount !== undefined && (
+                          <IonChip outline={true}>
+                            {member.rsvp?.adultsCount + " adults"}
+                          </IonChip>
+                        )}
+                        {member.rsvp?.kidsCount !== undefined && (
+                          <IonChip outline={true}>
+                            {member.rsvp?.kidsCount + " kids"}
+                          </IonChip>
+                        )}
                         {!member?.roles?.includes("owner") && (
                           <IonItem className="member-actions">
                             {member?.notificationCount && (
