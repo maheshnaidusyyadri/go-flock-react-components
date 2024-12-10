@@ -42,9 +42,7 @@
     justify-content: center;
     padding-bottom: 50px;
   }
-  .swiper {
-    height: calc(100vh - 32px);
-  }
+
   .swiper-pagination {
     display: flex;
     top: 20px !important;
@@ -61,57 +59,7 @@
       }
     }
   }
-  .swiper-button-prev,
-  .swiper-button-next {
-    top: inherit;
-    transform: inherit;
-    margin-top: 0;
-    bottom: 0;
-    background: $GoFlockColor;
-    width: calc(50% - 26px);
-    text-align: center;
-    font-family: $GoFlockFont;
-    font-weight: 600;
-    color: $white;
-    font-size: 14px;
-    line-height: 20px;
-    border-radius: 50px;
-    height: 50px;
-    &:after {
-      font-family: $GoFlockFont;
-      font-size: 14px;
-      line-height: 20px;
-      text-transform: capitalize !important;
-    }
-  }
-  .swiper-button-next {
-    right: 16px;
-    left: inherit;
-    bottom: 16px;
-  }
-  .swiper-button-prev {
-    left: 16px;
-    display: none;
-  }
-  .skip {
-    font-family: $GoFlockFont;
-    font-size: 14px;
-    line-height: 20px;
-    color: $GoFlockColor;
-    font-weight: 600;
-    padding: 0;
-    text-decoration: underline;
-    display: flex;
-    margin: 0 auto;
-    width: 50%;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 0px;
-    bottom: 16px;
-    z-index: 99;
-  }
+
   .getstart {
     position: absolute;
     left: 0px;
