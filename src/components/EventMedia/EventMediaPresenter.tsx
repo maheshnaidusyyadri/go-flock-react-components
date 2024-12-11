@@ -17,7 +17,6 @@ import {
   IonToast,
   IonToolbar,
   SegmentValue,
-  useIonToast,
 } from "@ionic/react";
 import { EventMediaProps } from "@goflock/types";
 import { MasonryPhotoAlbum, Photo } from "react-photo-album";
@@ -50,6 +49,7 @@ import NoMedia from "../../images/noMedia.svg";
 
 //import { Share } from "@capacitor/share";
 import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
+import useToastUtils from "../../utils/ToastUtils";
 type SelectablePhoto = Photo & {
   id?: any;
   selected?: boolean;
@@ -78,19 +78,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
   const [operationInProgress, setOperationInProgress] = useState(false);
 
-  const [present] = useIonToast();
-
-  const presentToast = (
-    message: string,
-    position: "top" | "middle" | "bottom"
-  ) => {
-    present({
-      message: message,
-      color: "success",
-      duration: 1500,
-      position: position,
-    });
-  };
+  const { presentToast } = useToastUtils();
 
   useEffect(() => {
     // Combine both filtering and additional properties in a single effect

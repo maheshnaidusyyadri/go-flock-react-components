@@ -11,6 +11,7 @@ interface CustomActionsProps {
     addInvitationCards?: (files: FileList) => Promise<Media[]>;
     copyEventLink?: (eventId: string) => void;
     editEvent?: (eventId: string) => void;
+    openGuestView?: (eventId: string) => void;
 }
 declare const CustomActions: React.FC<CustomActionsProps>;
 export default CustomActions;

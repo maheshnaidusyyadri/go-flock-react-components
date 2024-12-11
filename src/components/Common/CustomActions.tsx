@@ -13,9 +13,7 @@ import {
 import SettingsCircle from "./Icons/SettingsCircle";
 import inviteIcon from "../../images/icons/invite.svg";
 import editIcon from "../../images/icons/Edit.svg";
-import imageIcon from "../../images/icons/image.svg";
 import copyIcon from "../../images/icons/copy2.svg";
-import checklistIcon from "../../images/icons/checklist2.svg";
 import eyeIcon from "../../images/icons/Eye.svg";
 import deleteIcon from "../../images/icons/Delete.svg";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
@@ -31,6 +29,7 @@ interface CustomActionsProps {
   addInvitationCards?: (files: FileList) => Promise<Media[]>;
   copyEventLink?: (eventId: string) => void;
   editEvent?: (eventId: string) => void;
+  openGuestView?: (eventId: string) => void;
 }
 
 const CustomActions: React.FC<CustomActionsProps> = ({
@@ -42,6 +41,7 @@ const CustomActions: React.FC<CustomActionsProps> = ({
   //addInvitationCards,
   copyEventLink,
   editEvent,
+  openGuestView,
   eventRelation,
 }) => {
   const [showDeleteActionSheet, setShowDeleteActionSheet] = useState(false);
@@ -57,19 +57,9 @@ const CustomActions: React.FC<CustomActionsProps> = ({
       type: "edit",
     },
     {
-      icon: imageIcon,
-      label: "Image",
-      type: "image",
-    },
-    {
       icon: copyIcon,
       label: "Copy",
       type: "copy",
-    },
-    {
-      icon: checklistIcon,
-      label: "Checklist",
-      type: "checklist",
     },
     {
       icon: eyeIcon,
@@ -85,15 +75,6 @@ const CustomActions: React.FC<CustomActionsProps> = ({
   const filteredActions = actionList.filter((action) => {
     switch (eventRelation?.visitType) {
       case "admin":
-        // return [
-        //   "invite",
-        //   "edit",
-        //   "copy",
-        //   "image",
-        //   "checklist",
-        //   "guest",
-        //   "delete",
-        // ].includes(action.type);
         return true;
       case "owner":
         return true;
@@ -125,6 +106,9 @@ const CustomActions: React.FC<CustomActionsProps> = ({
         break;
       case "copy":
         copyEventLink?.(eventId!);
+        break;
+      case "guest":
+        openGuestView?.(eventId!);
         break;
       default:
         console.warn("Unknown action type:", selectedAction.type);
@@ -159,7 +143,10 @@ const CustomActions: React.FC<CustomActionsProps> = ({
                 onClick={() => handleAction(action)}
               >
                 <IonThumbnail className="icon-thumb">
-                  <IonImg src={action.icon} alt={action.label} />
+                  <IonImg
+                    src={action.icon}
+                    alt={action.label}
+                  />
                   <IonText className="card-label">{action.label}</IonText>
                 </IonThumbnail>
               </IonCol>

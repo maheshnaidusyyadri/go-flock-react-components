@@ -24,9 +24,11 @@ import { Media, Profile } from "@goflock/types";
 import { EventRelation } from "@goflock/types/dist/models/event/EventRelation";
 import { getDisplayName } from "../../utils/utils";
 import CustomActions from "../Common/CustomActions";
+import { Event } from "@goflock/types/src";
 
 type HeaderProps = {
   eventId?: string;
+  event?: Event;
   title: string;
   showMenu?: boolean;
   showContactList?: boolean;
@@ -50,6 +52,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({
   eventId,
+  event,
   title,
   showMenu = false,
   showContactList = false,
@@ -80,6 +83,11 @@ const Header: React.FC<HeaderProps> = ({
     } else {
       window.history.back();
     }
+  };
+
+  const openGuestView = () => {
+    window.open(`/event/${event?.slug}/guest`, "_blank");
+    setShowActionMenu(false);
   };
 
   return (
@@ -184,6 +192,7 @@ const Header: React.FC<HeaderProps> = ({
           addInvitationCards={addInvitationCards}
           copyEventLink={copyEventLink}
           editEvent={editEvent}
+          openGuestView={openGuestView}
         />
       )}
     </>
