@@ -1,7 +1,8 @@
 import { EventSettings } from '@goflock/types/src';
 import { EventRelation } from '@goflock/types/src/models/event/EventRelation';
+import { Event } from '@goflock/types';
 interface FooterProps {
-    eventId: string;
+    event: Event;
     activeTab: "invitation" | "members" | "media" | "expenses" | "settings";
     settings: EventSettings;
     eventRelation: EventRelation;

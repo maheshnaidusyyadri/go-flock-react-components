@@ -43,7 +43,9 @@ const theme = {
 };
 
 const Placeholder = () => (
-  <div className="editor-placeholder">Start typing...</div>
+  <div className="editor-placeholder">
+    Generating the invitation description.
+  </div>
 );
 
 const Toolbar: React.FC = () => {

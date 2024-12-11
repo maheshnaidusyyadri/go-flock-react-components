@@ -441,7 +441,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           </IonRow>
         </IonFooter>
         <Footer
-          eventId={eventId}
+          event={event}
           activeTab={"members"}
           settings={event.settings}
           eventRelation={eventRelation}

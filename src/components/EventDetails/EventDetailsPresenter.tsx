@@ -71,8 +71,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [submitRSVPInProgress, setSubmitRSVPInProgress] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showFooter] = useState(true);
-  // let lastScrollTop = useRef(0);
-  // let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
   const methods = useForm();
   const {
     handleSubmit,
@@ -306,6 +305,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                           className="image-preview"
                           src={noPreview}
                         />
+                        <span
+                          className="edit-icon"
+                          onClick={() => fileInputRef.current?.click()}
+                        >
+                          <IonImg src={EditIcon} />
+                        </span>
                       </IonThumbnail>
                     </IonCol>
                   </IonRow>
@@ -523,7 +528,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             eventRelation?.rsvp &&
             eventRelation.rsvp?.response)) && (
           <Footer
-            eventId={event.id}
+            event={event}
             activeTab={"invitation"}
             settings={event.settings}
             eventRelation={eventRelation}

@@ -21,6 +21,7 @@ export const HalloweenEvent: Event = {
     long: -122.2017895,
   },
   hostedBy: "",
+  slug: "happy-halloween",
   time: {
     startDate: "2024-11-03T21:41:39.800Z",
     startTime: "2024-11-03T02:12:24.477Z",
@@ -63,6 +64,7 @@ export const BirthdayEvent: Event = {
     long: -122.2017895,
   },
   hostedBy: "",
+  slug: "happy-birthday",
   time: {
     startDate: "2024-11-03T21:41:39.800Z",
     startTime: "2024-11-03T02:12:24.477Z",
@@ -150,6 +152,7 @@ export const EventWithMembers: Event = {
   name: "Annual Family Reunion",
   type: "reunion",
   hostedBy: "Me & Family",
+  slug: "annual-family-reunion",
   memberInvitationContactReference: ["+1234567890", "alice.smith@example.com"],
   description: "An annual gathering of the extended family.",
   location: {
@@ -551,6 +554,7 @@ export const EventWithOneMember: Event = {
   name: "Annual Family Reunion",
   type: "reunion",
   hostedBy: "Me & Family",
+  slug: "annual-family-reunion",
   memberInvitationContactReference: ["+1234567890", "alice.smith@example.com"],
   description: "An annual gathering of the extended family.",
   location: {

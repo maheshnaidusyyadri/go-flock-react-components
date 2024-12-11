@@ -638,7 +638,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       ) : (
         <Footer
           activeTab={"media"}
-          eventId={eventId}
+          event={event}
           settings={event.settings}
           eventRelation={eventRelation}
         />

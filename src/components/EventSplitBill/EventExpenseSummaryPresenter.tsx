@@ -191,7 +191,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         </IonButton>
       </IonFooter>
       <Footer
-        eventId={event.id}
+        event={event}
         activeTab={"expenses"}
         settings={event.settings}
         eventRelation={eventRelation}
