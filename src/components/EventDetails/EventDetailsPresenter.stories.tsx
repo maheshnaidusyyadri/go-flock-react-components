@@ -14,7 +14,7 @@ import {
 } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
 import { withRouter } from "storybook-addon-remix-react-router";
-import EventDetailsSkeletonPresenter from "./EventDetailsSkeleton";
+import EventDetailSkeleton from "./EventDetailsSkeleton";
 
 export default {
   title: "GoFlock/Presenters/EventDetailsPresenter",
@@ -108,6 +108,6 @@ EventGuestViewPostRSVP.args = {
   eventRelation: rsvpGuestEventRelation,
 };
 
-const SkeletonTemplate: StoryFn = () => <EventDetailsSkeletonPresenter />;
+const SkeletonTemplate: StoryFn = () => <EventDetailSkeleton />;
 
 export const EventDetailsSkeleton = SkeletonTemplate.bind({});

@@ -8,7 +8,7 @@ import {
   BirthdayEvent,
   IphoneDeviceContext,
 } from "../Common/MockData";
-
+import DashboardSkeletonPage from "./DashboardSkeleton";
 export default {
   title: "GoFlock/Presenters/DashboardPresenter",
   component: DashboardPresenter,
@@ -49,3 +49,6 @@ NoActiveOrMyEvents.args = {
   myEvents: [],
   activeEvents: [],
 };
+const SkeletonTemplate: StoryFn = () => <DashboardSkeletonPage />;
+
+export const DashboardSkeleton = SkeletonTemplate.bind({});

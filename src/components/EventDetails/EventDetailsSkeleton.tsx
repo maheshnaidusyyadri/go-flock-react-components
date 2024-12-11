@@ -6,16 +6,28 @@ import {
   IonSkeletonText,
   IonThumbnail,
 } from "@ionic/react";
-const EventDetailsSkeletonPresenter: React.FC = ({}) => {
+const EventDetailsSkeleton: React.FC = ({}) => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <IonItem className="ion-no-padding ion-no-margin">
-          <IonThumbnail slot="start" style={{ width: "100%", height: "200px" }}>
+        <IonItem>
+          <IonThumbnail slot="start" style={{ width: "100%", height: "300px" }}>
             <IonSkeletonText animated={true}></IonSkeletonText>
           </IonThumbnail>
         </IonItem>
 
+        <IonItem>
+          <IonSkeletonText
+            animated={true}
+            style={{ width: "100%" }}
+          ></IonSkeletonText>
+        </IonItem>
+        <IonItem>
+          <IonSkeletonText
+            animated={true}
+            style={{ width: "100%" }}
+          ></IonSkeletonText>
+        </IonItem>
         <IonItem>
           <IonSkeletonText
             animated={true}
@@ -70,4 +82,4 @@ const EventDetailsSkeletonPresenter: React.FC = ({}) => {
     </IonPage>
   );
 };
-export default EventDetailsSkeletonPresenter;
+export default EventDetailsSkeleton;
