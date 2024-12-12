@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({
   const allTabs = [
     {
       key: "invitation",
-      href: `/event/${event.slug}`,
+      href: `/event/${event.slug || event.id}`,
       icon: getTabIcon("invitation", activeTab, homeActiveIcon, homeIcon),
       label: "Home",
       enabled: true, // Always enabled

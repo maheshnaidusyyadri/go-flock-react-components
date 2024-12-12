@@ -86,12 +86,12 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const openGuestView = () => {
-    window.open(`/event/${event?.slug}/guest`, "_blank");
+    window.open(`/event/${event?.slug || event?.id!}/guest`, "_blank");
     setShowActionMenu(false);
   };
 
-  const handleCopyEventLink = (eventId: string) => {
-    copyEventLink?.(eventId);
+  const handleCopyEventLink = () => {
+    copyEventLink?.(event?.slug || event?.id!);
     setShowActionMenu(false);
   };
 

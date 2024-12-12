@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { lazy, useEffect, useRef, useState } from "react";
 import "./EventDetailsPresenter.scss";
 
 import {
@@ -49,8 +49,9 @@ import NotSure from "../Common/Icons/NotSure";
 import EditIcon from "../../images/icons/Edit.svg";
 import party from "party-js";
 import useToastUtils from "../../utils/ToastUtils";
-import CustomPhoneNumber from "../Common/CustomPhone";
-import OtpVerification from "../Common/OtpVerification";
+
+const CustomPhoneNumber = lazy(() => import("../Common/CustomPhone"));
+const OtpVerification = lazy(() => import("../Common/OtpVerification"));
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
