@@ -90,6 +90,11 @@ const Header: React.FC<HeaderProps> = ({
     setShowActionMenu(false);
   };
 
+  const handleCopyEventLink = (eventId: string) => {
+    copyEventLink?.(eventId);
+    setShowActionMenu(false);
+  };
+
   return (
     <>
       <IonHeader className={`main-header ${className}`}>
@@ -190,7 +195,7 @@ const Header: React.FC<HeaderProps> = ({
           eventId={eventId}
           inviteMembers={inviteMembers}
           addInvitationCards={addInvitationCards}
-          copyEventLink={copyEventLink}
+          copyEventLink={handleCopyEventLink}
           editEvent={editEvent}
           openGuestView={openGuestView}
         />

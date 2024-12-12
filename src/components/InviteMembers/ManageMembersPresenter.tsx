@@ -62,7 +62,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   >("Track");
   const [showAction, setShowAction] = useState(false);
   const [selectedUser, setSelectedUser] = useState<EventMember | null>(null);
-  const [recipientsList, SetRecipientsList] = useState<
+  const [recipientsList, setRecipientsList] = useState<
     { value: string; label: string }[]
   >([]);
   const [filterMember, setFilterMember] = useState("all");
@@ -133,7 +133,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
         type: "not-attending",
       },
     ];
-    SetRecipientsList(options);
+    setRecipientsList(options);
   }, [event]);
 
   useEffect(() => {

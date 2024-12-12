@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./EventDetailsPresenter.scss";
 
 import {
@@ -49,15 +49,19 @@ import NotSure from "../Common/Icons/NotSure";
 import EditIcon from "../../images/icons/Edit.svg";
 import party from "party-js";
 import useToastUtils from "../../utils/ToastUtils";
+import CustomPhoneNumber from "../Common/CustomPhone";
+import OtpVerification from "../Common/OtpVerification";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
   isPreview,
+  profile,
+  sendOTP,
+  verifyOTP,
   navigateToEventLocation,
   deleteEvent,
   submitRSVP,
-  profile,
   addInvitationCards,
   copyEventLink,
   editEvent,
@@ -73,16 +77,31 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showFooter] = useState(true);
   const { presentToast } = useToastUtils();
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneVerificationState, setPhoneVerificationState] = useState<
+    "start" | "otpSent" | "verified"
+  >("start");
+
+  useEffect(() => {
+    console.log("event", event);
+  }, [event]);
+
+  useEffect(() => {
+    console.log("eventRelation", eventRelation);
+  }, [eventRelation]);
 
   const methods = useForm();
   const {
+    control,
     handleSubmit,
     formState: { errors },
     register,
     reset,
   } = useForm();
 
-  const toggleGogingClass = () => {
+  const handleBackAction = () => {
     if (eventRelation.rsvp) {
       if (eventRelation.rsvp.response == "attending") {
         setActiveOption("yes");
@@ -94,7 +113,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       setAdultCount(eventRelation.rsvp.adultsCount || 0);
       setKidsCount(eventRelation.rsvp.kidsCount || 0);
     }
+
     setIsInviteActive(!isInviteActive);
+    setPhoneVerificationState("start");
   };
 
   const handleClick = (option: React.SetStateAction<string>) => {
@@ -128,7 +149,29 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       //setShowValidation(true);
     }
   };
+
+  const handleSendOtp = (formData: any) => {
+    console.log("handSendOtp", formData);
+    setPhoneNumber(formData.phone);
+
+    if (formData.phone) {
+      setSendingOtp(true);
+      sendOTP(phoneNumber)
+        .then((result) => {
+          console.log("Send-Otp-res", result);
+          setPhoneVerificationState("otpSent");
+        })
+        .finally(() => {
+          setSendingOtp(false);
+        });
+    } else {
+      presentToast("Please enter a phone number", "bottom", "danger");
+    }
+  };
+
   const handleRsvpSubmission = (formData: any) => {
+    console.log("handleRsvpSubmission", formData);
+
     if (isPreview) {
       presentToast("Cannot submit RSVP in guest view", "bottom", "danger");
     }
@@ -139,11 +182,36 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     } else {
       setShowValidation(false);
     }
-    submitRsvpAction(formData);
+
+    if (profile) {
+      submitRsvpAction(formData);
+    } else {
+      setVerifyingOtp(true);
+      verifyOTP(formData.otp, formData.otp)
+        .then((result) => {
+          console.log("verifyOTP-res", result);
+          if (result) {
+            setPhoneVerificationState("verified");
+            submitRsvpAction(formData);
+          } else {
+            presentToast("Invalid OTP", "bottom", "danger");
+          }
+          setVerifyingOtp(false);
+        })
+        .catch((err) => {
+          console.error("verifyOTP-error", err);
+          setVerifyingOtp(false);
+        });
+    }
   };
 
   const onGenerateError = (error: any) => {
     console.log("onGenerateError", error);
+
+    if (error.name) {
+      presentToast("Please enter you name", "bottom", "danger");
+    }
+
     if (adultCount === 0 && kidsCount === 0 && activeOption !== "no") {
       setShowValidation(true);
       return;
@@ -169,7 +237,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       comment: formData.note || "",
       kidsCount: 0,
       adultsCount: 0,
-      name: formData.name,
+      name: profile?.prefName || formData.name || "",
     };
     if (activeOption !== "no") {
       rsvp.count = kidsCount + adultCount;
@@ -200,7 +268,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
 
   const successRSVP = () => {
     handleConfetti();
-    presentToast("bottom");
+    presentToast("Successfully submitted RSVP.", "bottom", "success");
     reset();
     setIsOpen(false);
     setIsInviteActive(false);
@@ -229,10 +297,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     presentToast("Link copied to clipboard", "bottom");
   };
 
-  if (eventRelation.visitType === "unauthorized") {
-    return <>Event does not exist or not authorized</>;
-  }
-
   return (
     <IonPage>
       <Header
@@ -246,7 +310,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           eventRelation?.roles?.includes("owner")
         }
         showContactList={false}
-        showProgressBar={submitRSVPInProgress}
+        showProgressBar={sendingOtp || verifyingOtp || submitRSVPInProgress}
         deleteEvent={deleteEvent}
         eventRelation={eventRelation}
         inviteMembers={inviteMembers}
@@ -363,7 +427,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         <IonImg
                           src={reUpdateIcon}
                           alt=""
-                          onClick={toggleGogingClass}
+                          onClick={handleBackAction}
                         />
                       </IonThumbnail>
                     </IonItem>
@@ -454,7 +518,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <IonLabel className="rsvp_title">Are you going?</IonLabel>
             <IonList
               class="rsvp_actions"
-              onClick={toggleGogingClass}
+              onClick={handleBackAction}
             >
               <IonItem
                 className="ionitem"
@@ -517,7 +581,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             <Header
               title={"Are you going?"}
               showGoBack={true}
-              leftButtonAction={toggleGogingClass}
+              leftButtonAction={handleBackAction}
               showProgressBar={submitRSVPInProgress}
             ></Header>
             <IonContent>
@@ -640,62 +704,86 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   )}
                   {(!profile || profile.prefName === "") && (
                     <>
-                      <IonRow>
-                        <IonCol className="form-group ion-padding-bottom">
-                          <CustomInput
-                            placeholder={"Enter your name"}
-                            label={"Your Name"}
-                            fieldName={"name"}
-                            isRequired={true}
-                            errors={errors}
-                            errorText={"Name"}
-                            register={register}
-                          />
-                        </IonCol>
-                      </IonRow>
+                      {phoneVerificationState === "start" && (
+                        <>
+                          <IonRow>
+                            <IonCol className="form-group ion-padding-bottom">
+                              <CustomInput
+                                placeholder={"Enter your name"}
+                                label={"Your Name"}
+                                fieldName={"name"}
+                                isRequired={true}
+                                errors={errors}
+                                errorText={"Name"}
+                                register={register}
+                              />
+                            </IonCol>
+                          </IonRow>
+                          <IonRow>
+                            <IonCol className="form-group">
+                              <CustomPhoneNumber
+                                control={control}
+                                fieldName="phone"
+                                isRequired={true}
+                                errors={errors}
+                                register={register}
+                                errorText={"Mobile Number"}
+                                onPhoneChange={(e: any) => setPhoneNumber(e)}
+                              />
+                            </IonCol>
+                          </IonRow>
+                        </>
+                      )}
+                      {phoneVerificationState === "otpSent" && (
+                        <IonRow>
+                          <IonCol className="form-group">
+                            <FormProvider {...methods}>
+                              <OtpVerification
+                                control={control}
+                                phoneNumber={phoneNumber}
+                                errors={errors}
+                                fieldName="otp"
+                                isRequired={true}
+                                sendOTP={sendOTP}
+                              />
+                            </FormProvider>
+                          </IonCol>
+                        </IonRow>
+                      )}
                     </>
                   )}
                 </IonGrid>
               </FormProvider>
             </IonContent>
-            <IonFooter
-              className="stickyFooter"
-              onClick={handleSubmit(handleRsvpSubmission, onGenerateError)}
-            >
-              <IonButton
-                disabled={submitRSVPInProgress}
-                className="primary-btn rounded"
+            {(profile || phoneVerificationState === "otpSent") && (
+              <IonFooter
+                className="stickyFooter"
+                onClick={handleSubmit(handleRsvpSubmission, onGenerateError)}
               >
-                {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
-              </IonButton>
-            </IonFooter>
+                <IonButton
+                  disabled={submitRSVPInProgress}
+                  className="primary-btn rounded"
+                >
+                  {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
+                </IonButton>
+              </IonFooter>
+            )}
+            {!profile && phoneVerificationState === "start" && (
+              <IonFooter
+                className="stickyFooter"
+                onClick={handleSubmit(handleSendOtp, onGenerateError)}
+              >
+                <IonButton
+                  disabled={submitRSVPInProgress}
+                  className="primary-btn rounded"
+                >
+                  {sendingOtp ? "Sending OTP" : "Verify phone & RSVP"}
+                </IonButton>
+              </IonFooter>
+            )}
           </>
         )}
       </IonGrid>
-
-      {/* On successful RSVP */}
-      {/* {showSuccess && (
-        <IonGrid
-          className={`rsvp_modal success_modal ${showSuccess ? "active" : ""}`}
-        >
-          <IonContent>
-            <IonGrid className="rsvp_success-cnt ion-no-padding">
-              <IonCard className="rsvp_success ion-no-margin">
-                <IonImg src={RSVPSuccess} />
-                <IonLabel className="success_label">RSVP Submitted!</IonLabel>
-              </IonCard>
-            </IonGrid>
-          </IonContent>
-          <IonFooter>
-            <IonButton
-              className="primary-btn rounded"
-              onClick={successRSVP}
-            >
-              Go back to invitation page
-            </IonButton>
-          </IonFooter>
-        </IonGrid>
-      )} */}
     </IonPage>
   );
 };

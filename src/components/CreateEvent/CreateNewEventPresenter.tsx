@@ -185,10 +185,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
       let newEvent: Event = await (isEditing
         ? updateEvent(draftEvent)
         : createEvent(draftEvent));
+
       if (newEvent.id) {
         setShowSuccess(true);
         setNewEventId(newEvent.id);
-        goToEvent(newEvent.id);
+        goToEvent(newEvent.slug);
       }
     } catch (error) {
       console.error("Error creating event:", error);
