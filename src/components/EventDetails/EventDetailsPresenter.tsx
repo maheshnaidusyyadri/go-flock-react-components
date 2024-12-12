@@ -71,10 +71,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [activeOption, setActiveOption] = useState("yes");
   const [submitRSVPInProgress, setSubmitRSVPInProgress] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  // const [showFooter, setShowFooter] = useState(true);
+  const [showFooter, setShowFooter] = useState(true);
   let lastScrollTop = useRef(0);
   let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
-  const [showFooter] = useState(true);
+  //const [showFooter] = useState(true);
   const { presentToast } = useToastUtils();
 
   const methods = useForm();
