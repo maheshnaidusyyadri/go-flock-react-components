@@ -21,6 +21,7 @@ import {
   IonCol,
   IonGrid,
   IonBadge,
+  IonChip,
 } from "@ionic/react";
 import { ManageMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
@@ -38,26 +39,13 @@ import notAttendingIcon from "../../images/rsvp/notAttending.svg";
 import notSureIcon from "../../images/rsvp/notSure.svg";
 
 import { getDisplayName } from "../../utils/utils";
-import { RoleType } from "@goflock/types/src/models/event/RoleType";
 import Footer from "../Footer/Footer";
 import RsvpStatus from "../Common/RsvpStatus";
 import IonTextarea from "../Common/CustomTextarea";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomModalSelect from "../Common/CustomModalSelect";
+import { EventMember } from "@goflock/types/dist/models/event/EventMember";
 
-interface EventMember {
-  id?: string;
-  flockId?: string;
-  eventId?: string;
-  name?: string;
-  phoneNumber?: string;
-  email?: string;
-  profileImg?: string;
-  addedByUid?: string;
-  phone?: string;
-  roles?: RoleType[];
-  notificationCount?: number;
-}
 const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   eventId,
   event,
@@ -288,14 +276,22 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           )}
                           <span className="selection">
                             <img
-                              src={Selected}
+                              src={
+                                member.rsvp?.response === "attending"
+                                  ? attendingIcon
+                                  : member.rsvp?.response === "maybe"
+                                    ? notSureIcon
+                                    : member.rsvp?.response === "not-attending"
+                                      ? notAttendingIcon
+                                      : Selected
+                              }
                               alt="Selected"
                             />
                           </span>
                         </IonThumbnail>
                         <IonLabel className="member-info">
                           <h2>
-                            {member.name +
+                            {(member.rsvp?.name || member.name) +
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
@@ -305,6 +301,16 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
+                        {member.rsvp?.adultsCount !== undefined && (
+                          <IonChip outline={true}>
+                            {member.rsvp?.adultsCount + " adults"}
+                          </IonChip>
+                        )}
+                        {member.rsvp?.kidsCount !== undefined && (
+                          <IonChip outline={true}>
+                            {member.rsvp?.kidsCount + " kids"}
+                          </IonChip>
+                        )}
                         {!member?.roles?.includes("owner") && (
                           <IonItem className="member-actions">
                             {member?.notificationCount && (
@@ -435,7 +441,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           </IonRow>
         </IonFooter>
         <Footer
-          eventId={eventId}
+          event={event}
           activeTab={"members"}
           settings={event.settings}
           eventRelation={eventRelation}
@@ -462,7 +468,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           },
           {
             text: selectedUser
-              ? "Remove " + selectedUser.name || selectedUser.phone || ""
+              ? "Remove " + selectedUser.name || selectedUser.phoneNumber || ""
               : "",
             data: {
               action: "Delete",

@@ -11,6 +11,7 @@ import {
   OwnerProfile,
   MockContacts,
   ownerEventRelation,
+  EventWithMembers,
 } from "../Common/MockData";
 import { withRouter } from "storybook-addon-remix-react-router";
 
@@ -30,8 +31,7 @@ EmptyContacts.args = {
   eventId: EventWithOneMember.id,
   event: EventWithOneMember,
   eventRelation: ownerEventRelation,
-  members: EventWithOneMember.members,
-  //members: [],
+  members: EventWithMembers.members,
   contacts: [],
   importContactsFromDevice: async () => {
     action("importContactsFromDevice")("Fetching members from contact list...");

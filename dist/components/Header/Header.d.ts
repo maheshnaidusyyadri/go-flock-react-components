@@ -1,7 +1,9 @@
 import { Media, Profile } from '@goflock/types';
 import { EventRelation } from '@goflock/types/dist/models/event/EventRelation';
+import { Event } from '@goflock/types/src';
 type HeaderProps = {
     eventId?: string;
+    event?: Event;
     title: string;
     showMenu?: boolean;
     showContactList?: boolean;

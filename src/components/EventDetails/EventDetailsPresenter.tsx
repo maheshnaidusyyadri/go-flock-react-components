@@ -21,7 +21,6 @@ import {
   IonRow,
   IonText,
   IonThumbnail,
-  useIonToast,
 } from "@ionic/react";
 
 import clockIcon from "../../images/icons/clock.svg";
@@ -49,10 +48,12 @@ import No from "../Common/Icons/No";
 import NotSure from "../Common/Icons/NotSure";
 import EditIcon from "../../images/icons/Edit.svg";
 import party from "party-js";
+import useToastUtils from "../../utils/ToastUtils";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
   eventRelation,
+  isPreview,
   navigateToEventLocation,
   deleteEvent,
   submitRSVP,
@@ -70,9 +71,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [activeOption, setActiveOption] = useState("yes");
   const [submitRSVPInProgress, setSubmitRSVPInProgress] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [showFooter, setShowFooter] = useState(true);
+  // const [showFooter, setShowFooter] = useState(true);
   let lastScrollTop = useRef(0);
   let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [showFooter] = useState(true);
+  const { presentToast } = useToastUtils();
+
   const methods = useForm();
   const {
     handleSubmit,
@@ -80,17 +84,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     register,
     reset,
   } = useForm();
-
-  const [present] = useIonToast();
-
-  const presentToast = (position: "top" | "middle" | "bottom") => {
-    present({
-      message: "RSVP successful!",
-      color: "success",
-      duration: 2000,
-      position: position,
-    });
-  };
 
   const toggleGogingClass = () => {
     if (eventRelation.rsvp) {
@@ -139,6 +132,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     }
   };
   const handleRsvpSubmission = (formData: any) => {
+    if (isPreview) {
+      presentToast("Cannot submit RSVP in guest view", "bottom", "danger");
+    }
+
     if (adultCount === 0 && kidsCount === 0 && activeOption !== "no") {
       setShowValidation(true);
       return;
@@ -230,6 +227,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     });
   };
 
+  const copyLink = (eventId: string) => {
+    copyEventLink(eventId);
+    presentToast("Link copied to clipboard", "bottom");
+  };
+
   if (eventRelation.visitType === "unauthorized") {
     return <>Event does not exist or not authorized</>;
   }
@@ -267,6 +269,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         showLogo={true}
         showGoBack={false}
         eventId={event.id}
+        event={event}
         title={event.name}
         showMenu={
           eventRelation?.roles?.includes("admin") ||
@@ -278,7 +281,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         eventRelation={eventRelation}
         inviteMembers={inviteMembers}
         addInvitationCards={addInvitationCards}
-        copyEventLink={copyEventLink}
+        copyEventLink={copyLink}
         editEvent={editEvent}
       />
       <IonContent onIonScroll={handleScroll} scrollEvents={true}>
@@ -489,7 +492,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             eventRelation?.rsvp &&
             eventRelation.rsvp?.response)) && (
           <Footer
-            eventId={event.id}
+            event={event}
             activeTab={"invitation"}
             settings={event.settings}
             eventRelation={eventRelation}

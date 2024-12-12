@@ -16,9 +16,10 @@ import membersActiveIcon from "../../images/icons/membersActive.svg";
 import { EventSettings } from "@goflock/types/src";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
 import { Link } from "react-router-dom";
+import { Event } from "@goflock/types";
 
 interface FooterProps {
-  eventId: string;
+  event: Event;
   activeTab: "invitation" | "members" | "media" | "expenses" | "settings";
   settings: EventSettings;
   eventRelation: EventRelation;
@@ -26,7 +27,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({
-  eventId,
+  event,
   settings,
   eventRelation,
   activeTab,
@@ -62,7 +63,7 @@ const Footer: React.FC<FooterProps> = ({
   const allTabs = [
     {
       key: "invitation",
-      href: `/event/${eventId}`,
+      href: `/event/${event.slug}`,
       icon: getTabIcon("invitation", activeTab, homeActiveIcon, homeIcon),
       label: "Home",
       enabled: true, // Always enabled
@@ -70,28 +71,28 @@ const Footer: React.FC<FooterProps> = ({
     // Add later
     {
       key: "members",
-      href: `/manage-members/${eventId}`,
+      href: `/manage-members/${event.id}`,
       icon: getTabIcon("members", activeTab, membersActiveIcon, membersIcon),
       label: "Members",
       enabled: showFooterAction("members"),
     },
     {
       key: "media",
-      href: `/event-media/${eventId}`,
+      href: `/event-media/${event.id}`,
       icon: getTabIcon("media", activeTab, mediaActiveIcon, mediaIcon),
       label: "Media",
       enabled: showFooterAction("media"),
     },
     {
       key: "expenses",
-      href: `/event-expenses/${eventId}`,
+      href: `/event-expenses/${event.id}`,
       icon: getTabIcon("expenses", activeTab, splitActiveIcon, splitIcon),
       label: "Split Bill",
       enabled: showFooterAction("expenses"),
     },
     {
       key: "settings",
-      href: `/event-settings/${eventId}`,
+      href: `/event-settings/${event.id}`,
       icon: getTabIcon("settings", activeTab, settingsActiveIcon, settingsIcon),
       label: "Settings",
       enabled: showFooterAction("settings"),

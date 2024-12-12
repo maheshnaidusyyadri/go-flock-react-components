@@ -10,6 +10,8 @@ import {
   IonGrid,
   IonCard,
   IonFooter,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { PhoneNumberAuthProps } from "@goflock/types/src/index";
 import InvitozLogo from "../Common/Icons/Logo";
@@ -56,6 +58,11 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   const onError = (error: any) => {
     console.log("onError", error);
   };
+
+  const goToHome = () => {
+    window.location.href = "/introduction";
+  };
+
   const handleVerifyOTP = (formData: any) => {
     setVerifyingOtp(true);
     verifyOTP(formData.otp)
@@ -75,9 +82,13 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         <>
           <IonContent className="ion-padding">
             <IonGrid className="auth_sec ion-no-padding">
+              <IonRow>
+                <IonCol onClick={() => goToHome()}>
+                  <InvitozLogo />
+                </IonCol>
+              </IonRow>
               <IonCard className="auth-cnt">
                 {/* <IonImg className="logo" alt="Invitoz" src={Logo} /> */}
-                <InvitozLogo />
                 <IonLabel className="auth-title">
                   Enter Your Phone Number
                 </IonLabel>

@@ -7,9 +7,10 @@ import {
   IonGrid,
   IonCard,
   IonButton,
-  IonLabel,
   IonFooter,
   IonPage,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -27,9 +28,10 @@ import ChatIcon from "../Common/Icons/Chat";
 import ExpancesIcon from "../Common/Icons/Split";
 
 import { IntroductionProps } from "@goflock/types/src/presenter";
+import InvitozLogo from "../Common/Icons/Logo";
 
 const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [, setActiveIndex] = useState(0);
 
   const handleSlideChange = (swiper: any) => {
     setActiveIndex(swiper.activeIndex);
@@ -39,7 +41,7 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
     {
       icon: <EventsIcon />,
       title: "Create Events",
-      text: "And invite guests or friends receive RSVP",
+      text: "And invite guests or friends receive RSVP!",
     },
     {
       icon: <MediaIcon />,
@@ -61,45 +63,48 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
   return (
     <IonPage>
       <IonContent className="onboard_cnt ion-padding">
-        <Swiper
-          modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-          autoplay={false}
-          pagination={true}
-          loop={false}
-          navigation={activeIndex !== slides.length - 1} // Hide navigation on the last slide
-          onSlideChange={handleSlideChange}
-        >
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>
-              <IonGrid className="step-content ion-no-padding">
-                <IonCard className="auth_screen">
-                  {slide.icon}
-                  <IonTitle className="ion-title">{slide.title}</IonTitle>
-                  <IonText className="ion-text">{slide.text}</IonText>
-                </IonCard>
-              </IonGrid>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <IonFooter>
-          <>
-            {activeIndex !== slides.length - 1 && (
-              <IonLabel className="skip" onClick={introCompleted}>
-                Skip
-              </IonLabel>
-            )}
-
-            {activeIndex === slides.length - 1 && (
-              <IonButton
-                className="primary-btn rounded getstart ion-no-margin"
-                onClick={introCompleted}
-              >
-                Get Started
-              </IonButton>
-            )}
-          </>
-        </IonFooter>
+        <IonRow>
+          <IonCol className="ion-text-center">
+            <InvitozLogo />
+          </IonCol>
+        </IonRow>
+        <IonRow className="ion-padding-top">
+          <IonCol className="ion-text-center">
+            <Swiper
+              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+              autoplay={false}
+              pagination={true}
+              loop={false}
+              navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
+              onSlideChange={handleSlideChange}
+            >
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <IonGrid className="step-content ion-no-padding">
+                    <IonCard className="auth_screen">
+                      {slide.icon}
+                      <IonTitle className="ion-title">{slide.title}</IonTitle>
+                      <IonText className="ion-text">{slide.text}</IonText>
+                    </IonCard>
+                  </IonGrid>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </IonCol>
+        </IonRow>
       </IonContent>
+      <IonFooter>
+        <IonRow>
+          <IonCol>
+            <IonButton
+              className="primary-btn rounded getstart ion-no-margin"
+              onClick={introCompleted}
+            >
+              Get Started
+            </IonButton>
+          </IonCol>
+        </IonRow>
+      </IonFooter>
     </IonPage>
   );
 };

@@ -91,8 +91,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
   const [endTime, setEndTime] = useState("");
   const [generatedInvitationDescription, setGeneratedInvitationDescription] =
     useState("");
-  console.log("event-event", event);
-  console.log("isEditing-isEditing", isEditing);
+
   useEffect(() => {
     if (startDate && endDate && startTime && startDate == endDate) {
       const startDateObj = new Date(startDate);
@@ -204,47 +203,38 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     console.log("nextStep-formData", formData);
 
     if (currentStep === 2) {
-      /**
-       * name: string;
-  type: EventType;
-  description?: string;
-  location?: LocationInfo;
-  time?: EventTime;
-  visibility?: EventVisibility;
-  admins?: EventMember[];
-  settings?: EventSettings;
-  hostedBy?: string;
-       */
-      generateInvitationDescription({
-        name: formData.event,
-        type: formData.eventType,
-        description: formData.description,
-        location: {
-          name: selectedLocation?.name!,
-        },
-        time: {
-          startDate: moment(formData.startDate || new Date()).format(
-            "YYYY-MM-DDTHH:mm:ss"
-          ),
-          endDate: formData.endDate
-            ? moment(formData.endDate).format("YYYY-MM-DDTHH:mm:ss")
-            : "",
-          startTime: formData.startTime
-            ? moment(formData.startTime).format("YYYY-MM-DDTHH:mm:ss")
-            : "",
-          endTime: formData.endTime
-            ? moment(formData.endTime).format("YYYY-MM-DDTHH:mm:ss")
-            : "",
-        },
-        hostedBy: formData.hostedBy,
-      })
-        .then((content) => {
-          console.log("Invitation description generated:", content);
-          setGeneratedInvitationDescription(content);
+      if (!isEditing) {
+        generateInvitationDescription({
+          name: formData.event,
+          type: formData.eventType,
+          description: formData.description,
+          location: {
+            name: selectedLocation?.name!,
+          },
+          time: {
+            startDate: moment(formData.startDate || new Date()).format(
+              "YYYY-MM-DDTHH:mm:ss"
+            ),
+            endDate: formData.endDate
+              ? moment(formData.endDate).format("YYYY-MM-DDTHH:mm:ss")
+              : "",
+            startTime: formData.startTime
+              ? moment(formData.startTime).format("YYYY-MM-DDTHH:mm:ss")
+              : "",
+            endTime: formData.endTime
+              ? moment(formData.endTime).format("YYYY-MM-DDTHH:mm:ss")
+              : "",
+          },
+          hostedBy: formData.hostedBy,
         })
-        .catch((error) => {
-          console.error("Error generating invitation description:", error);
-        });
+          .then((content) => {
+            console.log("Invitation description generated:", content);
+            setGeneratedInvitationDescription(content);
+          })
+          .catch((error) => {
+            console.error("Error generating invitation description:", error);
+          });
+      }
     }
 
     if (currentMode == "detail" && !selectedLocation) {
@@ -297,7 +287,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
     <>
       <IonPage>
         <Header
-          title="Create Event"
+          title={isEditing ? "Update Event" : "Create Event"}
           showMenu={false}
           showContactList={false}
           showProfile={false}
@@ -307,7 +297,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
           <>
             <IonContent className="ion-padding action_screen">
               <IonGrid className="action_screen_cnt">
-                <IonImg alt="Successfully Created Event" src={Success} />
+                <IonImg
+                  alt="Successfully Created Event"
+                  src={Success}
+                />
                 <IonLabel className="action_title">
                   Successfully Created Event
                 </IonLabel>
@@ -354,7 +347,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                     )}
                   </>
                 }
-                <IonImg className="next" src={nextIcon} />
+                <IonImg
+                  className="next"
+                  src={nextIcon}
+                />
               </IonLabel>
             )}
             <IonContent className="ion-padding create_event">
@@ -615,8 +611,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         currentMode === "detail" && currentStep === 4
                           ? getStepClass(4)
                           : currentMode === "quick" && currentStep === 2
-                          ? getStepClass(2)
-                          : ""
+                            ? getStepClass(2)
+                            : ""
                       }`}
                     >
                       <IonLabel className="step_title">
@@ -674,7 +670,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             </IonRadio>
                           </IonRadioGroup>
                           {errors?.eventVisibility && (
-                            <IonText color="danger" style={{ fontSize: 12 }}>
+                            <IonText
+                              color="danger"
+                              style={{ fontSize: 12 }}
+                            >
                               *{" "}
                               {typeof errors.eventVisibility.message ===
                               "string"
@@ -693,8 +692,8 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                         currentMode === "detail" && currentStep === 5
                           ? getStepClass(5)
                           : currentMode === "quick" && currentStep === 3
-                          ? getStepClass(3)
-                          : ""
+                            ? getStepClass(3)
+                            : ""
                       }`}
                     >
                       <IonLabel className="step_title">Settings*</IonLabel>
@@ -723,7 +722,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                               justify="space-between"
                             >
                               <span>
-                                <img src={mediaIcon} alt="Media" />
+                                <img
+                                  src={mediaIcon}
+                                  alt="Media"
+                                />
                               </span>
                               <p>
                                 <strong>Media</strong> Securely share pictures
@@ -754,7 +756,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                               justify="space-between"
                             >
                               <span>
-                                <img src={recordsIcon} alt="Record expenses" />
+                                <img
+                                  src={recordsIcon}
+                                  alt="Record expenses"
+                                />
                               </span>
                               <p>
                                 <strong>Record expenses</strong> Securely
@@ -802,7 +807,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           )}
                           {/* Error message for Currency */}
                           {errors?.currency && selectedRecord && (
-                            <IonText color="danger" style={{ fontSize: 12 }}>
+                            <IonText
+                              color="danger"
+                              style={{ fontSize: 12 }}
+                            >
                               *
                               {typeof errors.currency.message === "string"
                                 ? errors.currency.message
@@ -810,7 +818,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             </IonText>
                           )}
                           {errors?.record && !selectedMedia && (
-                            <IonText color="danger" style={{ fontSize: 12 }}>
+                            <IonText
+                              color="danger"
+                              style={{ fontSize: 12 }}
+                            >
                               *
                               {typeof errors.record.message === "string"
                                 ? errors.record.message
@@ -846,7 +857,13 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                   onClick={handleSubmit(handleCreateEvent, onError)}
                   expand="block"
                 >
-                  {isCreating ? "Creating Event..." : "Create Event"}
+                  {isCreating
+                    ? isEditing
+                      ? "Updating Event..."
+                      : "Creating Event..."
+                    : isEditing
+                      ? "Update Event"
+                      : "Create Event"}
                 </IonButton>
               )}
             </IonFooter>
