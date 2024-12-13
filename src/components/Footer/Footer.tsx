@@ -31,6 +31,7 @@ const Footer: React.FC<FooterProps> = ({
   settings,
   eventRelation,
   activeTab,
+  hideFooter = true,
 }) => {
   const showFooterAction = (type: string): boolean => {
     switch (type) {
@@ -102,17 +103,14 @@ const Footer: React.FC<FooterProps> = ({
   const enabledTabs = allTabs.filter((tab) => tab.enabled);
 
   return (
-    <IonFooter className="footer">
+    <IonFooter className={hideFooter ? "footer" : `footer ${"hidefooter"}`}>
       <IonToolbar>
         <IonGrid className="ion-padding footer-cnt">
           <IonRow>
             {enabledTabs.map((tab) => (
               <IonCol key={tab.key}>
                 <Link to={tab.href}>
-                  <img
-                    src={tab.icon}
-                    alt={`${tab.label} icon`}
-                  />
+                  <img src={tab.icon} alt={`${tab.label} icon`} />
                 </Link>
               </IonCol>
             ))}

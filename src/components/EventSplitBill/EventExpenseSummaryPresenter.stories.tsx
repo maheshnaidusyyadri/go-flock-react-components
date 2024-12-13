@@ -7,6 +7,7 @@ import {
   ownerEventRelation,
 } from "../Common/MockData";
 import { withRouter } from "storybook-addon-remix-react-router";
+import EventExpenseSkeletonPage from "./EventExpenseSkeleton";
 export default {
   title: "GoFlock/Presenters/EventExpenseSummaryPresenter",
   component: EventSplitBillPresenter,
@@ -31,4 +32,13 @@ EventWithNoTransactionsAndSummary.args = {
   event: EventWithMembers,
   transactions: [],
   expenses: [],
+};
+const SkeletonTemplate: StoryFn<EventExpenseSummaryProps> = (args) => (
+  <EventExpenseSkeletonPage {...args} />
+);
+
+export const EventExpenseSkeleton = SkeletonTemplate.bind({});
+EventExpenseSkeleton.args = {
+  event: EventWithTransactions,
+  eventRelation: ownerEventRelation,
 };

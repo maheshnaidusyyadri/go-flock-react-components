@@ -10,6 +10,7 @@ import {
 
 import { action } from "@storybook/addon-actions";
 import { withRouter } from "storybook-addon-remix-react-router";
+import EventMediaSkeletonPage from "./EventMediaSkeleton";
 
 export default {
   title: "GoFlock/Presenters/EventMediaPresenter",
@@ -54,4 +55,13 @@ export const WithImagesAndMixedMedia = Template.bind({});
 WithImagesAndMixedMedia.args = {
   ...WithNoMedia.args,
   media: ImageAndVideosMixedMedia,
+};
+
+const SkeletonTemplate: StoryFn<typeof EventMediaPresenter> = (args) => (
+  <EventMediaSkeletonPage {...args} />
+);
+export const EventMediaSkeleton = SkeletonTemplate.bind({});
+EventMediaSkeleton.args = {
+  event: EventWithInvitation,
+  eventRelation: ownerEventRelation,
 };

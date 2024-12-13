@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import ProfilePresenter from "./ProfilePresenter";
 import { ProfileProps } from "@goflock/types";
 import { NewProfileWithNoName, OwnerProfile } from "../Common/MockData";
-
+import ProfileSkeletonPage from "./ProfileSkeleton";
 export default {
   title: "GoFlock/Presenters/ProfilePresenter",
   component: ProfilePresenter,
@@ -92,3 +92,6 @@ ErrorState.args = {
     throw new Error("Failed to update SMS preference");
   },
 };
+const SkeletonTemplate: StoryFn = () => <ProfileSkeletonPage />;
+
+export const ProfileSkeleton = SkeletonTemplate.bind({});
