@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useRef, useState } from "react";
+import React, { lazy, startTransition, useRef, useState } from "react";
 import "./EventDetailsPresenter.scss";
 
 import {
@@ -79,7 +79,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [showFooter, setShowFooter] = useState(true);
   let lastScrollTop = useRef(0);
   let scrollTimeout = useRef<NodeJS.Timeout | null>(null);
-  //const [showFooter] = useState(true);
   const { presentToast } = useToastUtils();
   const [sendingOtp, setSendingOtp] = useState(false);
   const [verifyingOtp, setVerifyingOtp] = useState(false);
@@ -87,14 +86,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const [phoneVerificationState, setPhoneVerificationState] = useState<
     "start" | "otpSent" | "verified"
   >("start");
-
-  useEffect(() => {
-    console.log("event", event);
-  }, [event]);
-
-  useEffect(() => {
-    console.log("eventRelation", eventRelation);
-  }, [eventRelation]);
 
   const methods = useForm();
   const {
@@ -117,8 +108,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       setAdultCount(eventRelation.rsvp.adultsCount || 0);
       setKidsCount(eventRelation.rsvp.kidsCount || 0);
     }
+    startTransition(() => {
+      setIsInviteActive(!isInviteActive);
+    });
 
-    setIsInviteActive(!isInviteActive);
     setPhoneVerificationState("start");
   };
 
@@ -309,13 +302,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       // Scrolling down
       if (showFooter) {
         setShowFooter(false);
-        console.log("Footer hidden");
       }
     } else if (currentScrollTop < lastScrollTop) {
       // Scrolling up
       if (!showFooter) {
         setShowFooter(true);
-        console.log("Footer shown");
       }
     }
     // Clear the previous timeout if it exists
@@ -325,7 +316,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     // Set a timeout to show the footer after scrolling stops
     scrollTimeout.current = setTimeout(() => {
       setShowFooter(true);
-      console.log("Footer shown after scroll stops");
     }, 1000); // Adjust timeout duration as needed
     lastScrollTop = currentScrollTop;
   };
@@ -563,7 +553,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             activeTab={"invitation"}
             settings={event.settings}
             eventRelation={eventRelation}
-            hideFooter={showFooter}
+            //hideFooter={showFooter}
           />
         )
       )}
