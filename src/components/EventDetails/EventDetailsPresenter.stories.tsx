@@ -108,6 +108,13 @@ EventGuestViewPostRSVP.args = {
   eventRelation: rsvpGuestEventRelation,
 };
 
-const SkeletonTemplate: StoryFn = () => <EventDetailSkeleton />;
+const SkeletonTemplate: StoryFn<EventProps> = (args) => (
+  <EventDetailSkeleton {...args} />
+);
 
 export const EventDetailsSkeleton = SkeletonTemplate.bind({});
+EventDetailsSkeleton.args = {
+  profile: OwnerProfile,
+  event: EventWithInvitation,
+  eventRelation: ownerEventRelation,
+};

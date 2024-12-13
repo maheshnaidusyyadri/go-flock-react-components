@@ -2,6 +2,7 @@ import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import EventListPresenter from "./EventListPresenter";
 import { EventListProps } from "@goflock/types/src/index";
+import EventListSkeletonPage from "./EventListSkeleton";
 import {
   BirthdayEvent,
   HalloweenEvent,
@@ -37,3 +38,6 @@ SingleEvent.args = {
   ...MultipleEvents.args,
   events: [BirthdayEvent],
 };
+const SkeletonTemplate: StoryFn = () => <EventListSkeletonPage />;
+
+export const EventListSkeleton = SkeletonTemplate.bind({});

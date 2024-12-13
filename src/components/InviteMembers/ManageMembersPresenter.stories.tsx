@@ -14,6 +14,7 @@ import {
   EventWithMembers,
 } from "../Common/MockData";
 import { withRouter } from "storybook-addon-remix-react-router";
+import ManageMembersSkeletonPage from "./ManageMembersSkeleton";
 
 export default {
   title: "GoFlock/Presenters/ManageMembersPresenter",
@@ -65,4 +66,15 @@ WithEmptyMembersAndContacts.args = {
   ...EmptyContacts.args,
   members: [],
   contacts: [],
+};
+const SkeletonTemplate: StoryFn<ManageMembersProps> = (args) => (
+  <ManageMembersSkeletonPage {...args} />
+);
+
+export const ManageMembersSkeleton = SkeletonTemplate.bind({});
+ManageMembersSkeleton.args = {
+  profile: OwnerProfile,
+  eventId: EventWithOneMember.id,
+  event: EventWithOneMember,
+  eventRelation: ownerEventRelation,
 };

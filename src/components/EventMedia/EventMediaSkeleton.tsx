@@ -1,29 +1,45 @@
 import {
   IonCol,
   IonContent,
-  IonItem,
+  IonImg,
   IonList,
   IonPage,
   IonRow,
+  IonSegment,
+  IonSegmentButton,
   IonSkeletonText,
-  IonToolbar,
 } from "@ionic/react";
-const EventMediaSkeleton: React.FC = ({}) => {
+import Header from "../Header/Header";
+import GridIcon from "../../images/icons/all.svg";
+import PhotoIcon from "../../images/icons/photos.svg";
+import VideoIcon from "../../images/icons/videos.svg";
+import Footer from "../Footer/Footer";
+import { EventMediaProps } from "@goflock/types";
+
+const EventMediaSkeleton: React.FC<EventMediaProps> = ({
+  event,
+  eventRelation,
+}) => {
   return (
     <IonPage>
-      {
-        <IonToolbar>
-          <IonItem
-            style={{ width: "100%", padding: "0px", marginLeft: "-11px" }}
-          >
-            <IonSkeletonText
-              animated={true}
-              style={{ width: "70px", marginLeft: "170px" }}
-            ></IonSkeletonText>
-          </IonItem>
-        </IonToolbar>
-      }
+      <Header
+        showMenu={false}
+        showContactList={false}
+        title={"Media"}
+        showProfile={false}
+      />
       <IonContent className="ion-padding">
+        <IonSegment className="gallery_tabs" value={"all"}>
+          <IonSegmentButton value="all">
+            <IonImg src={GridIcon} />
+          </IonSegmentButton>
+          <IonSegmentButton value="photo">
+            <IonImg src={PhotoIcon} />
+          </IonSegmentButton>
+          <IonSegmentButton value="video">
+            <IonImg src={VideoIcon} />
+          </IonSegmentButton>
+        </IonSegment>
         <IonList>
           <IonRow>
             <IonCol>
@@ -47,20 +63,8 @@ const EventMediaSkeleton: React.FC = ({}) => {
                 style={{ width: "100%", height: "125px" }}
                 animated={true}
               ></IonSkeletonText>
-              <IonSkeletonText
-                style={{ width: "100%", height: "95px" }}
-                animated={true}
-              ></IonSkeletonText>
             </IonCol>
             <IonCol>
-              <IonSkeletonText
-                style={{ width: "100%", height: "125px" }}
-                animated={true}
-              ></IonSkeletonText>
-              <IonSkeletonText
-                style={{ width: "100%", height: "125px" }}
-                animated={true}
-              ></IonSkeletonText>
               <IonSkeletonText
                 style={{ width: "100%", height: "95px" }}
                 animated={true}
@@ -81,6 +85,12 @@ const EventMediaSkeleton: React.FC = ({}) => {
           </IonRow>
         </IonList>
       </IonContent>
+      <Footer
+        activeTab={"media"}
+        event={event}
+        settings={event.settings}
+        eventRelation={eventRelation}
+      />
     </IonPage>
   );
 };

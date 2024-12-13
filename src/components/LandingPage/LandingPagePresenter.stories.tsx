@@ -10,4 +10,4 @@ export default {
 };
 
 const Template: StoryFn = () => <LandingPagePresenter />;
-export const LandingInvitation = Template.bind({});
+export const Landing = Template.bind({});
