@@ -5,29 +5,20 @@ import {
   IonList,
   IonPage,
   IonRow,
-  IonSegment,
-  IonSegmentButton,
   IonSkeletonText,
 } from "@ionic/react";
 import Header from "../Header/Header";
-const DashboardSkeleton: React.FC = ({}) => {
+const EventListSkeleton: React.FC = ({}) => {
   return (
     <IonPage>
       <Header
-        showGoBack={false}
-        showLogo={true}
-        title={""}
-        showProfile={true}
+        title=""
+        showLogo={false}
+        showContactList={false}
+        showGoBack={true}
+        showProfile={false}
       />
       <IonContent className="ion-padding">
-        <IonSegment className="segment-tabs" value={"AllEvents"}>
-          <IonSegmentButton value="AllEvents">
-            <IonLabel>All events</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="MyEvents">
-            <IonLabel>My events</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
         <IonList>
           <IonRow>
             <IonCol>
@@ -192,4 +183,4 @@ const DashboardSkeleton: React.FC = ({}) => {
     </IonPage>
   );
 };
-export default DashboardSkeleton;
+export default EventListSkeleton;

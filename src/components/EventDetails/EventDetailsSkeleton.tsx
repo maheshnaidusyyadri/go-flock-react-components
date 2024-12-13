@@ -6,9 +6,22 @@ import {
   IonSkeletonText,
   IonThumbnail,
 } from "@ionic/react";
-const EventDetailsSkeleton: React.FC = ({}) => {
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import { EventProps } from "@goflock/types";
+const EventDetailsSkeleton: React.FC<EventProps> = ({
+  event,
+  eventRelation,
+}) => {
   return (
     <IonPage>
+      <Header
+        showLogo={true}
+        showGoBack={false}
+        title={"Annual Family Reunion"}
+        showMenu={true}
+        showContactList={false}
+      />
       <IonContent className="ion-padding">
         <IonItem>
           <IonThumbnail slot="start" style={{ width: "100%", height: "300px" }}>
@@ -79,6 +92,17 @@ const EventDetailsSkeleton: React.FC = ({}) => {
           </IonLabel>
         </IonItem>
       </IonContent>
+      {(["admin", "owner"].includes(eventRelation?.visitType) ||
+        (["member"].includes(eventRelation?.visitType) &&
+          eventRelation?.rsvp &&
+          eventRelation.rsvp?.response)) && (
+        <Footer
+          event={event}
+          activeTab={"invitation"}
+          settings={event.settings}
+          eventRelation={eventRelation}
+        />
+      )}
     </IonPage>
   );
 };
