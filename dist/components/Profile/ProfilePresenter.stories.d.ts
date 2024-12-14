@@ -8,3 +8,4 @@ export declare const ExistingProfile: import('@storybook/csf').AnnotatedStoryFn<
 export declare const NewProfile: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ProfileProps>;
 export declare const LoadingState: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ProfileProps>;
 export declare const ErrorState: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ProfileProps>;
+export declare const ProfileSkeleton: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, import('@storybook/csf').Args>;

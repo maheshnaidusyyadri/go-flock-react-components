@@ -9,6 +9,7 @@ interface CustomPhoneNumberProps {
     register: UseFormRegister<any>;
     control: Control<any>;
     onPhoneChange?: (e: CustomEvent) => void;
+    countryModal?: (e: boolean) => void;
 }
 declare const CustomPhoneNumber: React.FC<CustomPhoneNumberProps>;
 export default CustomPhoneNumber;

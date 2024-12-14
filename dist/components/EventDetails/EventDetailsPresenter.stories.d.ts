@@ -15,3 +15,4 @@ export declare const EventGuestViewUnAuth: import('@storybook/csf').AnnotatedSto
 export declare const EventGuestViewAuthRSVPFlow: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventProps>;
 export declare const EventGuestViewUnAuthRSVPFlow: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventProps>;
 export declare const EventGuestViewPostRSVP: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventProps>;
+export declare const EventDetailsSkeleton: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventProps>;

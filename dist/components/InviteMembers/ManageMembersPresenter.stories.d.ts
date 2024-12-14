@@ -8,3 +8,4 @@ export default _default;
 export declare const EmptyContacts: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ManageMembersProps>;
 export declare const WithValidNumberOfContacts: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ManageMembersProps>;
 export declare const WithEmptyMembersAndContacts: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ManageMembersProps>;
+export declare const ManageMembersSkeleton: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, ManageMembersProps>;

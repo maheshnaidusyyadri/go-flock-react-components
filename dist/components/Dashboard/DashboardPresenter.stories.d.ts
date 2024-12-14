@@ -8,3 +8,4 @@ export declare const WithActiveAndMyEvents: import('@storybook/csf').AnnotatedSt
 export declare const NoActiveEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
 export declare const NoMyEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
 export declare const NoActiveOrMyEvents: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, DashboardProps>;
+export declare const DashboardSkeleton: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, import('@storybook/csf').Args>;

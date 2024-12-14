@@ -7,3 +7,4 @@ declare const _default: {
 export default _default;
 export declare const EventWithTransactionsAndSummary: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventExpenseSummaryProps>;
 export declare const EventWithNoTransactionsAndSummary: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventExpenseSummaryProps>;
+export declare const EventExpenseSkeleton: import('@storybook/csf').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, EventExpenseSummaryProps>;
