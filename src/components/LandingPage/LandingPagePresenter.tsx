@@ -10,6 +10,8 @@ import {
   IonRow,
 } from "@ionic/react";
 import "./LandingPagePresenter.scss";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 import invitozLogoLight from "../../images/landing/invitoz-light.svg";
 import invitozLogo from "../../images/invitoz_dark.svg";
 import appStore from "../../images/landing/app-store-icon.svg";
@@ -27,6 +29,8 @@ import twitter from "../../images/landing/twitter-icon.svg";
 import instagram from "../../images/landing/instagram-icon.svg";
 import eventIcon from "../../images/landing/calender-icon.svg";
 import invitationIcon from "../../images/landing/invitation-icon.svg";
+import expenseIcon from "../../images/landing/expences-icon.svg";
+import splitImg from "../../images/landing/split-img.png";
 
 const LandingPagePresenter: React.FC = ({}) => {
   return (
@@ -199,41 +203,129 @@ const LandingPagePresenter: React.FC = ({}) => {
 
         <section className="split-sec" id="expenses">
           <div className="container split-cnt">
-            {/* <div className="split-text">
+            <Tabs className="landing-vertical-tabs">
+              <div className="split-text">
                 <div className="heading-badge split-badge">
-                    <img src={expenseIcon} />
-                    Split expenses
+                  <img src={expenseIcon} />
+                  Split expenses
                 </div>
                 <h2>Split bills, not the experiences/momories</h2>
                 <div className="tabs-nav col">
-                    <nav>
-                      <a>Splitting event expenses hassle-free.</a>
-                      <a>Easily track and divide costs among participants, ensuring fairness an transparency.</a>
-                      <a>Whether it's for gifts, food, or venue fees, the platform helps you manage contributions and settle up with just a few clicks, making group events stress-free and organized.</a>
-                    </nav>
-                  </div>
-            </div>
-            <div className="split-img">
-                <div className="tabs tabs-content col">
-                    <div className="content">
-                        <figure>
-                            <img src={expenseImg1} />
-                        </figure>
-                    </div>
-                    <div className="content">
-                        <figure>
-                            <img src={expenseImg1} />
-                        </figure>
-                    </div>
-                    <div className="content">
-                        <figure>
-                            <img src={expenseImg1} />
-                        </figure>
-                    </div>
-                  </div>
-                  
-                
-            </div> */}
+                  <TabList className="tablist">
+                    <Tab className="tab">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 48 48"
+                      >
+                        <g
+                          id="Group_40"
+                          data-name="Group 40"
+                          transform="translate(-1.999 -1.993)"
+                        >
+                          <path
+                            id="Path_249"
+                            data-name="Path 249"
+                            d="M31.677,42.8h-.088v-4H33.9a.8.8,0,1,0,0-1.6H31.589V34.8a.8.8,0,0,0-1.6,0v2.4H29.9a3.616,3.616,0,1,0,0,7.2h.088v4H27.677a.8.8,0,1,0,0,1.6h2.312v2.4a.8.8,0,0,0,1.6,0V50h.088a3.616,3.616,0,1,0,0-7.2Zm-1.776,0a2.021,2.021,0,1,1,0-4h.088v4Zm1.776,5.6h-.088v-4h.088a2.024,2.024,0,1,1,0,4Z"
+                            transform="translate(-4.789 -6.402)"
+                            fill="#fff"
+                          />
+                          <path
+                            id="Path_250"
+                            data-name="Path 250"
+                            d="M48.663,16.166,35.655,15.6a.8.8,0,0,0-.6,1.368l1.7,1.7-3.56,3.56V12.4h2.4a.8.8,0,0,0,.544-1.392l-9.6-8.8a.8.8,0,0,0-1.088,0l-9.6,8.8A.8.8,0,0,0,16.4,12.4h2.4v9.824l-3.56-3.56,1.7-1.7a.8.8,0,0,0-.632-1.368L3.3,16.166a.8.8,0,0,0-.8.8L2,29.942a.8.8,0,0,0,1.368.6l1.7-1.7L13.2,36.99V37.2a12.8,12.8,0,0,0,25.6,0V36.99l8.136-8.152,1.7,1.7a.8.8,0,0,0,1.368-.6l-.568-13.008A.8.8,0,0,0,48.663,16.166ZM18.456,10.8,26,3.887,33.543,10.8H32.4a.8.8,0,0,0-.8.8V25.7a12.8,12.8,0,0,0-2.4-.88V11.6a.8.8,0,0,0-1.6,0V24.51a11.488,11.488,0,0,0-3.2,0V11.6a.8.8,0,0,0-1.6,0V24.822a12.8,12.8,0,0,0-2.4.88V11.6a.8.8,0,0,0-.8-.8ZM5.656,27.142a.8.8,0,0,0-1.136,0l-.8.8.448-10.216,10.216-.448-.8.8a.8.8,0,0,0,0,1.136L18.8,24.478v2.144a12.8,12.8,0,0,0-5.384,8.3ZM26,48.4A11.2,11.2,0,1,1,37.2,37.2,11.2,11.2,0,0,1,26,48.4ZM47.5,27.142a.8.8,0,0,0-1.136,0l-7.784,7.784a12.8,12.8,0,0,0-5.384-8.3V24.478l5.256-5.248a.8.8,0,0,0,0-1.136l-.8-.8,10.216.448.448,10.216Z"
+                            transform="translate(0)"
+                            fill="#fff"
+                          />
+                        </g>
+                      </svg>
+                      Splitting event expenses hassle-free.
+                    </Tab>
+                    <Tab className="tab">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 48 48"
+                      >
+                        <g
+                          id="Group_40"
+                          data-name="Group 40"
+                          transform="translate(-1.999 -1.993)"
+                        >
+                          <path
+                            id="Path_249"
+                            data-name="Path 249"
+                            d="M31.677,42.8h-.088v-4H33.9a.8.8,0,1,0,0-1.6H31.589V34.8a.8.8,0,0,0-1.6,0v2.4H29.9a3.616,3.616,0,1,0,0,7.2h.088v4H27.677a.8.8,0,1,0,0,1.6h2.312v2.4a.8.8,0,0,0,1.6,0V50h.088a3.616,3.616,0,1,0,0-7.2Zm-1.776,0a2.021,2.021,0,1,1,0-4h.088v4Zm1.776,5.6h-.088v-4h.088a2.024,2.024,0,1,1,0,4Z"
+                            transform="translate(-4.789 -6.402)"
+                            fill="#fff"
+                          />
+                          <path
+                            id="Path_250"
+                            data-name="Path 250"
+                            d="M48.663,16.166,35.655,15.6a.8.8,0,0,0-.6,1.368l1.7,1.7-3.56,3.56V12.4h2.4a.8.8,0,0,0,.544-1.392l-9.6-8.8a.8.8,0,0,0-1.088,0l-9.6,8.8A.8.8,0,0,0,16.4,12.4h2.4v9.824l-3.56-3.56,1.7-1.7a.8.8,0,0,0-.632-1.368L3.3,16.166a.8.8,0,0,0-.8.8L2,29.942a.8.8,0,0,0,1.368.6l1.7-1.7L13.2,36.99V37.2a12.8,12.8,0,0,0,25.6,0V36.99l8.136-8.152,1.7,1.7a.8.8,0,0,0,1.368-.6l-.568-13.008A.8.8,0,0,0,48.663,16.166ZM18.456,10.8,26,3.887,33.543,10.8H32.4a.8.8,0,0,0-.8.8V25.7a12.8,12.8,0,0,0-2.4-.88V11.6a.8.8,0,0,0-1.6,0V24.51a11.488,11.488,0,0,0-3.2,0V11.6a.8.8,0,0,0-1.6,0V24.822a12.8,12.8,0,0,0-2.4.88V11.6a.8.8,0,0,0-.8-.8ZM5.656,27.142a.8.8,0,0,0-1.136,0l-.8.8.448-10.216,10.216-.448-.8.8a.8.8,0,0,0,0,1.136L18.8,24.478v2.144a12.8,12.8,0,0,0-5.384,8.3ZM26,48.4A11.2,11.2,0,1,1,37.2,37.2,11.2,11.2,0,0,1,26,48.4ZM47.5,27.142a.8.8,0,0,0-1.136,0l-7.784,7.784a12.8,12.8,0,0,0-5.384-8.3V24.478l5.256-5.248a.8.8,0,0,0,0-1.136l-.8-.8,10.216.448.448,10.216Z"
+                            transform="translate(0)"
+                            fill="#fff"
+                          />
+                        </g>
+                      </svg>
+                      Easily track and divide costs among participants, ensuring
+                      fairness an transparency.
+                    </Tab>
+                    <Tab className="tab">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 48 48"
+                      >
+                        <g
+                          id="Group_40"
+                          data-name="Group 40"
+                          transform="translate(-1.999 -1.993)"
+                        >
+                          <path
+                            id="Path_249"
+                            data-name="Path 249"
+                            d="M31.677,42.8h-.088v-4H33.9a.8.8,0,1,0,0-1.6H31.589V34.8a.8.8,0,0,0-1.6,0v2.4H29.9a3.616,3.616,0,1,0,0,7.2h.088v4H27.677a.8.8,0,1,0,0,1.6h2.312v2.4a.8.8,0,0,0,1.6,0V50h.088a3.616,3.616,0,1,0,0-7.2Zm-1.776,0a2.021,2.021,0,1,1,0-4h.088v4Zm1.776,5.6h-.088v-4h.088a2.024,2.024,0,1,1,0,4Z"
+                            transform="translate(-4.789 -6.402)"
+                            fill="#fff"
+                          />
+                          <path
+                            id="Path_250"
+                            data-name="Path 250"
+                            d="M48.663,16.166,35.655,15.6a.8.8,0,0,0-.6,1.368l1.7,1.7-3.56,3.56V12.4h2.4a.8.8,0,0,0,.544-1.392l-9.6-8.8a.8.8,0,0,0-1.088,0l-9.6,8.8A.8.8,0,0,0,16.4,12.4h2.4v9.824l-3.56-3.56,1.7-1.7a.8.8,0,0,0-.632-1.368L3.3,16.166a.8.8,0,0,0-.8.8L2,29.942a.8.8,0,0,0,1.368.6l1.7-1.7L13.2,36.99V37.2a12.8,12.8,0,0,0,25.6,0V36.99l8.136-8.152,1.7,1.7a.8.8,0,0,0,1.368-.6l-.568-13.008A.8.8,0,0,0,48.663,16.166ZM18.456,10.8,26,3.887,33.543,10.8H32.4a.8.8,0,0,0-.8.8V25.7a12.8,12.8,0,0,0-2.4-.88V11.6a.8.8,0,0,0-1.6,0V24.51a11.488,11.488,0,0,0-3.2,0V11.6a.8.8,0,0,0-1.6,0V24.822a12.8,12.8,0,0,0-2.4.88V11.6a.8.8,0,0,0-.8-.8ZM5.656,27.142a.8.8,0,0,0-1.136,0l-.8.8.448-10.216,10.216-.448-.8.8a.8.8,0,0,0,0,1.136L18.8,24.478v2.144a12.8,12.8,0,0,0-5.384,8.3ZM26,48.4A11.2,11.2,0,1,1,37.2,37.2,11.2,11.2,0,0,1,26,48.4ZM47.5,27.142a.8.8,0,0,0-1.136,0l-7.784,7.784a12.8,12.8,0,0,0-5.384-8.3V24.478l5.256-5.248a.8.8,0,0,0,0-1.136l-.8-.8,10.216.448.448,10.216Z"
+                            transform="translate(0)"
+                            fill="#fff"
+                          />
+                        </g>
+                      </svg>
+                      Whether it's for gifts, food, or venue fees, the platform
+                      helps you manage contributions and settle up with just a
+                      few clicks, making group events stress-free and organized.
+                    </Tab>
+                  </TabList>
+                </div>
+                </div>
+                <div className="split-img">
+                  <TabPanel>
+                    <figure>
+                      <img src={splitImg} />
+                    </figure>
+                  </TabPanel>
+                  <TabPanel>
+                  <figure>
+                      <img src={splitImg} />
+                    </figure>
+                  </TabPanel>
+                  <TabPanel>
+                  <figure>
+                      <img src={splitImg} />
+                    </figure>
+                  </TabPanel>
+                </div> 
+            </Tabs>
           </div>
         </section>
         <section className="faq-sec">
@@ -242,62 +334,54 @@ const LandingPagePresenter: React.FC = ({}) => {
 
             <IonGrid>
               <IonRow class="ion-justify-content-center">
-                <IonCol size="12" size-md="8">
-                  <IonAccordionGroup>
-                    <IonAccordion value="first">
-                      <IonItem slot="header" color="">
-                        <IonLabel>
-                          How much storage do I get for my photos and videos?
-                        </IonLabel>
-                      </IonItem>
-                      <div className="ion-padding" slot="content">
+                <IonCol size="12" size-md="10"> 
+                  <IonAccordionGroup className="landing-accordian">
+                    <IonAccordion value="first" no-lines>
+                      <div slot="header" className="accordian-lablel" > 
+                          How much storage do I get for my photos and videos? 
+                      </div>
+                      <div className="accordian-content" slot="content">
                         First Content
                       </div>
                     </IonAccordion>
                     <IonAccordion value="second">
-                      <IonItem slot="header" color="">
-                        <IonLabel>
-                          Can I use Google Photos on an iOS device?
-                        </IonLabel>
-                      </IonItem>
-                      <div className="ion-padding" slot="content">
-                        Second Content
+                    <div slot="header" className="accordian-lablel" > 
+                    Can I use Google Photos on an iOS device?
                       </div>
+                      <div className="accordian-content" slot="content">
+                        
+                      Can I use Google Photos on an iOS device  Content
+                      </div>
+                       
                     </IonAccordion>
                     <IonAccordion value="third">
-                      <IonItem slot="header" color="">
-                        <IonLabel>
-                          How do I back up my photos and videos?
-                        </IonLabel>
-                      </IonItem>
-                      <div className="ion-padding" slot="content">
-                        Third Content
+                    <div slot="header" className="accordian-lablel" > 
+                    How do I back up my photos and videos?
                       </div>
-                    </IonAccordion>
-                    <IonAccordion value="third">
-                      <IonItem slot="header" color="">
-                        <IonLabel>How do I edit my photos?</IonLabel>
-                      </IonItem>
-                      <div className="ion-padding" slot="content">
-                        Third Content
+                      <div className="accordian-content" slot="content"> 
+                      Third Content
                       </div>
+                       
                     </IonAccordion>
-                    <IonAccordion value="third">
-                      <IonItem slot="header" color="">
-                        <IonLabel>How can I share my photos?</IonLabel>
-                      </IonItem>
-                      <div className="ion-padding" slot="content">
-                        Third Content
+                    <IonAccordion value="fourth">
+                    <div slot="header" className="accordian-lablel" > 
+                    How do I back up my photos  ?
                       </div>
-                    </IonAccordion>
-                    <IonAccordion value="third">
-                      <IonItem slot="header" color="">
-                        <IonLabel>How do I search for my photos?</IonLabel>
-                      </IonItem>
-                      <div className="ion-padding" slot="content">
-                        Third Content
+                      <div className="accordian-content" slot="content"> 
+                      Fourth Content
                       </div>
+                     
                     </IonAccordion>
+                    <IonAccordion value="fifth">
+                    <div slot="header" className="accordian-lablel" > 
+                    How do I back up my photos and Videos  ?
+                      </div>
+                      <div className="accordian-content" slot="content"> 
+                      photos and Videos Content
+                      </div>
+                     
+                    </IonAccordion>
+                    
                   </IonAccordionGroup>
                 </IonCol>
               </IonRow>
