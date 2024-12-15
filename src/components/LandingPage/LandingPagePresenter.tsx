@@ -3,7 +3,7 @@ import {
   IonAccordionGroup,
   IonCol,
   IonContent,
-  IonGrid, 
+  IonGrid,
   IonPage,
   IonRow,
 } from "@ionic/react";
@@ -29,11 +29,22 @@ import eventIcon from "../../images/landing/calender-icon.svg";
 import invitationIcon from "../../images/landing/invitation-icon.svg";
 import expenseIcon from "../../images/landing/expences-icon.svg";
 import splitImg from "../../images/landing/split-img.png";
+import { useState } from "react";
 
 const LandingPagePresenter: React.FC = ({}) => {
+  const [isSticky, setIsSticky] = useState(false);
+  const handleContentScroll = (e: any) => {
+    const currentScrollTop = e.detail.scrollTop;
+    if (currentScrollTop > 0) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
   return (
     <IonPage>
-      <header className="header">
+      <header className={`header ${isSticky ? "stickyheader" : ""}`}>
         <div className="container header-cnt">
           <a className="logo" href="#">
             <img src={invitozLogo} />
@@ -62,7 +73,7 @@ const LandingPagePresenter: React.FC = ({}) => {
           </a>
         </div>
       </header>
-      <IonContent>
+      <IonContent onIonScroll={handleContentScroll} scrollEvents={true}>
         <section className="home-banner" id="home">
           <div className="container banner-cnt">
             <div className="banner-text">
@@ -241,7 +252,7 @@ const LandingPagePresenter: React.FC = ({}) => {
                       Splitting event expenses hassle-free.
                     </Tab>
                     <Tab className="tab">
-                    <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="48"
                         height="48"
@@ -272,7 +283,7 @@ const LandingPagePresenter: React.FC = ({}) => {
                       fairness an transparency.
                     </Tab>
                     <Tab className="tab">
-                    <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="48"
                         height="48"
@@ -305,24 +316,24 @@ const LandingPagePresenter: React.FC = ({}) => {
                     </Tab>
                   </TabList>
                 </div>
-                </div>
-                <div className="split-img">
-                  <TabPanel>
-                    <figure>
-                      <img src={splitImg} />
-                    </figure>
-                  </TabPanel>
-                  <TabPanel>
+              </div>
+              <div className="split-img">
+                <TabPanel>
                   <figure>
-                      <img src={splitImg} />
-                    </figure>
-                  </TabPanel>
-                  <TabPanel>
+                    <img src={splitImg} />
+                  </figure>
+                </TabPanel>
+                <TabPanel>
                   <figure>
-                      <img src={splitImg} />
-                    </figure>
-                  </TabPanel>
-                </div> 
+                    <img src={splitImg} />
+                  </figure>
+                </TabPanel>
+                <TabPanel>
+                  <figure>
+                    <img src={splitImg} />
+                  </figure>
+                </TabPanel>
+              </div>
             </Tabs>
           </div>
         </section>
@@ -332,54 +343,48 @@ const LandingPagePresenter: React.FC = ({}) => {
 
             <IonGrid>
               <IonRow class="ion-justify-content-center">
-                <IonCol size="12" size-md="10"> 
+                <IonCol size="12" size-md="10">
                   <IonAccordionGroup className="landing-accordian">
                     <IonAccordion value="first" no-lines>
-                      <div slot="header" className="accordian-lablel" > 
-                          How much storage do I get for my photos and videos? 
+                      <div slot="header" className="accordian-lablel">
+                        How much storage do I get for my photos and videos?
                       </div>
                       <div className="accordian-content" slot="content">
                         First Content
                       </div>
                     </IonAccordion>
                     <IonAccordion value="second">
-                    <div slot="header" className="accordian-lablel" > 
-                    Can I use Google Photos on an iOS device?
+                      <div slot="header" className="accordian-lablel">
+                        Can I use Google Photos on an iOS device?
                       </div>
                       <div className="accordian-content" slot="content">
-                        
-                      Can I use Google Photos on an iOS device  Content
+                        Can I use Google Photos on an iOS device Content
                       </div>
-                       
                     </IonAccordion>
                     <IonAccordion value="third">
-                    <div slot="header" className="accordian-lablel" > 
-                    How do I back up my photos and videos?
+                      <div slot="header" className="accordian-lablel">
+                        How do I back up my photos and videos?
                       </div>
-                      <div className="accordian-content" slot="content"> 
-                      Third Content
+                      <div className="accordian-content" slot="content">
+                        Third Content
                       </div>
-                       
                     </IonAccordion>
                     <IonAccordion value="fourth">
-                    <div slot="header" className="accordian-lablel" > 
-                    How do I back up my photos  ?
+                      <div slot="header" className="accordian-lablel">
+                        How do I back up my photos ?
                       </div>
-                      <div className="accordian-content" slot="content"> 
-                      Fourth Content
+                      <div className="accordian-content" slot="content">
+                        Fourth Content
                       </div>
-                     
                     </IonAccordion>
                     <IonAccordion value="fifth">
-                    <div slot="header" className="accordian-lablel" > 
-                    How do I back up my photos and Videos  ?
+                      <div slot="header" className="accordian-lablel">
+                        How do I back up my photos and Videos ?
                       </div>
-                      <div className="accordian-content" slot="content"> 
-                      photos and Videos Content
+                      <div className="accordian-content" slot="content">
+                        photos and Videos Content
                       </div>
-                     
                     </IonAccordion>
-                    
                   </IonAccordionGroup>
                 </IonCol>
               </IonRow>
