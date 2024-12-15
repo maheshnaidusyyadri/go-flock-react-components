@@ -3,9 +3,7 @@ import {
   IonAccordionGroup,
   IonCol,
   IonContent,
-  IonGrid,
-  IonItem,
-  IonLabel,
+  IonGrid, 
   IonPage,
   IonRow,
 } from "@ionic/react";
