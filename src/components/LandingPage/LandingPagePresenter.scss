@@ -720,6 +720,7 @@ $white: #ffffff;
   @media screen and (max-width: 767px) {
   }
   @media screen and (min-width: 768px) {
+
     display: flex;
     .tablist {
       display: flex;
@@ -744,7 +745,15 @@ $white: #ffffff;
         path {
           fill: rgba(1, 18, 51, 0.8);
         }
+        &.react-tabs__tab--selected {
+          background: rgba(1, 18, 51, 0.8);
+          color: #fff;
+          path {
+            fill: #fff;
+          }
+        }
       }
     }
+    
   }
 }
