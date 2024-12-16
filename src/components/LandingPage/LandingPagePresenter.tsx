@@ -11,6 +11,7 @@ import "./LandingPagePresenter.scss";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import invitozLogoLight from "../../images/landing/invitoz-light.svg";
+import arrow from "../../images/landing/right-arrow.svg";
 import invitozLogo from "../../images/invitoz_dark.svg";
 import appStore from "../../images/landing/app-store-icon.svg";
 import googlePlay from "../../images/landing/google-play-icon.svg";
@@ -70,6 +71,7 @@ const LandingPagePresenter: React.FC = ({}) => {
           </nav>
           <a href="#" className="get-app">
             Get the App
+            <img src={arrow} />
           </a>
         </div>
       </header>
