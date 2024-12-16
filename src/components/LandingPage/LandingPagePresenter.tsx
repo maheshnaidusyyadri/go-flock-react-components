@@ -29,23 +29,34 @@ import instagram from "../../images/landing/instagram-icon.svg";
 import eventIcon from "../../images/landing/calender-icon.svg";
 import invitationIcon from "../../images/landing/invitation-icon.svg";
 import expenseIcon from "../../images/landing/expences-icon.svg";
-import splitImg from "../../images/landing/split-img.png";
-import { useState } from "react";
+import splitImg from "../../images/landing/split-img.png"; 
+import React, { useState, useEffect } from 'react';
 
 const LandingPagePresenter: React.FC = ({}) => {
-  const [isSticky, setIsSticky] = useState(false);
-  const handleContentScroll = (e: any) => {
-    const currentScrollTop = e.detail.scrollTop;
-    if (currentScrollTop > 0) {
-      setIsSticky(true);
-    } else {
-      setIsSticky(false);
-    }
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const [isSticky] = useState(false);
+
+  // Toggle menu for mobile view
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
   };
 
+  // Add/remove sticky class based on scroll position
+  useEffect(() => { 
+    const handleScroll = () => {
+      console.log('Scrolling!');
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  
+  }, []);
   return (
     <IonPage>
-      <header className={`header ${isSticky ? "stickyheader" : ""}`}>
+      {/* <header className="header">
         <div className="container header-cnt">
           <a className="logo" href="#">
             <img src={invitozLogo} />
@@ -74,8 +85,52 @@ const LandingPagePresenter: React.FC = ({}) => {
             <img src={arrow} />
           </a>
         </div>
-      </header>
-      <IonContent onIonScroll={handleContentScroll} scrollEvents={true}>
+      </header> */}
+      
+        
+     <header className={`main-header   ${isSticky ? 'sticky' : ''}`}>
+         <div className="container  header-cnt">
+         <a className="logo" href="#">
+             <img src={invitozLogo} />
+           </a> 
+ 
+         {/* Hamburger Menu Button */}
+         <div className="menu-btn" id="menu-btn" onClick={toggleMenu}>
+           <label className="menu-icon">
+             <span className="menu-icon__line"></span>
+             <span className="menu-icon__line"></span>
+             <span className="menu-icon__line"></span>
+           </label>
+         </div>
+ 
+         {/* Navigation Links */}
+         <ul className={`nav-links ${menuOpen ? 'active' : ''}`}> 
+           <li className="nav-link">
+                 <a href="#home" onClick={toggleMenu}>home</a>
+               </li>
+               <li className="nav-link">
+                 <a href="#events" onClick={toggleMenu}>Events</a>
+               </li>
+               <li className="nav-link">
+                 <a href="#invitations" onClick={toggleMenu}>Invitations</a>
+               </li>
+               <li className="nav-link" onClick={toggleMenu}>
+                 <a href="#photos">Photos</a>
+               </li>
+               <li className="nav-link" onClick={toggleMenu}>
+                 <a href="#expenses">Split Expenses</a>
+               </li>
+               <li className=" ">
+               <a href="#" className="get-app mobile-show" onClick={toggleMenu}>
+             Get the App
+           </a>
+               </li>
+         </ul> 
+         <a href="#" className="get-app   mobile-hide">
+             Get the App
+           </a></div>
+       </header>
+      <IonContent>
         <section className="home-banner" id="home">
           <div className="container banner-cnt">
             <div className="banner-text">
@@ -344,8 +399,8 @@ const LandingPagePresenter: React.FC = ({}) => {
             <h2>Freequently asked questions</h2>
 
             <IonGrid>
-              <IonRow class="ion-justify-content-center">
-                <IonCol size="12" size-md="10">
+              <IonRow className="ion-justify-content-center">
+                <IonCol size="12" size-md="10"> 
                   <IonAccordionGroup className="landing-accordian">
                     <IonAccordion value="first" no-lines>
                       <div slot="header" className="accordian-lablel">

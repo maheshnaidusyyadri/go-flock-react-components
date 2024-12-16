@@ -54,69 +54,30 @@ $white: #ffffff;
   @media screen and (max-width: 767px) {
     display: none !important;
   }
-}
+} 
 
-.header {
+/* General header styles */
+.main-header {
   position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
   z-index: 90;
+  transition: background-color 0.3s ease;
+  padding: 15px 0;
   .header-cnt {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 100px;
-    .logo {
-    }
-    .nav {
-      ul {
-        display: flex;
-        align-items: center;
-        background: $white;
-        border-radius: 20px;
-        padding: 0px;
-        height: 45px;
-        li {
-          margin: 0px 5px;
-          a {
-            font-size: 14px;
-            font-family: $primaryFont;
-            color: $black;
-            text-transform: capitalize;
-            text-decoration: none;
-            height: 40px;
-            padding: 8px 15px;
-            border-radius: 75px;
-            &:hover {
-              background-color: #011233;
-              color: $white;
-            }
-          }
-        }
-      }
-    }
-    .get-app {
-      background: #f16122;
-      color: #ffffff;
-      font-size: 14px;
-      font-family: $primaryFont;
-      height: 46px;
-      width: 160px;
-      border-radius: 80px;
+    @media screen and (min-width: 769px) {
       align-items: center;
-      display: flex;
-      justify-content: center;
-      background-size: 20px;
-      padding-right: 20px;
-      background-position: 120px 13px;
-      transition: 0.2s all ease-in-out;
-      text-decoration: none;
       justify-content: space-between;
-      padding: 0 15px 0 20px;
-      &:hover {
-        background-color: #011233;
-      }
+      height: 100px;
+      height: 75px;
+    }
+  }
+  .logo {
+    img {
+      height: 65px; 
       @media screen and (max-width: 767px) {
         padding: 0 12px 0 12px;
         height: 36px;
@@ -125,8 +86,7 @@ $white: #ffffff;
       }
     }
     @media screen and (max-width: 767px) {
-      padding: 0 10px;
-      height: 85px;
+      padding: 0 10px; 
       nav {
         display: none;
       }
@@ -137,17 +97,117 @@ $white: #ffffff;
       }
     }
   }
-  &.stickyheader {
-    background: $white;
-    box-shadow: #f1f1f1 0px 5px 8px;
-    .header-cnt {
-      .nav {
-        ul {
-          background-color: #f4f5f6;
-        }
+}
+
+/* Sticky Header Effect */
+.sticky {
+  background-color: #fff;
+  box-shadow: #f1f1f1 0px 5px 8px;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  background: $white;
+  border-radius: 20px;
+  padding: 0 10px;
+  height: 45px;
+  .nav-link {
+    margin: 0px 5px;
+    a {
+      font-size: 14px;
+      font-family: $primaryFont;
+      color: $black;
+      text-transform: capitalize;
+      text-decoration: none;
+      height: 40px;
+      padding: 8px 15px;
+      border-radius: 75px;
+      &:hover {
+        background-color: #011233;
+        color: $white;
       }
     }
   }
+}
+
+.get-app {
+  background: red url("../../images/landing/arrow.png") no-repeat  right center; 
+  display: flex; /* Useful if you have content inside and need centering */
+  align-items: center; /* Centers any child content vertically */
+  justify-content: flex-start; /* Positions child content to the left */
+  color: #ffffff;
+  font-size: 14px;
+  font-family: $primaryFont;
+  height: 46px;
+  width: 160px;
+  border-radius: 80px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-size: 20px;
+  padding-right: 20px;
+  background-position: 120px 13px;
+  transition: 0.2s all ease-in-out;
+  text-decoration: none;
+  &:hover {
+    background-color: #011233;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
+}
+/* Hamburger Menu */
+.menu-btn {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  margin-right: 20px;
+  z-index: 1000;
+}
+
+.menu-icon__line {
+  width: 100%;
+  height: 4px;
+  background-color: #011233;
+  border-radius: 5px;
+  display: block;
+  margin: 4px 0;
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    border-radius: 0;
+  }
+
+  .nav-links.active {
+    transform: translateX(0);
+  }
+
+  .menu-btn {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .nav-links .nav-link {
+    margin: 15px 0;
+  } 
 }
 
 .container {
@@ -157,7 +217,9 @@ $white: #ffffff;
 }
 
 .home-banner {
-  background: #fafafa;
+  background: #fafafa url(../../images/landing/hero-bg.png)  no-repeat;
+  background-size: cover; /* Ensures the image covers the entire area */
+  background-position: center; /* Keeps the image centered */ 
   padding-top: 100px;
   .banner-cnt {
     display: flex;
@@ -190,6 +252,8 @@ $white: #ffffff;
         width: 100%;
       }
     }
+    
+  background-position: right; /* Keeps the image centered */ 
   }
 }
 
@@ -725,7 +789,30 @@ $white: #ffffff;
         path {
           fill: rgba(1, 18, 51, 0.8);
         }
+        &.react-tabs__tab--selected {
+          background: rgba(1, 18, 51, 0.8);
+          color: #fff;
+          path {
+            fill: #fff;
+          }
+        }
       }
     }
+  }
+}
+.mobile-hide {
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  @media screen and (min-width: 769px) {
+    display: flex;
+  }
+}
+.mobile-show {
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
+  @media screen and (min-width: 769px) {
+    display: none;
   }
 }
