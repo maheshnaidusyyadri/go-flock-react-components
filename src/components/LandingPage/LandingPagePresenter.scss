@@ -757,3 +757,17 @@ $white: #ffffff;
     
   }
 }
+
+
+.slide {
+   margin:  0 10px; /* Adjust spacing between slides */
+  box-sizing: border-box;
+  display: flex !important;
+  justify-content: center;
+  align-items: flex-end; /* Align items to the bottom */
+  height: 400px; /* Ensure the slides have consistent height */
+  position: relative;
+  img{
+    border-radius: 20px;
+  }
+}

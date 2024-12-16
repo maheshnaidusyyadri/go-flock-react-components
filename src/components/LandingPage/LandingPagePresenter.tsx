@@ -23,6 +23,14 @@ import bannerImage from "../../images/landing/banner-img-1.png";
 import eventsImg_1 from "../../images/landing/events-img-1.png";
 import eventsImg_2 from "../../images/landing/events-img-2.png";
 import eventsImg_3 from "../../images/landing/events-img-3.png";
+
+import photoSec1 from "../../images/landing/photos-img-1.png";
+import photoSec2 from "../../images/landing/photos-img-2.png";
+import photoSec3 from "../../images/landing/photos-img-3.png";
+import photoSec4 from "../../images/landing/photos-img-4.png";
+import photoSec5 from "../../images/landing/photos-img-3.png";
+import photoSec6 from "../../images/landing/photos-img-2.png";
+
 import facebook from "../../images/landing/facebook-icon.svg";
 import twitter from "../../images/landing/twitter-icon.svg";
 import instagram from "../../images/landing/instagram-icon.svg";
@@ -30,9 +38,24 @@ import eventIcon from "../../images/landing/calender-icon.svg";
 import invitationIcon from "../../images/landing/invitation-icon.svg";
 import expenseIcon from "../../images/landing/expences-icon.svg";
 import splitImg from "../../images/landing/split-img.png";
-import { useState } from "react";
+import { useState } from "react"; 
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css'; 
+
 
 const LandingPagePresenter: React.FC = ({}) => {
+  var settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1, 
+    cssEase: "linear", 
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    variableWidth: true
+  };
   const [isSticky, setIsSticky] = useState(false);
   const handleContentScroll = (e: any) => {
     const currentScrollTop = e.detail.scrollTop;
@@ -194,6 +217,27 @@ const LandingPagePresenter: React.FC = ({}) => {
               to the best moments of the celebration.
             </p>
           </div>
+          <Slider {...settings}>
+      <div className="slide">
+ 
+      <img src={photoSec1} />
+      </div>
+      <div className="slide">
+      <img src={photoSec2} />
+      </div>
+      <div className="slide">
+      <img src={photoSec3} />
+      </div>
+      <div className="slide">
+      <img src={photoSec4} />
+      </div>
+      <div className="slide">
+      <img src={photoSec5} />
+      </div>
+      <div className="slide">
+      <img src={photoSec6} />
+      </div>
+    </Slider>
           {/* <IonGrid>
             <IonRow>
                 <IonCol size="3">
