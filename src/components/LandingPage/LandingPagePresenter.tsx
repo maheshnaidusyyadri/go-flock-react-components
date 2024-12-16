@@ -34,26 +34,21 @@ import React, { useState, useEffect } from 'react';
 
 const LandingPagePresenter: React.FC = ({}) => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const [isSticky] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
 
   // Toggle menu for mobile view
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
+  }; 
+  const handleContentScroll = (e: any) => {
+    const currentScrollTop = e.detail.scrollTop;
+    if (currentScrollTop > 0) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
   };
 
-  // Add/remove sticky class based on scroll position
-  useEffect(() => { 
-    const handleScroll = () => {
-      console.log('Scrolling!');
-    };
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  
-  }, []);
   return (
     <IonPage>
       {/* <header className="header">
@@ -130,7 +125,7 @@ const LandingPagePresenter: React.FC = ({}) => {
              Get the App
            </a></div>
        </header>
-      <IonContent>
+      <IonContent  onIonScroll={handleContentScroll} scrollEvents={true}> 
         <section className="home-banner" id="home">
           <div className="container banner-cnt">
             <div className="banner-text">
