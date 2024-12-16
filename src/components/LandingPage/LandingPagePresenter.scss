@@ -586,6 +586,14 @@ $white: #ffffff;
     z-index: 0;
     left: 0px;
   }
+  .logo{
+    height: 70px;
+   
+  @media screen and (max-width: 768px) {
+    height: 40px;
+   
+  }
+  }
   h3 {
     @include title;
     color: $white;

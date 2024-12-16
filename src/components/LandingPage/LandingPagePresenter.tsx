@@ -450,7 +450,7 @@ const LandingPagePresenter: React.FC = ({}) => {
         </section>
         <footer className="footer-sec">
           <a href="#">
-            <img src={invitozLogoLight} />
+            <img src={invitozLogoLight} className="logo" />
           </a>
           <h3>
             A comprehensive platform for managing invites,
