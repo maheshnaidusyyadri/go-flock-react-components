@@ -63,7 +63,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
         showContactList={false}
         showProfile={false}
       />
-      <IonContent className="event_transactions ion-padding-end ion-padding-start ion-padding-bottom">
+      <IonContent className="event-transactions ion-padding-end ion-padding-start ion-padding-bottom">
         <IonSegment
           className="segment-tabs"
           value={selectedSegment}
@@ -80,10 +80,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
               transactions.map((transaction) => (
                 <IonRow>
                   <IonCol className="ion-padding-top">
-                    <IonList
-                      key={transaction.id}
-                      className="transaction-list"
-                    >
+                    <IonList key={transaction.id} className="transaction-list">
                       <IonItem
                         className="transaction-item ion-no-margin"
                         lines="none"
@@ -97,10 +94,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                           className="transaction-actions ion-no-margin"
                         >
                           <p>${transaction.amount}</p>
-                          <IonLabel
-                            class="action-btns"
-                            slot="end"
-                          >
+                          <IonLabel class="action-btns" slot="end">
                             <IonButton
                               className="icon-btn"
                               onClick={() =>

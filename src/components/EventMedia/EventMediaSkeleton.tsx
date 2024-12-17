@@ -29,7 +29,7 @@ const EventMediaSkeleton: React.FC<EventMediaProps> = ({
         showProfile={false}
       />
       <IonContent className="ion-padding">
-        <IonSegment className="gallery_tabs" value={"all"}>
+        <IonSegment className="gallery-tabs" value={"all"}>
           <IonSegmentButton value="all">
             <IonImg src={GridIcon} />
           </IonSegmentButton>
