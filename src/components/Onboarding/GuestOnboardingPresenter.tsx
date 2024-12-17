@@ -115,7 +115,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
       {/* <IonContent className="onboard_cnt guest-user ion-padding"> */}
       {!showOtpModal && (
         <>
-          <IonContent className="onboard_cnt guest-user ion-padding">
+          <IonContent className="onboard-cnt guest-user ion-padding">
             <IonGrid className="guest-auth-form ion-no-padding">
               <IonRow>
                 <IonCol>
@@ -161,7 +161,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
               {slides.map((slide, index) => (
                 <SwiperSlide key={index}>
                   <IonGrid className="step-content">
-                    <IonCard className="auth_screen">
+                    <IonCard className="auth-screen">
                       {slide.icon}
                       <IonTitle className="ion-title">{slide.title}</IonTitle>
                       <IonText className="ion-text">{slide.text}</IonText>

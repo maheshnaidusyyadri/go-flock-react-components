@@ -26,9 +26,8 @@ import EventsIcon from "../Common/Icons/Events";
 import MediaIcon from "../Common/Icons/Media";
 import ChatIcon from "../Common/Icons/Chat";
 import ExpancesIcon from "../Common/Icons/Split";
-
 import { IntroductionProps } from "@goflock/types/src/presenter";
-import InvitozLogo from "../Common/Icons/Logo";
+import Header from "../Header/Header";
 
 const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
   const [, setActiveIndex] = useState(0);
@@ -62,13 +61,14 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
 
   return (
     <IonPage>
-      <IonContent className="onboard_cnt ion-padding">
-        <IonRow>
-          <IonCol className="ion-text-center">
-            <InvitozLogo />
-          </IonCol>
-        </IonRow>
-        <IonRow className="ion-padding-top">
+      <Header
+        title={""}
+        showLogo={true}
+        logoPosition="middle"
+        showGoBack={false}
+      ></Header>
+      <IonContent className="onboard-cnt ion-padding">
+        <IonRow className="">
           <IonCol className="ion-text-center">
             <Swiper
               modules={[Autoplay, Pagination, IonicSlides, Navigation]}
@@ -81,7 +81,7 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
               {slides.map((slide, index) => (
                 <SwiperSlide key={index}>
                   <IonGrid className="step-content ion-no-padding">
-                    <IonCard className="auth_screen">
+                    <IonCard className="auth-screen">
                       {slide.icon}
                       <IonTitle className="ion-title">{slide.title}</IonTitle>
                       <IonText className="ion-text">{slide.text}</IonText>
@@ -93,7 +93,7 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
           </IonCol>
         </IonRow>
       </IonContent>
-      <IonFooter>
+      <IonFooter className="ion-padding">
         <IonRow>
           <IonCol>
             <IonButton
