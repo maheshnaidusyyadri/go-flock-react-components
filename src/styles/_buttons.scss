@@ -14,10 +14,10 @@ ion-button {
   width: 100%;
   height: 52px;
   border-radius: 50px;
-  --background: #18181b;
-  --background-hover: #18181b;
-  --background-focused: #2780bf;
-  --background-activated: #2780bf;
+  --background: #f16122;
+  --background-hover: #f16122;
+  --background-focused: #02beff;
+  --background-activated: #02beff;
   font-family: $GoFlockFont;
   font-size: 14px;
   font-weight: 500;
@@ -29,7 +29,7 @@ ion-button {
     --border-radius: 50px;
   }
   &:hover {
-    --background: #46464c;
+    --background: #f16122;
   }
   ion-img {
     margin-right: 10px;
@@ -53,8 +53,8 @@ ion-button {
   text-transform: capitalize;
   --background: transparent;
   --background-hover: transparent;
-  --background-focused: #2780bf;
-  --background-activated: #2780bf;
+  --background-focused: #02beff;
+  --background-activated: #02beff;
   &.rounded {
     --border-radius: 50px;
   }
@@ -106,7 +106,7 @@ ion-button {
   .in-segment {
     position: relative;
     z-index: 99;
-    --indicator-color: #18181b;
+    --indicator-color: #011233;
     --indicator-height: 1px;
     height: 32px;
     border-radius: 0;
@@ -117,7 +117,7 @@ ion-button {
     --border-width: 0;
     border-bottom: 1px solid #e4e4e7;
 
-    color: #18181b;
+    color: #011233;
     font-family: $GoFlockFont;
     font-size: 12px;
     font-weight: 400;
@@ -142,9 +142,9 @@ ion-button {
   bottom: 16px;
   right: 16px;
   --border-radius: 50%;
-  --background: #18181b;
-  --background-focused: #2780bf;
-  --background-activated: #2780bf;
+  --background: #011233;
+  --background-focused: #02beff;
+  --background-activated: #02beff;
 }
 
 ion-footer {
