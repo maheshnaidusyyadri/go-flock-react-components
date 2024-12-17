@@ -79,11 +79,11 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                 <span className="devider"></span>
                 <div className="menbers-list">
                   <h6>All Members</h6>
-                  <IonList className="list_wrap">
+                  <IonList className="list-wrap ion-no-padding ion-no-margin">
                     {filteredContacts.map((member, index) => (
                       <IonItem
                         key={index}
-                        className="list_item"
+                        className="list-item"
                         onClick={() => handleSelectContact(member)}
                       >
                         <IonThumbnail slot="start" className="dp">

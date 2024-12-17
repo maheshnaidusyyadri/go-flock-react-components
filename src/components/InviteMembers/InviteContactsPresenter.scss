@@ -57,13 +57,11 @@ body {
   .users-ist {
     display: block;
 
-    .list_wrap {
-      margin: 0;
-      padding: 0;
+    .list-wrap {
       display: flex;
       align-items: flex-start;
 
-      .list_item {
+      .list-item {
         display: flex;
         flex-direction: column;
 
@@ -185,11 +183,11 @@ body {
       margin: 0 0 10px 0;
     }
 
-    .list_wrap {
+    .list-wrap {
       margin: 0;
       padding: 0;
 
-      .list_item {
+      .list-item {
         --padding-start: 0;
         --padding-end: 0;
         --border-color: transparent;
