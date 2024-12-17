@@ -18,19 +18,10 @@ const NoEvent: React.FC = ({}) => {
               Create an event and share with your friends in an easy and simple
               way
             </p>
-            {/* <IonButton
-              color="primary"
-              shape="round"
-              size="large"
-              id="open-modal"
-            >
-              Create Event
-            </IonButton> */}
           </IonCol>
         </IonRow>
       </IonGrid>
     </>
   );
 };
-
 export default NoEvent;
