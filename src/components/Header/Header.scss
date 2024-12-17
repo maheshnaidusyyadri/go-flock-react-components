@@ -22,7 +22,7 @@
       align-items: center;
       padding: 0px;
     }
-    .menu_icon {
+    .menu-icon {
       --size: 30px min-width: 30px;
       img {
         display: block;
@@ -42,7 +42,7 @@
         }
       }
     }
-    .profile_icon {
+    .profile-icon {
       --size: 30px;
     }
     .arrow_icon {
@@ -76,7 +76,7 @@
   }
 }
 
-.signIn_btn {
+.signIn-btn {
   display: flex;
   align-items: center;
   justify-content: flex-end;

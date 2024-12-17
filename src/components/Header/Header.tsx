@@ -102,14 +102,14 @@ const Header: React.FC<HeaderProps> = ({
           <IonButtons slot="start">
             {showGoBack && (
               <IonButton onClick={() => handleLeftButtonAction()}>
-                <IonThumbnail className="profile_icon">
+                <IonThumbnail className="profile-icon">
                   <IonImg src={backArrow} alt="Page Back" />
                 </IonThumbnail>
               </IonButton>
             )}
             {showLogo && logoPosition === "left" && (
               <IonButton routerLink="/">
-                <IonThumbnail className="profile_icon">
+                <IonThumbnail className="profile-icon">
                   <IonImg src={goflockLogo} alt="ProfileIcon" />
                 </IonThumbnail>
               </IonButton>
@@ -131,7 +131,7 @@ const Header: React.FC<HeaderProps> = ({
               <IonButton>
                 <IonThumbnail
                   id="open-action-sheet"
-                  className="menu_icon"
+                  className="menu-icon"
                   onClick={() => setShowActionMenu(true)}
                 >
                   <IonImg src={Menu} alt="More Details" />
@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
             {showContactList && (
               <IonButton>
-                <IonThumbnail className="menu_icon contactList">
+                <IonThumbnail className="menu-icon contactList">
                   <IonImg src={ContactListIcon} alt="Contact List" />
                 </IonThumbnail>
               </IonButton>
@@ -160,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
 
             {showSignIn && (
-              <IonLabel class="signIn_btn">
+              <IonLabel class="signIn-btn">
                 <IonText class="signin_text">Sign in</IonText>
                 <IonImg src={signInIcon} alt="ProfileIcon" />
               </IonLabel>
