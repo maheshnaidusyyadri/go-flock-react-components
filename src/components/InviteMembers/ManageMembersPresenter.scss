@@ -1,6 +1,7 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/form" as *;
 @use "../../styles/rsvpCards.scss" as *;
+@use "../../styles/events.scss" as *;
 .manage-members {
   .segment_tabs {
     padding: 16px 16px 0;
@@ -25,9 +26,7 @@
       color: $secondaryColor;
       margin: 0 0 10px 0;
     }
-    .list_wrap {
-      margin: 0;
-      padding: 0;
+    .list-wrap {
       .list_item {
         --padding-start: 0;
         --padding-end: 0;

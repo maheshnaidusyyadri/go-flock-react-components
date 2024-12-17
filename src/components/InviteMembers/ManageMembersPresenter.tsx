@@ -238,7 +238,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                   </IonRow>
                 )}
                 {filteredMembersList && filteredMembersList.length > 0 ? (
-                  <IonList className="list_wrap event_members">
+                  <IonList className="list-wrap ion-no-padding ion-no-margin event-members">
                     {filteredMembersList.map((member, index) => (
                       <IonItem key={index} className="list_item">
                         <IonThumbnail slot="start" className="dp">
