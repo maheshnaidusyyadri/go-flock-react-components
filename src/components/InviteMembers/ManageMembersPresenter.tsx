@@ -240,7 +240,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                 {filteredMembersList && filteredMembersList.length > 0 ? (
                   <IonList className="list-wrap ion-no-padding ion-no-margin event-members">
                     {filteredMembersList.map((member, index) => (
-                      <IonItem key={index} className="list_item">
+                      <IonItem key={index} className="list-item">
                         <IonThumbnail slot="start" className="dp">
                           {member?.roles?.includes("owner") && (
                             <IonImg className="type" src={HostIcon} />
