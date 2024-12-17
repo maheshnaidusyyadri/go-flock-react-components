@@ -57,6 +57,9 @@
       height: 40px;
       background: #ddd;
     }
+    .header-actions {
+      min-width: 45px;
+    }
   }
   &.sticky {
     position: sticky;
