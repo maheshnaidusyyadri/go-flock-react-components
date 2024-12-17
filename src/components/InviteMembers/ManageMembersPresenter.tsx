@@ -406,7 +406,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           <IonRow>
             <IonCol>
               <IonButton
-                className="primary-btn rounded"
+                className="primary-btn rounded mb-6"
                 onClick={() => copyEventLink(eventId)}
               >
                 {"Copy invitation link"}
