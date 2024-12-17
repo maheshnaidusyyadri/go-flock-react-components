@@ -66,7 +66,7 @@ const DisplayDate: React.FC<DisplayDateProps> = ({
         </>
       )}
       {isTimeRequired && (formattedStartTime || formattedEndTime) && (
-        <IonCardSubtitle className="event_subtitle">
+        <IonCardSubtitle className="event-subtitle">
           {formattedStartTime || ""}{" "}
           {formattedStartTime && formattedEndTime ? " - " : ""}{" "}
           {formattedEndTime || ""}

@@ -53,10 +53,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
 
   return (
     <>
-      <IonCard
-        className="event_item"
-        onClick={() => onOpen(event.id)}
-      >
+      <IonCard className="event-item" onClick={() => onOpen(event.id)}>
         {event.invitationCards?.[0].downloadUrl ? (
           <IonThumbnail className="display_pic">
             <IonImg
@@ -75,7 +72,7 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
             </IonThumbnail>
           </IonCardContent>
         )}
-        <IonCardContent className="event_info">
+        <IonCardContent className="event-info">
           <IonCardTitle className="event-name">{event.name}</IonCardTitle>
           <IonLabel className="event-date">
             <DisplayDate inputDate={event.time} />

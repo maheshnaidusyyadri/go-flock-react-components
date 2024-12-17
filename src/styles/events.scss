@@ -23,57 +23,6 @@
     width: 170px;
   }
 }
-
-// .event_item {
-//   width: 50%;
-//   border: 1px solid #e4e4e7;
-//   border-radius: 8px;
-//   position: relative;
-//   box-shadow: none;
-//   margin: 0;
-//   figure {
-//     margin: 0px;
-//     img {
-//       display: block;
-//     }
-//   }
-//   .display_pic {
-//     width: 100%;
-//     height: auto;
-//   }
-//   .event_info {
-//     padding: 12px;
-//     padding: clamp(10px, 2.9vw, 12px);
-//     .event-name {
-//       font-family: $GoFlockFont;
-//       font-weight: 600;
-//       font-size: 12px;
-//       font-size: clamp(10px, 2.9vw, 12px);
-//       line-height: 18px;
-//       color: $GoFlockColor;
-//       padding: 0px;
-//       margin: 0 0 5px 0;
-//     }
-//     .event-date {
-//       font-family: $GoFlockFont;
-//       font-weight: 400;
-//       font-size: 12px;
-//       font-size: clamp(10px, 2.9vw, 12px);
-//       line-height: 18px;
-//       color: $secondaryColor;
-//       padding: 0px;
-//       margin: 0 0 0px 0;
-//       display: block;
-//     }
-//   }
-//   .default_event_dp {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     height: 100px;
-//   }
-// }
-
 .event-row {
   margin: 0 -9px;
 }
@@ -81,7 +30,7 @@
   padding: 9px;
 }
 
-.event_item {
+.event-item {
   padding: 0;
   margin: 0;
   border-radius: 8px;
@@ -98,7 +47,7 @@
     width: 100%;
     height: auto;
   }
-  .event_info {
+  .event-info {
     padding: 12px;
     padding: clamp(10px, 2.9vw, 12px);
     .event-name {
