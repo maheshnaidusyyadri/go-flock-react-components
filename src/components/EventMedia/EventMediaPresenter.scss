@@ -101,7 +101,7 @@ body {
   top: 0;
   left: 0;
 }
-.type_declaration {
+.type-declaration {
   position: absolute;
   left: 10px;
   top: 10px;
@@ -121,11 +121,11 @@ body {
   padding-right: 0px !important;
 }
 
-.slection_head {
+.slection-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .slection_count {
+  .slection-count {
     display: flex;
     align-items: center;
     color: $GoFlockColor;
@@ -134,7 +134,7 @@ body {
     font-size: 12px;
     font-weight: 400;
   }
-  .select_action {
+  .select-action {
     color: $GoFlockFont;
     text-align: right;
     font-family: $GoFlockFont;

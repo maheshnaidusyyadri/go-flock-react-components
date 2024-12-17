@@ -363,12 +363,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         showProfile={false}
         showProgressBar={operationInProgress}
       />
-      <IonContent className="ion-padding eventMedia1">
+      <IonContent className="ion-padding">
         {isEditMode && (
-          <IonLabel class="slection_head">
+          <IonLabel class="slection-head">
             {isEditMode && (
               <IonLabel
-                className="slection_count"
+                className="slection-count"
                 onClick={() => {
                   handleDeselectAll();
                   setIsEditMode(false);
@@ -381,18 +381,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select_action" onClick={handleSelectAll}>
+              <IonLabel className="select-action" onClick={handleSelectAll}>
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select_action" onClick={handleDeselectAll}>
+              <IonLabel className="select-action" onClick={handleDeselectAll}>
                 Deselect All
               </IonLabel>
             )}
           </IonLabel>
         )}
-        <IonGrid class="media_cnt">
+        <IonGrid class="media-cnt">
           <IonSegment
             className="gallery-tabs"
             value={selectedSegment}
@@ -445,12 +445,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type_declaration" src={VideoType} />
+                          <IonImg class="type-declaration" src={VideoType} />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type_declaration" src={ImageType} />
+                          <IonImg class="type-declaration" src={ImageType} />
                         </>
                       )}
                     </div>
