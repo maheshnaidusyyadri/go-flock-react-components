@@ -183,7 +183,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
       <IonPage className="invite_page">
         <Header eventId={eventId} title="Manage members" showMenu={false} />
         <IonContent
-          className="invite_members ion-padding-end ion-padding-start ion-padding-bottom"
+          className="manage-members ion-padding-end ion-padding-start ion-padding-bottom"
           scrollEvents={true}
         >
           <IonSegment
@@ -286,12 +286,12 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
                         {member.rsvp?.adultsCount !== undefined && (
-                          <IonChip outline={true}>
+                          <IonChip outline={true} class="guests-count">
                             {member.rsvp?.adultsCount + " adults"}
                           </IonChip>
                         )}
                         {member.rsvp?.kidsCount !== undefined && (
-                          <IonChip outline={true}>
+                          <IonChip outline={true} class="guests-count">
                             {member.rsvp?.kidsCount + " kids"}
                           </IonChip>
                         )}

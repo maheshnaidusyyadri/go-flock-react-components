@@ -1,20 +1,11 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/form" as *;
 @use "../../styles/rsvpCards.scss" as *;
-@use "../../styles/events" as *;
-
-body {
-  font-size: 100%;
-  padding: 0 !important;
-}
-
-.invite_members {
-  padding: 0 16px !important;
+.manage-members {
   .segment_tabs {
     padding: 16px 16px 0;
   }
 }
-
 .members_page {
   .paragraph {
     font-size: 14px;
@@ -25,159 +16,6 @@ body {
     color: $secondaryColor;
     margin: 0px 0 15px 0;
   }
-
-  .toolbar-searchbar {
-    position: sticky;
-    top: 0px;
-    --background: transparent;
-    ion-searchbar {
-      padding: 0;
-      --box-shadow: none;
-
-      .searchbar-input-container {
-        border-radius: 6px;
-        border: 1px solid #e4e4e7;
-        background: $white;
-
-        .searchbar-input {
-          background: transparent;
-          font-family: $GoFlockFont;
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 20px;
-          color: $GoFlockColor;
-          line-height: 46px;
-          padding: 0 10px 0 40px !important;
-
-          &::placeholder {
-            color: $secondaryColor;
-          }
-        }
-      }
-    }
-  }
-
-  .users_list {
-    display: block;
-
-    .list_wrap {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: flex-start;
-
-      .list_item {
-        display: flex;
-        flex-direction: column;
-
-        .dp {
-          margin: 0;
-          width: 38px;
-          height: 38px;
-          display: block;
-          position: relative;
-          ion-img {
-            border-radius: 50%;
-          }
-          .selection {
-            position: absolute;
-            right: 0px;
-            bottom: 0px;
-
-            img {
-              display: block;
-            }
-          }
-        }
-
-        .member-info {
-          display: block;
-          padding: 0 0 0 10px;
-          margin: 0px;
-
-          h2 {
-            font-family: $GoFlockFont;
-            font-size: 12px;
-            line-height: 18px;
-            font-weight: 600;
-            margin: 0 0 2px 0;
-            color: $secondaryColor;
-            display: block;
-          }
-        }
-      }
-    }
-
-    ul {
-      display: flex;
-      gap: 12px;
-      padding: 17px 0 0 0;
-      margin: 0;
-      list-style-type: none;
-      width: 100%;
-      overflow: auto;
-
-      li {
-        width: 60px;
-        display: block;
-
-        .dp {
-          margin: 0;
-          width: 38px;
-          height: 38px;
-          position: relative;
-
-          .selection {
-            position: absolute;
-            right: 0px;
-            bottom: 0px;
-
-            img {
-              display: block;
-            }
-          }
-        }
-
-        // span {
-        //     width: 30px;
-        //     height: 30px;
-        //     position: relative;
-        //     border-radius: 50%;
-        //     overflow: hidden;
-        //     display: block;
-        //     margin: 0 auto 5px;
-        //     img {
-        //         width: 100%;
-        //         height: 100%;
-        //         border-radius: 50%;
-        //     }
-        //     .selection {
-        //         position: absolute;
-        //         right: 0px;
-        //         bottom: 0px;
-        //         img {
-        //             display: block;
-        //         }
-        //     }
-        // }
-        h2 {
-          font-family: $GoFlockFont;
-          font-size: 12px;
-          color: $secondaryColor;
-          font-weight: 400;
-          line-height: 18px;
-          padding: 0px;
-          margin: 0;
-          white-space: nowrap;
-          overflow: hidden;
-          width: 100%;
-          display: block;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-  }
-
   .menbers_list {
     h6 {
       font-family: $GoFlockFont;
@@ -187,11 +25,9 @@ body {
       color: $secondaryColor;
       margin: 0 0 10px 0;
     }
-
     .list_wrap {
       margin: 0;
       padding: 0;
-
       .list_item {
         --padding-start: 0;
         --padding-end: 0;
@@ -203,7 +39,6 @@ body {
             padding-right: 0;
           }
         }
-
         .dp {
           margin: 0;
           width: 38px;
@@ -240,7 +75,9 @@ body {
             position: absolute;
             right: 0px;
             bottom: 0px;
-
+            width: 14px;
+            border-radius: 50%;
+            border: 1px solid $white;
             img {
               display: block;
             }
@@ -283,7 +120,6 @@ body {
         }
       }
     }
-
     ul {
       display: block;
       padding: 0;
@@ -291,14 +127,11 @@ body {
       list-style-type: none;
       width: 100%;
       overflow: auto;
-
       li {
         margin: 0 0 24px 0;
-
         .member {
           display: flex;
           align-items: center;
-
           .dp {
             span {
               width: 38px;
@@ -352,222 +185,6 @@ body {
     }
   }
 }
-
-.event_details {
-  padding: 16px;
-
-  .event_info {
-    figure {
-      padding: 0;
-      margin: 0 0 16px 0;
-
-      img {
-        width: 100%;
-        padding: 0px;
-        margin: 0px;
-        display: block;
-      }
-    }
-
-    p {
-      font-family: $GoFlockFont;
-      font-size: 14px;
-      line-height: 24px;
-      color: $secondaryColor;
-      font-weight: 400;
-      padding: 0px;
-      margin: 0px 0 4px 0;
-    }
-
-    .listitems {
-      padding: 0px;
-      margin: 0px;
-
-      li {
-        list-style-type: none;
-        margin: 0 0 10px 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .venue_info {
-          display: flex;
-          align-items: center;
-
-          .dp {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-            border: 1px solid #e4e4e7;
-            background: #f6f6f6;
-
-            img {
-              display: block;
-            }
-          }
-
-          .event_titles {
-            padding: 0 0 0 12px;
-
-            label {
-              font-family: $GoFlockFont;
-              font-size: 12px;
-              line-height: 18px;
-              padding: 0px;
-              margin: 0 0 8px 0;
-              font-weight: 400;
-              color: $secondaryColor;
-            }
-
-            em {
-              display: block;
-              font-style: normal;
-              font-family: $GoFlockFont;
-              font-size: 12px;
-              font-weight: 500;
-              line-height: 18px;
-              color: $GoFlockColor;
-            }
-          }
-        }
-
-        .event_type {
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 50%;
-          border: 1px solid #e4e4e7;
-          background: $white;
-        }
-
-        &:nth-last-child(1) {
-          margin-bottom: 0px;
-        }
-      }
-    }
-  }
-
-  .users_info {
-    .users_head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-
-      h6 {
-        font-family: $GoFlockFont;
-        font-size: 14px;
-        color: $GoFlockColor;
-        line-height: 20px;
-        font-weight: 400;
-        padding: 0px;
-        margin: 0px;
-      }
-
-      a {
-        display: block;
-
-        img {
-          display: block;
-        }
-      }
-    }
-
-    .users_list {
-      display: block;
-
-      ul {
-        display: flex;
-        gap: 12px;
-        padding: 0;
-        margin: 0;
-        list-style-type: none;
-        width: 100%;
-        overflow: auto;
-
-        li {
-          width: 60px;
-          display: block;
-
-          span {
-            width: 30px;
-            height: 30px;
-            position: relative;
-            border-radius: 50%;
-            overflow: hidden;
-            display: block;
-            margin: 0 auto 5px;
-
-            img {
-              width: 100%;
-              height: 100%;
-              border-radius: 50%;
-            }
-
-            em {
-              width: 12px;
-              height: 12px;
-              background: url("../../images/icons/close.svg") no-repeat right
-                bottom;
-            }
-          }
-
-          small {
-            font-family: $GoFlockFont;
-            font-size: 12px;
-            color: $secondaryColor;
-            font-weight: 400;
-            line-height: 18px;
-            padding: 0px;
-            margin: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 100%;
-            display: block;
-            text-overflow: ellipsis;
-          }
-        }
-      }
-    }
-  }
-
-  .primary-btn {
-    margin-top: 0px;
-    margin-bottom: 16px;
-  }
-}
-
-.event_images {
-  img.events {
-    display: block;
-    width: 100%;
-    max-width: 390px;
-    margin-bottom: 10px;
-
-    &:nth-last-child(2) {
-      margin-bottom: 0px;
-    }
-  }
-
-  .addmore {
-    width: 32px;
-    height: 32px;
-    display: block;
-    margin: 0 auto;
-    transform: translateY(-50%);
-    background: url("../../images/plus.png") no-repeat center;
-    cursor: pointer;
-  }
-}
-
-.created_event {
-}
-
 .nodata {
   padding: 0px 0 0 0;
   margin: 0;
@@ -599,34 +216,11 @@ body {
     margin: 0 auto;
   }
 }
-
-.custom-input {
-  position: relative;
-  ion-input {
-    opacity: 1 !important;
-    z-index: 9;
-    cursor: pointer;
-    .native-input {
-      z-index: -1;
-    }
-  }
-  .arrowIcon {
-    position: absolute;
-    top: 43px;
-    right: 15px;
-    &.nolabel {
-      top: 15px;
-    }
-  }
-}
-
-.noresults {
+.guests-count {
+  padding: 0 5px;
+  font-size: 12px;
   font-family: $GoFlockFont;
-  font-size: 16px;
-  color: $GoFlockColor;
   font-weight: 500;
-  line-height: 24px;
-  display: block;
-  margin: 0 auto 8px;
-  text-align: center;
+  color: $GoFlockColor;
+  margin-right: 5px;
 }
