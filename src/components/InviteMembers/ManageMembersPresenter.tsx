@@ -180,7 +180,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
   return (
     <>
-      <IonPage className="invite_page">
+      <IonPage>
         <Header eventId={eventId} title="Manage members" showMenu={false} />
         <IonContent
           className="manage-members ion-padding-end ion-padding-start ion-padding-bottom"
@@ -205,8 +205,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
           {selectedSegment === "Track" && <RsvpStatus event={event} />}
           {selectedSegment === "Members" && (
-            <IonGrid className="members_page ion-no-padding">
-              <IonGrid className="menbers_list ion-no-padding">
+            <IonGrid className="members-page ion-no-padding">
+              <IonGrid className="menbers-list ion-no-padding">
                 {((filteredMembersList &&
                   filteredMembersList.length == 0 &&
                   isFromFilter) ||
