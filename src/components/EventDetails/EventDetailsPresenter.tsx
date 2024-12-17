@@ -17,6 +17,7 @@ import {
   IonItemDivider,
   IonLabel,
   IonList,
+  IonModal,
   IonPage,
   IonRow,
   IonText,
@@ -529,10 +530,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           />
         )
       )}
-      <IonGrid
-        className={`${
-          isInviteActive ? "ion-no-padding rsvp-modal active" : "rsvp-modal"
-        }`}
+      <IonModal
+        isOpen={isInviteActive}
+        className={`${isInviteActive ? "rsvp_modal active" : "rsvp_modal"}`}
       >
         {isInviteActive && (
           <>
@@ -656,6 +656,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   )}
                   {(!profile || profile.prefName === "") && (
                     <>
+                      <IonItemDivider className="devider"></IonItemDivider>
                       {phoneVerificationState === "start" && (
                         <>
                           <IonRow>
@@ -735,7 +736,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             )}
           </>
         )}
-      </IonGrid>
+      </IonModal>
     </IonPage>
   );
 };
