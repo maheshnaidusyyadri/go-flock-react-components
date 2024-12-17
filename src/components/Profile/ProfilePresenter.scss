@@ -1,7 +1,7 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/form" as *;
 
-.profile_card {
+.profile-card {
   padding: 16px;
   display: block;
   text-align: center;
@@ -47,7 +47,7 @@
   }
 }
 
-.profile_settings {
+.profile-settings {
   .list-title {
     font-family: $GoFlockFont;
     font-size: 12px;
@@ -59,11 +59,11 @@
     position: static;
     text-align: left;
   }
-  .list_wrap {
+  .list-wrap {
     margin: 0;
     padding: 0;
     display: block;
-    .list_item {
+    .list-item {
       margin: 9px 0;
       display: flex;
       flex-direction: column;
@@ -232,7 +232,7 @@
   box-shadow: none !important;
   padding: 16px;
 }
-.modal_close {
+.modal-close {
   position: absolute;
   top: 13px;
   left: 14px;

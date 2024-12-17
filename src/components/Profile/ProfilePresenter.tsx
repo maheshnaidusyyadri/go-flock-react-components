@@ -55,12 +55,9 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           }}
         />
         <IonContent className="ion-padding">
-          <IonCard className="profile_card">
+          <IonCard className="profile-card">
             {profile && profile.pictureUrl ? (
-              <IonImg
-                className="dp"
-                src={profile.pictureUrl}
-              ></IonImg>
+              <IonImg className="dp" src={profile.pictureUrl}></IonImg>
             ) : (
               <IonAvatar className="profile-dp">
                 {getDisplayName(profile?.prefName)}
@@ -70,41 +67,24 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             <IonText className="number">{profile.phone}</IonText>
           </IonCard>
 
-          <IonGrid className="pad0 profile_settings">
+          <IonGrid className="pad0 profile-settings">
             <IonTitle className="list-title">Setting Options</IonTitle>
-            <IonList className="list_wrap">
+            <IonList className="list-wrap">
               <IonItem
-                className="list_item"
+                className="list-item"
                 onClick={() => setProfileOpen(true)}
               >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={ProfileIcon}
-                    alt="Profile"
-                  />
+                <IonThumbnail slot="start" className="dp">
+                  <IonImg className="ion-img" src={ProfileIcon} alt="Profile" />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Profile</IonTitle>
                   <IonIcon src={rightArrow}></IonIcon>
                 </IonLabel>
               </IonItem>
-              <IonItem
-                className="list_item"
-                onClick={() => setIsOpen(true)}
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={PrivacyIcon}
-                    alt="Privacy"
-                  />
+              <IonItem className="list-item" onClick={() => setIsOpen(true)}>
+                <IonThumbnail slot="start" className="dp">
+                  <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Privacy</IonTitle>
@@ -112,19 +92,9 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 </IonLabel>
               </IonItem>
 
-              <IonItem
-                className="list_item"
-                id="open-logout-action"
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={LogOutIcon}
-                    alt="Log Out"
-                  />
+              <IonItem className="list-item" id="open-logout-action">
+                <IonThumbnail slot="start" className="dp">
+                  <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Log Out</IonTitle>
@@ -192,13 +162,10 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
       {isProfileOpen && (
         <>
           <IonLabel
-            className="modal_close"
+            className="modal-close"
             onClick={() => setProfileOpen(false)}
           >
-            <img
-              src={backArrow}
-              alt="Page Back"
-            />
+            <img src={backArrow} alt="Page Back" />
           </IonLabel>
           <EditProfile
             profile={profile}
@@ -210,14 +177,8 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
       )}
       {isOpen && (
         <>
-          <IonLabel
-            className="modal_close"
-            onClick={() => setIsOpen(false)}
-          >
-            <img
-              src={backArrow}
-              alt="Page Back"
-            />
+          <IonLabel className="modal-close" onClick={() => setIsOpen(false)}>
+            <img src={backArrow} alt="Page Back" />
           </IonLabel>
           <PrivacyPolicy />
         </>

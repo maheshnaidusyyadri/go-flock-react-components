@@ -68,7 +68,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                     placeholder="Search name or phone number"
                   />
                 </IonToolbar>
-                <div className="users_list">
+                <div className="users-list">
                   <ProfileList
                     eventId={eventId}
                     eventMembers={selectedContacts}
