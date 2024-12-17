@@ -91,12 +91,10 @@ const CustomActions: React.FC<CustomActionsProps> = ({
     }
   });
   const handleAction = (selectedAction: any) => {
-    console.log("handleAction", selectedAction);
-    console.log("handleAction-type", selectedAction.type);
-
     switch (selectedAction.type) {
       case "delete":
         setShowDeleteActionSheet(true);
+        onClose();
         break;
       case "invite":
         inviteMembers?.(eventId!);
@@ -143,10 +141,7 @@ const CustomActions: React.FC<CustomActionsProps> = ({
                 onClick={() => handleAction(action)}
               >
                 <IonThumbnail className="icon-thumb">
-                  <IonImg
-                    src={action.icon}
-                    alt={action.label}
-                  />
+                  <IonImg src={action.icon} alt={action.label} />
                   <IonText className="card-label">{action.label}</IonText>
                 </IonThumbnail>
               </IonCol>
