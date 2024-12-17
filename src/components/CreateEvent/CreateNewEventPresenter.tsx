@@ -296,20 +296,20 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
 
         {showSuccess ? (
           <>
-            <IonContent className="ion-padding action_screen">
-              <IonGrid className="action_screen_cnt">
+            <IonContent className="ion-padding action-screen">
+              <IonGrid className="action-screen-cnt">
                 <IonImg alt="Successfully Created Event" src={Success} />
-                <IonLabel className="action_title">
+                <IonLabel className="action-title">
                   Successfully Created Event
                 </IonLabel>
-                <IonText className="action_info">
+                <IonText className="action-info">
                   Event Created! 🎉 Now, let's make it unforgettable. Invite
                   friends and let the good times roll!
                 </IonText>
               </IonGrid>
             </IonContent>
 
-            <IonFooter className="action_screen_buttons ion-padding">
+            <IonFooter className="action-screen-buttons ion-padding">
               <IonButton
                 className="primary-btn rounded ion-no-margin"
                 onClick={() => {
@@ -348,7 +348,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 <IonImg className="next" src={nextIcon} />
               </IonLabel>
             )}
-            <IonContent className="ion-padding create_event">
+            <IonContent className="ion-padding">
               <IonLabel className="stepper-container ion-no-margin ion-margin-bottom">
                 {renderSteps()}
               </IonLabel>

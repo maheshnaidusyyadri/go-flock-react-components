@@ -155,117 +155,17 @@ body {
       }
     }
   }
-  .users_info {
-    padding: 0px;
-    margin: 0px;
-    box-shadow: none;
-    .users_head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      --border-color: transparent;
-      --padding-start: 0;
-      --inner-padding-end: 0;
-      .ion-label {
-        font-family: $GoFlockFont;
-        font-size: 14px;
-        color: $GoFlockColor;
-        line-height: 20px;
-        font-weight: 400;
-        padding: 0px;
-        margin: 0px;
-      }
-      .add-user {
-        display: block;
-        --size: 40px;
-      }
-    }
-    .users_list {
-      display: flex;
-      gap: 12px;
-      padding: 0;
-      margin: 0;
-      list-style-type: none;
-      width: 100%;
-      overflow: auto;
-      .user-item {
-        width: 60px;
-        display: block;
-        --border-color: transparent;
-        --padding-start: 0;
-        .dp {
-          --size: 30px;
-          width: 30px;
-          height: 30px;
-          position: relative;
-          border-radius: 50%;
-          overflow: hidden;
-          display: block;
-          margin: 0 auto 5px;
-          img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-          }
-          em {
-            width: 12px;
-            height: 12px;
-            // background: url("../../images/icons/close.svg") no-repeat right
-            //   bottom;
-          }
-        }
-        .user-name {
-          font-family: $GoFlockFont;
-          font-size: 12px;
-          color: $secondaryColor;
-          font-weight: 400;
-          line-height: 18px;
-          padding: 0px;
-          margin: 0;
-          white-space: nowrap;
-          overflow: hidden;
-          width: 100%;
-          display: block;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-  }
   .primary-btn {
     margin-top: 0px;
     margin-bottom: 16px;
   }
 }
-
 .invitation-cards {
   padding: 0;
   .ion-row {
     margin: 0 -5px;
   }
 }
-
-.guest_page {
-  min-height: calc(100vh - 147px);
-}
-
-.copy_event {
-  --padding-start: 0;
-  --inner-padding-end: 0;
-  --border-color: transparent;
-  .copy_text {
-    font-family: $GoFlockFont;
-    font-size: 14px;
-    font-weight: 400;
-    color: $secondaryColor;
-    width: calc(100% - 40px);
-    padding-right: 10px;
-  }
-  .copy_icon {
-    --size: 40px;
-  }
-}
-
 .rsvp-card {
   border-radius: 16px;
   border: 1px solid #e4e4e7;
@@ -360,24 +260,24 @@ body {
   .rsvp-actions {
     padding: 0 4px;
   }
-  .modal_header {
-    display: flex;
-    align-items: center;
-    box-shadow: none;
-    height: 50px;
-    padding: 0 8px;
-    z-index: 9;
-    ion-label {
-      color: $GoFlockColor;
-      text-align: center;
-      font-family: $GoFlockFont;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 20px;
-      width: 100%;
-    }
-  }
+  // .modal_header {
+  //   display: flex;
+  //   align-items: center;
+  //   box-shadow: none;
+  //   height: 50px;
+  //   padding: 0 8px;
+  //   z-index: 9;
+  //   ion-label {
+  //     color: $GoFlockColor;
+  //     text-align: center;
+  //     font-family: $GoFlockFont;
+  //     font-size: 14px;
+  //     font-style: normal;
+  //     font-weight: 500;
+  //     line-height: 20px;
+  //     width: 100%;
+  //   }
+  // }
   .guest-section {
     display: flex;
     padding: 0;
@@ -451,36 +351,6 @@ body {
     padding: 16px;
   }
 }
-.rsvp_success-cnt {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-.rsvp_success {
-  box-shadow: none;
-  padding: 32px 0px;
-  display: block;
-  text-align: center;
-  border-radius: 6px;
-  border: 1px solid #e4e4e7;
-  box-shadow: 0px 0.533px 1.067px 0px rgba(0, 0, 0, 0.02);
-  width: 100%;
-  ion-img {
-    display: block;
-    margin: 0 auto 40px;
-    max-width: 80%;
-  }
-  .success_label {
-    color: $GoFlockColor;
-    text-align: center;
-    font-family: $GoFlockFont;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 30px;
-  }
-}
-
 .profile-dp {
   width: 100%;
   height: 100%;

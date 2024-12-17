@@ -31,7 +31,7 @@ const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({}) => {
     <>
       <IonContent
         scrollY={false}
-        className="action_screen ion-padding"
+        className="action-screen ion-padding"
         fullscreen
       >
         <IonGrid className="onboarding-sec">

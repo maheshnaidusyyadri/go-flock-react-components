@@ -21,22 +21,22 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({}) => {
         showContactList={false}
         showProfile={false}
       />
-      <IonGrid className="action_screen has_header">
-        <IonGrid className="action_screen_cnt">
+      <IonGrid className="action-screen has-header">
+        <IonGrid className="action-screen-cnt">
           <IonImg
             className="ion-img"
             alt="Successfully Created Event"
             src={Success}
           />
-          <IonLabel className="action_title">
+          <IonLabel className="action-title">
             Successfully Created Event
           </IonLabel>
-          <IonText className="action_info">
+          <IonText className="action-info">
             Event Created! 🎉 Now, let's make it unforgettable. Invite friends
             and let the good times roll!
           </IonText>
         </IonGrid>
-        <IonFooter className="action_screen_buttons">
+        <IonFooter className="action-screen-buttons">
           <IonButton className="primary-btn">Go To Event Details</IonButton>
           <IonButton className="secondary-btn" onClick={() => {}}>
             Invite Friends To The Event
