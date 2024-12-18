@@ -13,8 +13,6 @@ import "react-tabs/style/react-tabs.css";
 import invitozLogoLight from "../../images/landing/invitoz-light.svg";
 import arrow from "../../images/landing/right-arrow.svg";
 import invitozLogo from "../../images/invitoz_dark.svg";
-import appStore from "../../images/landing/app-store-icon.svg";
-import googlePlay from "../../images/landing/google-play-icon.svg";
 import InvitationImg1 from "../../images/landing/invitation-img-1.png";
 import InvitationImg2 from "../../images/landing/invitation-img-2.png";
 import InvitationImg3 from "../../images/landing/invitation-img-3.png";
@@ -38,23 +36,22 @@ import eventIcon from "../../images/landing/calender-icon.svg";
 import invitationIcon from "../../images/landing/invitation-icon.svg";
 import expenseIcon from "../../images/landing/expences-icon.svg";
 import splitImg from "../../images/landing/split-img.png";
-import { useState } from "react"; 
+import { useState } from "react";
 import Slider from "react-slick";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css'; 
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const LandingPagePresenter: React.FC = ({}) => {
   var settings = {
     dots: false,
     infinite: true,
     slidesToShow: 1,
-    slidesToScroll: 1, 
-    cssEase: "linear", 
+    slidesToScroll: 1,
+    cssEase: "linear",
     autoplay: true,
     speed: 2000,
     autoplaySpeed: 2000,
-    variableWidth: true
+    variableWidth: true,
   };
   const [isSticky, setIsSticky] = useState(false);
   const handleContentScroll = (e: any) => {
@@ -70,7 +67,10 @@ const LandingPagePresenter: React.FC = ({}) => {
     <IonPage>
       <header className={`header ${isSticky ? "stickyheader" : ""}`}>
         <div className="container header-cnt">
-          <a className="logo" href="#">
+          <a
+            className="logo"
+            href="#"
+          >
             <img src={invitozLogo} />
           </a>
           <nav className="nav">
@@ -92,32 +92,32 @@ const LandingPagePresenter: React.FC = ({}) => {
               </li>
             </ul>
           </nav>
-          <a href="#" className="get-app">
-            Get the App
+          <a
+            href="/phone-number-auth"
+            className="get-app"
+          >
+            Get started
             <img src={arrow} />
           </a>
         </div>
       </header>
-      <IonContent onIonScroll={handleContentScroll} scrollEvents={true}>
-        <section className="home-banner" id="home">
+      <IonContent
+        onIonScroll={handleContentScroll}
+        scrollEvents={true}
+      >
+        <section
+          className="home-banner"
+          id="home"
+        >
           <div className="container banner-cnt">
             <div className="banner-text">
-              <h1>
-                Bringing people together, <br /> Creating lasting memories.
-              </h1>
+              <h1>Your Ultimate AI Event Companion</h1>
               <p>
-                All-in-one platform for seamless even planning, invitations,
-                photo sharing, and expense splitting-everything you need to
-                celebrate together effortlessly.
+                Say goodbye to event stress with Invitoz. This AI-powered
+                assistant simplifies invitations, RSVPs, communication, memory
+                sharing, and expense tracking. Plan smarter, celebrate better,
+                and make every event extraordinary.
               </p>
-              <div className="app-buttons">
-                <a href="#">
-                  <img src={appStore} />
-                </a>
-                <a href="#">
-                  <img src={googlePlay} />
-                </a>
-              </div>
             </div>
             <div className="banner-img">
               <figure>
@@ -126,7 +126,10 @@ const LandingPagePresenter: React.FC = ({}) => {
             </div>
           </div>
         </section>
-        <section className="events-sec" id="events">
+        <section
+          className="events-sec"
+          id="events"
+        >
           <div className="container events-cnt">
             <div className="heading-badge event-badge">
               <img src={eventIcon} />
@@ -164,7 +167,10 @@ const LandingPagePresenter: React.FC = ({}) => {
           </div>
         </section>
 
-        <section className="invitations-sec" id="invitations">
+        <section
+          className="invitations-sec"
+          id="invitations"
+        >
           <div className="container invitations-cnt">
             <div className="heading-badge invitation-badge">
               <img src={invitationIcon} />
@@ -203,7 +209,10 @@ const LandingPagePresenter: React.FC = ({}) => {
           </div>
         </section>
 
-        <section className="media-sec" id="photos">
+        <section
+          className="media-sec"
+          id="photos"
+        >
           <div className="container media-cnt">
             <div className="heading-badge photos-badge">
               <img src={invitationIcon} />
@@ -218,26 +227,25 @@ const LandingPagePresenter: React.FC = ({}) => {
             </p>
           </div>
           <Slider {...settings}>
-      <div className="slide">
- 
-      <img src={photoSec1} />
-      </div>
-      <div className="slide">
-      <img src={photoSec2} />
-      </div>
-      <div className="slide">
-      <img src={photoSec3} />
-      </div>
-      <div className="slide">
-      <img src={photoSec4} />
-      </div>
-      <div className="slide">
-      <img src={photoSec5} />
-      </div>
-      <div className="slide">
-      <img src={photoSec6} />
-      </div>
-    </Slider>
+            <div className="slide">
+              <img src={photoSec1} />
+            </div>
+            <div className="slide">
+              <img src={photoSec2} />
+            </div>
+            <div className="slide">
+              <img src={photoSec3} />
+            </div>
+            <div className="slide">
+              <img src={photoSec4} />
+            </div>
+            <div className="slide">
+              <img src={photoSec5} />
+            </div>
+            <div className="slide">
+              <img src={photoSec6} />
+            </div>
+          </Slider>
           {/* <IonGrid>
             <IonRow>
                 <IonCol size="3">
@@ -256,7 +264,10 @@ const LandingPagePresenter: React.FC = ({}) => {
         </IonGrid> */}
         </section>
 
-        <section className="split-sec" id="expenses">
+        <section
+          className="split-sec"
+          id="expenses"
+        >
           <div className="container split-cnt">
             <Tabs className="landing-vertical-tabs">
               <div className="split-text">
@@ -385,53 +396,215 @@ const LandingPagePresenter: React.FC = ({}) => {
         </section>
         <section className="faq-sec">
           <div className="container faq-cnt">
-            <h2>Freequently asked questions</h2>
+            <h2>Frequently asked questions</h2>
 
             <IonGrid>
               <IonRow class="ion-justify-content-center">
-                <IonCol size="12" size-md="10">
+                <IonCol
+                  size="12"
+                  size-md="10"
+                >
                   <IonAccordionGroup className="landing-accordian">
-                    <IonAccordion value="first" no-lines>
-                      <div slot="header" className="accordian-lablel">
-                        How much storage do I get for my photos and videos?
+                    <IonAccordion
+                      value="faq-1"
+                      no-lines
+                    >
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        What is Invitoz?
                       </div>
-                      <div className="accordian-content" slot="content">
-                        First Content
-                      </div>
-                    </IonAccordion>
-                    <IonAccordion value="second">
-                      <div slot="header" className="accordian-lablel">
-                        Can I use Google Photos on an iOS device?
-                      </div>
-                      <div className="accordian-content" slot="content">
-                        Can I use Google Photos on an iOS device Content
-                      </div>
-                    </IonAccordion>
-                    <IonAccordion value="third">
-                      <div slot="header" className="accordian-lablel">
-                        How do I back up my photos and videos?
-                      </div>
-                      <div className="accordian-content" slot="content">
-                        Third Content
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Invitoz is an AI-powered event management assistant
+                        designed to simplify every aspect of event planning and
+                        coordination. From creating beautiful invitations and
+                        managing RSVPs to vendor suggestions, communication,
+                        photo sharing, and expense tracking, Invitoz is your
+                        ultimate all-in-one event companion.
                       </div>
                     </IonAccordion>
-                    <IonAccordion value="fourth">
-                      <div slot="header" className="accordian-lablel">
-                        How do I back up my photos ?
+                    <IonAccordion value="faq-2">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        What types of events can I use Invitoz for?
                       </div>
-                      <div className="accordian-content" slot="content">
-                        Fourth Content
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        <p>
+                          Invitoz is versatile and can be used for various
+                          events, including:
+                        </p>
+                        <ul>
+                          <li>Birthdays</li>
+                          <li>Baby showers</li>
+                          <li>Get togathers</li>
+                          <li>House warmings</li>
+                          <li>Anniversaries</li>
+                          <li>Corporate events</li>
+                          <li>And more!</li>
+                        </ul>
                       </div>
                     </IonAccordion>
-                    <IonAccordion value="fifth">
-                      <div slot="header" className="accordian-lablel">
-                        How do I back up my photos and Videos ?
+                    <IonAccordion value="faq-3">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        Can I use Invitoz for co-hosted events?
                       </div>
-                      <div className="accordian-content" slot="content">
-                        photos and Videos Content
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Yes! Invitoz is perfect for co-hosted events, allowing
+                        multiple organizers to collaborate on invitations,
+                        RSVPs, expenses, and event planning seamlessly.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-4">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        Can I share event photos and videos using Invitoz?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Yes! Invitoz allows you to upload and share event photos
+                        and videos with your guests, creating a shared gallery
+                        of memories that everyone can enjoy.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-5">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        How long are photos and videos retained in Invitoz?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Photos and videos are retained for up to 1 month by
+                        default. You will receive reminders before any content
+                        is archived or deleted, with the option to download or
+                        export to your favourite image storage.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-6">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        Is there a storage limit for photos and videos?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Yes, Limited to 10 GB of photo and video storage per
+                        event.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-7">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        Can I export photos and videos from Invitoz?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Absolutely! Invitoz provides an easy export feature to
+                        download all your photos and videos to your device. You
+                        can export individual files or entire event galleries in
+                        one go.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-8">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        Does Invitoz provide vendor suggestions?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Yes, Invitoz uses AI to offer tailored vendor
+                        suggestions based on your event type, location, and
+                        preferences. Whether you need catering, a venue, or a
+                        photographer, Invitoz helps you find the right fit.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-9">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        How secure is event data, photo and video storage on
+                        Invitoz?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Invitoz prioritizes your privacy and data security. All
+                        your information, from guest lists to financial details,
+                        are stored securely and only visible to you. Invitoz
+                        uses encrypted servers to store all event details,
+                        media, ensuring your memories are safe and accessible
+                        only to authorized users.
+                      </div>
+                    </IonAccordion>
+                    <IonAccordion value="faq-10">
+                      <div
+                        slot="header"
+                        className="accordian-lablel"
+                      >
+                        How does expense tracking work with co-hosts?
+                      </div>
+                      <div
+                        className="accordian-content"
+                        slot="content"
+                      >
+                        Invitoz provides a collaborative expense tracking tool
+                        that helps you and your co-hosts monitor event costs,
+                        split expenses, and ensure transparency throughout the
+                        planning process.
                       </div>
                     </IonAccordion>
                   </IonAccordionGroup>
+                </IonCol>
+              </IonRow>
+              <IonRow class="ion-justify-content-center">
+                <IonCol
+                  size="12"
+                  size-md="10"
+                >
+                  <div className="container banner-cnt">
+                    <div className="banner-text">
+                      <p>
+                        If you have more questions or need support, feel free to
+                        contact us directly through the app or at
+                        support@invitoz.com.
+                      </p>
+                    </div>
+                  </div>
                 </IonCol>
               </IonRow>
             </IonGrid>
@@ -441,39 +614,36 @@ const LandingPagePresenter: React.FC = ({}) => {
           <a href="#">
             <img src={invitozLogoLight} />
           </a>
-          <h3>
-            A comprehensive platform for managing invites,
-            <br /> photos, and expenses, all in one place.
-          </h3>
-          <h6>download</h6>
-          <div className="app-buttons">
-            <a href="#">
-              <img src={appStore} alt="app store" />
-            </a>
-            <a href="#">
-              <img src={googlePlay} alt="google play" />
-            </a>
-          </div>
+          <h3>Your Ultimate AI Event Companion</h3>
           <div className="copy-cnt">
             <p>
-              &copy; 2024 Script Runner. All rights reserved.{" "}
+              &copy; 2024 Innovedika Inc. All rights reserved.{" "}
               <a href="#">Privacy Policy</a>
             </p>
             <div className="social-list">
               <ul>
                 <li>
                   <a href="#">
-                    <img src={facebook} alt="facebook" />
+                    <img
+                      src={facebook}
+                      alt="facebook"
+                    />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img src={instagram} alt="instagram" />
+                    <img
+                      src={instagram}
+                      alt="instagram"
+                    />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img src={twitter} alt="twitter" />
+                    <img
+                      src={twitter}
+                      alt="twitter"
+                    />
                   </a>
                 </li>
               </ul>
