@@ -12,16 +12,16 @@ body {
   padding: 16px;
 }
 
-.event_title {
-  font-family: $secondaryFont;
-  font-size: 20px;
-  line-height: 30px;
-  color: $GoFlockColor;
-  font-weight: 500;
-  display: block;
-  text-align: center;
-  margin-bottom: 15px;
-}
+// .event_title {
+//   font-family: $secondaryFont;
+//   font-size: 20px;
+//   line-height: 30px;
+//   color: $GoFlockColor;
+//   font-weight: 500;
+//   display: block;
+//   text-align: center;
+//   margin-bottom: 15px;
+// }
 
 .guest_page {
   min-height: calc(100vh - 147px);
@@ -52,7 +52,7 @@ body {
   padding: 0px;
 }
 
-.gallery_tabs {
+.gallery-tabs {
   margin-bottom: 16px;
   margin-top: 0px;
   --background: #ffffff;
@@ -72,7 +72,7 @@ body {
   .in-segment {
     position: relative;
     z-index: 99;
-    --indicator-color: #18181b;
+    --indicator-color: #011233;
     --indicator-height: 1px;
     height: 32px;
     border-radius: 0;
@@ -101,7 +101,7 @@ body {
   top: 0;
   left: 0;
 }
-.type_declaration {
+.type-declaration {
   position: absolute;
   left: 10px;
   top: 10px;
@@ -121,20 +121,20 @@ body {
   padding-right: 0px !important;
 }
 
-.slection_head {
+.slection-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .slection_count {
+  .slection-count {
     display: flex;
     align-items: center;
-    color: $GoFlockFont;
+    color: $GoFlockColor;
     text-align: right;
     font-family: $GoFlockFont;
     font-size: 12px;
     font-weight: 400;
   }
-  .select_action {
+  .select-action {
     color: $GoFlockFont;
     text-align: right;
     font-family: $GoFlockFont;

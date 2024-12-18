@@ -180,10 +180,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
   return (
     <>
-      <IonPage className="invite_page">
+      <IonPage>
         <Header eventId={eventId} title="Manage members" showMenu={false} />
         <IonContent
-          className="invite_members ion-padding-end ion-padding-start ion-padding-bottom"
+          className="manage-members ion-padding-end ion-padding-start ion-padding-bottom"
           scrollEvents={true}
         >
           <IonSegment
@@ -205,8 +205,8 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
           {selectedSegment === "Track" && <RsvpStatus event={event} />}
           {selectedSegment === "Members" && (
-            <IonGrid className="members_page ion-no-padding">
-              <IonGrid className="menbers_list ion-no-padding">
+            <IonGrid className="members-page ion-no-padding">
+              <IonGrid className="menbers-list ion-no-padding">
                 {((filteredMembersList &&
                   filteredMembersList.length == 0 &&
                   isFromFilter) ||
@@ -238,9 +238,9 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                   </IonRow>
                 )}
                 {filteredMembersList && filteredMembersList.length > 0 ? (
-                  <IonList className="list_wrap event_members">
+                  <IonList className="list-wrap ion-no-padding ion-no-margin event-members">
                     {filteredMembersList.map((member, index) => (
-                      <IonItem key={index} className="list_item">
+                      <IonItem key={index} className="list-item">
                         <IonThumbnail slot="start" className="dp">
                           {member?.roles?.includes("owner") && (
                             <IonImg className="type" src={HostIcon} />
@@ -286,12 +286,12 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
                         {member.rsvp?.adultsCount !== undefined && (
-                          <IonChip outline={true}>
+                          <IonChip outline={true} class="guests-count">
                             {member.rsvp?.adultsCount + " adults"}
                           </IonChip>
                         )}
                         {member.rsvp?.kidsCount !== undefined && (
-                          <IonChip outline={true}>
+                          <IonChip outline={true} class="guests-count">
                             {member.rsvp?.kidsCount + " kids"}
                           </IonChip>
                         )}
@@ -406,7 +406,7 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           <IonRow>
             <IonCol>
               <IonButton
-                className="primary-btn rounded"
+                className="primary-btn rounded mb-6"
                 onClick={() => copyEventLink(eventId)}
               >
                 {"Copy invitation link"}

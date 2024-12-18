@@ -1,7 +1,7 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/countrySelection" as *;
-.onboard_cnt.guest-user {
-  .auth_screen {
+.onboard-cnt.guest-user {
+  .auth-screen {
     display: block;
     text-align: center;
     width: 100%;
@@ -42,7 +42,7 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 15px;
-    .auth_screen {
+    .auth-screen {
       .slide-img {
         height: 240px;
       }
@@ -102,6 +102,9 @@
   background: $white;
 }
 
+#logo {
+  margin-right: 0px !important;
+}
 .paragraph {
   font-size: 14px;
   font-style: normal;

@@ -58,7 +58,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
       <Header eventId={eventId} title="Manage members" showMenu={false} />
       {!isSmsSend ? (
         <>
-          <IonContent className="members_page ion-padding">
+          <IonContent className="members-page ion-padding">
             {contacts && contacts.length > 0 ? (
               <div>
                 <IonToolbar>
@@ -68,7 +68,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                     placeholder="Search name or phone number"
                   />
                 </IonToolbar>
-                <div className="users_list">
+                <div className="users-list">
                   <ProfileList
                     eventId={eventId}
                     eventMembers={selectedContacts}
@@ -77,13 +77,13 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                   />
                 </div>
                 <span className="devider"></span>
-                <div className="menbers_list">
+                <div className="menbers-list">
                   <h6>All Members</h6>
-                  <IonList className="list_wrap">
+                  <IonList className="list-wrap ion-no-padding ion-no-margin">
                     {filteredContacts.map((member, index) => (
                       <IonItem
                         key={index}
-                        className="list_item"
+                        className="list-item"
                         onClick={() => handleSelectContact(member)}
                       >
                         <IonThumbnail slot="start" className="dp">

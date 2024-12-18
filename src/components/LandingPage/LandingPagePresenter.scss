@@ -234,7 +234,7 @@ $white: #ffffff;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: flex-end;
         margin-right: 20px;
         &:last-child {
           margin-right: 0px;
@@ -720,7 +720,6 @@ $white: #ffffff;
   @media screen and (max-width: 767px) {
   }
   @media screen and (min-width: 768px) {
-
     display: flex;
     .tablist {
       display: flex;
@@ -754,20 +753,18 @@ $white: #ffffff;
         }
       }
     }
-    
   }
 }
 
-
 .slide {
-   margin:  0 10px; /* Adjust spacing between slides */
+  margin: 0 10px; /* Adjust spacing between slides */
   box-sizing: border-box;
   display: flex !important;
   justify-content: center;
   align-items: flex-end; /* Align items to the bottom */
   height: 400px; /* Ensure the slides have consistent height */
   position: relative;
-  img{
+  img {
     border-radius: 20px;
   }
 }

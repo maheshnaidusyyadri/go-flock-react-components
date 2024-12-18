@@ -82,7 +82,7 @@ const CustomPhoneNumber: React.FC<CustomPhoneNumberProps> = ({
   }, []);
 
   return (
-    <IonGrid className="contact_section">
+    <IonGrid className="contact-section">
       {isCountryOpen && <span className="country-overlay"></span>}
       <IonLabel class="field-label">Country*</IonLabel>
       <IonLabel class="field-label phonenumber">Phone Number*</IonLabel>

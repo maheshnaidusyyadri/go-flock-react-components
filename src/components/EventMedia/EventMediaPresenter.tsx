@@ -363,12 +363,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         showProfile={false}
         showProgressBar={operationInProgress}
       />
-      <IonContent className="ion-padding eventMedia1">
+      <IonContent className="ion-padding">
         {isEditMode && (
-          <IonLabel class="slection_head">
+          <IonLabel class="slection-head">
             {isEditMode && (
               <IonLabel
-                className="slection_count"
+                className="slection-count"
                 onClick={() => {
                   handleDeselectAll();
                   setIsEditMode(false);
@@ -381,26 +381,20 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleSelectAll}
-              >
+              <IonLabel className="select-action" onClick={handleSelectAll}>
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel
-                className="select_action"
-                onClick={handleDeselectAll}
-              >
+              <IonLabel className="select-action" onClick={handleDeselectAll}>
                 Deselect All
               </IonLabel>
             )}
           </IonLabel>
         )}
-        <IonGrid class="media_cnt">
+        <IonGrid class="media-cnt">
           <IonSegment
-            className="gallery_tabs"
+            className="gallery-tabs"
             value={selectedSegment}
             onIonChange={(e) => setSelectedTab(e.detail.value!)}
           >
@@ -421,10 +415,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               // @ts-ignore
               render={{
                 link: (props) => (
-                  <StyledLink
-                    {...props}
-                    isEditView={isEditMode}
-                  />
+                  <StyledLink {...props} isEditView={isEditMode} />
                 ),
 
                 // render image selection icon
@@ -454,18 +445,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg
-                            class="type_declaration"
-                            src={VideoType}
-                          />
+                          <IonImg class="type-declaration" src={VideoType} />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg
-                            class="type_declaration"
-                            src={ImageType}
-                          />
+                          <IonImg class="type-declaration" src={ImageType} />
                         </>
                       )}
                     </div>
@@ -513,10 +498,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           ) : (
             <IonRow>
               <IonCol>
-                <IonImg
-                  src={NoMedia}
-                  className="no-media"
-                />
+                <IonImg src={NoMedia} className="no-media" />
               </IonCol>
             </IonRow>
           )}
@@ -589,34 +571,22 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     className="ion-no-padding"
                     onClick={handleShareSelected}
                   >
-                    <img
-                      src={ShareIcon}
-                      alt="Share"
-                    />
+                    <img src={ShareIcon} alt="Share" />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDownloadSelected}
                   >
-                    <img
-                      src={Download}
-                      alt="Split Bill"
-                    />
+                    <img src={Download} alt="Split Bill" />
                   </IonCol>
                   <IonCol className="ion-no-padding">
-                    <img
-                      src={save}
-                      alt="save"
-                    />
+                    <img src={save} alt="save" />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDeleteSelected}
                   >
-                    <img
-                      src={Delete}
-                      alt="Delete"
-                    />
+                    <img src={Delete} alt="Delete" />
                   </IonCol>
                 </IonRow>
               </IonGrid>

@@ -71,10 +71,10 @@ const ProfileSkeleton: React.FC = ({}) => {
           </IonCol>
         </IonRow>
         {true && (
-          <IonGrid className="pad0 profile_settings">
+          <IonGrid className="pad0 profile-settings">
             <IonTitle className="list-title">Setting Options</IonTitle>
-            <IonList className="list_wrap">
-              <IonItem className="list_item">
+            <IonList className="list-wrap">
+              <IonItem className="list-item">
                 <IonThumbnail slot="start" className="dp">
                   <IonImg className="ion-img" src={ProfileIcon} alt="Profile" />
                 </IonThumbnail>
@@ -83,7 +83,7 @@ const ProfileSkeleton: React.FC = ({}) => {
                   <IonIcon src={rightArrow}></IonIcon>
                 </IonLabel>
               </IonItem>
-              <IonItem className="list_item">
+              <IonItem className="list-item">
                 <IonThumbnail slot="start" className="dp">
                   <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" />
                 </IonThumbnail>
@@ -93,7 +93,7 @@ const ProfileSkeleton: React.FC = ({}) => {
                 </IonLabel>
               </IonItem>
 
-              <IonItem className="list_item" id="open-logout-action">
+              <IonItem className="list-item" id="open-logout-action">
                 <IonThumbnail slot="start" className="dp">
                   <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" />
                 </IonThumbnail>

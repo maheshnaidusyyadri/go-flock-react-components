@@ -6,7 +6,7 @@
 
 .bill_cnt {
   padding: 16px !important;
-  .action_screen_buttons {
+  .action-screen-buttons {
     position: sticky;
     top: 100%;
     box-shadow: none;
@@ -178,7 +178,7 @@ body {
           --inner-padding-end: 0;
           --border-color: transparent;
           .user-dp {
-            --size: 30px;
+            --size: 40px;
             margin-right: 10px;
           }
         }
@@ -236,7 +236,7 @@ body {
     }
   }
 }
-.event_transactions {
+.event-transactions {
   .ion-tabs {
     .ion-tab-bar {
       height: 55px;

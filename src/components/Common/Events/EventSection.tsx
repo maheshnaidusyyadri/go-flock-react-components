@@ -5,7 +5,6 @@ import { IonCol, IonRow, IonGrid } from "@ionic/react";
 import EventItem from "./EventItem";
 import { Event } from "@goflock/types/src/index";
 import NoEvent from "./NoEvent";
-
 interface EventSectionProps {
   title: string;
   events: Event[];
@@ -15,15 +14,11 @@ interface EventSectionProps {
 
 const EventSection: React.FC<EventSectionProps> = ({ events, onOpenEvent }) => (
   <>
-    <IonGrid className="events_sec ion-no-padding ion-no-margin">
+    <IonGrid className="ion-no-padding ion-no-margin">
       <IonRow className="event-row">
         {events && events.length > 0 ? (
           events.map((event) => (
-            <IonCol
-              key={event.id}
-              size="6"
-              className="event-col"
-            >
+            <IonCol key={event.id} size="6" className="event-col">
               <EventItem
                 event={event}
                 onOpen={onOpenEvent}
@@ -32,10 +27,7 @@ const EventSection: React.FC<EventSectionProps> = ({ events, onOpenEvent }) => (
             </IonCol>
           ))
         ) : (
-          <IonCol
-            size="12"
-            className="no-events"
-          >
+          <IonCol size="12" className="no-events">
             <NoEvent />
           </IonCol>
         )}

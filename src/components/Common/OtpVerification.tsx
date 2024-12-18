@@ -86,7 +86,7 @@ const OtpVerification: React.FC<OtpVerificationProps> = ({
                   )}
                 />
                 {errors[fieldName] && (
-                  <IonText className="otp_error">
+                  <IonText className="otp-error">
                     {errors[fieldName].message}
                   </IonText>
                 )}

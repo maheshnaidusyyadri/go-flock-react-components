@@ -32,7 +32,7 @@ const EventListPresenter: React.FC<EventListProps> = ({
       />
       <IonContent className="ion-padding">
         {/* <IonLabel className="event-name">{profile.prefName}'s Events</IonLabel> */}
-        <IonGrid className="events_sec ion-no-padding ion-no-margin">
+        <IonGrid className="ion-no-padding ion-no-margin">
           {events.length === 0 ? (
             <NoEvent />
           ) : (

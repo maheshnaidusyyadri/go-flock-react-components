@@ -1,7 +1,7 @@
 @use "../../styles/fonts" as *;
 @use "../../styles/form" as *;
 
-.profile_card {
+.profile-card {
   padding: 16px;
   display: block;
   text-align: center;
@@ -47,7 +47,7 @@
   }
 }
 
-.profile_settings {
+.profile-settings {
   .list-title {
     font-family: $GoFlockFont;
     font-size: 12px;
@@ -59,11 +59,11 @@
     position: static;
     text-align: left;
   }
-  .list_wrap {
+  .list-wrap {
     margin: 0;
     padding: 0;
     display: block;
-    .list_item {
+    .list-item {
       margin: 9px 0;
       display: flex;
       flex-direction: column;
@@ -116,7 +116,7 @@
 }
 
 .profile_edit_cnt {
-  --background: #18181b;
+  --background: #011233;
 }
 
 .profile_edit_card {
@@ -172,7 +172,7 @@
       font-family: $GoFlockFont;
       font-weight: 500;
       font-size: 50px;
-      color: #18181b;
+      color: #011233;
     }
   }
 }
@@ -196,11 +196,12 @@
     justify-content: space-between;
     --handle-background: #ffffff; /* Customize toggle handle color */
     --background: #e0e0e0; /* Background when toggle is off */
-    --background-checked: #18181b; /* Background when toggle is on */
+    --background-checked: #011233; /* Background when toggle is on */
     --width: 50px; /* Customize width of toggle */
     --track-background: #e2e8f0;
-    --track-background-checked: #18181b;
+    --track-background-checked: #011233;
     --handle-background: #f6f6f6;
+    --handle-background-checked: #05aaff;
   }
 }
 
@@ -231,7 +232,7 @@
   box-shadow: none !important;
   padding: 16px;
 }
-.modal_close {
+.modal-close {
   position: absolute;
   top: 13px;
   left: 14px;

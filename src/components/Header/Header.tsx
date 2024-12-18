@@ -102,21 +102,15 @@ const Header: React.FC<HeaderProps> = ({
           <IonButtons slot="start">
             {showGoBack && (
               <IonButton onClick={() => handleLeftButtonAction()}>
-                <IonThumbnail className="profile_icon">
-                  <IonImg
-                    src={backArrow}
-                    alt="Page Back"
-                  />
+                <IonThumbnail className="profile-icon">
+                  <IonImg src={backArrow} alt="Page Back" />
                 </IonThumbnail>
               </IonButton>
             )}
             {showLogo && logoPosition === "left" && (
               <IonButton routerLink="/">
-                <IonThumbnail className="profile_icon">
-                  <IonImg
-                    src={goflockLogo}
-                    alt="ProfileIcon"
-                  />
+                <IonThumbnail className="profile-icon">
+                  <IonImg src={goflockLogo} alt="ProfileIcon" />
                 </IonThumbnail>
               </IonButton>
             )}
@@ -132,28 +126,22 @@ const Header: React.FC<HeaderProps> = ({
             </IonTitle>
           )}
           {title && <IonTitle className="page-title">{title}</IonTitle>}
-          <IonButtons slot="end">
+          <IonButtons slot="end" className="header-actions">
             {showMenu && (
               <IonButton>
                 <IonThumbnail
                   id="open-action-sheet"
-                  className="menu_icon"
+                  className="menu-icon"
                   onClick={() => setShowActionMenu(true)}
                 >
-                  <IonImg
-                    src={Menu}
-                    alt="More Details"
-                  />
+                  <IonImg src={Menu} alt="More Details" />
                 </IonThumbnail>
               </IonButton>
             )}
             {showContactList && (
               <IonButton>
-                <IonThumbnail className="menu_icon contactList">
-                  <IonImg
-                    src={ContactListIcon}
-                    alt="Contact List"
-                  />
+                <IonThumbnail className="menu-icon contactList">
+                  <IonImg src={ContactListIcon} alt="Contact List" />
                 </IonThumbnail>
               </IonButton>
             )}
@@ -172,12 +160,9 @@ const Header: React.FC<HeaderProps> = ({
             )}
 
             {showSignIn && (
-              <IonLabel class="signIn_btn">
+              <IonLabel class="signIn-btn">
                 <IonText class="signin_text">Sign in</IonText>
-                <IonImg
-                  src={signInIcon}
-                  alt="ProfileIcon"
-                />
+                <IonImg src={signInIcon} alt="ProfileIcon" />
               </IonLabel>
             )}
           </IonButtons>

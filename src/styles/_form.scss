@@ -175,9 +175,9 @@
       display: flex;
       align-items: center;
       margin-bottom: 16px;
-      --background: #18181b; /* Change the radio button background */
+      --background: #011233; /* Change the radio button background */
       --border-color: #71717a; /* Change the border color */
-      --color-checked: #18181b; /* Change the color when the radio is checked */
+      --color-checked: #011233; /* Change the color when the radio is checked */
       --border-radius: 50%; /* Make the radio button circular */
       span {
         display: inline-block;
@@ -314,10 +314,10 @@
         --border-color: #ddd;
         font-family: $GoFlockFont;
         font-size: 12px;
-        --color: #18181b;
+        --color: #011233;
         font-weight: 500;
         &:hover {
-          --color: #18181b;
+          --color: #011233;
         }
       }
     }
@@ -364,7 +364,8 @@
   flex: inherit;
   --handle-background: #ffffff; /* Customize toggle handle color */
   --background: #e0e0e0; /* Background when toggle is off */
-  --background-checked: #18181b; /* Background when toggle is on */
+  --background-checked: #011233; /* Background when toggle is on */
   --width: 50px; /* Customize width of toggle */
-  --track-background-checked: #18181b;
+  --track-background-checked: #011233;
+  --handle-background-checked: #05aaff;
 }
