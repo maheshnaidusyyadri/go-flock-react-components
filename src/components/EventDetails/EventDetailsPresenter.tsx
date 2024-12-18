@@ -566,7 +566,9 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       )}
       <IonModal
         isOpen={isInviteActive}
-        className={`${isInviteActive ? "rsvp-modal active" : "rsvp-modal"}`}
+        className={`${
+          isInviteActive ? "rsvp-modal active fullscreen-modal" : "rsvp-modal"
+        }`}
       >
         {isInviteActive && (
           <>
@@ -694,6 +696,20 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       </IonCol>
                     </IonRow>
                   )}
+
+                  {profile && (
+                    <IonButton
+                      onClick={handleSubmit(
+                        handleRsvpSubmission,
+                        onGenerateError
+                      )}
+                      disabled={submitRSVPInProgress}
+                      className="primary-btn rounded"
+                    >
+                      {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
+                    </IonButton>
+                  )}
+
                   {(!profile || profile.prefName === "") && (
                     <>
                       <IonItemDivider className="devider"></IonItemDivider>
@@ -725,23 +741,57 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                               />
                             </IonCol>
                           </IonRow>
+                          <IonRow>
+                            <IonCol>
+                              <IonButton
+                                onClick={handleSubmit(
+                                  handleSendOtp,
+                                  onGenerateError
+                                )}
+                                disabled={submitRSVPInProgress}
+                                className="primary-btn rounded"
+                              >
+                                {sendingOtp
+                                  ? "Sending OTP"
+                                  : "Verify phone & RSVP"}
+                              </IonButton>
+                            </IonCol>
+                          </IonRow>
                         </>
                       )}
                       {phoneVerificationState === "otpSent" && (
-                        <IonRow>
-                          <IonCol className="form-group">
-                            <FormProvider {...methods}>
-                              <OtpVerification
-                                control={control}
-                                phoneNumber={phoneNumber}
-                                errors={errors}
-                                fieldName="otp"
-                                isRequired={true}
-                                sendOTP={sendOTP}
-                              />
-                            </FormProvider>
-                          </IonCol>
-                        </IonRow>
+                        <>
+                          <IonRow>
+                            <IonCol className="form-group">
+                              <FormProvider {...methods}>
+                                <OtpVerification
+                                  control={control}
+                                  phoneNumber={phoneNumber}
+                                  errors={errors}
+                                  fieldName="otp"
+                                  isRequired={true}
+                                  sendOTP={sendOTP}
+                                />
+                              </FormProvider>
+                            </IonCol>
+                          </IonRow>
+                          <IonRow>
+                            <IonCol>
+                              <IonButton
+                                disabled={submitRSVPInProgress}
+                                className="primary-btn rounded"
+                                onClick={handleSubmit(
+                                  handleRsvpSubmission,
+                                  onGenerateError
+                                )}
+                              >
+                                {submitRSVPInProgress
+                                  ? "Submitting RSVP"
+                                  : "Submit RSVP"}
+                              </IonButton>
+                            </IonCol>
+                          </IonRow>
+                        </>
                       )}
                     </>
                   )}
@@ -758,19 +808,6 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="primary-btn rounded"
                 >
                   {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
-                </IonButton>
-              </IonFooter>
-            )}
-            {!profile && phoneVerificationState === "start" && (
-              <IonFooter
-                className="stickyFooter"
-                onClick={handleSubmit(handleSendOtp, onGenerateError)}
-              >
-                <IonButton
-                  disabled={submitRSVPInProgress}
-                  className="primary-btn rounded"
-                >
-                  {sendingOtp ? "Sending OTP" : "Verify phone & RSVP"}
                 </IonButton>
               </IonFooter>
             )}
