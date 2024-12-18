@@ -42,13 +42,7 @@ CreateDetailEventFlow.args = {
 };
 
 export const EditEventFlow = Template.bind({});
-CreateDetailEventFlow.args = {
-  ...CreateDetailEventFlow.args,
-  mode: "quick",
-};
-
-export const CreateQuickEventFlow = Template.bind({});
-CreateQuickEventFlow.args = {
+EditEventFlow.args = {
   ...CreateDetailEventFlow.args,
   isEditing: true,
   event: EventWithMembers,
@@ -60,6 +54,12 @@ CreateQuickEventFlow.args = {
       }, 5000);
     });
   },
+};
+
+export const CreateQuickEventFlow = Template.bind({});
+CreateQuickEventFlow.args = {
+  ...CreateDetailEventFlow.args,
+  mode: "quick",
 };
 
 export const ErrorState = Template.bind({});
