@@ -31,9 +31,10 @@ const EventTypeSelection: React.FC<EventTypeSelectionProps> = ({
 }) => {
   const eventTypes: EventTypeCollection[] = [
     { label: "Birthday", icon: birthdayIcon, type: "birthday" },
-    { label: "Vacation trip", icon: vacationIcon, type: "vacation" },
     { label: "Baby shower", icon: marriageIcon, type: "baby_shower" },
     { label: "Graduation", icon: graduationIcon, type: "reunion" },
+    { label: "Get togather", icon: marriageIcon, type: "get_togather" },
+    { label: "Vacation trip", icon: vacationIcon, type: "vacation" },
     { label: "Others", icon: moreIcon, type: "other" },
   ];
 
