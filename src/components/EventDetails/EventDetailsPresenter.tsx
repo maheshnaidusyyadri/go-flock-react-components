@@ -72,6 +72,28 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     "start" | "otpSent" | "verified"
   >("start");
 
+  const [showFooter, setShowFooter] = useState(true);
+
+  let scrollTimeout: NodeJS.Timeout | null = null;
+
+  const handleScroll = (event: any) => {
+    const currentScrollPosition = event.detail.scrollTop;
+    const contentHeight = event.target.clientHeight; // Total scrollable height
+    const threshold = contentHeight * 0.1; // 25% from the top
+
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+
+    scrollTimeout = setTimeout(() => {
+      if (currentScrollPosition < threshold) {
+        setShowFooter(true);
+      } else {
+        setShowFooter(false);
+      }
+    }, 250);
+  };
+
   const handleBackAction = () => {
     if (eventRelation.rsvp) {
       if (eventRelation.rsvp.response == "attending") {
@@ -156,7 +178,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         copyEventLink={copyLink}
         editEvent={editEvent}
       />
-      <IonContent>
+      <IonContent
+        scrollEvents={true}
+        onIonScroll={handleScroll}
+      >
         <input
           type="file"
           accept="image/*"
@@ -346,7 +371,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       </IonContent>
       {!["owner"].includes(eventRelation?.visitType) &&
       !(eventRelation?.rsvp && eventRelation.rsvp?.response) ? (
-        <IonFooter className="ion-padding-start ion-padding-end ion-padding-bottom ">
+        <IonFooter
+          className={`ion-padding-start ion-padding-end ion-padding-bottom  animated-footer ${
+            showFooter ? "visible" : "hidden"
+          }`}
+        >
           <IonCard className="rsvp-card">
             <IonLabel className="rsvp-title">Are you going?</IonLabel>
             <IonList
@@ -409,4 +438,5 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     </IonPage>
   );
 };
+
 export default EventDetailsPresenter;

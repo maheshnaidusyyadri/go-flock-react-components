@@ -346,3 +346,21 @@ body {
 .image-preview {
   height: 250px;
 }
+
+.animated-footer {
+  position: absolute;
+  bottom: 0;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible; /* Ensures the element remains in the DOM */
+}
+
+.animated-footer.hidden {
+  opacity: 0;
+  transform: translateY(100%);
+  visibility: hidden; /* Hides the element visually */
+}
