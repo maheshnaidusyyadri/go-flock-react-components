@@ -77,6 +77,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
   const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
   const [operationInProgress, setOperationInProgress] = useState(false);
+  let startTimeRef = useRef<number | null>(null);
 
   const { presentToast } = useToastUtils();
 
@@ -197,14 +198,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   };
 
   const areAllSelected = photos?.length > 0 && selectedCount === photos.length;
-  const handleEditMode = (index: number) => {
-    setPhotos((prevPhotos) => {
-      const newPhotos = [...prevPhotos];
-      newPhotos[index].selected = !newPhotos[index].selected;
-      return newPhotos;
-    });
-    setIsEditMode(true);
-  };
 
   const handleSelectAll = () => {
     setPhotos((prevPhotos: any) =>
@@ -353,6 +346,30 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
       });
   };
 
+  const handleTouchStart = () => {
+    startTimeRef.current = Date.now();
+  };
+
+  const handleTouchEnd = (index: number) => {
+    if (startTimeRef.current) {
+      const endTime = Date.now();
+      const duration = (endTime - startTimeRef.current) / 1000;
+
+      if (duration >= 1) {
+        handleEditMode(index);
+      }
+      startTimeRef.current = null;
+    }
+  };
+  const handleEditMode = (index: number) => {
+    setPhotos((prevPhotos) => {
+      const newPhotos = [...prevPhotos];
+      newPhotos[index].selected = !newPhotos[index].selected;
+      return newPhotos;
+    });
+    setIsEditMode(true);
+  };
+
   return (
     <IonPage>
       <Header
@@ -427,6 +444,9 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                         handleEditMode(index);
                       }}
                       className="media-type"
+                      onTouchStart={handleTouchStart}
+                      onTouchEnd={() => handleTouchEnd(index)}
+                      onTouchCancel={() => handleTouchEnd(index)}
                     >
                       {isEditMode && (
                         <SelectIcon
