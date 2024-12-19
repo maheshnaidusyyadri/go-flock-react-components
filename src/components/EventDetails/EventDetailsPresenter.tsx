@@ -79,7 +79,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
   const handleScroll = (event: any) => {
     const currentScrollPosition = event.detail.scrollTop;
     const contentHeight = event.target.clientHeight; // Total scrollable height
-    const threshold = contentHeight * 0.1; // 25% from the top
+    const threshold = contentHeight * 0.15;
 
     if (scrollTimeout) {
       clearTimeout(scrollTimeout);
@@ -427,6 +427,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
             eventRelation?.rsvp &&
             eventRelation.rsvp?.response)) && (
           <Footer
+            className={`animated-footer ${showFooter ? "visible" : "hidden"}`}
             event={event}
             activeTab={"invitation"}
             settings={event.settings}
@@ -438,5 +439,4 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     </IonPage>
   );
 };
-
 export default EventDetailsPresenter;
