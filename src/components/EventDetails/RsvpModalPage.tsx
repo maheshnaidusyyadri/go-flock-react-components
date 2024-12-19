@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, useEffect, useRef, useState } from "react";
 import "./EventDetailsPresenter.scss";
 
 import {
@@ -68,6 +68,18 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
   const [phoneVerificationState, setPhoneVerificationState] = useState<
     "start" | "otpSent" | "verified"
   >("start");
+
+  const contentRef = useRef<HTMLIonContentElement | null>(null);
+
+  const scrollToBottom = () => {
+    contentRef.current?.scrollToBottom(500); // Scroll to the bottom with animation (500ms)
+  };
+
+  useEffect(() => {
+    if (phoneVerificationState === "otpSent") {
+      scrollToBottom(); // Scroll to bottom when messages update
+    }
+  }, [phoneVerificationState]);
 
   const methods = useForm();
   const {
@@ -152,6 +164,10 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
         .then((result) => {
           console.log("Send-Otp-res", result);
           setPhoneVerificationState("otpSent");
+        })
+        .catch((err) => {
+          console.error("Send-Otp-error", err);
+          setSendingOtp(false);
         })
         .finally(() => {
           setSendingOtp(false);
@@ -277,7 +293,10 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
         leftButtonAction={handleBackAction}
         showProgressBar={submitRSVPInProgress || verifyingOtp || sendingOtp}
       ></Header>
-      <IonContent className="ion-padding rsvp-modal">
+      <IonContent
+        className="ion-padding rsvp-modal"
+        ref={contentRef}
+      >
         <IonList className="rsvp-actions">
           <IonItem
             className="ionitem"

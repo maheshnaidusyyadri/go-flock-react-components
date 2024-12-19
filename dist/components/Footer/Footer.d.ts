@@ -7,6 +7,7 @@ interface FooterProps {
     settings: EventSettings;
     eventRelation: EventRelation;
     hideFooter?: boolean;
+    className?: string;
 }
 declare const Footer: React.FC<FooterProps>;
 export default Footer;

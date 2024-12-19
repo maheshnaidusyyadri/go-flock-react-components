@@ -32,7 +32,6 @@ const Footer: React.FC<FooterProps> = ({
   settings,
   eventRelation,
   activeTab,
-  hideFooter = true,
   className = "",
 }) => {
   const showFooterAction = (type: string): boolean => {
