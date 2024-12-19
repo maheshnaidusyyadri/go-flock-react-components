@@ -185,7 +185,7 @@ const GuestOnboardingPresenter: React.FC<GuestOnboardingProps> = ({
       {showOtpModal && (
         <>
           <IonContent className="ion-padding">
-            {/* <IonGrid className={`rsvp_modal ${showOtpModal ? "active" : ""}`}> */}
+            {/* <IonGrid className={`rsvp-modal ${showOtpModal ? "active" : ""}`}> */}
             <IonGrid className="varify-cnt ion-no-padding">
               <FormProvider {...methods}>
                 <OtpVerification

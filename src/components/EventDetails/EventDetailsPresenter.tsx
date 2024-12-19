@@ -532,7 +532,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       )}
       <IonModal
         isOpen={isInviteActive}
-        className={`${isInviteActive ? "rsvp_modal active" : "rsvp_modal"}`}
+        className={`${isInviteActive ? "rsvp-modal active" : "rsvp-modal"}`}
       >
         {isInviteActive && (
           <>
@@ -581,7 +581,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <FormProvider {...methods}>
                 {activeOption !== "no" && (
                   <IonGrid className="guest-section">
-                    <IonCard className="guestinfo">
+                    <IonCard className="guest-info">
                       <IonCard className="card-cnt">
                         <IonThumbnail>
                           <IonImg src={adultsIcon} />
