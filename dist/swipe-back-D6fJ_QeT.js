@@ -1,4 +1,4 @@
-import { d as A } from "./index-D1uHzWjM.js";
+import { d as A } from "./index-Ck76bQdU.js";
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -323,4 +323,4 @@ const U = (e, t, s, n, c) => {
 export {
   U as createSwipeBackGesture
 };
-//# sourceMappingURL=swipe-back-B-CoWqgp.js.map
+//# sourceMappingURL=swipe-back-D6fJ_QeT.js.map

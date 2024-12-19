@@ -1,5 +1,5 @@
-import { R as d, j as n, I as U, c as L, a as $, b as v } from "./index-D1uHzWjM.js";
-import { C as J } from "./index.esm-BaApstCa.js";
+import { R as d, j as n, I as U, c as L, a as $, b as v } from "./index-Ck76bQdU.js";
+import { C as J } from "./index.esm-B-gnYDF3.js";
 var R = function(r) {
   return typeof r == "object" && r !== null;
 }, Q = function(r) {
@@ -217,7 +217,7 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
               )
             }
           ),
-          C[p] && /* @__PURE__ */ n.jsx(v, { className: "otp_error", children: C[p].message })
+          C[p] && /* @__PURE__ */ n.jsx(v, { className: "otp-error", children: C[p].message })
         ] })
       }
     ) }),
@@ -230,4 +230,4 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
 export {
   ee as default
 };
-//# sourceMappingURL=OtpVerification-D-D9LxZ-.js.map
+//# sourceMappingURL=OtpVerification-CBgiPDF8.js.map
