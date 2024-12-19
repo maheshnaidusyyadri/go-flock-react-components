@@ -77,7 +77,7 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                   />
                 </div>
                 <span className="devider"></span>
-                <div className="menbers-list">
+                <div className="contacts-list">
                   <h6>All Members</h6>
                   <IonList className="list-wrap ion-no-padding ion-no-margin">
                     {filteredContacts.map((member, index) => (

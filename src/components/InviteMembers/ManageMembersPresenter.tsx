@@ -254,7 +254,13 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               alt={`${member.name}'s profile`}
                             />
                           ) : (
-                            <IonAvatar class="profile-dp">
+                            <IonAvatar
+                              class={
+                                member?.roles?.includes("owner")
+                                  ? "profile-dp owner"
+                                  : "profile-dp"
+                              }
+                            >
                               {getDisplayName(member.name || "")}
                             </IonAvatar>
                           )}

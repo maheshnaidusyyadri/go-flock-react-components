@@ -31,10 +31,11 @@
         --padding-start: 0;
         --padding-end: 0;
         --border-color: transparent;
-        margin-bottom: 5px;
+        margin-bottom: 0px;
         --inner-padding-end: 0;
         overflow: visible;
-        padding-top: 5px;
+        padding-top: 7px;
+        padding-bottom: 7px;
         .item-native {
           .item-inner {
             padding-right: 0;
@@ -71,6 +72,9 @@
             font-weight: 600;
             font-size: 14px;
             color: $GoFlockColor;
+            &.owner {
+              border: 1px solid #de8800;
+            }
           }
           .selection {
             position: absolute;
