@@ -148,6 +148,10 @@ body {
         .event-type {
           --size: 40px;
           margin-left: auto;
+          border: 0;
+          ion-img img {
+            height: 100%;
+          }
         }
         &:nth-last-child(1) {
           margin-bottom: 0px;

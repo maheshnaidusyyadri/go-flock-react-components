@@ -83,7 +83,10 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
           <IonContent className="ion-padding">
             <IonGrid className="auth_sec ion-no-padding">
               <IonRow>
-                <IonCol onClick={() => goToHome()}>
+                <IonCol
+                  className="ion-margin-bottom"
+                  onClick={() => goToHome()}
+                >
                   <InvitozLogo />
                 </IonCol>
               </IonRow>

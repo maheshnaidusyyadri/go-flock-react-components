@@ -11,6 +11,9 @@
     --background: #f6f6f6;
     height: 60px;
     --border-color: transparent;
+    .buttons-first-slot {
+      min-width: 45px;
+    }
     .page-title {
       display: block;
       text-align: center;
