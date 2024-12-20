@@ -22,6 +22,7 @@ import {
   IonGrid,
   IonBadge,
   IonChip,
+  IonIcon,
 } from "@ionic/react";
 import { ManageMembersProps } from "@goflock/types/src/index";
 import Selected from "../../images/icons/selected.svg";
@@ -45,6 +46,7 @@ import IonTextarea from "../Common/CustomTextarea";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomModalSelect from "../Common/CustomModalSelect";
 import { EventMember } from "@goflock/types/dist/models/event/EventMember";
+import { copyOutline, shareSocialOutline } from "ionicons/icons";
 
 const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   eventId,
@@ -181,7 +183,11 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   return (
     <>
       <IonPage>
-        <Header eventId={eventId} title="Manage members" showMenu={false} />
+        <Header
+          eventId={eventId}
+          title="Manage members"
+          showMenu={false}
+        />
         <IonContent
           className="manage-members ion-padding-end ion-padding-start ion-padding-bottom"
           scrollEvents={true}
@@ -240,13 +246,25 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                 {filteredMembersList && filteredMembersList.length > 0 ? (
                   <IonList className="list-wrap ion-no-padding ion-no-margin event-members">
                     {filteredMembersList.map((member, index) => (
-                      <IonItem key={index} className="list-item">
-                        <IonThumbnail slot="start" className="dp">
+                      <IonItem
+                        key={index}
+                        className="list-item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member?.roles?.includes("owner") && (
-                            <IonImg className="type" src={HostIcon} />
+                            <IonImg
+                              className="type"
+                              src={HostIcon}
+                            />
                           )}
                           {member?.roles?.includes("admin") && (
-                            <IonImg className="type co" src={CoHostIcon} />
+                            <IonImg
+                              className="type co"
+                              src={CoHostIcon}
+                            />
                           )}
                           {member.profileImg ? (
                             <IonImg
@@ -261,7 +279,9 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                                   : "profile-dp"
                               }
                             >
-                              {getDisplayName(member.name || "")}
+                              {getDisplayName(
+                                member.rsvp?.name || member.name || ""
+                              )}
                             </IonAvatar>
                           )}
                           <span className="selection">
@@ -270,10 +290,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                                 member.rsvp?.response === "attending"
                                   ? attendingIcon
                                   : member.rsvp?.response === "maybe"
-                                  ? notSureIcon
-                                  : member.rsvp?.response === "not-attending"
-                                  ? notAttendingIcon
-                                  : Selected
+                                    ? notSureIcon
+                                    : member.rsvp?.response === "not-attending"
+                                      ? notAttendingIcon
+                                      : Selected
                               }
                               alt="Selected"
                             />
@@ -285,19 +305,25 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               (member?.roles?.includes("owner")
                                 ? " (Host)"
                                 : member?.roles?.includes("admin")
-                                ? " (Co-host)"
-                                : "")}
+                                  ? " (Co-host)"
+                                  : "")}
                           </h2>
 
                           <p>{member.phoneNumber}</p>
                         </IonLabel>
                         {member.rsvp?.adultsCount !== undefined && (
-                          <IonChip outline={true} class="guests-count">
+                          <IonChip
+                            outline={true}
+                            class="guests-count"
+                          >
                             {member.rsvp?.adultsCount + " adults"}
                           </IonChip>
                         )}
                         {member.rsvp?.kidsCount !== undefined && (
-                          <IonChip outline={true} class="guests-count">
+                          <IonChip
+                            outline={true}
+                            class="guests-count"
+                          >
                             {member.rsvp?.kidsCount + " kids"}
                           </IonChip>
                         )}
@@ -408,28 +434,42 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             </IonButton>
           )}
         </IonFooter> */}
-        <IonFooter class="stickyFooter">
-          <IonRow>
-            <IonCol>
-              <IonButton
-                className="primary-btn rounded mb-6"
-                onClick={() => copyEventLink(eventId)}
-              >
-                {"Copy invitation link"}
-              </IonButton>
-            </IonCol>
-          </IonRow>
-          <IonRow>
-            <IonCol>
-              <IonButton
-                className="primary-btn rounded"
-                onClick={() => socialShareEventLink(eventId)}
-              >
-                {"Share invitation link"}
-              </IonButton>
-            </IonCol>
-          </IonRow>
-        </IonFooter>
+        {selectedSegment === "Track" && (
+          <IonFooter class="stickyFooter">
+            <IonRow>
+              <IonCol>
+                <IonButton
+                  className="primary-btn rounded mb-6"
+                  onClick={() => copyEventLink(eventId)}
+                >
+                  <IonIcon
+                    slot="icon-only"
+                    icon={copyOutline}
+                  ></IonIcon>
+                  <IonText className="ion-padding">
+                    Copy invitation link
+                  </IonText>
+                </IonButton>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol>
+                <IonButton
+                  className="primary-btn rounded"
+                  onClick={() => socialShareEventLink(eventId)}
+                >
+                  <IonIcon
+                    slot="icon-only"
+                    icon={shareSocialOutline}
+                  ></IonIcon>
+                  <IonText className="ion-padding">
+                    Share invitation link
+                  </IonText>
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonFooter>
+        )}
         <Footer
           event={event}
           activeTab={"members"}
@@ -458,7 +498,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
           },
           {
             text: selectedUser
-              ? "Remove " + selectedUser.name || selectedUser.phoneNumber || ""
+              ? "Remove " + selectedUser.rsvp?.name ||
+                selectedUser.name ||
+                selectedUser.phoneNumber ||
+                ""
               : "",
             data: {
               action: "Delete",
