@@ -79,7 +79,10 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
   return (
     <>
       {label && (
-        <IonLabel className="form-label" onClick={() => setShowModal(true)}>
+        <IonLabel
+          className="form-label"
+          onClick={() => setShowModal(true)}
+        >
           {isRequired ? `${label}*` : label}
         </IonLabel>
       )}
@@ -104,7 +107,10 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
             />
           )}
         />
-        <IonIcon className="placeholder-icon" src={ArrowIcon} />
+        <IonIcon
+          className="placeholder-icon"
+          src={ArrowIcon}
+        />
       </IonGrid>
       <IonModal
         isOpen={showModal}
@@ -133,7 +139,10 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
                   onClick={() => handleSelectEvent(event)}
                 >
                   <IonThumbnail className="icon-thumb">
-                    <IonImg src={event.icon} alt={event.label} />
+                    <IonImg
+                      src={event.icon}
+                      alt={event.label}
+                    />
                   </IonThumbnail>
                   <IonText className="card-label">{event.label}</IonText>
                 </IonCol>
@@ -144,7 +153,11 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
       </IonModal>
       {/* Display error message */}
       {errors?.[fieldName]?.type === "required" && (
-        <IonText class="error" color="danger" style={{ fontSize: 12 }}>
+        <IonText
+          class="error"
+          color="danger"
+          style={{ fontSize: 12 }}
+        >
           {"* " + errorText + " is required"}
         </IonText>
       )}

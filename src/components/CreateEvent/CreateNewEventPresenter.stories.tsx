@@ -5,6 +5,7 @@ import { DraftEvent, LocationInfo } from "@goflock/types/src";
 import { EventWithMembers, OwnerProfile } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
 import NoEvent from "./NoEvent";
+import { IonApp, IonContent } from "@ionic/react";
 
 export default {
   title: "GoFlock/Presenters/CreateNewEvent",
@@ -12,7 +13,11 @@ export default {
 };
 
 const Template: StoryFn<CreateNewEventProps> = (args) => (
-  <CreateNewEventPresenter {...args} />
+  <IonApp>
+    <IonContent>
+      <CreateNewEventPresenter {...args} />
+    </IonContent>
+  </IonApp>
 );
 
 export const CreateDetailEventFlow = Template.bind({});
@@ -38,6 +43,14 @@ CreateDetailEventFlow.args = {
   },
   goToEvent: (eventId: string) => {
     action("goToEvent")(eventId);
+  },
+  generateInvitationDescription: (event: DraftEvent) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(JSON.stringify(event));
+        console.log("Event created (after delay)");
+      }, 5000);
+    });
   },
 };
 
