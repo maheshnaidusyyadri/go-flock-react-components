@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./EventMediaPresenter.scss";
 import {
-  IonButton,
   IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonFooter,
   IonGrid,
+  IonIcon,
   IonImg,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
@@ -50,6 +52,7 @@ import NoMedia from "../../images/noMedia.svg";
 //import { Share } from "@capacitor/share";
 import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
 import useToastUtils from "../../utils/ToastUtils";
+import { add } from "ionicons/icons";
 type SelectablePhoto = Photo & {
   id?: any;
   selected?: boolean;
@@ -276,8 +279,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         setIsEditMode(false);
         setSelectedCount(0);
       })
+      .catch((error) => {
+        console.error("Error deleting media:", error);
+        setOperationInProgress(false);
+        presentToast(
+          "Cannot delete the photos you dont own.",
+          "bottom",
+          "danger"
+        );
+      })
       .finally(() => {
         setOperationInProgress(false);
+        presentToast("Delete photos successful.", "bottom");
       });
   };
 
@@ -398,12 +411,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select-action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select-action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select-action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select-action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -432,7 +451,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               // @ts-ignore
               render={{
                 link: (props) => (
-                  <StyledLink {...props} isEditView={isEditMode} />
+                  <StyledLink
+                    {...props}
+                    isEditView={isEditMode}
+                  />
                 ),
 
                 // render image selection icon
@@ -465,12 +487,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type-declaration" src={VideoType} />
+                          <IonImg
+                            class="type-declaration"
+                            src={VideoType}
+                          />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type-declaration" src={ImageType} />
+                          <IonImg
+                            class="type-declaration"
+                            src={ImageType}
+                          />
                         </>
                       )}
                     </div>
@@ -518,7 +546,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           ) : (
             <IonRow>
               <IonCol>
-                <IonImg src={NoMedia} className="no-media" />
+                <IonImg
+                  src={NoMedia}
+                  className="no-media"
+                />
               </IonCol>
             </IonRow>
           )}
@@ -570,17 +601,18 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         >
           <IonInfiniteScrollContent loadingText="Loading more images..." />
         </IonInfiniteScroll>
-      </IonContent>
-      {!isEditMode && (
-        <IonFooter className="stickyFooter">
-          <IonButton
-            className="primary-btn rounded"
-            onClick={() => fileInputRef.current?.click()}
+        {!isEditMode && (
+          <IonFab
+            slot="fixed"
+            vertical="bottom"
+            horizontal="end"
           >
-            Add Media
-          </IonButton>
-        </IonFooter>
-      )}
+            <IonFabButton onClick={() => fileInputRef.current?.click()}>
+              <IonIcon icon={add}></IonIcon>
+            </IonFabButton>
+          </IonFab>
+        )}
+      </IonContent>
       {isEditMode ? (
         <>
           <IonFooter className="footer">
@@ -591,22 +623,34 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     className="ion-no-padding"
                     onClick={handleShareSelected}
                   >
-                    <img src={ShareIcon} alt="Share" />
+                    <img
+                      src={ShareIcon}
+                      alt="Share"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDownloadSelected}
                   >
-                    <img src={Download} alt="Split Bill" />
+                    <img
+                      src={Download}
+                      alt="Split Bill"
+                    />
                   </IonCol>
                   <IonCol className="ion-no-padding">
-                    <img src={save} alt="save" />
+                    <img
+                      src={save}
+                      alt="save"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDeleteSelected}
                   >
-                    <img src={Delete} alt="Delete" />
+                    <img
+                      src={Delete}
+                      alt="Delete"
+                    />
                   </IonCol>
                 </IonRow>
               </IonGrid>

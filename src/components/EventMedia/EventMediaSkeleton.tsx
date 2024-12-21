@@ -13,13 +13,8 @@ import Header from "../Header/Header";
 import GridIcon from "../../images/icons/all.svg";
 import PhotoIcon from "../../images/icons/photos.svg";
 import VideoIcon from "../../images/icons/videos.svg";
-import Footer from "../Footer/Footer";
-import { EventMediaProps } from "@goflock/types";
 
-const EventMediaSkeleton: React.FC<EventMediaProps> = ({
-  event,
-  eventRelation,
-}) => {
+export const EventMediaSkeleton: React.FC = () => {
   return (
     <IonPage>
       <Header
@@ -29,7 +24,10 @@ const EventMediaSkeleton: React.FC<EventMediaProps> = ({
         showProfile={false}
       />
       <IonContent className="ion-padding">
-        <IonSegment className="gallery-tabs" value={"all"}>
+        <IonSegment
+          className="gallery-tabs"
+          value={"all"}
+        >
           <IonSegmentButton value="all">
             <IonImg src={GridIcon} />
           </IonSegmentButton>
@@ -85,12 +83,6 @@ const EventMediaSkeleton: React.FC<EventMediaProps> = ({
           </IonRow>
         </IonList>
       </IonContent>
-      <Footer
-        activeTab={"media"}
-        event={event}
-        settings={event.settings}
-        eventRelation={eventRelation}
-      />
     </IonPage>
   );
 };
