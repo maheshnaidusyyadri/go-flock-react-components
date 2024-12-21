@@ -22,9 +22,6 @@ import {
   IonThumbnail,
 } from "@ionic/react";
 
-import clockIcon from "../../images/icons/clock.svg";
-import locationIcon from "../../images/icons/pointer.svg";
-import GlobeIcon from "../../images/icons/globe.svg";
 import noPreview from "../../images/noPreview.svg";
 import Header from "../Header/Header";
 import { EventProps } from "@goflock/types/src";
@@ -41,6 +38,7 @@ import NotSure from "../Common/Icons/NotSure";
 import EditIcon from "../../images/icons/Edit.svg";
 import useToastUtils from "../../utils/ToastUtils";
 import RsvpModalPage from "./RsvpModalPage";
+import { Map, DirectRight, CalendarTick } from "iconsax-react";
 
 const EventDetailsPresenter: React.FC<EventProps> = ({
   event,
@@ -242,7 +240,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               </IonCol>
             </IonRow>
             <IonList className="listitems">
-              {!["admin", "owner"].includes(eventRelation?.visitType) &&
+              {!["owner"].includes(eventRelation?.visitType) &&
                 eventRelation?.rsvp && (
                   <>
                     <IonItemDivider className="devider"></IonItemDivider>
@@ -295,9 +293,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonItem className="ion-list">
                 <IonCard className="venue-info">
                   <IonThumbnail className="dp">
-                    <IonImg
-                      src={clockIcon}
-                      alt="Page Back"
+                    <CalendarTick
+                      size="32"
+                      color="#f47373"
+                      variant="Bold"
                     />
                   </IonThumbnail>
                   <IonCardContent className="event-titles">
@@ -316,9 +315,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     className="dp"
                     onClick={() => navigateToEventLocation(event.id)}
                   >
-                    <IonImg
-                      src={locationIcon}
-                      alt=" "
+                    <Map
+                      size="32"
+                      color="#f47373"
+                      variant="Bold"
                     />
                   </IonThumbnail>
                   <IonCardContent className="event-titles">
@@ -331,9 +331,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="event-type"
                   onClick={() => navigateToEventLocation(event.id)}
                 >
-                  <IonImg
-                    src={GlobeIcon}
-                    alt=""
+                  <DirectRight
+                    size="28"
+                    color="#3EC7FD"
+                    variant="Bold"
                   />
                 </IonThumbnail>
               </IonItem>
@@ -343,11 +344,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   <IonItem className="ion-list">
                     {event.hostedBy && (
                       <IonCard className="venue-info">
-                        <IonThumbnail
-                          className="dp"
-                          //onClick={() => navigateToEventLocation(event.id)}
-                        >
-                          {/* <IonImg src={ProfileIcon} alt=" " /> */}
+                        <IonThumbnail className="dp">
                           <IonAvatar className="profile-dp">
                             {getDisplayNamewithchr(event.hostedBy)}
                           </IonAvatar>
