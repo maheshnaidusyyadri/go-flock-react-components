@@ -13,6 +13,13 @@ import {
   FORMAT_TEXT_COMMAND,
   TextFormatType,
 } from "lexical";
+import {
+  AlignLeft,
+  AlignRight,
+  AlignVertically,
+  TextBold,
+  TextItalic,
+} from "iconsax-react";
 
 import "./CustomLexicalEditor.css";
 
@@ -21,26 +28,7 @@ interface LexicalEditorProps {
   onExport: (exportedHtml: string) => void;
 }
 
-const theme = {
-  // paragraph: {
-  //   marginBottom: "1em",
-  //   fontSize: "16px",
-  //   color: "#fff",
-  //   lineHeight: "1.5",
-  // },
-  // bold: {
-  //   fontWeight: "bold",
-  //   color: "#fff",
-  // },
-  // italic: {
-  //   fontStyle: "italic",
-  //   color: "#fff",
-  // },
-  // underline: {
-  //   textDecoration: "underline",
-  //   color: "#fff",
-  // },
-};
+const theme = {};
 
 const Placeholder = () => (
   <div className="editor-placeholder">
@@ -61,11 +49,56 @@ const Toolbar: React.FC = () => {
 
   return (
     <IonToolbar>
-      <IonButton onClick={() => formatText("bold")}>Bold</IonButton>
-      <IonButton onClick={() => formatText("italic")}>Italic</IonButton>
-      <IonButton onClick={() => formatElement("left")}>Left</IonButton>
-      <IonButton onClick={() => formatElement("center")}>Center</IonButton>
-      <IonButton onClick={() => formatElement("right")}>Right</IonButton>
+      <IonButton
+        onClick={() => formatText("bold")}
+        fill="clear"
+      >
+        <TextBold
+          size="32"
+          color="#000000"
+          variant="Bold"
+        />
+      </IonButton>
+      <IonButton
+        onClick={() => formatText("italic")}
+        fill="clear"
+      >
+        <TextItalic
+          size="32"
+          color="#000000"
+          variant="Bold"
+        />
+      </IonButton>
+      <IonButton
+        onClick={() => formatElement("left")}
+        fill="clear"
+      >
+        <AlignLeft
+          size="32"
+          color="#000000"
+          variant="Bold"
+        />
+      </IonButton>
+      <IonButton
+        onClick={() => formatElement("center")}
+        fill="clear"
+      >
+        <AlignVertically
+          size="32"
+          color="#000000"
+          variant="Bold"
+        />
+      </IonButton>
+      <IonButton
+        onClick={() => formatElement("right")}
+        fill="clear"
+      >
+        <AlignRight
+          size="32"
+          color="#000000"
+          variant="Bold"
+        />
+      </IonButton>
     </IonToolbar>
   );
 };
