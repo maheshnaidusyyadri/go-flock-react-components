@@ -49,6 +49,7 @@
     "@lexical/react": "^0.20.0",
     "@storybook/addon-viewport": "^8.3.5",
     "clsx": "^2.1.1",
+    "iconsax-react": "^0.0.8",
     "ionicons": "^7.4.0",
     "lexical": "^0.20.0",
     "moment": "^2.30.1",
