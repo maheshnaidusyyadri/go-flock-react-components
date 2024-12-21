@@ -24,7 +24,7 @@ const PlaceSearch: React.FC<PlaceSearchProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (query.length > 2) {
+    if (query.length > 5) {
       handleSearch(query);
     } else {
       setLocations([]);
