@@ -62,53 +62,50 @@ const LandingPagePresenter: React.FC = ({}) => {
       setIsSticky(false);
     }
   };
-
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
   return (
     <IonPage>
-      <header className={`header ${isSticky ? "stickyheader" : ""}`}>
-        <div className="container header-cnt">
-          <a
-            className="logo"
-            href="#"
-          >
-            <img src={invitozLogo} />
-          </a>
-          <nav className="nav">
-            <ul>
-              <li>
-                <a href="#home">home</a>
-              </li>
-              <li>
-                <a href="#events">Events</a>
-              </li>
-              <li>
-                <a href="#invitations">Invitations</a>
-              </li>
-              <li>
-                <a href="#photos">Photos</a>
-              </li>
-              <li>
-                <a href="#expenses">Split Expenses</a>
-              </li>
-            </ul>
-          </nav>
-          <a
-            href="/phone-number-auth"
-            className="get-app"
-          >
-            Get started
-            <img src={arrow} />
-          </a>
-        </div>
-      </header>
-      <IonContent
-        onIonScroll={handleContentScroll}
-        scrollEvents={true}
-      >
-        <section
-          className="home-banner"
-          id="home"
-        >
+      <IonContent onIonScroll={handleContentScroll} scrollEvents={true}>
+        <header className={`header ${isSticky ? "stickyheader" : ""}`}>
+          <div className="container header-cnt">
+            <a className="logo" href="#">
+              <img src={invitozLogo} />
+            </a>
+            <nav className="nav">
+              <ul>
+                <li>
+                  <a onClick={() => scrollToSection("home")}>home</a>
+                </li>
+                <li>
+                  <a onClick={() => scrollToSection("events")}>Events</a>
+                </li>
+                <li>
+                  <a onClick={() => scrollToSection("invitations")}>
+                    Invitations
+                  </a>
+                </li>
+                <li>
+                  <a onClick={() => scrollToSection("photos")}>Photos</a>
+                </li>
+                <li>
+                  <a onClick={() => scrollToSection("expenses")}>
+                    Split Expenses
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <a href="" className="get-app">
+              Get started
+              <img src={arrow} />
+            </a>
+          </div>
+        </header>
+        <section className="home-banner" id="home">
           <div className="container banner-cnt">
             <div className="banner-text">
               <h1>Your Ultimate AI Event Companion</h1>
@@ -126,10 +123,7 @@ const LandingPagePresenter: React.FC = ({}) => {
             </div>
           </div>
         </section>
-        <section
-          className="events-sec"
-          id="events"
-        >
+        <section className="events-sec" id="events">
           <div className="container events-cnt">
             <div className="heading-badge event-badge">
               <img src={eventIcon} />
@@ -167,10 +161,7 @@ const LandingPagePresenter: React.FC = ({}) => {
           </div>
         </section>
 
-        <section
-          className="invitations-sec"
-          id="invitations"
-        >
+        <section className="invitations-sec" id="invitations">
           <div className="container invitations-cnt">
             <div className="heading-badge invitation-badge">
               <img src={invitationIcon} />
@@ -209,10 +200,7 @@ const LandingPagePresenter: React.FC = ({}) => {
           </div>
         </section>
 
-        <section
-          className="media-sec"
-          id="photos"
-        >
+        <section className="media-sec" id="photos">
           <div className="container media-cnt">
             <div className="heading-badge photos-badge">
               <img src={invitationIcon} />
@@ -264,10 +252,7 @@ const LandingPagePresenter: React.FC = ({}) => {
         </IonGrid> */}
         </section>
 
-        <section
-          className="split-sec"
-          id="expenses"
-        >
+        <section className="split-sec" id="expenses">
           <div className="container split-cnt">
             <Tabs className="landing-vertical-tabs">
               <div className="split-text">
@@ -400,25 +385,13 @@ const LandingPagePresenter: React.FC = ({}) => {
 
             <IonGrid>
               <IonRow class="ion-justify-content-center">
-                <IonCol
-                  size="12"
-                  size-md="10"
-                >
+                <IonCol size="12" size-md="10">
                   <IonAccordionGroup className="landing-accordian">
-                    <IonAccordion
-                      value="faq-1"
-                      no-lines
-                    >
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                    <IonAccordion value="faq-1" no-lines>
+                      <div slot="header" className="accordian-lablel">
                         What is Invitoz?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Invitoz is an AI-powered event management assistant
                         designed to simplify every aspect of event planning and
                         coordination. From creating beautiful invitations and
@@ -428,16 +401,10 @@ const LandingPagePresenter: React.FC = ({}) => {
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-2">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         What types of events can I use Invitoz for?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         <p>
                           Invitoz is versatile and can be used for various
                           events, including:
@@ -454,48 +421,30 @@ const LandingPagePresenter: React.FC = ({}) => {
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-3">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         Can I use Invitoz for co-hosted events?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Yes! Invitoz is perfect for co-hosted events, allowing
                         multiple organizers to collaborate on invitations,
                         RSVPs, expenses, and event planning seamlessly.
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-4">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         Can I share event photos and videos using Invitoz?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Yes! Invitoz allows you to upload and share event photos
                         and videos with your guests, creating a shared gallery
                         of memories that everyone can enjoy.
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-5">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         How long are photos and videos retained in Invitoz?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Photos and videos are retained for up to 1 month by
                         default. You will receive reminders before any content
                         is archived or deleted, with the option to download or
@@ -503,31 +452,19 @@ const LandingPagePresenter: React.FC = ({}) => {
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-6">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         Is there a storage limit for photos and videos?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Yes, Limited to 10 GB of photo and video storage per
                         event.
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-7">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         Can I export photos and videos from Invitoz?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Absolutely! Invitoz provides an easy export feature to
                         download all your photos and videos to your device. You
                         can export individual files or entire event galleries in
@@ -535,16 +472,10 @@ const LandingPagePresenter: React.FC = ({}) => {
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-8">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         Does Invitoz provide vendor suggestions?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Yes, Invitoz uses AI to offer tailored vendor
                         suggestions based on your event type, location, and
                         preferences. Whether you need catering, a venue, or a
@@ -552,17 +483,11 @@ const LandingPagePresenter: React.FC = ({}) => {
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-9">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         How secure is event data, photo and video storage on
                         Invitoz?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Invitoz prioritizes your privacy and data security. All
                         your information, from guest lists to financial details,
                         are stored securely and only visible to you. Invitoz
@@ -572,16 +497,10 @@ const LandingPagePresenter: React.FC = ({}) => {
                       </div>
                     </IonAccordion>
                     <IonAccordion value="faq-10">
-                      <div
-                        slot="header"
-                        className="accordian-lablel"
-                      >
+                      <div slot="header" className="accordian-lablel">
                         How does expense tracking work with co-hosts?
                       </div>
-                      <div
-                        className="accordian-content"
-                        slot="content"
-                      >
+                      <div className="accordian-content" slot="content">
                         Invitoz provides a collaborative expense tracking tool
                         that helps you and your co-hosts monitor event costs,
                         split expenses, and ensure transparency throughout the
@@ -592,11 +511,8 @@ const LandingPagePresenter: React.FC = ({}) => {
                 </IonCol>
               </IonRow>
               <IonRow class="ion-justify-content-center">
-                <IonCol
-                  size="12"
-                  size-md="10"
-                >
-                  <div className="container banner-cnt">
+                <IonCol size="12" size-md="10">
+                  <div className="container faq-cnt">
                     <div className="banner-text">
                       <p>
                         If you have more questions or need support, feel free to
@@ -611,7 +527,7 @@ const LandingPagePresenter: React.FC = ({}) => {
           </div>
         </section>
         <footer className="footer-sec">
-          <a href="#">
+          <a href="#" className="logo">
             <img src={invitozLogoLight} />
           </a>
           <h3>Your Ultimate AI Event Companion</h3>
@@ -624,26 +540,17 @@ const LandingPagePresenter: React.FC = ({}) => {
               <ul>
                 <li>
                   <a href="#">
-                    <img
-                      src={facebook}
-                      alt="facebook"
-                    />
+                    <img src={facebook} alt="facebook" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img
-                      src={instagram}
-                      alt="instagram"
-                    />
+                    <img src={instagram} alt="instagram" />
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <img
-                      src={twitter}
-                      alt="twitter"
-                    />
+                    <img src={twitter} alt="twitter" />
                   </a>
                 </li>
               </ul>

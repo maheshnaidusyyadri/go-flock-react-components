@@ -18,6 +18,9 @@ $white: #ffffff;
   color: #000000;
   font-family: $primaryFont;
   font-weight: 500;
+  @media screen and (max-width: 1180px) {
+    font-size: 34px;
+  }
   @media screen and (max-width: 767px) {
     font-size: 26px;
   }
@@ -57,11 +60,12 @@ $white: #ffffff;
 }
 
 .header {
-  position: fixed;
+  position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
   z-index: 90;
+  padding: 0 15px;
   .header-cnt {
     display: flex;
     align-items: center;
@@ -70,6 +74,7 @@ $white: #ffffff;
     .logo {
     }
     .nav {
+      transition: all 0.25s ease-in-out;
       ul {
         display: flex;
         align-items: center;
@@ -77,6 +82,7 @@ $white: #ffffff;
         border-radius: 20px;
         padding: 0px;
         height: 45px;
+        transition: all 0.25s ease-in-out;
         li {
           margin: 0px 5px;
           a {
@@ -88,9 +94,15 @@ $white: #ffffff;
             height: 40px;
             padding: 8px 15px;
             border-radius: 75px;
+            white-space: nowrap;
+            cursor: pointer;
             &:hover {
               background-color: #011233;
               color: $white;
+            }
+            &.get-app {
+              background-color: #011233;
+              width: auto;
             }
           }
         }
@@ -125,7 +137,6 @@ $white: #ffffff;
       }
     }
     @media screen and (max-width: 767px) {
-      padding: 0 10px;
       height: 85px;
       nav {
         display: none;
@@ -138,13 +149,45 @@ $white: #ffffff;
     }
   }
   &.stickyheader {
-    background: $white;
-    box-shadow: #f1f1f1 0px 5px 8px;
+    // background: $white;
+    // box-shadow: #f1f1f1 0px 5px 8px;
+    z-index: 999;
     .header-cnt {
       .nav {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
         ul {
           background-color: #f4f5f6;
+          box-shadow: 0 1px 3px #3c40434d, 0 4px 8px 3px #3c404326;
         }
+      }
+    }
+  }
+  @media screen and (min-width: 767px) and (max-width: 991px) {
+    .header-cnt {
+      .logo {
+        img {
+          height: 30px;
+        }
+      }
+      .nav {
+        ul {
+          height: 34px;
+          li {
+            margin: 0px 4px;
+            a {
+              font-size: 13px;
+              padding: 6px 11px;
+            }
+          }
+        }
+      }
+      .get-app {
+        height: 38px;
+        padding: 0 14px;
+        width: 140px;
       }
     }
   }
@@ -195,14 +238,24 @@ $white: #ffffff;
       width: 50%;
     }
   }
+  @media screen and (max-width: 1180px) {
+    .banner-cnt {
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
   @media screen and (max-width: 767px) {
     .banner-cnt {
       flex-direction: column;
-      padding-right: 15px;
-      padding-left: 15px;
+
       .banner-text,
       .banner-img {
         width: 100%;
+      }
+      .banner-text {
+        p {
+          padding: 0 15px;
+        }
       }
     }
   }
@@ -259,7 +312,7 @@ $white: #ffffff;
     padding: 40px 15px 0px;
     .events-cnt {
       h2 {
-        font-size: 30px;
+        // font-size: 30px;
         margin: 25px 0px 0px;
       }
       .event-widgets {
@@ -275,7 +328,7 @@ $white: #ffffff;
 
 .invitations-sec {
   width: 100%;
-  padding: 80px 50px;
+  padding: 80px 50px 50px;
   background-color: #ffffff;
   .invitations-cnt {
     text-align: center;
@@ -326,7 +379,7 @@ $white: #ffffff;
     padding: 40px 15px;
     .invitations-cnt {
       h2 {
-        font-size: 30px;
+        font-size: 26px;
         margin: 25px 0px 0px;
       }
       .invitaion-widgets {
@@ -342,7 +395,7 @@ $white: #ffffff;
 
 .media-sec {
   width: 100%;
-  padding: 50px;
+  padding: 80px 50px 50px 50px;
   background-image: url("../../images/photo-sec-bg.png");
   background-repeat: no-repeat;
   background-size: 100%;
@@ -358,12 +411,21 @@ $white: #ffffff;
       font-size: 24px;
     }
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1180px) {
     padding: 40px 15px;
     background-size: cover;
     .media-cnt {
       h2 {
         font-size: 30px;
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    padding: 40px 15px;
+    background-size: cover;
+    .media-cnt {
+      h2 {
+        font-size: 26px;
       }
     }
   }
@@ -410,6 +472,9 @@ $white: #ffffff;
     .expense-tabs {
       position: static;
     }
+  }
+  @media screen and (max-width: 1180px) {
+    padding: 40px 15px 0;
   }
   @media screen and (max-width: 767px) {
     padding: 40px 15px 0;
@@ -462,7 +527,7 @@ $white: #ffffff;
     padding: 20px 0px;
     .faq-cnt {
       h2 {
-        font-size: 30px;
+        font-size: 26px;
         margin: 25px 0px;
       }
     }
@@ -525,7 +590,7 @@ $white: #ffffff;
 .footer-sec {
   background: #011233;
   text-align: center;
-  padding: 50px 0px 25px;
+  padding: 50px 10px 25px;
   position: relative;
   &::after {
     content: "";
@@ -611,9 +676,17 @@ $white: #ffffff;
     }
   }
   @media screen and (max-width: 767px) {
+    padding: 25px 10px;
+    .logo img {
+      height: 40px;
+    }
+    h3 {
+      font-size: 20px;
+    }
     .copy-cnt {
       margin: 0px auto 0px;
       flex-direction: column;
+      padding-top: 0;
       .social-list {
         margin-top: 15px;
       }
@@ -766,5 +839,17 @@ $white: #ffffff;
   position: relative;
   img {
     border-radius: 20px;
+  }
+}
+
+.faq-cnt {
+  padding: 0 15px;
+  .banner-text {
+    p {
+      @include description;
+      margin: 20px 0px 30px;
+      font-size: 18px;
+      color: $primary-color;
+    }
   }
 }
