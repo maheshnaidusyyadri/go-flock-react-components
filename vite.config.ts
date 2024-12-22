@@ -10,7 +10,7 @@ export default defineConfig({
       formats: ["cjs", "es"],
     },
     rollupOptions: {
-      external: [...Object.keys([])],
+      external: ["react", "react-dom"],
     },
     sourcemap: true,
     emptyOutDir: true,
