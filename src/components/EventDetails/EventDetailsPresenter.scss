@@ -70,6 +70,9 @@ body {
           width: 20px;
         }
       }
+      .react-photo-album--masonry {
+        --react-photo-album--columns: 1 !important;
+      }
     }
     .event-brief {
       font-family: $GoFlockFont;
@@ -350,9 +353,7 @@ body {
 .animated-footer {
   position: absolute;
   bottom: 0;
-  transition:
-    transform 0.3s ease-in-out,
-    opacity 0.3s ease-in-out,
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
     visibility 0.3s ease-in-out;
   opacity: 1;
   transform: translateY(0);
