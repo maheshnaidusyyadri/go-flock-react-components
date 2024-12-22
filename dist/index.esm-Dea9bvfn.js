@@ -1,4 +1,4 @@
-import { R as u } from "./index-Ck76bQdU.js";
+import u from "react";
 var j = (e) => e.type === "checkbox", w = (e) => e instanceof Date, x = (e) => e == null;
 const B = (e) => typeof e == "object";
 var g = (e) => !x(e) && !Array.isArray(e) && B(e) && !w(e), R = (e) => g(e) && e.target ? j(e.target) ? e.target.checked : e.target.value : e, T = (e) => e.substring(0, e.search(/\.\d+(\.|$)/)) || e, U = (e, s) => e.has(T(s)), D = (e) => {
@@ -216,4 +216,4 @@ const Y = (e) => e.render(Q(e));
 export {
   Y as C
 };
-//# sourceMappingURL=index.esm-B-gnYDF3.js.map
+//# sourceMappingURL=index.esm-Dea9bvfn.js.map

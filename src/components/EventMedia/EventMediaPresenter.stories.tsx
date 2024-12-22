@@ -57,11 +57,8 @@ WithImagesAndMixedMedia.args = {
   media: ImageAndVideosMixedMedia,
 };
 
-const SkeletonTemplate: StoryFn<typeof EventMediaPresenter> = (args) => (
-  <EventMediaSkeletonPage {...args} />
+const SkeletonTemplate: StoryFn<typeof EventMediaPresenter> = () => (
+  <EventMediaSkeletonPage />
 );
 export const EventMediaSkeleton = SkeletonTemplate.bind({});
-EventMediaSkeleton.args = {
-  event: EventWithInvitation,
-  eventRelation: ownerEventRelation,
-};
+EventMediaSkeleton.args = {};

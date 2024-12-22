@@ -1,9 +1,10 @@
-import { R as d, j as n, I as U, c as L, a as $, b as v } from "./index-Ck76bQdU.js";
-import { C as J } from "./index.esm-B-gnYDF3.js";
-var R = function(r) {
+import { j as n, I as U, c as L, a as $, b as v } from "./index-DltW6k-P.js";
+import d from "react";
+import { C as J } from "./index.esm-Dea9bvfn.js";
+var k = function(r) {
   return typeof r == "object" && r !== null;
 }, Q = function(r) {
-  var C = r.value, p = C === void 0 ? "" : C, m = r.numInputs, i = m === void 0 ? 4 : m, g = r.onChange, T = r.onPaste, c = r.renderInput, x = r.shouldAutoFocus, h = x === void 0 ? !1 : x, y = r.inputType, V = y === void 0 ? "text" : y, N = r.renderSeparator, j = r.placeholder, b = r.containerStyle, I = r.inputStyle, E = r.skipDefaultStyles, k = E === void 0 ? !1 : E, H = d.useState(0), o = H[0], O = H[1], f = d.useRef([]), w = function() {
+  var C = r.value, p = C === void 0 ? "" : C, m = r.numInputs, i = m === void 0 ? 4 : m, g = r.onChange, T = r.onPaste, c = r.renderInput, x = r.shouldAutoFocus, h = x === void 0 ? !1 : x, y = r.inputType, V = y === void 0 ? "text" : y, N = r.renderSeparator, j = r.placeholder, b = r.containerStyle, I = r.inputStyle, E = r.skipDefaultStyles, B = E === void 0 ? !1 : E, H = d.useState(0), o = H[0], O = H[1], f = d.useRef([]), w = function() {
     return p ? p.toString().split("") : [];
   }, S = V === "number" || V === "tel";
   d.useEffect(function() {
@@ -12,7 +13,7 @@ var R = function(r) {
     var e;
     h && ((e = f.current[0]) === null || e === void 0 || e.focus());
   }, [h]);
-  var B = function() {
+  var F = function() {
     if (typeof j == "string") {
       if (j.length === i)
         return j;
@@ -21,7 +22,7 @@ var R = function(r) {
   }, A = function(e) {
     var t = S ? !isNaN(Number(e)) : typeof e == "string";
     return t && e.trim().length === 1;
-  }, F = function(e) {
+  }, R = function(e) {
     var t = e.target.value;
     A(t) && (D(t), u(o + 1));
   }, Z = function(e) {
@@ -65,7 +66,7 @@ var R = function(r) {
       u(l), M(a);
     }
   };
-  return d.createElement("div", { style: Object.assign({ display: "flex", alignItems: "center" }, R(b) && b), className: typeof b == "string" ? b : void 0, onPaste: T }, Array.from({ length: i }, function(e, t) {
+  return d.createElement("div", { style: Object.assign({ display: "flex", alignItems: "center" }, k(b) && b), className: typeof b == "string" ? b : void 0, onPaste: T }, Array.from({ length: i }, function(e, t) {
     return t;
   }).map(function(e) {
     var t, a, l;
@@ -74,11 +75,11 @@ var R = function(r) {
       { key: e },
       c({
         value: (t = w()[e]) !== null && t !== void 0 ? t : "",
-        placeholder: (l = (a = B()) === null || a === void 0 ? void 0 : a[e]) !== null && l !== void 0 ? l : void 0,
+        placeholder: (l = (a = F()) === null || a === void 0 ? void 0 : a[e]) !== null && l !== void 0 ? l : void 0,
         ref: function(s) {
           return f.current[e] = s;
         },
-        onChange: F,
+        onChange: R,
         onFocus: function(s) {
           return _(s)(e);
         },
@@ -87,7 +88,7 @@ var R = function(r) {
         onPaste: z,
         autoComplete: "off",
         "aria-label": "Please enter OTP character ".concat(e + 1),
-        style: Object.assign(k ? {} : { width: "1em", textAlign: "center" }, R(I) ? I : {}),
+        style: Object.assign(B ? {} : { width: "1em", textAlign: "center" }, k(I) ? I : {}),
         className: typeof I == "string" ? I : void 0,
         type: V,
         inputMode: S ? "numeric" : "text",
@@ -151,7 +152,7 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
       )
     ]
   }
-), ee = ({
+), te = ({
   control: r,
   errors: C,
   fieldName: p,
@@ -228,6 +229,6 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
   ] }) });
 };
 export {
-  ee as default
+  te as default
 };
-//# sourceMappingURL=OtpVerification-CBgiPDF8.js.map
+//# sourceMappingURL=OtpVerification-tfUDsLSc.js.map

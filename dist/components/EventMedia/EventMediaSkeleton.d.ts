@@ -1,3 +1,2 @@
-import { EventMediaProps } from '@goflock/types';
-declare const EventMediaSkeleton: React.FC<EventMediaProps>;
+export declare const EventMediaSkeleton: React.FC;
 export default EventMediaSkeleton;

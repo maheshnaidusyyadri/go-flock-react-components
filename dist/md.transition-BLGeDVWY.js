@@ -1,4 +1,4 @@
-import { f as b, e as r } from "./index-Ck76bQdU.js";
+import { f as b, e as r } from "./index-DltW6k-P.js";
 /*!
  * (C) Ionic http://ionicframework.com - MIT License
  */
@@ -21,4 +21,4 @@ const v = (E, i) => {
 export {
   v as mdTransitionAnimation
 };
-//# sourceMappingURL=md.transition-BOU6M0or.js.map
+//# sourceMappingURL=md.transition-BLGeDVWY.js.map
