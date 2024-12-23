@@ -59,6 +59,10 @@ type SelectablePhoto = Photo & {
   type?: String;
   metadata?: UserMediaMetadata;
 };
+type StartTimeRef = {
+  current: number | null;
+  timeout: ReturnType<typeof setTimeout> | null;
+};
 
 const EventMediaPresenter: React.FC<EventMediaProps> = ({
   event,
@@ -69,7 +73,6 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   deleteMedia,
   fetchImagePathsWithPagination,
 }) => {
-  //const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [lightboxPhoto, setLightboxPhoto] = useState<SelectablePhoto>();
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -80,7 +83,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   const breakpoints = [1080, 640, 384, 256, 128, 96, 64, 48];
   const [photos, setPhotos] = useState<SelectablePhoto[]>([]);
   const [operationInProgress, setOperationInProgress] = useState(false);
-  let startTimeRef = useRef<number | null>(null);
+  let startTimeRef = React.useRef<StartTimeRef>({
+    current: null,
+    timeout: null,
+  });
 
   const { presentToast } = useToastUtils();
 
@@ -358,21 +364,26 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
         setOperationInProgress(false);
       });
   };
-
-  const handleTouchStart = () => {
-    startTimeRef.current = Date.now();
+  const handleTouchStart = (index: number) => {
+    if (startTimeRef.current) {
+      startTimeRef.current.current = Date.now();
+      startTimeRef.current.timeout = setTimeout(() => {
+        const endTime = Date.now();
+        const duration =
+          (endTime - (startTimeRef.current?.current || 0)) / 1000;
+        if (duration >= 0.5) {
+          handleEditMode(index);
+        }
+      }, 500);
+    }
   };
 
-  const handleTouchEnd = (index: number) => {
-    if (startTimeRef.current) {
-      const endTime = Date.now();
-      const duration = (endTime - startTimeRef.current) / 1000;
-
-      if (duration >= 1) {
-        handleEditMode(index);
-      }
-      startTimeRef.current = null;
+  const handleTouchEnd = () => {
+    if (startTimeRef.current.timeout) {
+      clearTimeout(startTimeRef.current.timeout);
+      startTimeRef.current.timeout = null;
     }
+    startTimeRef.current.timeout = null;
   };
   const handleEditMode = (index: number) => {
     setPhotos((prevPhotos) => {
@@ -411,18 +422,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel
-                className="select-action"
-                onClick={handleSelectAll}
-              >
+              <IonLabel className="select-action" onClick={handleSelectAll}>
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel
-                className="select-action"
-                onClick={handleDeselectAll}
-              >
+              <IonLabel className="select-action" onClick={handleDeselectAll}>
                 Deselect All
               </IonLabel>
             )}
@@ -451,10 +456,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               // @ts-ignore
               render={{
                 link: (props) => (
-                  <StyledLink
-                    {...props}
-                    isEditView={isEditMode}
-                  />
+                  <StyledLink {...props} isEditView={isEditMode} />
                 ),
 
                 // render image selection icon
@@ -466,9 +468,9 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                         handleEditMode(index);
                       }}
                       className="media-type"
-                      onTouchStart={handleTouchStart}
-                      onTouchEnd={() => handleTouchEnd(index)}
-                      onTouchCancel={() => handleTouchEnd(index)}
+                      onTouchStart={() => handleTouchStart(index)}
+                      onTouchEnd={() => handleTouchEnd()}
+                      onTouchCancel={() => handleTouchEnd()}
                     >
                       {isEditMode && (
                         <SelectIcon
@@ -487,18 +489,12 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg
-                            class="type-declaration"
-                            src={VideoType}
-                          />
+                          <IonImg class="type-declaration" src={VideoType} />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg
-                            class="type-declaration"
-                            src={ImageType}
-                          />
+                          <IonImg class="type-declaration" src={ImageType} />
                         </>
                       )}
                     </div>
@@ -546,10 +542,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           ) : (
             <IonRow>
               <IonCol>
-                <IonImg
-                  src={NoMedia}
-                  className="no-media"
-                />
+                <IonImg src={NoMedia} className="no-media" />
               </IonCol>
             </IonRow>
           )}
@@ -602,11 +595,7 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           <IonInfiniteScrollContent loadingText="Loading more images..." />
         </IonInfiniteScroll>
         {!isEditMode && (
-          <IonFab
-            slot="fixed"
-            vertical="bottom"
-            horizontal="end"
-          >
+          <IonFab slot="fixed" vertical="bottom" horizontal="end">
             <IonFabButton onClick={() => fileInputRef.current?.click()}>
               <IonIcon icon={add}></IonIcon>
             </IonFabButton>
@@ -623,34 +612,22 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     className="ion-no-padding"
                     onClick={handleShareSelected}
                   >
-                    <img
-                      src={ShareIcon}
-                      alt="Share"
-                    />
+                    <img src={ShareIcon} alt="Share" />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDownloadSelected}
                   >
-                    <img
-                      src={Download}
-                      alt="Split Bill"
-                    />
+                    <img src={Download} alt="Split Bill" />
                   </IonCol>
                   <IonCol className="ion-no-padding">
-                    <img
-                      src={save}
-                      alt="save"
-                    />
+                    <img src={save} alt="save" />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDeleteSelected}
                   >
-                    <img
-                      src={Delete}
-                      alt="Delete"
-                    />
+                    <img src={Delete} alt="Delete" />
                   </IonCol>
                 </IonRow>
               </IonGrid>
