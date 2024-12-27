@@ -342,7 +342,9 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
               <IonCard className="guest-info">
                 <IonCard className="card-cnt">
                   <IonThumbnail>
-                    <IonImg src={adultsIcon} />
+                    <IonImg
+                      src={adultsIcon.src || (adultsIcon as unknown as string)}
+                    />
                   </IonThumbnail>
                   <IonLabel className="guest-type">Adults</IonLabel>
                   <IonCard className="counter-sec">
@@ -350,14 +352,18 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
                       className="counter-btn"
                       onClick={decrementAdults}
                     >
-                      <IonImg src={minusIcon} />
+                      <IonImg
+                        src={minusIcon.src || (minusIcon as unknown as string)}
+                      />
                     </IonButton>
                     <IonLabel className="counter-value">{adultCount}</IonLabel>
                     <IonButton
                       className="counter-btn"
                       onClick={incrementAdults}
                     >
-                      <IonImg src={plusIcon} />
+                      <IonImg
+                        src={plusIcon.src || (plusIcon as unknown as string)}
+                      />
                     </IonButton>
                   </IonCard>
                 </IonCard>
@@ -365,7 +371,9 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
               <IonCard className="guest-info">
                 <IonCard className="card-cnt">
                   <IonThumbnail>
-                    <IonImg src={kidsIcon} />
+                    <IonImg
+                      src={kidsIcon.src || (plusIcon as unknown as string)}
+                    />
                   </IonThumbnail>
                   <IonLabel class="guest-type">Kids</IonLabel>
                   <IonCard className="counter-sec">
@@ -373,14 +381,18 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
                       className="counter-btn"
                       onClick={decrementKids}
                     >
-                      <IonImg src={minusIcon} />
+                      <IonImg
+                        src={minusIcon.src || (minusIcon as unknown as string)}
+                      />
                     </IonButton>
                     <IonLabel className="counter-value">{kidsCount}</IonLabel>
                     <IonButton
                       className="counter-btn"
                       onClick={incrementKids}
                     >
-                      <IonImg src={plusIcon} />
+                      <IonImg
+                        src={plusIcon.src || (plusIcon as unknown as string)}
+                      />
                     </IonButton>
                   </IonCard>
                 </IonCard>

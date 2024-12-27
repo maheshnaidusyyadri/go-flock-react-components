@@ -29,13 +29,19 @@ export const EventMediaSkeleton: React.FC = () => {
           value={"all"}
         >
           <IonSegmentButton value="all">
-            <IonImg src={GridIcon} />
+            <IonImg
+              src={GridIcon.src || (GridIcon.value as unknown as string)}
+            />
           </IonSegmentButton>
           <IonSegmentButton value="photo">
-            <IonImg src={PhotoIcon} />
+            <IonImg
+              src={PhotoIcon.src || (PhotoIcon.value as unknown as string)}
+            />
           </IonSegmentButton>
           <IonSegmentButton value="video">
-            <IonImg src={VideoIcon} />
+            <IonImg
+              src={VideoIcon.src || (VideoIcon.value as unknown as string)}
+            />
           </IonSegmentButton>
         </IonSegment>
         <IonList>

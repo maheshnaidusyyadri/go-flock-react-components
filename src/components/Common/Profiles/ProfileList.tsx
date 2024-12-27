@@ -33,11 +33,16 @@ const ProfileList: React.FC<ProfileListProps> = ({
     if (eventMember?.rsvp && eventMember.rsvp?.response) {
       switch (eventMember.rsvp.response) {
         case "attending":
-          return attendingIcon;
+          return (
+            attendingIcon.src || (attendingIcon.value as unknown as string)
+          );
         case "not-attending":
-          return notAttendingIcon;
+          return (
+            notAttendingIcon.src ||
+            (notAttendingIcon.value as unknown as string)
+          );
         case "maybe":
-          return notSureIcon;
+          return notSureIcon.src || (notSureIcon.value as unknown as string);
         default:
           return "";
       }
@@ -68,7 +73,10 @@ const ProfileList: React.FC<ProfileListProps> = ({
           <IonThumbnail className="profile-avatar-wrapper">
             {eventMember.profileImg ? (
               <IonAvatar className="profile-avatar">
-                <img src={eventMember.profileImg} alt={eventMember.name} />
+                <img
+                  src={eventMember.profileImg}
+                  alt={eventMember.name}
+                />
               </IonAvatar>
             ) : (
               <IonAvatar className="profile-dp">
@@ -83,7 +91,9 @@ const ProfileList: React.FC<ProfileListProps> = ({
               />
             )}
             <span className="remove_user">
-              <IonImg src={closeIcon} />
+              <IonImg
+                src={closeIcon.src || (closeIcon.value as unknown as string)}
+              />
             </span>
           </IonThumbnail>
           <IonLabel className="profile-name">{eventMember.name}</IonLabel>
@@ -98,7 +108,9 @@ const ProfileList: React.FC<ProfileListProps> = ({
               }
             }}
           >
-            <IonImg src={AddMember} />
+            <IonImg
+              src={AddMember.src || (AddMember.value as unknown as string)}
+            />
           </IonThumbnail>
           <IonLabel className="profile-name">Add more</IonLabel>
         </div>

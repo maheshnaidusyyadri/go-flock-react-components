@@ -80,7 +80,11 @@ const LandingPagePresenter: React.FC = ({}) => {
               className="logo"
               href="#"
             >
-              <img src={invitozLogo} />
+              <img
+                src={
+                  invitozLogo.src || (invitozLogo.value as unknown as string)
+                }
+              />
             </a>
             <nav className="nav">
               <ul>
@@ -110,7 +114,7 @@ const LandingPagePresenter: React.FC = ({}) => {
               className="get-app"
             >
               Get started
-              <img src={arrow} />
+              <img src={arrow.src || (arrow.value as unknown as string)} />
             </a>
           </div>
         </header>
@@ -141,7 +145,9 @@ const LandingPagePresenter: React.FC = ({}) => {
         >
           <div className="container events-cnt">
             <div className="heading-badge event-badge">
-              <img src={eventIcon} />
+              <img
+                src={eventIcon.src || (eventIcon.value as unknown as string)}
+              />
               Events
             </div>
             <h2>Create Events with ease!</h2>
@@ -182,7 +188,12 @@ const LandingPagePresenter: React.FC = ({}) => {
         >
           <div className="container invitations-cnt">
             <div className="heading-badge invitation-badge">
-              <img src={invitationIcon} />
+              <img
+                src={
+                  invitationIcon.src ||
+                  (invitationIcon.value as unknown as string)
+                }
+              />
               Invitations
             </div>
             <h2>Seamless Invitation Management</h2>
@@ -224,7 +235,12 @@ const LandingPagePresenter: React.FC = ({}) => {
         >
           <div className="container media-cnt">
             <div className="heading-badge photos-badge">
-              <img src={invitationIcon} />
+              <img
+                src={
+                  invitationIcon.src ||
+                  (invitationIcon.value as unknown as string)
+                }
+              />
               Photos
             </div>
             <h2>Make the moments memorables, with Invitoz</h2>
@@ -281,7 +297,12 @@ const LandingPagePresenter: React.FC = ({}) => {
             <Tabs className="landing-vertical-tabs">
               <div className="split-text">
                 <div className="heading-badge split-badge">
-                  <img src={expenseIcon} />
+                  <img
+                    src={
+                      expenseIcon.src ||
+                      (expenseIcon.value as unknown as string)
+                    }
+                  />
                   Split expenses
                 </div>
                 <h2>Split bills, not the experiences/momories</h2>
@@ -624,7 +645,12 @@ const LandingPagePresenter: React.FC = ({}) => {
             href="#"
             className="logo"
           >
-            <img src={invitozLogoLight} />
+            <img
+              src={
+                invitozLogoLight.src ||
+                (invitationIcon.value as unknown as string)
+              }
+            />
           </a>
           <h3>Your Ultimate AI Event Companion</h3>
           <div className="copy-cnt">
@@ -637,7 +663,9 @@ const LandingPagePresenter: React.FC = ({}) => {
                 <li>
                   <a href="#">
                     <img
-                      src={facebook}
+                      src={
+                        facebook.src || (facebook.value as unknown as string)
+                      }
                       alt="facebook"
                     />
                   </a>
@@ -645,7 +673,9 @@ const LandingPagePresenter: React.FC = ({}) => {
                 <li>
                   <a href="#">
                     <img
-                      src={instagram}
+                      src={
+                        instagram.src || (instagram.value as unknown as string)
+                      }
                       alt="instagram"
                     />
                   </a>
@@ -653,7 +683,7 @@ const LandingPagePresenter: React.FC = ({}) => {
                 <li>
                   <a href="#">
                     <img
-                      src={twitter}
+                      src={twitter.src || (twitter.value as unknown as string)}
                       alt="twitter"
                     />
                   </a>

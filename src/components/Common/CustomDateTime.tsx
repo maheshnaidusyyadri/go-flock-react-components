@@ -73,7 +73,11 @@ const CustomDateTime: React.FC<CustomStartDateProps> = ({
         )}
         <IonImg
           className="picker_icon"
-          src={presentation == "date" ? calanderIcon : clockIcon}
+          src={
+            presentation == "date"
+              ? calanderIcon.src || (calanderIcon.value as unknown as string)
+              : clockIcon.src || (clockIcon.value as unknown as string)
+          }
         />
         <Controller
           defaultValue={defaultValue}

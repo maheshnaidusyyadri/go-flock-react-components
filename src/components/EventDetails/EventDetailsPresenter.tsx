@@ -246,7 +246,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         copyEventLink={copyLink}
         editEvent={editEvent}
       />
-      <IonContent scrollEvents={true} onIonScroll={handleScroll}>
+      <IonContent
+        scrollEvents={true}
+        onIonScroll={handleScroll}
+      >
         <input
           type="file"
           accept="image/*"
@@ -268,7 +271,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                         className="event-dp"
                         onClick={() => fileInputRef.current?.click()}
                       >
-                        <IonImg className="image-preview" src={noPreview} />
+                        <IonImg
+                          className="image-preview"
+                          src={
+                            noPreview.src || (noPreview as unknown as string)
+                          }
+                        />
                       </IonThumbnail>
                     </IonCol>
                   </IonRow>
@@ -304,7 +312,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     photos={invitationCard}
                     render={{
                       link: (props) => (
-                        <StyledLink {...props} isEditView={false} />
+                        <StyledLink
+                          {...props}
+                          isEditView={false}
+                        />
                       ),
                       extras: (_, {}) => (
                         <>
@@ -319,7 +330,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                                 fileInputRef.current?.click();
                               }}
                             >
-                              <IonImg src={EditIcon} />
+                              <IonImg
+                                src={
+                                  EditIcon.src ||
+                                  (EditIcon as unknown as string)
+                                }
+                              />
                             </span>
                           )}
                         </>
@@ -390,7 +406,12 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     <IonItem className="ion-list">
                       <IonCard className="venue-info">
                         <IonThumbnail className="dp">
-                          <IonImg src={goingIcon} alt=" " />
+                          <IonImg
+                            src={
+                              goingIcon.src || (goingIcon as unknown as string)
+                            }
+                            alt=" "
+                          />
                         </IonThumbnail>
                         <IonCardContent className="event-titles">
                           <IonCardTitle
@@ -398,20 +419,20 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                               eventRelation.rsvp.response === "attending"
                                 ? "going"
                                 : eventRelation.rsvp.response ===
-                                  "not-attending"
-                                ? "not-going"
-                                : eventRelation.rsvp.response === "maybe"
-                                ? "not-sure"
-                                : ""
+                                    "not-attending"
+                                  ? "not-going"
+                                  : eventRelation.rsvp.response === "maybe"
+                                    ? "not-sure"
+                                    : ""
                             }`}
                           >
                             {eventRelation.rsvp.response == "attending"
                               ? "Going"
                               : eventRelation.rsvp.response == "not-attending"
-                              ? "Not Going"
-                              : eventRelation.rsvp.response == "maybe"
-                              ? "Not sure"
-                              : ""}
+                                ? "Not Going"
+                                : eventRelation.rsvp.response == "maybe"
+                                  ? "Not sure"
+                                  : ""}
                           </IonCardTitle>
                           <IonCardSubtitle className="event-subtitle">
                             {eventRelation.rsvp.adultsCount} Adults,{" "}
@@ -421,7 +442,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                       </IonCard>
                       <IonThumbnail className="event-type">
                         <IonImg
-                          src={reUpdateIcon}
+                          src={
+                            reUpdateIcon.src ||
+                            (reUpdateIcon as unknown as string)
+                          }
                           alt=""
                           onClick={handleBackAction}
                         />
@@ -433,7 +457,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
               <IonItem className="ion-list">
                 <IonCard className="venue-info">
                   <IonThumbnail className="dp">
-                    <CalendarTick size="32" color="#f47373" variant="Bold" />
+                    <CalendarTick
+                      size="32"
+                      color="#f47373"
+                      variant="Bold"
+                    />
                   </IonThumbnail>
                   <IonCardContent className="event-titles">
                     <IonCardTitle className="event-title">
@@ -451,7 +479,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                     className="dp"
                     onClick={() => navigateToEventLocation(event.id)}
                   >
-                    <Map size="32" color="#f47373" variant="Bold" />
+                    <Map
+                      size="32"
+                      color="#f47373"
+                      variant="Bold"
+                    />
                   </IonThumbnail>
                   <IonCardContent className="event-titles">
                     <IonCardTitle className="event-title">
@@ -463,7 +495,11 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                   className="event-type"
                   onClick={() => navigateToEventLocation(event.id)}
                 >
-                  <DirectRight size="28" color="#3EC7FD" variant="Bold" />
+                  <DirectRight
+                    size="28"
+                    color="#3EC7FD"
+                    variant="Bold"
+                  />
                 </IonThumbnail>
               </IonItem>
               {
@@ -494,6 +530,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
           </IonCard>
         </IonGrid>
       </IonContent>
+      {/* If not a owner, show if they are joining. */}
       {!["owner"].includes(eventRelation?.visitType) &&
       !(eventRelation?.rsvp && eventRelation.rsvp?.response) ? (
         <IonFooter
@@ -503,15 +540,30 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
         >
           <IonCard className="rsvp-card">
             <IonLabel className="rsvp-title">Are you going?</IonLabel>
-            <IonList class="rsvp-actions" onClick={handleBackAction}>
-              <IonItem className="ionitem" onClick={() => handleClick("yes")}>
-                <IonText class="yes" className="iontext">
+            <IonList
+              class="rsvp-actions"
+              onClick={handleBackAction}
+            >
+              <IonItem
+                className="ionitem"
+                onClick={() => handleClick("yes")}
+              >
+                <IonText
+                  class="yes"
+                  className="iontext"
+                >
                   <Yes />
                   Yes
                 </IonText>
               </IonItem>
-              <IonItem className="ionitem" onClick={() => handleClick("no")}>
-                <IonText class="no" className="iontext">
+              <IonItem
+                className="ionitem"
+                onClick={() => handleClick("no")}
+              >
+                <IonText
+                  class="no"
+                  className="iontext"
+                >
                   <No />
                   No
                 </IonText>
@@ -520,7 +572,10 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
                 className="ionitem"
                 onClick={() => handleClick("notSure")}
               >
-                <IonText class="notSure" className="iontext">
+                <IonText
+                  class="notSure"
+                  className="iontext"
+                >
                   <NotSure />
                   Not sure
                 </IonText>

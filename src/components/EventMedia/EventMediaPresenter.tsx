@@ -415,19 +415,27 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                   setIsEditMode(false);
                 }}
               >
-                <IonImg src={CrossIcon} />
+                <IonImg
+                  src={CrossIcon.src || (CrossIcon.value as unknown as string)}
+                />
                 {selectedCount > 0
                   ? selectedCount + " item selected"
                   : "Select item"}
               </IonLabel>
             )}
             {selectedCount > 0 && !areAllSelected && (
-              <IonLabel className="select-action" onClick={handleSelectAll}>
+              <IonLabel
+                className="select-action"
+                onClick={handleSelectAll}
+              >
                 Select All
               </IonLabel>
             )}
             {selectedCount > 0 && areAllSelected && (
-              <IonLabel className="select-action" onClick={handleDeselectAll}>
+              <IonLabel
+                className="select-action"
+                onClick={handleDeselectAll}
+              >
                 Deselect All
               </IonLabel>
             )}
@@ -440,13 +448,19 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             onIonChange={(e) => setSelectedTab(e.detail.value!)}
           >
             <IonSegmentButton value="all">
-              <IonImg src={GridIcon} />
+              <IonImg
+                src={GridIcon.src || (CrossIcon.value as unknown as string)}
+              />
             </IonSegmentButton>
             <IonSegmentButton value="photo">
-              <IonImg src={PhotoIcon} />
+              <IonImg
+                src={PhotoIcon.src || (PhotoIcon.value as unknown as string)}
+              />
             </IonSegmentButton>
             <IonSegmentButton value="video">
-              <IonImg src={VideoIcon} />
+              <IonImg
+                src={VideoIcon.src || (VideoIcon.value as unknown as string)}
+              />
             </IonSegmentButton>
           </IonSegment>
           {photos && photos.length > 0 ? (
@@ -456,7 +470,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
               // @ts-ignore
               render={{
                 link: (props) => (
-                  <StyledLink {...props} isEditView={isEditMode} />
+                  <StyledLink
+                    {...props}
+                    isEditView={isEditMode}
+                  />
                 ),
 
                 // render image selection icon
@@ -489,12 +506,24 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                       )}
                       {type == "video" && (
                         <>
-                          <IonImg class="type-declaration" src={VideoType} />
+                          <IonImg
+                            class="type-declaration"
+                            src={
+                              VideoType.src ||
+                              (VideoType.value as unknown as string)
+                            }
+                          />
                         </>
                       )}
                       {type == "image" && (
                         <>
-                          <IonImg class="type-declaration" src={ImageType} />
+                          <IonImg
+                            class="type-declaration"
+                            src={
+                              ImageType.src ||
+                              (ImageType.value as unknown as string)
+                            }
+                          />
                         </>
                       )}
                     </div>
@@ -542,7 +571,10 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           ) : (
             <IonRow>
               <IonCol>
-                <IonImg src={NoMedia} className="no-media" />
+                <IonImg
+                  src={NoMedia.src || (NoMedia.value as unknown as string)}
+                  className="no-media"
+                />
               </IonCol>
             </IonRow>
           )}
@@ -595,7 +627,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           <IonInfiniteScrollContent loadingText="Loading more images..." />
         </IonInfiniteScroll>
         {!isEditMode && (
-          <IonFab slot="fixed" vertical="bottom" horizontal="end">
+          <IonFab
+            slot="fixed"
+            vertical="bottom"
+            horizontal="end"
+          >
             <IonFabButton onClick={() => fileInputRef.current?.click()}>
               <IonIcon icon={add}></IonIcon>
             </IonFabButton>
@@ -612,22 +648,38 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     className="ion-no-padding"
                     onClick={handleShareSelected}
                   >
-                    <img src={ShareIcon} alt="Share" />
+                    <img
+                      src={
+                        ShareIcon.src || (ShareIcon.value as unknown as string)
+                      }
+                      alt="Share"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDownloadSelected}
                   >
-                    <img src={Download} alt="Split Bill" />
+                    <img
+                      src={
+                        Download.src || (Download.value as unknown as string)
+                      }
+                      alt="Split Bill"
+                    />
                   </IonCol>
                   <IonCol className="ion-no-padding">
-                    <img src={save} alt="save" />
+                    <img
+                      src={save.src || (save.value as unknown as string)}
+                      alt="save"
+                    />
                   </IonCol>
                   <IonCol
                     className="ion-no-padding"
                     onClick={handleDeleteSelected}
                   >
-                    <img src={Delete} alt="Delete" />
+                    <img
+                      src={Delete.src || (Delete.value as unknown as string)}
+                      alt="Delete"
+                    />
                   </IonCol>
                 </IonRow>
               </IonGrid>

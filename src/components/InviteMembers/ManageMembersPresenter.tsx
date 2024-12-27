@@ -202,10 +202,19 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             }
           >
             <IonSegmentButton value="Track">
-              <IonImg src={userSearchIcon} />
+              <IonImg
+                src={
+                  userSearchIcon.src ||
+                  (userSearchIcon.value as unknown as string)
+                }
+              />
             </IonSegmentButton>
             <IonSegmentButton value="Members">
-              <IonImg src={membersIcon} />
+              <IonImg
+                src={
+                  membersIcon.src || (membersIcon.value as unknown as string)
+                }
+              />
             </IonSegmentButton>
           </IonSegment>
 
@@ -257,13 +266,19 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                           {member?.roles?.includes("owner") && (
                             <IonImg
                               className="type"
-                              src={HostIcon}
+                              src={
+                                HostIcon.src ||
+                                (HostIcon.value as unknown as string)
+                              }
                             />
                           )}
                           {member?.roles?.includes("admin") && (
                             <IonImg
                               className="type co"
-                              src={CoHostIcon}
+                              src={
+                                CoHostIcon.src ||
+                                (CoHostIcon.value as unknown as string)
+                              }
                             />
                           )}
                           {member.profileImg ? (
@@ -288,12 +303,16 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                             <img
                               src={
                                 member.rsvp?.response === "attending"
-                                  ? attendingIcon
+                                  ? attendingIcon.src ||
+                                    (attendingIcon.value as unknown as string)
                                   : member.rsvp?.response === "maybe"
-                                    ? notSureIcon
+                                    ? notSureIcon.src ||
+                                      (notSureIcon.value as unknown as string)
                                     : member.rsvp?.response === "not-attending"
-                                      ? notAttendingIcon
-                                      : Selected
+                                      ? notAttendingIcon.src ||
+                                        (notAttendingIcon.value as unknown as string)
+                                      : Selected.src ||
+                                        (Selected.value as unknown as string)
                               }
                               alt="Selected"
                             />
@@ -333,7 +352,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                               <IonLabel class="notifies ion-no-margin">
                                 <IonImg
                                   className="notifies-icon"
-                                  src={NotificationIcon}
+                                  src={
+                                    NotificationIcon.src ||
+                                    (NotificationIcon.value as unknown as string)
+                                  }
                                 />
                                 <IonBadge className="count">
                                   {member.notificationCount}
@@ -347,7 +369,10 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                                   setShowAction(true);
                                 }
                               }}
-                              src={MenuIcon}
+                              src={
+                                MenuIcon.src ||
+                                (MenuIcon.value as unknown as string)
+                              }
                               alt="More Details"
                             />
                           </IonItem>
@@ -359,7 +384,12 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
                   <IonText class="subtitle">No Result Found</IonText>
                 ) : (
                   <IonCard className="nodata">
-                    <IonImg src={noMembers} />
+                    <IonImg
+                      src={
+                        noMembers.value ||
+                        (noMembers.value as unknown as string)
+                      }
+                    />
                     <IonLabel class="title">No invitees</IonLabel>
                     <IonText class="subtitle">
                       Go to contacts and add members
@@ -407,7 +437,9 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
               </FormProvider>
             ) : (
               <IonCard className="nodata">
-                <IonImg src={noMembers} />
+                <IonImg
+                  src={noMembers.src || (noMembers.value as unknown as string)}
+                />
                 <IonLabel class="title">No invitees</IonLabel>
                 <IonText class="subtitle">
                   Go to contacts and add members

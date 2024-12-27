@@ -71,7 +71,7 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
           <IonImg
             slot="start"
             className="arrow_icon ion-margin-start"
-            src={backArrow}
+            src={backArrow.src || (backArrow.value as unknown as string)}
             alt="Page Back"
             onClick={handleBack}
           />
@@ -83,7 +83,10 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
           <IonCardHeader className="card_header">
             <IonLabel className="ion-title">Members</IonLabel>
             {isMultiple && (
-              <IonText className="list-action" onClick={handleSelectAll}>
+              <IonText
+                className="list-action"
+                onClick={handleSelectAll}
+              >
                 {selectedMembers.length === members.length
                   ? "Deselect All"
                   : "Select All"}
@@ -98,7 +101,10 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
                 className="user_item"
                 onClick={() => handleSelectMember(member)}
               >
-                <IonThumbnail slot="start" className="dp">
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
                   {member.profileImg ? (
                     <IonImg
                       src={member.profileImg}
@@ -116,7 +122,9 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
                 {((isMultiple &&
                   selectedMembers.some((m) => m.id === member.id)) ||
                   (!isMultiple && selectedMember?.id === member.id)) && (
-                  <IonImg src={selected} />
+                  <IonImg
+                    src={selected.src || (selected.value as unknown as string)}
+                  />
                 )}
               </IonItem>
             ))}

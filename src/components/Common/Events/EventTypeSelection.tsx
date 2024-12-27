@@ -30,12 +30,36 @@ const EventTypeSelection: React.FC<EventTypeSelectionProps> = ({
   createNewEvent,
 }) => {
   const eventTypes: EventTypeCollection[] = [
-    { label: "Birthday", icon: birthdayIcon, type: "birthday" },
-    { label: "Baby shower", icon: marriageIcon, type: "baby_shower" },
-    { label: "Graduation", icon: graduationIcon, type: "reunion" },
-    { label: "Get togather", icon: marriageIcon, type: "get_togather" },
-    { label: "Vacation trip", icon: vacationIcon, type: "vacation" },
-    { label: "Others", icon: moreIcon, type: "other" },
+    {
+      label: "Birthday",
+      icon: birthdayIcon.src || (birthdayIcon.value as unknown as string),
+      type: "birthday",
+    },
+    {
+      label: "Baby shower",
+      icon: marriageIcon.src || (marriageIcon.value as unknown as string),
+      type: "baby_shower",
+    },
+    {
+      label: "Graduation",
+      icon: graduationIcon.src || (graduationIcon.value as unknown as string),
+      type: "reunion",
+    },
+    {
+      label: "Get togather",
+      icon: marriageIcon.src || (marriageIcon.value as unknown as string),
+      type: "get_togather",
+    },
+    {
+      label: "Vacation trip",
+      icon: vacationIcon.src || (vacationIcon.value as unknown as string),
+      type: "vacation",
+    },
+    {
+      label: "Others",
+      icon: moreIcon.src || (moreIcon.value as unknown as string),
+      type: "other",
+    },
   ];
 
   return (

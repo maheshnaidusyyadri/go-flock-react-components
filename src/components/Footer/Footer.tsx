@@ -15,7 +15,6 @@ import membersActiveIcon from "../../images/icons/membersActive.svg";
 
 import { EventSettings } from "@goflock/types/src";
 import { EventRelation } from "@goflock/types/src/models/event/EventRelation";
-import { Link } from "react-router-dom";
 import { Event } from "@goflock/types";
 
 interface FooterProps {
@@ -110,12 +109,12 @@ const Footer: React.FC<FooterProps> = ({
           <IonRow>
             {enabledTabs.map((tab) => (
               <IonCol key={tab.key}>
-                <Link to={tab.href}>
+                <a href={tab.href}>
                   <img
-                    src={tab.icon}
+                    src={tab.icon.src || tab.icon}
                     alt={`${tab.label} icon`}
                   />
-                </Link>
+                </a>
               </IonCol>
             ))}
           </IonRow>

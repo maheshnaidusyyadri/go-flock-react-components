@@ -26,7 +26,7 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({}) => {
           <IonImg
             className="ion-img"
             alt="Successfully Created Event"
-            src={Success}
+            src={Success.src || (Success.value as unknown as string)}
           />
           <IonLabel className="action-title">
             Successfully Created Event
@@ -38,7 +38,10 @@ const EventCreatedPresenter: React.FC<CreateNewEventProps> = ({}) => {
         </IonGrid>
         <IonFooter className="action-screen-buttons">
           <IonButton className="primary-btn">Go To Event Details</IonButton>
-          <IonButton className="secondary-btn" onClick={() => {}}>
+          <IonButton
+            className="secondary-btn"
+            onClick={() => {}}
+          >
             Invite Friends To The Event
           </IonButton>
         </IonFooter>

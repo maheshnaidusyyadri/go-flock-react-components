@@ -21,17 +21,33 @@ const ManageMembersSkeleton: React.FC<ManageMembersProps> = ({
 }) => {
   return (
     <IonPage style={{ padding: "5px" }}>
-      <Header title="Manage members" showMenu={false} />
+      <Header
+        title="Manage members"
+        showMenu={false}
+      />
       <IonContent className="ion-padding">
-        <IonSegment className="segment-tabs" value={"Track"}>
+        <IonSegment
+          className="segment-tabs"
+          value={"Track"}
+        >
           <IonSegmentButton value="Track">
-            <IonImg src={userSearchIcon} />
+            <IonImg
+              src={
+                userSearchIcon.src ||
+                (userSearchIcon.value as unknown as string)
+              }
+            />
           </IonSegmentButton>
           <IonSegmentButton value="Members">
-            <IonImg src={membersIcon} />
+            <IonImg
+              src={membersIcon.src || (membersIcon.value as unknown as string)}
+            />
           </IonSegmentButton>
         </IonSegment>
-        <IonSkeletonText animated={true} style={{ width: "30%" }} />
+        <IonSkeletonText
+          animated={true}
+          style={{ width: "30%" }}
+        />
         <IonList>
           <IonRow>
             <IonCol
@@ -48,7 +64,10 @@ const ManageMembersSkeleton: React.FC<ManageMembersProps> = ({
                 animated={true}
                 style={{ width: "30px", height: "30px", borderRadius: "50%" }}
               />
-              <IonSkeletonText animated={true} style={{ width: "30%" }} />
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "30%" }}
+              />
             </IonCol>
           </IonRow>
         </IonList>
@@ -68,7 +87,10 @@ const ManageMembersSkeleton: React.FC<ManageMembersProps> = ({
                 animated={true}
                 style={{ width: "30px", height: "30px", borderRadius: "50%" }}
               />
-              <IonSkeletonText animated={true} style={{ width: "30%" }} />
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "30%" }}
+              />
             </IonCol>
           </IonRow>
         </IonList>
@@ -88,7 +110,10 @@ const ManageMembersSkeleton: React.FC<ManageMembersProps> = ({
                 animated={true}
                 style={{ width: "30px", height: "30px", borderRadius: "50%" }}
               />
-              <IonSkeletonText animated={true} style={{ width: "30%" }} />
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "30%" }}
+              />
             </IonCol>
           </IonRow>
         </IonList>
@@ -108,7 +133,10 @@ const ManageMembersSkeleton: React.FC<ManageMembersProps> = ({
                 animated={true}
                 style={{ width: "30px", height: "30px", borderRadius: "50%" }}
               />
-              <IonSkeletonText animated={true} style={{ width: "30%" }} />
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "30%" }}
+              />
             </IonCol>
           </IonRow>
         </IonList>
@@ -128,7 +156,10 @@ const ManageMembersSkeleton: React.FC<ManageMembersProps> = ({
                 animated={true}
                 style={{ width: "30px", height: "30px", borderRadius: "50%" }}
               />
-              <IonSkeletonText animated={true} style={{ width: "30%" }} />
+              <IonSkeletonText
+                animated={true}
+                style={{ width: "30%" }}
+              />
             </IonCol>
           </IonRow>
         </IonList>

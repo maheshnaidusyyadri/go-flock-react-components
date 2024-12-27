@@ -299,7 +299,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
               <IonGrid className="action-screen-cnt">
                 <IonImg
                   alt="Successfully Created Event"
-                  src={Success}
+                  src={Success.src || (Success.value as unknown as string)}
                 />
                 <IonLabel className="action-title">
                   Successfully Created Event
@@ -349,7 +349,7 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 }
                 <IonImg
                   className="next"
-                  src={nextIcon}
+                  src={nextIcon.src || (nextIcon.value as unknown as string)}
                 />
               </IonLabel>
             )}
@@ -720,7 +720,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             >
                               <span>
                                 <img
-                                  src={mediaIcon}
+                                  src={
+                                    mediaIcon.src ||
+                                    (mediaIcon.value as unknown as string)
+                                  }
                                   alt="Media"
                                 />
                               </span>
@@ -754,7 +757,10 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                             >
                               <span>
                                 <img
-                                  src={recordsIcon}
+                                  src={
+                                    recordsIcon.src ||
+                                    (recordsIcon.value as unknown as string)
+                                  }
                                   alt="Record expenses"
                                 />
                               </span>
@@ -767,7 +773,12 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                           {selectedRecord && (
                             <IonItem className="currency_selection">
                               <IonThumbnail>
-                                <IonImg src={currencyIcon} />
+                                <IonImg
+                                  src={
+                                    currencyIcon.src ||
+                                    (currencyIcon.value as unknown as string)
+                                  }
+                                />
                               </IonThumbnail>
                               <IonLabel className="item-title">
                                 Currency

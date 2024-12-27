@@ -141,7 +141,13 @@ const CustomActions: React.FC<CustomActionsProps> = ({
                 onClick={() => handleAction(action)}
               >
                 <IonThumbnail className="icon-thumb">
-                  <IonImg src={action.icon} alt={action.label} />
+                  <IonImg
+                    src={
+                      action.icon.src ||
+                      (action.icon.value as unknown as string)
+                    }
+                    alt={action.label}
+                  />
                   <IonText className="card-label">{action.label}</IonText>
                 </IonThumbnail>
               </IonCol>

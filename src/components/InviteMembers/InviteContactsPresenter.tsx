@@ -39,8 +39,8 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
     );
   };
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact?.name?.toLowerCase().includes(searchText.toLowerCase())
+  const filteredContacts = contacts.filter(
+    (contact) => contact?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
 
   // const getContactsList = () => {
@@ -55,7 +55,11 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
 
   return (
     <IonPage>
-      <Header eventId={eventId} title="Manage members" showMenu={false} />
+      <Header
+        eventId={eventId}
+        title="Manage members"
+        showMenu={false}
+      />
       {!isSmsSend ? (
         <>
           <IonContent className="members-page ion-padding">
@@ -86,7 +90,10 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                         className="list-item"
                         onClick={() => handleSelectContact(member)}
                       >
-                        <IonThumbnail slot="start" className="dp">
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
                           {member.profileImg ? (
                             <IonImg
                               src={member.profileImg}
@@ -99,7 +106,13 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
                           )}
                           {selectedContacts.includes(member) && (
                             <span className="selection">
-                              <img src={Selected} alt="Selected" />
+                              <img
+                                src={
+                                  Selected.src ||
+                                  (Selected.value as unknown as string)
+                                }
+                                alt="Selected"
+                              />
                             </span>
                           )}
                         </IonThumbnail>
@@ -114,7 +127,11 @@ const InviteContactsPresenter: React.FC<InviteContactsProps> = ({
               </div>
             ) : (
               <IonCard className="nodata">
-                <IonImg src={noContacts} />
+                <IonImg
+                  src={
+                    noContacts.src || (noContacts.value as unknown as string)
+                  }
+                />
                 <IonLabel className="title">No Contacts Found</IonLabel>
                 <IonText className="subtitle">
                   Import contacts and add members

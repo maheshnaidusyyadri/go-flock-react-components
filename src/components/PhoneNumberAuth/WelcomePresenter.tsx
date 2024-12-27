@@ -39,7 +39,7 @@ const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({}) => {
             <IonImg
               className="welcome"
               alt="Welcome to Go Flock"
-              src={Welcome}
+              src={Welcome.src || (Welcome.value as unknown as string)}
             />
             <IonLabel className="auth-title">Welcome</IonLabel>
             <IonText className="subtitle">
@@ -47,7 +47,11 @@ const WelcomePresenter: React.FC<PhoneNumberAuthProps> = ({}) => {
             </IonText>
           </IonCard>
         </IonGrid>
-        <IonButton expand="block" shape="round" className="primary-btn">
+        <IonButton
+          expand="block"
+          shape="round"
+          className="primary-btn"
+        >
           Get Started
         </IonButton>
       </IonContent>

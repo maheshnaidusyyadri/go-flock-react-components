@@ -80,7 +80,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
               transactions.map((transaction) => (
                 <IonRow>
                   <IonCol className="ion-padding-top">
-                    <IonList key={transaction.id} className="transaction-list">
+                    <IonList
+                      key={transaction.id}
+                      className="transaction-list"
+                    >
                       <IonItem
                         className="transaction-item ion-no-margin"
                         lines="none"
@@ -94,7 +97,10 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                           className="transaction-actions ion-no-margin"
                         >
                           <p>${transaction.amount}</p>
-                          <IonLabel class="action-btns" slot="end">
+                          <IonLabel
+                            class="action-btns"
+                            slot="end"
+                          >
                             <IonButton
                               className="icon-btn"
                               onClick={() =>
@@ -102,7 +108,12 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                               }
                               disabled={isLoading}
                             >
-                              <IonImg src={EditIcon} />
+                              <IonImg
+                                src={
+                                  EditIcon.src ||
+                                  (EditIcon.value as unknown as string)
+                                }
+                              />
                             </IonButton>
                             <IonButton
                               className="icon-btn"
@@ -111,7 +122,12 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                               }
                               disabled={isLoading}
                             >
-                              <IonImg src={DeleteIcon} />
+                              <IonImg
+                                src={
+                                  DeleteIcon.src ||
+                                  (DeleteIcon.value as unknown as string)
+                                }
+                              />
                             </IonButton>
                           </IonLabel>
                         </IonLabel>

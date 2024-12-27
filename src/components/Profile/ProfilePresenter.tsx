@@ -57,7 +57,10 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
         <IonContent className="ion-padding">
           <IonCard className="profile-card">
             {profile && profile.pictureUrl ? (
-              <IonImg className="dp" src={profile.pictureUrl}></IonImg>
+              <IonImg
+                className="dp"
+                src={profile.pictureUrl}
+              ></IonImg>
             ) : (
               <IonAvatar className="profile-dp">
                 {getDisplayName(profile?.prefName)}
@@ -74,31 +77,78 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
                 className="list-item"
                 onClick={() => setProfileOpen(true)}
               >
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={ProfileIcon} alt="Profile" />
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={
+                      ProfileIcon.src ||
+                      (ProfileIcon.value as unknown as string)
+                    }
+                    alt="Profile"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Profile</IonTitle>
-                  <IonIcon src={rightArrow}></IonIcon>
+                  <IonIcon
+                    src={
+                      rightArrow.src || (rightArrow.value as unknown as string)
+                    }
+                  ></IonIcon>
                 </IonLabel>
               </IonItem>
-              <IonItem className="list-item" onClick={() => setIsOpen(true)}>
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" />
+              <IonItem
+                className="list-item"
+                onClick={() => setIsOpen(true)}
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={
+                      PrivacyIcon.src ||
+                      (PrivacyIcon.value as unknown as string)
+                    }
+                    alt="Privacy"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Privacy</IonTitle>
-                  <IonIcon src={rightArrow}></IonIcon>
+                  <IonIcon
+                    src={
+                      rightArrow.src || (rightArrow.value as unknown as string)
+                    }
+                  ></IonIcon>
                 </IonLabel>
               </IonItem>
 
-              <IonItem className="list-item" id="open-logout-action">
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" />
+              <IonItem
+                className="list-item"
+                id="open-logout-action"
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={
+                      LogOutIcon.src || (LogOutIcon.value as unknown as string)
+                    }
+                    alt="Log Out"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Log Out</IonTitle>
-                  <IonIcon src={rightArrow}></IonIcon>
+                  <IonIcon
+                    src={
+                      rightArrow.src || (rightArrow.value as unknown as string)
+                    }
+                  ></IonIcon>
                 </IonLabel>
               </IonItem>
             </IonList>
@@ -165,7 +215,10 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
             className="modal-close"
             onClick={() => setProfileOpen(false)}
           >
-            <img src={backArrow} alt="Page Back" />
+            <img
+              src={backArrow.src || (backArrow.value as unknown as string)}
+              alt="Page Back"
+            />
           </IonLabel>
           <EditProfile
             profile={profile}
@@ -177,8 +230,14 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
       )}
       {isOpen && (
         <>
-          <IonLabel className="modal-close" onClick={() => setIsOpen(false)}>
-            <img src={backArrow} alt="Page Back" />
+          <IonLabel
+            className="modal-close"
+            onClick={() => setIsOpen(false)}
+          >
+            <img
+              src={backArrow.src || (backArrow.value as unknown as string)}
+              alt="Page Back"
+            />
           </IonLabel>
           <PrivacyPolicy />
         </>

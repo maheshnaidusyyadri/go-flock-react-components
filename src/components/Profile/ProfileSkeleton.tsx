@@ -75,31 +75,75 @@ const ProfileSkeleton: React.FC = ({}) => {
             <IonTitle className="list-title">Setting Options</IonTitle>
             <IonList className="list-wrap">
               <IonItem className="list-item">
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={ProfileIcon} alt="Profile" />
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={
+                      ProfileIcon.src ||
+                      (ProfileIcon.value as unknown as string)
+                    }
+                    alt="Profile"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Profile</IonTitle>
-                  <IonIcon src={rightArrow}></IonIcon>
+                  <IonIcon
+                    src={
+                      rightArrow.src || (rightArrow.value as unknown as string)
+                    }
+                  ></IonIcon>
                 </IonLabel>
               </IonItem>
               <IonItem className="list-item">
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={PrivacyIcon} alt="Privacy" />
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={
+                      PrivacyIcon.src ||
+                      (PrivacyIcon.value as unknown as string)
+                    }
+                    alt="Privacy"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Privacy</IonTitle>
-                  <IonIcon src={rightArrow}></IonIcon>
+                  <IonIcon
+                    src={
+                      rightArrow.src || (rightArrow.value as unknown as string)
+                    }
+                  ></IonIcon>
                 </IonLabel>
               </IonItem>
 
-              <IonItem className="list-item" id="open-logout-action">
-                <IonThumbnail slot="start" className="dp">
-                  <IonImg className="ion-img" src={LogOutIcon} alt="Log Out" />
+              <IonItem
+                className="list-item"
+                id="open-logout-action"
+              >
+                <IonThumbnail
+                  slot="start"
+                  className="dp"
+                >
+                  <IonImg
+                    className="ion-img"
+                    src={
+                      LogOutIcon.src || (LogOutIcon.value as unknown as string)
+                    }
+                    alt="Log Out"
+                  />
                 </IonThumbnail>
                 <IonLabel className="list-info">
                   <IonTitle className="name">Log Out</IonTitle>
-                  <IonIcon src={rightArrow}></IonIcon>
+                  <IonIcon
+                    src={
+                      rightArrow.src || (rightArrow.value as unknown as string)
+                    }
+                  ></IonIcon>
                 </IonLabel>
               </IonItem>
             </IonList>

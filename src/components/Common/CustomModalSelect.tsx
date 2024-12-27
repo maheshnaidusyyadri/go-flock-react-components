@@ -109,7 +109,7 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
         />
         <IonIcon
           className="placeholder-icon"
-          src={ArrowIcon}
+          src={ArrowIcon.src || (ArrowIcon.value as unknown as string)}
         />
       </IonGrid>
       <IonModal
@@ -140,11 +140,13 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
                 >
                   <IonThumbnail className="icon-thumb">
                     <IonImg
-                      src={event.icon}
+                      src={
+                        event.icon.src || (event.icon.name as unknown as string)
+                      }
                       alt={event.label}
                     />
                   </IonThumbnail>
-                  <IonText className="card-label">{event.label}</IonText>
+                  <IonLabel className="card-label">{event.label}</IonLabel>
                 </IonCol>
               ))}
             </IonRow>

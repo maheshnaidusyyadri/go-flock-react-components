@@ -447,7 +447,9 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                         )}
                       </>
                       <IonImg
-                        src={unselect}
+                        src={
+                          unselect.src || (unselect.value as unknown as string)
+                        }
                         alt="status"
                         className="remove_user"
                       />
@@ -474,13 +476,26 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                 }
               >
                 <IonSegmentButton value="equal">
-                  <IonImg src={EqualIcon} />
+                  <IonImg
+                    src={
+                      EqualIcon.src || (EqualIcon.value as unknown as string)
+                    }
+                  />
                 </IonSegmentButton>
                 <IonSegmentButton value="amount">
-                  <IonImg src={DollarIcon} />
+                  <IonImg
+                    src={
+                      DollarIcon.src || (DollarIcon.value as unknown as string)
+                    }
+                  />
                 </IonSegmentButton>
                 <IonSegmentButton value="percentage">
-                  <IonImg src={PercentIcon} />
+                  <IonImg
+                    src={
+                      PercentIcon.src ||
+                      (PercentIcon.value as unknown as string)
+                    }
+                  />
                 </IonSegmentButton>
               </IonSegment>
 
@@ -489,8 +504,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                   <IonCol size="12">
                     <IonList className="list_wrap">
                       {selectedEqallAmount.map((Item, index) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
+                        <IonItem
+                          key={index}
+                          className="user_item"
+                        >
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {Item.profileImg ? (
                               <IonAvatar className="profile-avatar">
                                 <IonImg
@@ -520,8 +541,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                   <IonCol size="12">
                     <IonList className="list_wrap expense_tabs">
                       {selectedMembers.map((Item, index) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
+                        <IonItem
+                          key={index}
+                          className="user_item"
+                        >
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {Item.profileImg ? (
                               <IonAvatar className="profile-avatar">
                                 <IonImg
@@ -562,8 +589,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
                   <IonCol size="12">
                     <IonList className="list_wrap expense_tabs">
                       {selectedMembers.map((Item, index) => (
-                        <IonItem key={index} className="user_item">
-                          <IonThumbnail slot="start" className="dp">
+                        <IonItem
+                          key={index}
+                          className="user_item"
+                        >
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
+                          >
                             {Item.profileImg ? (
                               <IonAvatar className="profile-avatar">
                                 <IonImg
@@ -645,8 +678,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
             <IonGrid className={`step-content ${getStepClass(3)}`}>
               <IonList className="list_wrap">
                 {selectedMembers.map((Item, index) => (
-                  <IonItem key={index} className="user_item">
-                    <IonThumbnail slot="start" className="dp">
+                  <IonItem
+                    key={index}
+                    className="user_item"
+                  >
+                    <IonThumbnail
+                      slot="start"
+                      className="dp"
+                    >
                       {Item.profileImg ? (
                         <IonAvatar className="profile-avatar">
                           <IonImg
