@@ -1,6 +1,6 @@
-import React from 'react';
-import { IonLabel, IonText, IonTextarea } from '@ionic/react';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import React from "react";
+import { IonLabel, IonText, IonTextarea } from "@ionic/react";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 
 interface TextareaProps {
   label?: string;
@@ -26,18 +26,24 @@ const CustomTextarea: React.FC<TextareaProps> = ({
   register,
   onInputChange,
 }) => {
-
   return (
     <>
-      {label && <IonLabel className='form-label'>{isRequired ? label + "*" : label}</IonLabel>}
+      {label && (
+        <IonLabel className="form-label">
+          {isRequired ? label + "*" : label}
+        </IonLabel>
+      )}
       <IonTextarea
-       className="ion-textarea"
+        className="ion-textarea"
         rows={3}
         placeholder={placeholder}
         //name={fieldName}
-        {...register(fieldName, { 
-          required: isRequired, 
-          validate: (value) => (isRequired && !value ? errorText || `${fieldName} is required` : true),
+        {...register(fieldName, {
+          required: isRequired,
+          validate: (value) =>
+            isRequired && !value
+              ? errorText || `${fieldName} is required`
+              : true,
           onChange: (e) => {
             if (onInputChange) {
               onInputChange(e);
@@ -50,8 +56,17 @@ const CustomTextarea: React.FC<TextareaProps> = ({
           }
         }}
       />
-       {errors?.[fieldName] && errors?.[fieldName].type && errors?.[fieldName].type === "required" &&
-          <IonText color="danger" className='error' style={{ fontSize: 12 }}>{"* " + errorText + ' is required'}</IonText>}
+      {errors?.[fieldName] &&
+        errors?.[fieldName]?.type &&
+        errors?.[fieldName]?.type === "required" && (
+          <IonText
+            color="danger"
+            className="error"
+            style={{ fontSize: 12 }}
+          >
+            {"* " + errorText + " is required"}
+          </IonText>
+        )}
     </>
   );
 };

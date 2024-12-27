@@ -61,10 +61,15 @@ const CustomInput: React.FC<CustomInputProps> = ({
           }
         }}
       />
-      {errors?.[fieldName] &&
-        errors?.[fieldName].type &&
-        errors?.[fieldName].type === "required" && (
-          <IonText class="error" color="danger" style={{ fontSize: 12 }}>
+      {errors &&
+        errors?.[fieldName] &&
+        errors?.[fieldName]?.type &&
+        errors?.[fieldName]?.type === "required" && (
+          <IonText
+            class="error"
+            color="danger"
+            style={{ fontSize: 12 }}
+          >
             {"* " + errorText + " is required"}
           </IonText>
         )}

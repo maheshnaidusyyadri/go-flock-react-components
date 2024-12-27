@@ -26,18 +26,19 @@ interface EventItemProps {
 const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
   const showIcons = (eventType: any) => {
     if (eventType === "birthday") {
-      return birthdayIcon;
+      return birthdayIcon.src || (birthdayIcon as unknown as string);
     } else if (eventType === "vacation") {
-      return vacationIcon;
+      return vacationIcon.src || (vacationIcon as unknown as string);
     } else if (eventType === "marriage") {
-      return marriageIcon;
+      return marriageIcon.src || (marriageIcon as unknown as string);
     } else if (eventType === "graduation") {
-      return graduationIcon;
+      return graduationIcon.src || (graduationIcon as unknown as string);
     } else if (eventType === "Others") {
-      return moreIcon;
+      return moreIcon.src || (moreIcon as unknown as string);
     }
-    return defaultEvent;
+    return defaultEvent.src || (defaultEvent as unknown as string);
   };
+
   const getBackGround = (eventType: string) => {
     if (eventType === "birthday") {
       return "#6764fd";
@@ -53,7 +54,10 @@ const EventItem: React.FC<EventItemProps> = ({ event, onOpen }) => {
 
   return (
     <>
-      <IonCard className="event-item" onClick={() => onOpen(event.id)}>
+      <IonCard
+        className="event-item"
+        onClick={() => onOpen(event.id)}
+      >
         {event.invitationCards?.[0].downloadUrl ? (
           <IonThumbnail className="display-pic">
             <IonImg
