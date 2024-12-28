@@ -95,6 +95,10 @@ const Header: React.FC<HeaderProps> = ({
     setShowActionMenu(false);
   };
 
+  console.log(goflockLogoWithTitle);
+  console.log(goflockLogoWithTitle.src);
+  console.log(goflockLogoWithTitle.value);
+
   return (
     <>
       <IonHeader className={`main-header ${className}`}>
@@ -125,8 +129,12 @@ const Header: React.FC<HeaderProps> = ({
             <IonTitle className="page-title">
               <img
                 id="logo"
-                src={goflockLogoWithTitle.src}
-                alt="ProfileIcon"
+                src={
+                  goflockLogoWithTitle.src ||
+                  (goflockLogoWithTitle.value as unknown as string) ||
+                  (goflockLogoWithTitle as unknown as string)
+                }
+                alt="Logo"
                 style={{ maxHeight: "40px", marginRight: "10px" }}
               />
             </IonTitle>

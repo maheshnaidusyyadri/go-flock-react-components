@@ -68,30 +68,43 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
         showGoBack={false}
       ></Header>
       <IonContent className="onboard-cnt ion-padding">
-        <IonRow className="">
-          <IonCol className="ion-text-center">
-            <Swiper
-              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-              autoplay={false}
-              pagination={true}
-              loop={false}
-              navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
-              onSlideChange={handleSlideChange}
+        <IonGrid>
+          <IonRow>
+            <IonCol
+              sizeMd="6"
+              offsetMd="3"
+              sizeLg="4"
+              offsetLg="4"
             >
-              {slides.map((slide, index) => (
-                <SwiperSlide key={index}>
-                  <IonGrid className="step-content ion-no-padding">
-                    <IonCard className="auth-screen">
-                      {slide.icon}
-                      <IonTitle className="ion-title">{slide.title}</IonTitle>
-                      <IonText className="ion-text">{slide.text}</IonText>
-                    </IonCard>
-                  </IonGrid>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </IonCol>
-        </IonRow>
+              <IonRow className="">
+                <IonCol className="ion-text-center">
+                  <Swiper
+                    modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+                    autoplay={false}
+                    pagination={true}
+                    loop={false}
+                    navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
+                    onSlideChange={handleSlideChange}
+                  >
+                    {slides.map((slide, index) => (
+                      <SwiperSlide key={index}>
+                        <IonGrid className="step-content ion-no-padding">
+                          <IonCard className="auth-screen">
+                            {slide.icon}
+                            <IonTitle className="ion-title">
+                              {slide.title}
+                            </IonTitle>
+                            <IonText className="ion-text">{slide.text}</IonText>
+                          </IonCard>
+                        </IonGrid>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </IonCol>
+              </IonRow>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
       <IonFooter className="ion-padding">
         <IonRow>

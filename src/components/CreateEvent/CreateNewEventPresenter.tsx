@@ -349,7 +349,11 @@ const CreateNewEvent: React.FC<CreateNewEventProps> = ({
                 }
                 <IonImg
                   className="next"
-                  src={nextIcon.src || (nextIcon.value as unknown as string)}
+                  src={
+                    nextIcon.src ||
+                    (nextIcon.value as unknown as string) ||
+                    (nextIcon as unknown as string)
+                  }
                 />
               </IonLabel>
             )}

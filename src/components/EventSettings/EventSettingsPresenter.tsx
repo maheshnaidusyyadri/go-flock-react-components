@@ -147,7 +147,9 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               <IonThumbnail className="dp">
                 <IonImg
                   src={
-                    galleryIcon.src || (galleryIcon.value as unknown as string)
+                    galleryIcon.src ||
+                    (galleryIcon.value as unknown as string) ||
+                    (galleryIcon as unknown as string)
                   }
                   alt="Media"
                 />
@@ -167,7 +169,11 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
             <IonLabel className="ion-label">
               <IonThumbnail className="dp">
                 <IonImg
-                  src={billsIcon.src || (billsIcon.value as unknown as string)}
+                  src={
+                    billsIcon.src ||
+                    (billsIcon.value as unknown as string) ||
+                    (billsIcon as unknown as string)
+                  }
                   alt="Add Expenses"
                 />
               </IonThumbnail>
@@ -187,7 +193,9 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               <IonThumbnail className="dp">
                 <IonImg
                   src={
-                    dollarIcon.src || (dollarIcon.value as unknown as string)
+                    dollarIcon.src ||
+                    (dollarIcon.value as unknown as string) ||
+                    (dollarIcon as unknown as string)
                   }
                   alt="chat"
                 />
@@ -215,7 +223,9 @@ const EventSettingsPresenter: React.FC<EventSettingsProps> = ({
               <IonThumbnail className="dp">
                 <IonImg
                   src={
-                    galleryIcon.src || (galleryIcon.value as unknown as string)
+                    galleryIcon.src ||
+                    (galleryIcon.value as unknown as string) ||
+                    (galleryIcon as unknown as string)
                   }
                   alt="Media"
                 />

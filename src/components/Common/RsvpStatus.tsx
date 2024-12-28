@@ -69,7 +69,11 @@ const RsvpStatus: React.FC<RsvpStatusProps> = ({ event }) => {
                   <IonAvatar className="avatar">
                     <IonImg
                       className="ion-img"
-                      src={iconSrc.src || (iconSrc.value as unknown as string)}
+                      src={
+                        iconSrc.src ||
+                        (iconSrc.value as unknown as string) ||
+                        (iconSrc as unknown as string)
+                      }
                       alt="Event"
                     />
                   </IonAvatar>

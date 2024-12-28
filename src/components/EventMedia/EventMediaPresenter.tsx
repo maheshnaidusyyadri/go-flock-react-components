@@ -416,7 +416,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                 }}
               >
                 <IonImg
-                  src={CrossIcon.src || (CrossIcon.value as unknown as string)}
+                  src={
+                    CrossIcon.src ||
+                    (CrossIcon.value as unknown as string) ||
+                    (CrossIcon as unknown as string)
+                  }
                 />
                 {selectedCount > 0
                   ? selectedCount + " item selected"
@@ -449,17 +453,29 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
           >
             <IonSegmentButton value="all">
               <IonImg
-                src={GridIcon.src || (CrossIcon.value as unknown as string)}
+                src={
+                  GridIcon.src ||
+                  (GridIcon.value as unknown as string) ||
+                  (GridIcon as unknown as string)
+                }
               />
             </IonSegmentButton>
             <IonSegmentButton value="photo">
               <IonImg
-                src={PhotoIcon.src || (PhotoIcon.value as unknown as string)}
+                src={
+                  PhotoIcon.src ||
+                  (PhotoIcon.value as unknown as string) ||
+                  (PhotoIcon as unknown as string)
+                }
               />
             </IonSegmentButton>
             <IonSegmentButton value="video">
               <IonImg
-                src={VideoIcon.src || (VideoIcon.value as unknown as string)}
+                src={
+                  VideoIcon.src ||
+                  (VideoIcon.value as unknown as string) ||
+                  (VideoIcon as unknown as string)
+                }
               />
             </IonSegmentButton>
           </IonSegment>
@@ -510,7 +526,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                             class="type-declaration"
                             src={
                               VideoType.src ||
-                              (VideoType.value as unknown as string)
+                              (VideoType.value as unknown as string) ||
+                              (VideoType as unknown as string)
                             }
                           />
                         </>
@@ -521,7 +538,8 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                             class="type-declaration"
                             src={
                               ImageType.src ||
-                              (ImageType.value as unknown as string)
+                              (ImageType.value as unknown as string) ||
+                              (ImageType as unknown as string)
                             }
                           />
                         </>
@@ -572,7 +590,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
             <IonRow>
               <IonCol>
                 <IonImg
-                  src={NoMedia.src || (NoMedia.value as unknown as string)}
+                  src={
+                    NoMedia.src ||
+                    (NoMedia.value as unknown as string) ||
+                    (NoMedia as unknown as string)
+                  }
                   className="no-media"
                 />
               </IonCol>
@@ -650,7 +672,9 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                   >
                     <img
                       src={
-                        ShareIcon.src || (ShareIcon.value as unknown as string)
+                        ShareIcon.src ||
+                        (ShareIcon.value as unknown as string) ||
+                        (ShareIcon as unknown as string)
                       }
                       alt="Share"
                     />
@@ -661,14 +685,20 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                   >
                     <img
                       src={
-                        Download.src || (Download.value as unknown as string)
+                        Download.src ||
+                        (Download.value as unknown as string) ||
+                        (Download as unknown as string)
                       }
                       alt="Split Bill"
                     />
                   </IonCol>
                   <IonCol className="ion-no-padding">
                     <img
-                      src={save.src || (save.value as unknown as string)}
+                      src={
+                        save.src ||
+                        (save.value as unknown as string) ||
+                        (save as unknown as string)
+                      }
                       alt="save"
                     />
                   </IonCol>
@@ -677,7 +707,11 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
                     onClick={handleDeleteSelected}
                   >
                     <img
-                      src={Delete.src || (Delete.value as unknown as string)}
+                      src={
+                        Delete.src ||
+                        (Delete.value as unknown as string) ||
+                        (Delete as unknown as string)
+                      }
                       alt="Delete"
                     />
                   </IonCol>

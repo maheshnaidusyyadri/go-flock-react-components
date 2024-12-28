@@ -111,7 +111,8 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                               <IonImg
                                 src={
                                   EditIcon.src ||
-                                  (EditIcon.value as unknown as string)
+                                  (EditIcon.value as unknown as string) ||
+                                  (EditIcon as unknown as string)
                                 }
                               />
                             </IonButton>
@@ -125,7 +126,8 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
                               <IonImg
                                 src={
                                   DeleteIcon.src ||
-                                  (DeleteIcon.value as unknown as string)
+                                  (DeleteIcon.value as unknown as string) ||
+                                  (DeleteIcon as unknown as string)
                                 }
                               />
                             </IonButton>
