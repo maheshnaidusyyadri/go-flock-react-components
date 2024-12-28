@@ -127,7 +127,7 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
         </IonGrid>
       </IonContent>
       <IonFooter className="ion-padding ion-hide-md-up">
-        <IonGrid fixed>{GetStartedButton}</IonGrid>
+        <IonGrid>{GetStartedButton}</IonGrid>
       </IonFooter>
     </IonPage>
   );

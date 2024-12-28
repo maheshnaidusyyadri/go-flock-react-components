@@ -76,58 +76,118 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
       });
   };
 
+  const SendOtpButton = (
+    <IonRow>
+      <IonCol
+        size="10"
+        offset="1"
+        sizeMd="6"
+        offsetMd="3"
+        sizeLg="4"
+        offsetLg="4"
+      >
+        <IonButton
+          disabled={sendingOtp}
+          expand="block"
+          shape="round"
+          className="primary-btn"
+          onClick={handleSubmit(handleGenerateOTP, onError)}
+        >
+          {sendingOtp ? "Sending OTP" : "Send OTP"}
+        </IonButton>
+      </IonCol>
+    </IonRow>
+  );
+
+  const VerifyOtpButton = (
+    <IonRow>
+      <IonCol
+        size="10"
+        offset="1"
+        sizeMd="6"
+        offsetMd="3"
+        sizeLg="4"
+        offsetLg="4"
+      >
+        <IonButton
+          disabled={verifyingOtp}
+          expand="block"
+          shape="round"
+          className="primary-btn"
+          onClick={handleSubmit(handleVerifyOTP)}
+        >
+          {verifyingOtp ? "Verifying OTP" : "Verify OTP"}
+        </IonButton>
+      </IonCol>
+    </IonRow>
+  );
+
   return (
     <IonPage className="authpage">
       {!otpSent ? (
         <>
           <IonContent className="ion-padding">
-            <IonGrid className="auth_sec ion-no-padding">
+            <IonGrid className="">
               <IonRow>
                 <IonCol
-                  className="ion-margin-bottom"
-                  onClick={() => goToHome()}
+                  size="10"
+                  offset="1"
+                  sizeMd="6"
+                  offsetMd="3"
+                  sizeLg="4"
+                  offsetLg="4"
                 >
-                  <InvitozLogo />
+                  <IonRow>
+                    <IonCol
+                      className="ion-margin-bottom ion-text-center"
+                      onClick={() => goToHome()}
+                    >
+                      <InvitozLogo />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow className="">
+                    <IonCol
+                      className="ion-margin-bottom ion-text-center"
+                      onClick={() => goToHome()}
+                    >
+                      <IonLabel className="auth-title">
+                        Enter Your Phone Number
+                      </IonLabel>
+                      <IonText className="subtitle">
+                        We will send you a 6-digit verification code
+                      </IonText>
+                    </IonCol>
+                  </IonRow>
+                  <IonRow className="">
+                    <IonCol className="ion-text-center">
+                      <FormProvider {...methods}>
+                        <div className="form-group">
+                          <CustomPhoneNumber
+                            control={control}
+                            fieldName="phone"
+                            label="Phone Number"
+                            isRequired={true}
+                            errors={errors}
+                            register={register}
+                            errorText={"Phone Number"}
+                            onPhoneChange={(e: any) => setPhoneNumber(e)}
+                            // countryModal={(e: boolean) =>
+                            //   console.log("ecountryModal", e)
+                            // }
+                          />
+                        </div>
+                      </FormProvider>
+                    </IonCol>
+                  </IonRow>
                 </IonCol>
               </IonRow>
-              <IonCard className="auth-cnt">
-                {/* <IonImg className="logo" alt="Invitoz" src={Logo} /> */}
-                <IonLabel className="auth-title">
-                  Enter Your Phone Number
-                </IonLabel>
-                <IonText className="subtitle">
-                  We will send you a 6-digit verification code
-                </IonText>
-              </IonCard>
-              <FormProvider {...methods}>
-                <div className="form-group">
-                  <CustomPhoneNumber
-                    control={control}
-                    fieldName="phone"
-                    label="Phone Number"
-                    isRequired={true}
-                    errors={errors}
-                    register={register}
-                    errorText={"Phone Number"}
-                    onPhoneChange={(e: any) => setPhoneNumber(e)}
-                    // countryModal={(e: boolean) =>
-                    //   console.log("ecountryModal", e)
-                    // }
-                  />
-                </div>
-              </FormProvider>
+              <div className="ion-hide-md-down ion-padding-top">
+                {SendOtpButton}
+              </div>
             </IonGrid>
           </IonContent>
-          <IonFooter className="ion-padding">
-            <IonButton
-              disabled={sendingOtp}
-              expand="block"
-              shape="round"
-              className="primary-btn"
-              onClick={handleSubmit(handleGenerateOTP, onError)}
-            >
-              {sendingOtp ? "Sending OTP" : "Send OTP"}
-            </IonButton>
+          <IonFooter className="ion-padding ion-hide-md-up">
+            {SendOtpButton}
           </IonFooter>
         </>
       ) : (
@@ -142,17 +202,12 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
                 isRequired={true}
                 sendOTP={sendOTP}
               />
+              <div className="ion-hide-md-down ion-padding-top">
+                {VerifyOtpButton}
+              </div>
             </IonContent>
-            <IonFooter className="stickyFooter ion-padding">
-              <IonButton
-                disabled={verifyingOtp}
-                expand="block"
-                shape="round"
-                className="primary-btn"
-                onClick={handleSubmit(handleVerifyOTP)}
-              >
-                {verifyingOtp ? "Verifying OTP" : "Verify OTP"}
-              </IonButton>
+            <IonFooter className="ion-hide-md-up ion-padding">
+              {VerifyOtpButton}
             </IonFooter>
           </FormProvider>
         </>
