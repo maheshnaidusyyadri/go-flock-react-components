@@ -141,7 +141,9 @@ const CustomModalSelect: React.FC<CustomSelectProps> = ({
                   <IonThumbnail className="icon-thumb">
                     <IonImg
                       src={
-                        event.icon.src || (event.icon.name as unknown as string)
+                        event.icon.src ||
+                        (event.icon.name as unknown as string) ||
+                        (event.icon as unknown as string)
                       }
                       alt={event.label}
                     />
