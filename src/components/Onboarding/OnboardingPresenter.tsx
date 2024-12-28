@@ -59,6 +59,26 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
     },
   ];
 
+  const GetStartedButton = (
+    <IonRow>
+      <IonCol
+        size="10"
+        offset="1"
+        sizeMd="6"
+        offsetMd="3"
+        sizeLg="4"
+        offsetLg="4"
+      >
+        <IonButton
+          className="primary-btn rounded"
+          onClick={introCompleted}
+        >
+          Get Started
+        </IonButton>
+      </IonCol>
+    </IonRow>
+  );
+
   return (
     <IonPage>
       <Header
@@ -71,52 +91,43 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
         <IonGrid>
           <IonRow>
             <IonCol
+              className="ion-text-center"
+              size="10"
+              offset="1"
               sizeMd="6"
               offsetMd="3"
               sizeLg="4"
               offsetLg="4"
             >
-              <IonRow className="">
-                <IonCol className="ion-text-center">
-                  <Swiper
-                    modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-                    autoplay={false}
-                    pagination={true}
-                    loop={false}
-                    navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
-                    onSlideChange={handleSlideChange}
-                  >
-                    {slides.map((slide, index) => (
-                      <SwiperSlide key={index}>
-                        <IonGrid className="step-content ion-no-padding">
-                          <IonCard className="auth-screen">
-                            {slide.icon}
-                            <IonTitle className="ion-title">
-                              {slide.title}
-                            </IonTitle>
-                            <IonText className="ion-text">{slide.text}</IonText>
-                          </IonCard>
-                        </IonGrid>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </IonCol>
-              </IonRow>
+              <Swiper
+                modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+                autoplay={false}
+                pagination={true}
+                loop={false}
+                navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
+                onSlideChange={handleSlideChange}
+              >
+                {slides.map((slide, index) => (
+                  <SwiperSlide key={index}>
+                    <IonGrid className="step-content ion-no-padding">
+                      <IonCard className="auth-screen">
+                        {slide.icon}
+                        <IonTitle className="ion-title">{slide.title}</IonTitle>
+                        <IonText className="ion-text">{slide.text}</IonText>
+                      </IonCard>
+                    </IonGrid>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </IonCol>
           </IonRow>
+          <div className="ion-hide-md-down ion-padding-top">
+            {GetStartedButton}
+          </div>
         </IonGrid>
       </IonContent>
-      <IonFooter className="ion-padding">
-        <IonRow>
-          <IonCol>
-            <IonButton
-              className="primary-btn rounded getstart ion-no-margin"
-              onClick={introCompleted}
-            >
-              Get Started
-            </IonButton>
-          </IonCol>
-        </IonRow>
+      <IonFooter className="ion-padding ion-hide-md-up">
+        <IonGrid fixed>{GetStartedButton}</IonGrid>
       </IonFooter>
     </IonPage>
   );

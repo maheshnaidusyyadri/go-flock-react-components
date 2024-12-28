@@ -95,10 +95,6 @@ const Header: React.FC<HeaderProps> = ({
     setShowActionMenu(false);
   };
 
-  console.log(goflockLogoWithTitle);
-  console.log(goflockLogoWithTitle.src);
-  console.log(goflockLogoWithTitle.value);
-
   return (
     <>
       <IonHeader className={`main-header ${className}`}>
