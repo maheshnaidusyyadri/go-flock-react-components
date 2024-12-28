@@ -28,6 +28,7 @@ import ChatIcon from "../Common/Icons/Chat";
 import ExpancesIcon from "../Common/Icons/Split";
 import { IntroductionProps } from "@goflock/types/src/presenter";
 import Header from "../Header/Header";
+import CenteredColumn from "../Common/CenteredColumn";
 
 const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
   const [, setActiveIndex] = useState(0);
@@ -60,23 +61,14 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
   ];
 
   const GetStartedButton = (
-    <IonRow>
-      <IonCol
-        size="10"
-        offset="1"
-        sizeMd="6"
-        offsetMd="3"
-        sizeLg="4"
-        offsetLg="4"
+    <CenteredColumn>
+      <IonButton
+        className="primary-btn rounded"
+        onClick={introCompleted}
       >
-        <IonButton
-          className="primary-btn rounded"
-          onClick={introCompleted}
-        >
-          Get Started
-        </IonButton>
-      </IonCol>
-    </IonRow>
+        Get Started
+      </IonButton>
+    </CenteredColumn>
   );
 
   return (

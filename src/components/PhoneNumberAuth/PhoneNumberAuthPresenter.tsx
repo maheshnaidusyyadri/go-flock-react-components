@@ -18,6 +18,7 @@ import InvitozLogo from "../Common/Icons/Logo";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomPhoneNumber from "../Common/CustomPhone";
 import OtpVerification from "../Common/OtpVerification";
+import CenteredColumn from "../Common/CenteredColumn";
 
 const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   sendOTP,
@@ -100,26 +101,17 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
   );
 
   const VerifyOtpButton = (
-    <IonRow>
-      <IonCol
-        size="10"
-        offset="1"
-        sizeMd="6"
-        offsetMd="3"
-        sizeLg="4"
-        offsetLg="4"
+    <CenteredColumn>
+      <IonButton
+        disabled={verifyingOtp}
+        expand="block"
+        shape="round"
+        className="primary-btn"
+        onClick={handleSubmit(handleVerifyOTP)}
       >
-        <IonButton
-          disabled={verifyingOtp}
-          expand="block"
-          shape="round"
-          className="primary-btn"
-          onClick={handleSubmit(handleVerifyOTP)}
-        >
-          {verifyingOtp ? "Verifying OTP" : "Verify OTP"}
-        </IonButton>
-      </IonCol>
-    </IonRow>
+        {verifyingOtp ? "Verifying OTP" : "Verify OTP"}
+      </IonButton>
+    </CenteredColumn>
   );
 
   return (
