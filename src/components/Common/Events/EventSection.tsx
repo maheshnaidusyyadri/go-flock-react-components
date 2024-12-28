@@ -18,7 +18,11 @@ const EventSection: React.FC<EventSectionProps> = ({ events, onOpenEvent }) => (
       <IonRow className="event-row">
         {events && events.length > 0 ? (
           events.map((event) => (
-            <IonCol key={event.id} size="6" className="event-col">
+            <IonCol
+              key={event.id}
+              size="6"
+              className="event-col"
+            >
               <EventItem
                 event={event}
                 onOpen={onOpenEvent}
@@ -27,7 +31,11 @@ const EventSection: React.FC<EventSectionProps> = ({ events, onOpenEvent }) => (
             </IonCol>
           ))
         ) : (
-          <IonCol size="12" className="no-events">
+          <IonCol
+            size="10"
+            offset="1"
+            className="no-events"
+          >
             <NoEvent />
           </IonCol>
         )}

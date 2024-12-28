@@ -9,11 +9,13 @@ import {
   IonFooter,
   IonButton,
   IonModal,
+  IonGrid,
 } from "@ionic/react";
 import { DashboardProps } from "@goflock/types/src/index";
 import EventSection from "../Common/Events/EventSection";
 import Header from "../Header/Header";
 import EventTypeSelection from "../Common/Events/EventTypeSelection";
+import CenteredColumn from "../Common/CenteredColumn";
 
 const DashboardPresenter: React.FC<DashboardProps> = ({
   profile,
@@ -27,6 +29,19 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
   >("AllEvents");
 
   const modal = useRef<HTMLIonModalElement>(null);
+  const CreateNewEventButton = (
+    <CenteredColumn>
+      <IonButton
+        className="primary-btn"
+        shape="round"
+        size="large"
+        id="open-modal"
+        expand="block"
+      >
+        Create new event
+      </IonButton>
+    </CenteredColumn>
+  );
 
   return (
     <IonPage>
@@ -38,49 +53,46 @@ const DashboardPresenter: React.FC<DashboardProps> = ({
         profile={profile}
       />
       <IonContent className="dashboard ion-padding-end ion-padding-start ion-padding-bottom">
-        <IonSegment
-          className="segment-tabs"
-          value={selectedSegment}
-          onIonChange={(e) =>
-            setSelectedSegment(e.detail.value as "AllEvents" | "MyEvents")
-          }
-        >
-          <IonSegmentButton value="AllEvents">
-            <IonLabel>All events</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton value="MyEvents">
-            <IonLabel>My events</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
+        <IonGrid>
+          <CenteredColumn>
+            <IonSegment
+              className="segment-tabs"
+              value={selectedSegment}
+              onIonChange={(e) =>
+                setSelectedSegment(e.detail.value as "AllEvents" | "MyEvents")
+              }
+            >
+              <IonSegmentButton value="AllEvents">
+                <IonLabel>All events</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton value="MyEvents">
+                <IonLabel>My events</IonLabel>
+              </IonSegmentButton>
+            </IonSegment>
 
-        {selectedSegment === "AllEvents" && (
-          <EventSection
-            title=""
-            events={activeEvents}
-            //onSeeAll={() => seeAllEvents("guest")}
-            onOpenEvent={openEvent}
-          />
-        )}
+            {selectedSegment === "AllEvents" && (
+              <EventSection
+                title=""
+                events={activeEvents}
+                onOpenEvent={openEvent}
+              />
+            )}
 
-        {selectedSegment === "MyEvents" && (
-          <EventSection
-            title=""
-            events={myEvents}
-            //  onSeeAll={seeAllMyEvents}
-            onOpenEvent={openEvent}
-          />
-        )}
+            {selectedSegment === "MyEvents" && (
+              <EventSection
+                title=""
+                events={myEvents}
+                onOpenEvent={openEvent}
+              />
+            )}
+          </CenteredColumn>
+          <div className="ion-hide-md-down ion-padding-top">
+            {CreateNewEventButton}
+          </div>
+        </IonGrid>
       </IonContent>
-      <IonFooter className="ion-padding">
-        <IonButton
-          className="primary-btn"
-          shape="round"
-          size="large"
-          id="open-modal"
-          expand="block"
-        >
-          Create new event
-        </IonButton>
+      <IonFooter className="ion-padding ion-hide-md-up">
+        <IonGrid>{CreateNewEventButton}</IonGrid>
       </IonFooter>
 
       <IonModal
