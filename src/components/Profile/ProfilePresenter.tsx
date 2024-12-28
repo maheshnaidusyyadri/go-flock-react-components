@@ -27,6 +27,7 @@ import rightArrow from "../.././images/icons/arrow-right.svg";
 
 import EditProfile from "./EditProfile";
 import { getDisplayName } from "../../utils/utils";
+import CenteredColumn from "../Common/CenteredColumn";
 const ProfilePresenter: React.FC<ProfileProps> = ({
   profile,
   setPreferredName,
@@ -55,113 +56,115 @@ const ProfilePresenter: React.FC<ProfileProps> = ({
           }}
         />
         <IonContent className="ion-padding">
-          <IonCard className="profile-card">
-            {profile && profile.pictureUrl ? (
-              <IonImg
-                className="dp"
-                src={profile.pictureUrl}
-              ></IonImg>
-            ) : (
-              <IonAvatar className="profile-dp">
-                {getDisplayName(profile?.prefName)}
-              </IonAvatar>
-            )}
-            <IonTitle className="name">{profile.prefName}</IonTitle>
-            <IonText className="number">{profile.phone}</IonText>
-          </IonCard>
-
           <IonGrid className="pad0 profile-settings">
-            <IonTitle className="list-title">Setting Options</IonTitle>
-            <IonList className="list-wrap">
-              <IonItem
-                className="list-item"
-                onClick={() => setProfileOpen(true)}
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
+            <CenteredColumn>
+              <IonCard className="profile-card">
+                {profile && profile.pictureUrl ? (
                   <IonImg
-                    className="ion-img"
-                    src={
-                      ProfileIcon.src ||
-                      (ProfileIcon.value as unknown as string) ||
-                      (ProfileIcon as unknown as string)
-                    }
-                    alt="Profile"
-                  />
-                </IonThumbnail>
-                <IonLabel className="list-info">
-                  <IonTitle className="name">Profile</IonTitle>
-                  <IonIcon
-                    src={
-                      rightArrow.src ||
-                      (rightArrow.value as unknown as string) ||
-                      (rightArrow as unknown as string)
-                    }
-                  ></IonIcon>
-                </IonLabel>
-              </IonItem>
-              <IonItem
-                className="list-item"
-                onClick={() => setIsOpen(true)}
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
-                >
-                  <IonImg
-                    className="ion-img"
-                    src={
-                      PrivacyIcon.src ||
-                      (PrivacyIcon.value as unknown as string) ||
-                      (PrivacyIcon as unknown as string)
-                    }
-                    alt="Privacy"
-                  />
-                </IonThumbnail>
-                <IonLabel className="list-info">
-                  <IonTitle className="name">Privacy</IonTitle>
-                  <IonIcon
-                    src={
-                      rightArrow.src ||
-                      (rightArrow.value as unknown as string) ||
-                      (rightArrow as unknown as string)
-                    }
-                  ></IonIcon>
-                </IonLabel>
-              </IonItem>
+                    className="dp"
+                    src={profile.pictureUrl}
+                  ></IonImg>
+                ) : (
+                  <IonAvatar className="profile-dp">
+                    {getDisplayName(profile?.prefName)}
+                  </IonAvatar>
+                )}
+                <IonTitle className="name">{profile.prefName}</IonTitle>
+                <IonText className="number">{profile.phone}</IonText>
+              </IonCard>
 
-              <IonItem
-                className="list-item"
-                id="open-logout-action"
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
+              <IonTitle className="list-title">Setting Options</IonTitle>
+              <IonList className="list-wrap">
+                <IonItem
+                  className="list-item"
+                  onClick={() => setProfileOpen(true)}
                 >
-                  <IonImg
-                    className="ion-img"
-                    src={
-                      LogOutIcon.src ||
-                      (LogOutIcon.value as unknown as string) ||
-                      (LogOutIcon as unknown as string)
-                    }
-                    alt="Log Out"
-                  />
-                </IonThumbnail>
-                <IonLabel className="list-info">
-                  <IonTitle className="name">Log Out</IonTitle>
-                  <IonIcon
-                    src={
-                      rightArrow.src ||
-                      (rightArrow.value as unknown as string) ||
-                      (rightArrow as unknown as string)
-                    }
-                  ></IonIcon>
-                </IonLabel>
-              </IonItem>
-            </IonList>
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    <IonImg
+                      className="ion-img"
+                      src={
+                        ProfileIcon.src ||
+                        (ProfileIcon.value as unknown as string) ||
+                        (ProfileIcon as unknown as string)
+                      }
+                      alt="Profile"
+                    />
+                  </IonThumbnail>
+                  <IonLabel className="list-info">
+                    <IonTitle className="name">Profile</IonTitle>
+                    <IonIcon
+                      src={
+                        rightArrow.src ||
+                        (rightArrow.value as unknown as string) ||
+                        (rightArrow as unknown as string)
+                      }
+                    ></IonIcon>
+                  </IonLabel>
+                </IonItem>
+                <IonItem
+                  className="list-item"
+                  onClick={() => setIsOpen(true)}
+                >
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    <IonImg
+                      className="ion-img"
+                      src={
+                        PrivacyIcon.src ||
+                        (PrivacyIcon.value as unknown as string) ||
+                        (PrivacyIcon as unknown as string)
+                      }
+                      alt="Privacy"
+                    />
+                  </IonThumbnail>
+                  <IonLabel className="list-info">
+                    <IonTitle className="name">Privacy</IonTitle>
+                    <IonIcon
+                      src={
+                        rightArrow.src ||
+                        (rightArrow.value as unknown as string) ||
+                        (rightArrow as unknown as string)
+                      }
+                    ></IonIcon>
+                  </IonLabel>
+                </IonItem>
+
+                <IonItem
+                  className="list-item"
+                  id="open-logout-action"
+                >
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    <IonImg
+                      className="ion-img"
+                      src={
+                        LogOutIcon.src ||
+                        (LogOutIcon.value as unknown as string) ||
+                        (LogOutIcon as unknown as string)
+                      }
+                      alt="Log Out"
+                    />
+                  </IonThumbnail>
+                  <IonLabel className="list-info">
+                    <IonTitle className="name">Log Out</IonTitle>
+                    <IonIcon
+                      src={
+                        rightArrow.src ||
+                        (rightArrow.value as unknown as string) ||
+                        (rightArrow as unknown as string)
+                      }
+                    ></IonIcon>
+                  </IonLabel>
+                </IonItem>
+              </IonList>
+            </CenteredColumn>
           </IonGrid>
         </IonContent>
       </IonPage>

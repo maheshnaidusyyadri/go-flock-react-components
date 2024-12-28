@@ -104,7 +104,11 @@ const Header: React.FC<HeaderProps> = ({
               <IonButton onClick={() => handleLeftButtonAction()}>
                 <IonThumbnail className="profile-icon">
                   <IonImg
-                    src={backArrow.src || (backArrow as unknown as string)}
+                    src={
+                      backArrow.src ||
+                      (backArrow.value as unknown as string) ||
+                      (backArrow as unknown as string)
+                    }
                     alt="Page Back"
                   />
                 </IonThumbnail>
@@ -114,7 +118,11 @@ const Header: React.FC<HeaderProps> = ({
               <IonButton routerLink="/">
                 <IonThumbnail className="profile-icon">
                   <IonImg
-                    src={goflockLogo.src || (goflockLogo as unknown as string)}
+                    src={
+                      goflockLogo.src ||
+                      (goflockLogo.value as unknown as string) ||
+                      (goflockLogo as unknown as string)
+                    }
                     alt="profile"
                   />
                 </IonThumbnail>

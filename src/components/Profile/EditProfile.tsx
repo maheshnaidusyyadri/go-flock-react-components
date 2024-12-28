@@ -17,6 +17,7 @@ import { Profile } from "@goflock/types";
 import { FormProvider, useForm } from "react-hook-form";
 import CustomInput from "../Common/CustomInput";
 import { getDisplayName } from "../../utils/utils";
+import CenteredColumn from "../Common/CenteredColumn";
 
 type EditProfileProps = {
   profile: Profile;
@@ -103,6 +104,18 @@ const EditProfile: React.FC<EditProfileProps> = ({
     console.log(err);
   };
 
+  const SaveProfileButton = (
+    <CenteredColumn>
+      <IonButton
+        expand="block"
+        onClick={handleSubmit(handlePreferredNameChange, onError)}
+        className="primary-btn rounded"
+      >
+        Save
+      </IonButton>
+    </CenteredColumn>
+  );
+
   return (
     <IonPage>
       <Header
@@ -111,92 +124,94 @@ const EditProfile: React.FC<EditProfileProps> = ({
         showContactList={false}
         className="darkheader"
       />
-      {/* Hidden file input for image upload */}
-      <input
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }} // Hide the file input
-        ref={fileInputRef} // Assign ref to the file input
-        onChange={handleFileChange} // Handle file change
-      />
-      <IonContent className="profile_edit_cnt">
-        <IonCard className="profile_edit_card">
-          <span className="dp_wrap">
-            {image || profile.pictureUrl ? (
-              <IonImg
-                className="dp"
-                src={image || profile.pictureUrl}
-              ></IonImg>
-            ) : profile?.prefName ? (
-              <IonAvatar className="profile-dp">
-                {getDisplayName(profile.prefName)}
-              </IonAvatar>
-            ) : null}
-            <span
-              className="dp_edit"
-              onClick={() => fileInputRef.current?.click()}
-            ></span>
-          </span>
-        </IonCard>
-        <div className="profile_info_card ion-no-margin">
-          <FormProvider {...methods}>
-            <IonGrid className="ion-no-padding">
-              <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
-                  <CustomInput
-                    placeholder={"Enter your name"}
-                    label={"Name"}
-                    fieldName={"name"}
-                    isRequired={true}
-                    errors={errors}
-                    defaultValue={preferredName}
-                    errorText={"Name"}
-                    register={register}
-                    onInputChange={(e) =>
-                      setPreferredNameState(e.detail.value!)
-                    }
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="form-group non-editable ion-padding-bottom">
-                  <CustomInput
-                    placeholder={"Enter Phone Number"}
-                    label={"Phone Number"}
-                    fieldName={"phone"}
-                    isRequired={false}
-                    errors={errors}
-                    defaultValue={phone}
-                    errorText={"Phone Number"}
-                    inputType={"text"}
-                    register={register}
-                    onInputChange={(e) => setPhone(e.detail.value!)}
-                    readOnly={true}
-                  />
-                </IonCol>
-              </IonRow>
-              <div className="terms">
-                <IonToggle
-                  className="ion-toggle"
-                  labelPlacement="start"
-                  checked={sendNotification}
-                  onIonChange={handleNotification}
-                >
-                  Get remainders, notifications via SMS.
-                </IonToggle>
-              </div>
-            </IonGrid>
-          </FormProvider>
-        </div>
+      <IonContent className="">
+        <IonGrid>
+          <CenteredColumn>
+            {/* Hidden file input for image upload */}
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }} // Hide the file input
+              ref={fileInputRef} // Assign ref to the file input
+              onChange={handleFileChange} // Handle file change
+            />
+
+            <IonCard className="profile_edit_card profile_edit_cnt">
+              <span className="dp_wrap">
+                {image || profile.pictureUrl ? (
+                  <IonImg
+                    className="dp"
+                    src={image || profile.pictureUrl}
+                  ></IonImg>
+                ) : profile?.prefName ? (
+                  <IonAvatar className="profile-dp">
+                    {getDisplayName(profile.prefName)}
+                  </IonAvatar>
+                ) : null}
+                <span
+                  className="dp_edit"
+                  onClick={() => fileInputRef.current?.click()}
+                ></span>
+              </span>
+            </IonCard>
+            <div className="profile_info_card ion-no-margin">
+              <FormProvider {...methods}>
+                <IonGrid className="ion-no-padding">
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <CustomInput
+                        placeholder={"Enter your name"}
+                        label={"Name"}
+                        fieldName={"name"}
+                        isRequired={true}
+                        errors={errors}
+                        defaultValue={preferredName}
+                        errorText={"Name"}
+                        register={register}
+                        onInputChange={(e) =>
+                          setPreferredNameState(e.detail.value!)
+                        }
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol className="form-group non-editable ion-padding-bottom">
+                      <CustomInput
+                        placeholder={"Enter Phone Number"}
+                        label={"Phone Number"}
+                        fieldName={"phone"}
+                        isRequired={false}
+                        errors={errors}
+                        defaultValue={phone}
+                        errorText={"Phone Number"}
+                        inputType={"text"}
+                        register={register}
+                        onInputChange={(e) => setPhone(e.detail.value!)}
+                        readOnly={true}
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <div className="terms">
+                    <IonToggle
+                      className="ion-toggle"
+                      labelPlacement="start"
+                      checked={sendNotification}
+                      onIonChange={handleNotification}
+                    >
+                      Get remainders, notifications via SMS.
+                    </IonToggle>
+                  </div>
+                </IonGrid>
+              </FormProvider>
+            </div>
+          </CenteredColumn>
+          <div className="ion-hide-md-down ion-padding-top">
+            {SaveProfileButton}
+          </div>
+        </IonGrid>
       </IonContent>
-      <IonFooter className="stickyFooter">
-        <IonButton
-          expand="block"
-          onClick={handleSubmit(handlePreferredNameChange, onError)}
-          className="primary-btn rounded"
-        >
-          Save
-        </IonButton>
+      <IonFooter className="ion-padding ion-hide-md-up">
+        <IonGrid>{SaveProfileButton}</IonGrid>
       </IonFooter>
     </IonPage>
   );
