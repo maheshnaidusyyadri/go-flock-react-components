@@ -1,0 +1,19 @@
+/* Ensure the menu looks clean and intuitive */
+.side-nav {
+  ion-menu {
+    --background: #ffffff;
+    --border-radius: 0px;
+    --width: 250px;
+  }
+
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    font-size: 16px;
+  }
+
+  ion-img {
+    width: 24px;
+    height: 24px;
+  }
+}

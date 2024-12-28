@@ -12,6 +12,7 @@ import {
   IonButton,
   IonAvatar,
   IonProgressBar,
+  IonMenuButton,
 } from "@ionic/react";
 import "./Header.scss";
 import backArrow from "../../images/icons/back-arrow.svg";
@@ -115,18 +116,28 @@ const Header: React.FC<HeaderProps> = ({
               </IonButton>
             )}
             {showLogo && logoPosition === "left" && (
-              <IonButton routerLink="/">
-                <IonThumbnail className="profile-icon">
-                  <IonImg
-                    src={
-                      goflockLogo.src ||
-                      (goflockLogo.value as unknown as string) ||
-                      (goflockLogo as unknown as string)
-                    }
-                    alt="profile"
-                  />
-                </IonThumbnail>
-              </IonButton>
+              <IonButtons slot="start">
+                <IonMenuButton
+                  menu="side-nav"
+                  autoHide={false}
+                  className="ion-hide-md-down"
+                />
+                <IonButton
+                  routerLink="/"
+                  className="ion-hide-md-up"
+                >
+                  <IonThumbnail className="profile-icon">
+                    <IonImg
+                      src={
+                        goflockLogo.src ||
+                        (goflockLogo.value as unknown as string) ||
+                        (goflockLogo as unknown as string)
+                      }
+                      alt="profile"
+                    />
+                  </IonThumbnail>
+                </IonButton>
+              </IonButtons>
             )}
           </IonButtons>
           {showLogo && logoPosition === "middle" && (
