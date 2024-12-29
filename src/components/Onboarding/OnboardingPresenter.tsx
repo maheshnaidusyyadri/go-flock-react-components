@@ -9,8 +9,6 @@ import {
   IonButton,
   IonFooter,
   IonPage,
-  IonRow,
-  IonCol,
 } from "@ionic/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
@@ -81,38 +79,28 @@ const Onboarding: React.FC<IntroductionProps> = ({ introCompleted }) => {
       ></Header>
       <IonContent className="onboard-cnt ion-padding">
         <IonGrid>
-          <IonRow>
-            <IonCol
-              className="ion-text-center"
-              size="10"
-              offset="1"
-              sizeMd="6"
-              offsetMd="3"
-              sizeLg="4"
-              offsetLg="4"
+          <CenteredColumn>
+            <Swiper
+              modules={[Autoplay, Pagination, IonicSlides, Navigation]}
+              autoplay={false}
+              pagination={true}
+              loop={false}
+              navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
+              onSlideChange={handleSlideChange}
             >
-              <Swiper
-                modules={[Autoplay, Pagination, IonicSlides, Navigation]}
-                autoplay={false}
-                pagination={true}
-                loop={false}
-                navigation={{ nextEl: null, prevEl: null }} // Hide navigation on the last slide
-                onSlideChange={handleSlideChange}
-              >
-                {slides.map((slide, index) => (
-                  <SwiperSlide key={index}>
-                    <IonGrid className="step-content ion-no-padding">
-                      <IonCard className="auth-screen">
-                        {slide.icon}
-                        <IonTitle className="ion-title">{slide.title}</IonTitle>
-                        <IonText className="ion-text">{slide.text}</IonText>
-                      </IonCard>
-                    </IonGrid>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </IonCol>
-          </IonRow>
+              {slides.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <IonGrid className="step-content ion-no-padding">
+                    <IonCard className="auth-screen">
+                      {slide.icon}
+                      <IonTitle className="ion-title">{slide.title}</IonTitle>
+                      <IonText className="ion-text">{slide.text}</IonText>
+                    </IonCard>
+                  </IonGrid>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </CenteredColumn>
           <div className="ion-hide-md-down ion-padding-top">
             {GetStartedButton}
           </div>

@@ -119,59 +119,50 @@ const PhoneNumberAuthPresenter: React.FC<PhoneNumberAuthProps> = ({
         <>
           <IonContent className="ion-padding">
             <IonGrid className="">
-              <IonRow>
-                <IonCol
-                  size="10"
-                  offset="1"
-                  sizeMd="6"
-                  offsetMd="3"
-                  sizeLg="4"
-                  offsetLg="4"
-                >
-                  <IonRow>
-                    <IonCol
-                      className="ion-margin-bottom ion-text-center"
-                      onClick={() => goToHome()}
-                    >
-                      <InvitozLogo />
-                    </IonCol>
-                  </IonRow>
-                  <IonRow className="">
-                    <IonCol
-                      className="ion-margin-bottom ion-text-center"
-                      onClick={() => goToHome()}
-                    >
-                      <IonLabel className="auth-title">
-                        Enter Your Phone Number
-                      </IonLabel>
-                      <IonText className="subtitle">
-                        We will send you a 6-digit verification code
-                      </IonText>
-                    </IonCol>
-                  </IonRow>
-                  <IonRow className="">
-                    <IonCol className="ion-text-center">
-                      <FormProvider {...methods}>
-                        <div className="form-group">
-                          <CustomPhoneNumber
-                            control={control}
-                            fieldName="phone"
-                            label="Phone Number"
-                            isRequired={true}
-                            errors={errors}
-                            register={register}
-                            errorText={"Phone Number"}
-                            onPhoneChange={(e: any) => setPhoneNumber(e)}
-                            // countryModal={(e: boolean) =>
-                            //   console.log("ecountryModal", e)
-                            // }
-                          />
-                        </div>
-                      </FormProvider>
-                    </IonCol>
-                  </IonRow>
-                </IonCol>
-              </IonRow>
+              <CenteredColumn>
+                <IonRow>
+                  <IonCol
+                    className="ion-margin-bottom ion-text-center"
+                    onClick={() => goToHome()}
+                  >
+                    <InvitozLogo />
+                  </IonCol>
+                </IonRow>
+                <IonRow className="">
+                  <IonCol
+                    className="ion-margin-bottom ion-text-center"
+                    onClick={() => goToHome()}
+                  >
+                    <IonLabel className="auth-title">
+                      Enter Your Phone Number
+                    </IonLabel>
+                    <IonText className="subtitle">
+                      We will send you a 6-digit verification code
+                    </IonText>
+                  </IonCol>
+                </IonRow>
+                <IonRow className="">
+                  <IonCol className="ion-text-center">
+                    <FormProvider {...methods}>
+                      <div className="form-group">
+                        <CustomPhoneNumber
+                          control={control}
+                          fieldName="phone"
+                          label="Phone Number"
+                          isRequired={true}
+                          errors={errors}
+                          register={register}
+                          errorText={"Phone Number"}
+                          onPhoneChange={(e: any) => setPhoneNumber(e)}
+                          // countryModal={(e: boolean) =>
+                          //   console.log("ecountryModal", e)
+                          // }
+                        />
+                      </div>
+                    </FormProvider>
+                  </IonCol>
+                </IonRow>
+              </CenteredColumn>
               <div className="ion-hide-md-down ion-padding-top">
                 {SendOtpButton}
               </div>
