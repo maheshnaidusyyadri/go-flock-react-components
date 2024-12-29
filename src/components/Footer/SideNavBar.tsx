@@ -127,7 +127,9 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                 alt={`${tab.label} icon`}
                 slot="start"
               />
-              <IonLabel>{tab.label}</IonLabel>
+              <IonLabel className="ion-padding-horizontal">
+                {tab.label}
+              </IonLabel>
             </IonItem>
           ))}
         </IonList>

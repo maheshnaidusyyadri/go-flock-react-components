@@ -15,6 +15,7 @@ import {
 } from "../Common/MockData";
 import { withRouter } from "storybook-addon-remix-react-router";
 import ManageMembersSkeletonPage from "./ManageMembersSkeleton";
+import { IonApp, IonContent } from "@ionic/react";
 
 export default {
   title: "GoFlock/Presenters/ManageMembersPresenter",
@@ -23,7 +24,11 @@ export default {
 };
 
 const Template: StoryFn<ManageMembersProps> = (args) => (
-  <ManageMembersPresenter {...args} />
+  <IonApp>
+    <IonContent>
+      <ManageMembersPresenter {...args} />
+    </IonContent>
+  </IonApp>
 );
 
 export const EmptyContacts = Template.bind({});

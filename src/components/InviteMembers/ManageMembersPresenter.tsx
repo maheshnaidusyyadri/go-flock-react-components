@@ -9,7 +9,6 @@ import {
   IonThumbnail,
   IonImg,
   IonAvatar,
-  IonFooter,
   IonButton,
   IonSegment,
   IonSegmentButton,
@@ -47,6 +46,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import CustomModalSelect from "../Common/CustomModalSelect";
 import { EventMember } from "@goflock/types/dist/models/event/EventMember";
 import { copyOutline, shareSocialOutline } from "ionicons/icons";
+import CenteredColumn from "../Common/CenteredColumn";
+import SideNavBar from "../Footer/SideNavBar";
 
 const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
   eventId,
@@ -182,270 +183,345 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
 
   return (
     <>
-      <IonPage>
+      {(["admin", "owner"].includes(eventRelation?.visitType) ||
+        (["member"].includes(eventRelation?.visitType) &&
+          eventRelation?.rsvp &&
+          eventRelation.rsvp?.response)) && (
+        <SideNavBar
+          event={event}
+          activeTab="members"
+          settings={event.settings}
+          eventRelation={eventRelation}
+        />
+      )}
+      <IonPage id="main-content">
         <Header
-          eventId={eventId}
-          title="Manage members"
+          eventId={event.id}
+          title={`Manage members`}
           showMenu={false}
+          showContactList={false}
+          showGoBack={false}
+          showLogo={true}
+          logoPosition={"left"}
+          className="sticky"
+          event={event}
+          eventRelation={eventRelation}
         />
         <IonContent
           className="manage-members ion-padding-end ion-padding-start ion-padding-bottom"
           scrollEvents={true}
         >
-          <IonSegment
-            className="segment-tabs"
-            value={selectedSegment}
-            onIonChange={(e) =>
-              setSelectedSegment(
-                e.detail.value as "Members" | "Track" | "Messaging"
-              )
-            }
-          >
-            <IonSegmentButton value="Track">
-              <IonImg
-                src={
-                  userSearchIcon.src ||
-                  (userSearchIcon.value as unknown as string)
-                }
-              />
-            </IonSegmentButton>
-            <IonSegmentButton value="Members">
-              <IonImg
-                src={
-                  membersIcon.src || (membersIcon.value as unknown as string)
-                }
-              />
-            </IonSegmentButton>
-          </IonSegment>
+          <CenteredColumn>
+            <IonSegment
+              className="segment-tabs"
+              value={selectedSegment}
+              onIonChange={(e) =>
+                setSelectedSegment(
+                  e.detail.value as "Members" | "Track" | "Messaging"
+                )
+              }
+            >
+              <IonSegmentButton value="Track">
+                <IonImg
+                  src={
+                    userSearchIcon.src ||
+                    (userSearchIcon.value as unknown as string) ||
+                    (userSearchIcon as unknown as string)
+                  }
+                />
+              </IonSegmentButton>
+              <IonSegmentButton value="Members">
+                <IonImg
+                  src={
+                    membersIcon.src ||
+                    (membersIcon.value as unknown as string) ||
+                    (membersIcon as unknown as string)
+                  }
+                />
+              </IonSegmentButton>
+            </IonSegment>
 
-          {selectedSegment === "Track" && <RsvpStatus event={event} />}
-          {selectedSegment === "Members" && (
-            <IonGrid className="members-page ion-no-padding">
-              <IonGrid className="menbers-list ion-no-padding">
-                {((filteredMembersList &&
-                  filteredMembersList.length == 0 &&
-                  isFromFilter) ||
-                  (filteredMembersList &&
-                    filteredMembersList.length > 0 &&
-                    !isFromFilter) ||
-                  isFromFilter) && (
-                  <IonRow>
-                    <IonCol className="form-group ion-padding-bottom">
-                      <CustomModalSelect
-                        title="Recipients"
-                        subTitle="Select recipients type"
-                        control={control}
-                        label=""
-                        fieldName="recipien"
-                        placeholder="Select Recipients"
-                        options={recipientsList}
-                        isRequired={false}
-                        errors={errors}
-                        errorText="Recipients"
-                        register={register}
-                        setValue={setValue}
-                        clearErrors={clearErrors}
-                        defaultValue={recipientsList[0].value}
-                        onChangeSelect={handleFilter}
-                        filterApply={true}
-                      />
-                    </IonCol>
-                  </IonRow>
-                )}
-                {filteredMembersList && filteredMembersList.length > 0 ? (
-                  <IonList className="list-wrap ion-no-padding ion-no-margin event-members">
-                    {filteredMembersList.map((member, index) => (
-                      <IonItem
-                        key={index}
-                        className="list-item"
-                      >
-                        <IonThumbnail
-                          slot="start"
-                          className="dp"
+            {selectedSegment === "Track" && <RsvpStatus event={event} />}
+            {selectedSegment === "Members" && (
+              <IonGrid className="members-page ion-no-padding">
+                <IonGrid className="menbers-list ion-no-padding">
+                  {((filteredMembersList &&
+                    filteredMembersList.length == 0 &&
+                    isFromFilter) ||
+                    (filteredMembersList &&
+                      filteredMembersList.length > 0 &&
+                      !isFromFilter) ||
+                    isFromFilter) && (
+                    <IonRow>
+                      <IonCol className="form-group ion-padding-bottom">
+                        <CustomModalSelect
+                          title="Recipients"
+                          subTitle="Select recipients type"
+                          control={control}
+                          label=""
+                          fieldName="recipien"
+                          placeholder="Select Recipients"
+                          options={recipientsList}
+                          isRequired={false}
+                          errors={errors}
+                          errorText="Recipients"
+                          register={register}
+                          setValue={setValue}
+                          clearErrors={clearErrors}
+                          defaultValue={recipientsList[0].value}
+                          onChangeSelect={handleFilter}
+                          filterApply={true}
+                        />
+                      </IonCol>
+                    </IonRow>
+                  )}
+                  {filteredMembersList && filteredMembersList.length > 0 ? (
+                    <IonList className="list-wrap ion-no-padding ion-no-margin event-members">
+                      {filteredMembersList.map((member, index) => (
+                        <IonItem
+                          key={index}
+                          className="list-item"
                         >
-                          {member?.roles?.includes("owner") && (
-                            <IonImg
-                              className="type"
-                              src={
-                                HostIcon.src ||
-                                (HostIcon.value as unknown as string)
-                              }
-                            />
-                          )}
-                          {member?.roles?.includes("admin") && (
-                            <IonImg
-                              className="type co"
-                              src={
-                                CoHostIcon.src ||
-                                (CoHostIcon.value as unknown as string)
-                              }
-                            />
-                          )}
-                          {member.profileImg ? (
-                            <IonImg
-                              src={member.profileImg}
-                              alt={`${member.name}'s profile`}
-                            />
-                          ) : (
-                            <IonAvatar
-                              class={
-                                member?.roles?.includes("owner")
-                                  ? "profile-dp owner"
-                                  : "profile-dp"
-                              }
-                            >
-                              {getDisplayName(
-                                member.rsvp?.name || member.name || ""
-                              )}
-                            </IonAvatar>
-                          )}
-                          <span className="selection">
-                            <img
-                              src={
-                                member.rsvp?.response === "attending"
-                                  ? attendingIcon.src ||
-                                    (attendingIcon.value as unknown as string)
-                                  : member.rsvp?.response === "maybe"
-                                    ? notSureIcon.src ||
-                                      (notSureIcon.value as unknown as string)
-                                    : member.rsvp?.response === "not-attending"
-                                      ? notAttendingIcon.src ||
-                                        (notAttendingIcon.value as unknown as string)
-                                      : Selected.src ||
-                                        (Selected.value as unknown as string)
-                              }
-                              alt="Selected"
-                            />
-                          </span>
-                        </IonThumbnail>
-                        <IonLabel className="member-info">
-                          <h2>
-                            {(member.rsvp?.name || member.name) +
-                              (member?.roles?.includes("owner")
-                                ? " (Host)"
-                                : member?.roles?.includes("admin")
-                                  ? " (Co-host)"
-                                  : "")}
-                          </h2>
-
-                          <p>{member.phoneNumber}</p>
-                        </IonLabel>
-                        {member.rsvp?.adultsCount !== undefined && (
-                          <IonChip
-                            outline={true}
-                            class="guests-count"
+                          <IonThumbnail
+                            slot="start"
+                            className="dp"
                           >
-                            {member.rsvp?.adultsCount + " adults"}
-                          </IonChip>
-                        )}
-                        {member.rsvp?.kidsCount !== undefined && (
-                          <IonChip
-                            outline={true}
-                            class="guests-count"
-                          >
-                            {member.rsvp?.kidsCount + " kids"}
-                          </IonChip>
-                        )}
-                        {!member?.roles?.includes("owner") && (
-                          <IonItem className="member-actions">
-                            {member?.notificationCount && (
-                              <IonLabel class="notifies ion-no-margin">
-                                <IonImg
-                                  className="notifies-icon"
-                                  src={
-                                    NotificationIcon.src ||
-                                    (NotificationIcon.value as unknown as string)
-                                  }
-                                />
-                                <IonBadge className="count">
-                                  {member.notificationCount}
-                                </IonBadge>
-                              </IonLabel>
+                            {member?.roles?.includes("owner") && (
+                              <IonImg
+                                className="type"
+                                src={
+                                  HostIcon.src ||
+                                  (HostIcon.value as unknown as string) ||
+                                  (HostIcon as unknown as string)
+                                }
+                              />
                             )}
-                            <IonImg
+                            {member?.roles?.includes("admin") && (
+                              <IonImg
+                                className="type co"
+                                src={
+                                  CoHostIcon.src ||
+                                  (CoHostIcon.value as unknown as string) ||
+                                  (CoHostIcon as unknown as string)
+                                }
+                              />
+                            )}
+                            {member.profileImg ? (
+                              <IonImg
+                                src={member.profileImg}
+                                alt={`${member.name}'s profile`}
+                              />
+                            ) : (
+                              <IonAvatar
+                                class={
+                                  member?.roles?.includes("owner")
+                                    ? "profile-dp owner"
+                                    : "profile-dp"
+                                }
+                              >
+                                {getDisplayName(
+                                  member.rsvp?.name || member.name || ""
+                                )}
+                              </IonAvatar>
+                            )}
+                            <span className="selection">
+                              <img
+                                src={
+                                  member.rsvp?.response === "attending"
+                                    ? attendingIcon.src ||
+                                      (attendingIcon.value as unknown as string) ||
+                                      (attendingIcon as unknown as string)
+                                    : member.rsvp?.response === "maybe"
+                                      ? notSureIcon.src ||
+                                        (notSureIcon.value as unknown as string) ||
+                                        (notSureIcon as unknown as string)
+                                      : member.rsvp?.response ===
+                                          "not-attending"
+                                        ? notAttendingIcon.src ||
+                                          (notAttendingIcon.value as unknown as string) ||
+                                          (notAttendingIcon as unknown as string)
+                                        : Selected.src ||
+                                          (Selected.value as unknown as string) ||
+                                          (Selected as unknown as string)
+                                }
+                                alt="Selected"
+                              />
+                            </span>
+                          </IonThumbnail>
+                          <IonLabel className="member-info">
+                            <h2>
+                              {(member.rsvp?.name || member.name) +
+                                (member?.roles?.includes("owner")
+                                  ? " (Host)"
+                                  : member?.roles?.includes("admin")
+                                    ? " (Co-host)"
+                                    : "")}
+                            </h2>
+
+                            <p>{member.phoneNumber}</p>
+                          </IonLabel>
+                          {member.rsvp?.adultsCount !== undefined && (
+                            <IonChip
+                              outline={true}
+                              class="guests-count"
+                            >
+                              {member.rsvp?.adultsCount + " adults"}
+                            </IonChip>
+                          )}
+                          {member.rsvp?.kidsCount !== undefined && (
+                            <IonChip
+                              outline={true}
+                              class="guests-count"
+                            >
+                              {member.rsvp?.kidsCount + " kids"}
+                            </IonChip>
+                          )}
+                          {!member?.roles?.includes("owner") && (
+                            <IonItem
+                              className="member-actions"
                               onClick={() => {
                                 if (member) {
                                   setSelectedUser(member);
                                   setShowAction(true);
                                 }
                               }}
-                              src={
-                                MenuIcon.src ||
-                                (MenuIcon.value as unknown as string)
-                              }
-                              alt="More Details"
-                            />
-                          </IonItem>
-                        )}
-                      </IonItem>
-                    ))}
-                  </IonList>
-                ) : isFromFilter ? (
-                  <IonText class="subtitle">No Result Found</IonText>
-                ) : (
-                  <IonCard className="nodata">
-                    <IonImg
-                      src={
-                        noMembers.value ||
-                        (noMembers.value as unknown as string)
-                      }
-                    />
-                    <IonLabel class="title">No invitees</IonLabel>
-                    <IonText class="subtitle">
-                      Go to contacts and add members
-                    </IonText>
-                  </IonCard>
-                )}
+                            >
+                              {member?.notificationCount && (
+                                <IonLabel class="notifies ion-no-margin">
+                                  <IonImg
+                                    className="notifies-icon"
+                                    src={
+                                      NotificationIcon.src ||
+                                      (NotificationIcon.value as unknown as string) ||
+                                      (NotificationIcon as unknown as string)
+                                    }
+                                  />
+                                  <IonBadge className="count">
+                                    {member.notificationCount}
+                                  </IonBadge>
+                                </IonLabel>
+                              )}
+                              <IonImg
+                                src={
+                                  MenuIcon.src ||
+                                  (MenuIcon.value as unknown as string) ||
+                                  (MenuIcon as unknown as string)
+                                }
+                                alt="More Details"
+                              />
+                            </IonItem>
+                          )}
+                        </IonItem>
+                      ))}
+                    </IonList>
+                  ) : isFromFilter ? (
+                    <IonText class="subtitle">No Result Found</IonText>
+                  ) : (
+                    <IonCard className="nodata">
+                      <IonImg
+                        src={
+                          noMembers.value ||
+                          (noMembers.value as unknown as string) ||
+                          (noMembers as unknown as string)
+                        }
+                      />
+                      <IonLabel class="title">No invitees</IonLabel>
+                      <IonText class="subtitle">
+                        Go to contacts and add members
+                      </IonText>
+                    </IonCard>
+                  )}
+                </IonGrid>
               </IonGrid>
-            </IonGrid>
-          )}
-          {selectedSegment === "Messaging" &&
-            (members && members.length > 0 ? (
-              <FormProvider {...methods}>
+            )}
+            {selectedSegment === "Messaging" &&
+              (members && members.length > 0 ? (
+                <FormProvider {...methods}>
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <IonTextarea
+                        placeholder={"Message"}
+                        label={"Message"}
+                        fieldName={"message"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Message"}
+                        register={register}
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <CustomModalSelect
+                        title="Recipients"
+                        subTitle="Select recipients type"
+                        control={control}
+                        label="Recipients"
+                        fieldName="recipient"
+                        placeholder="Select Recipients"
+                        options={recipientsList}
+                        isRequired={true}
+                        errors={errors}
+                        errorText="Recipients"
+                        register={register}
+                        setValue={setValue}
+                        clearErrors={clearErrors}
+                      />
+                    </IonCol>
+                  </IonRow>
+                </FormProvider>
+              ) : (
+                <IonCard className="nodata">
+                  <IonImg
+                    src={
+                      noMembers.src ||
+                      (noMembers.value as unknown as string) ||
+                      (noMembers as unknown as string)
+                    }
+                  />
+                  <IonLabel class="title">No invitees</IonLabel>
+                  <IonText class="subtitle">
+                    Go to contacts and add members
+                  </IonText>
+                </IonCard>
+              ))}
+            {selectedSegment === "Track" && (
+              <>
                 <IonRow>
-                  <IonCol className="form-group ion-padding-bottom">
-                    <IonTextarea
-                      placeholder={"Message"}
-                      label={"Message"}
-                      fieldName={"message"}
-                      isRequired={true}
-                      errors={errors}
-                      errorText={"Message"}
-                      register={register}
-                    />
+                  <IonCol>
+                    <IonButton
+                      className="primary-btn rounded mb-6"
+                      onClick={() => copyEventLink(eventId)}
+                    >
+                      <IonIcon
+                        slot="icon-only"
+                        icon={copyOutline}
+                      ></IonIcon>
+                      <IonText className="ion-padding">
+                        Copy invitation link
+                      </IonText>
+                    </IonButton>
                   </IonCol>
                 </IonRow>
                 <IonRow>
-                  <IonCol className="form-group ion-padding-bottom">
-                    <CustomModalSelect
-                      title="Recipients"
-                      subTitle="Select recipients type"
-                      control={control}
-                      label="Recipients"
-                      fieldName="recipient"
-                      placeholder="Select Recipients"
-                      options={recipientsList}
-                      isRequired={true}
-                      errors={errors}
-                      errorText="Recipients"
-                      register={register}
-                      setValue={setValue}
-                      clearErrors={clearErrors}
-                    />
+                  <IonCol>
+                    <IonButton
+                      className="primary-btn rounded"
+                      onClick={() => socialShareEventLink(eventId)}
+                    >
+                      <IonIcon
+                        slot="icon-only"
+                        icon={shareSocialOutline}
+                      ></IonIcon>
+                      <IonText className="ion-padding">
+                        Share invitation link
+                      </IonText>
+                    </IonButton>
                   </IonCol>
                 </IonRow>
-              </FormProvider>
-            ) : (
-              <IonCard className="nodata">
-                <IonImg
-                  src={noMembers.src || (noMembers.value as unknown as string)}
-                />
-                <IonLabel class="title">No invitees</IonLabel>
-                <IonText class="subtitle">
-                  Go to contacts and add members
-                </IonText>
-              </IonCard>
-            ))}
+              </>
+            )}
+          </CenteredColumn>
         </IonContent>
         {/* Disabling invitation flow for now. We will only support link sharing. */}
         {/* <IonFooter class="stickyFooter">
@@ -466,48 +542,14 @@ const ManageMembersPresenter: React.FC<ManageMembersProps> = ({
             </IonButton>
           )}
         </IonFooter> */}
-        {selectedSegment === "Track" && (
-          <IonFooter class="stickyFooter">
-            <IonRow>
-              <IonCol>
-                <IonButton
-                  className="primary-btn rounded mb-6"
-                  onClick={() => copyEventLink(eventId)}
-                >
-                  <IonIcon
-                    slot="icon-only"
-                    icon={copyOutline}
-                  ></IonIcon>
-                  <IonText className="ion-padding">
-                    Copy invitation link
-                  </IonText>
-                </IonButton>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonButton
-                  className="primary-btn rounded"
-                  onClick={() => socialShareEventLink(eventId)}
-                >
-                  <IonIcon
-                    slot="icon-only"
-                    icon={shareSocialOutline}
-                  ></IonIcon>
-                  <IonText className="ion-padding">
-                    Share invitation link
-                  </IonText>
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonFooter>
-        )}
+
         <Footer
           event={event}
           activeTab={"members"}
           settings={event.settings}
           eventRelation={eventRelation}
           hideFooter={true}
+          className="ion-hide-md-up"
         />
       </IonPage>
       <IonActionSheet
