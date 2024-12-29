@@ -7,7 +7,6 @@ import {
   IonButton,
   IonCol,
   IonContent,
-  IonFooter,
   IonGrid,
   IonIcon,
   IonImg,
@@ -44,7 +43,7 @@ const EventExpenseSummaryPresenter: React.FC<EventExpenseSummaryProps> = ({
   >("transactions");
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   const handleDeleteTransaction = async (transactionId: string) => {
     setIsLoading(true);

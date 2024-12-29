@@ -1,10 +1,10 @@
-import { j as n, I as U, c as L, a as $, b as v } from "./index-DltW6k-P.js";
+import { j as n, I as G, c as U, d as $, a as J, b as v, e as Q } from "./index-Lxt0DFGR.js";
 import d from "react";
-import { C as J } from "./index.esm-Dea9bvfn.js";
-var k = function(r) {
+import { C as W } from "./index.esm-Dea9bvfn.js";
+var L = function(r) {
   return typeof r == "object" && r !== null;
-}, Q = function(r) {
-  var C = r.value, p = C === void 0 ? "" : C, m = r.numInputs, i = m === void 0 ? 4 : m, g = r.onChange, T = r.onPaste, c = r.renderInput, x = r.shouldAutoFocus, h = x === void 0 ? !1 : x, y = r.inputType, V = y === void 0 ? "text" : y, N = r.renderSeparator, j = r.placeholder, b = r.containerStyle, I = r.inputStyle, E = r.skipDefaultStyles, B = E === void 0 ? !1 : E, H = d.useState(0), o = H[0], O = H[1], f = d.useRef([]), w = function() {
+}, X = function(r) {
+  var C = r.value, p = C === void 0 ? "" : C, m = r.numInputs, i = m === void 0 ? 4 : m, g = r.onChange, T = r.onPaste, c = r.renderInput, x = r.shouldAutoFocus, h = x === void 0 ? !1 : x, j = r.inputType, V = j === void 0 ? "text" : j, N = r.renderSeparator, y = r.placeholder, b = r.containerStyle, I = r.inputStyle, E = r.skipDefaultStyles, R = E === void 0 ? !1 : E, H = d.useState(0), o = H[0], O = H[1], f = d.useRef([]), w = function() {
     return p ? p.toString().split("") : [];
   }, S = V === "number" || V === "tel";
   d.useEffect(function() {
@@ -13,19 +13,19 @@ var k = function(r) {
     var e;
     h && ((e = f.current[0]) === null || e === void 0 || e.focus());
   }, [h]);
-  var F = function() {
-    if (typeof j == "string") {
-      if (j.length === i)
-        return j;
-      j.length > 0 && console.error("Length of the placeholder should be equal to the number of inputs.");
+  var k = function() {
+    if (typeof y == "string") {
+      if (y.length === i)
+        return y;
+      y.length > 0 && console.error("Length of the placeholder should be equal to the number of inputs.");
     }
   }, A = function(e) {
     var t = S ? !isNaN(Number(e)) : typeof e == "string";
     return t && e.trim().length === 1;
-  }, R = function(e) {
+  }, B = function(e) {
     var t = e.target.value;
     A(t) && (D(t), u(o + 1));
-  }, Z = function(e) {
+  }, F = function(e) {
     var t = e.nativeEvent, a = e.target.value;
     if (!A(a)) {
       if (a.length === i) {
@@ -36,13 +36,13 @@ var k = function(r) {
       }
       t.data === null && t.inputType === "deleteContentBackward" && (e.preventDefault(), D(""), u(o - 1)), e.target.value = "";
     }
-  }, _ = function(e) {
+  }, Z = function(e) {
     return function(t) {
       O(t), e.target.select();
     };
-  }, q = function() {
+  }, _ = function() {
     O(o - 1);
-  }, K = function(e) {
+  }, q = function(e) {
     var t = w();
     [e.code, e.key].includes("Backspace") ? (e.preventDefault(), D(""), u(o - 1)) : e.code === "Delete" ? (e.preventDefault(), D("")) : e.code === "ArrowLeft" ? (e.preventDefault(), u(o - 1)) : e.code === "ArrowRight" || e.key === t[o] ? (e.preventDefault(), u(o + 1)) : (e.code === "Spacebar" || e.code === "Space" || e.code === "ArrowUp" || e.code === "ArrowDown") && e.preventDefault();
   }, u = function(e) {
@@ -54,19 +54,19 @@ var k = function(r) {
   }, M = function(e) {
     var t = e.join("");
     g(t);
-  }, z = function(e) {
+  }, K = function(e) {
     var t;
     e.preventDefault();
     var a = w(), l = o, s = e.clipboardData.getData("text/plain").slice(0, i - o).split("");
-    if (!(S && s.some(function(G) {
-      return isNaN(Number(G));
+    if (!(S && s.some(function(z) {
+      return isNaN(Number(z));
     }))) {
       for (var P = 0; P < i; ++P)
         P >= o && s.length > 0 && (a[P] = (t = s.shift()) !== null && t !== void 0 ? t : "", l++);
       u(l), M(a);
     }
   };
-  return d.createElement("div", { style: Object.assign({ display: "flex", alignItems: "center" }, k(b) && b), className: typeof b == "string" ? b : void 0, onPaste: T }, Array.from({ length: i }, function(e, t) {
+  return d.createElement("div", { style: Object.assign({ display: "flex", alignItems: "center" }, L(b) && b), className: typeof b == "string" ? b : void 0, onPaste: T }, Array.from({ length: i }, function(e, t) {
     return t;
   }).map(function(e) {
     var t, a, l;
@@ -75,30 +75,30 @@ var k = function(r) {
       { key: e },
       c({
         value: (t = w()[e]) !== null && t !== void 0 ? t : "",
-        placeholder: (l = (a = F()) === null || a === void 0 ? void 0 : a[e]) !== null && l !== void 0 ? l : void 0,
+        placeholder: (l = (a = k()) === null || a === void 0 ? void 0 : a[e]) !== null && l !== void 0 ? l : void 0,
         ref: function(s) {
           return f.current[e] = s;
         },
-        onChange: R,
+        onChange: B,
         onFocus: function(s) {
-          return _(s)(e);
+          return Z(s)(e);
         },
-        onBlur: q,
-        onKeyDown: K,
-        onPaste: z,
+        onBlur: _,
+        onKeyDown: q,
+        onPaste: K,
         autoComplete: "off",
         "aria-label": "Please enter OTP character ".concat(e + 1),
-        style: Object.assign(B ? {} : { width: "1em", textAlign: "center" }, k(I) ? I : {}),
+        style: Object.assign(R ? {} : { width: "1em", textAlign: "center" }, L(I) ? I : {}),
         className: typeof I == "string" ? I : void 0,
         type: V,
         inputMode: S ? "numeric" : "text",
-        onInput: Z
+        onInput: F
       }, e),
       e < i - 1 && (typeof N == "function" ? N(e) : N)
     );
   }));
 };
-const W = ({}) => /* @__PURE__ */ n.jsxs(
+const Y = ({}) => /* @__PURE__ */ n.jsxs(
   "svg",
   {
     className: "ion-margin-bottom",
@@ -152,7 +152,7 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
       )
     ]
   }
-), te = ({
+), re = ({
   control: r,
   errors: C,
   fieldName: p,
@@ -167,17 +167,17 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
       console.error("Failed to send OTP", c);
     }) : console.log("ResendOTP-Method is undefined");
   };
-  return /* @__PURE__ */ n.jsx(U, { className: "varification-sec", children: /* @__PURE__ */ n.jsxs(L, { className: "auth-cnt ion-no-margin", children: [
-    /* @__PURE__ */ n.jsx($, { className: "auth-title", children: "Verify Account" }),
-    /* @__PURE__ */ n.jsx(W, {}),
+  return /* @__PURE__ */ n.jsx(G, { className: "varification-sec", children: /* @__PURE__ */ n.jsx(U, { className: "auth-cnt ion-no-margin", children: /* @__PURE__ */ n.jsxs($, { children: [
+    /* @__PURE__ */ n.jsx(J, { className: "auth-title", children: "Verify Account" }),
+    /* @__PURE__ */ n.jsx(Y, {}),
     /* @__PURE__ */ n.jsx(v, { className: "vatification-title", children: "Mobile Verification" }),
     /* @__PURE__ */ n.jsxs(v, { className: "subtitle", children: [
       "To continue, please enter the OTP we just sent to",
       " ",
       /* @__PURE__ */ n.jsx(v, { className: "mobile-number", children: i ? "+" + i : "" })
     ] }),
-    /* @__PURE__ */ n.jsx(L, { className: "otp-fields", children: /* @__PURE__ */ n.jsx(
-      J,
+    /* @__PURE__ */ n.jsx(Q, { className: "otp-fields", children: /* @__PURE__ */ n.jsx(
+      W,
       {
         name: p,
         control: r,
@@ -190,12 +190,12 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
         },
         render: ({ field: { onChange: c, value: x } }) => /* @__PURE__ */ n.jsxs(n.Fragment, { children: [
           /* @__PURE__ */ n.jsx(
-            Q,
+            X,
             {
               value: x,
               onChange: (h) => {
-                const y = h.replace(/\D/g, "");
-                c(y);
+                const j = h.replace(/\D/g, "");
+                c(j);
               },
               numInputs: 6,
               renderInput: (h) => /* @__PURE__ */ n.jsx(
@@ -222,13 +222,20 @@ const W = ({}) => /* @__PURE__ */ n.jsxs(
         ] })
       }
     ) }),
-    /* @__PURE__ */ n.jsxs(v, { className: "otp-resend", onClick: T, children: [
-      "Didn't receive the code? ",
-      /* @__PURE__ */ n.jsx("a", { children: "Resend" })
-    ] })
-  ] }) });
+    /* @__PURE__ */ n.jsxs(
+      v,
+      {
+        className: "otp-resend",
+        onClick: T,
+        children: [
+          "Didn't receive the code? ",
+          /* @__PURE__ */ n.jsx("a", { children: "Resend" })
+        ]
+      }
+    )
+  ] }) }) });
 };
 export {
-  te as default
+  re as default
 };
-//# sourceMappingURL=OtpVerification-tfUDsLSc.js.map
+//# sourceMappingURL=OtpVerification-D4vSDG4h.js.map

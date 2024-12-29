@@ -53,6 +53,8 @@ import NoMedia from "../../images/noMedia.svg";
 import { UserMediaMetadata } from "@goflock/types/src/models/media/UserMediaMetadata";
 import useToastUtils from "../../utils/ToastUtils";
 import { add } from "ionicons/icons";
+import CenteredColumn from "../Common/CenteredColumn";
+import SideNavBar from "../Footer/SideNavBar";
 type SelectablePhoto = Photo & {
   id?: any;
   selected?: boolean;
@@ -395,340 +397,361 @@ const EventMediaPresenter: React.FC<EventMediaProps> = ({
   };
 
   return (
-    <IonPage>
-      <Header
-        eventId={eventId}
-        showMenu={false}
-        showContactList={false}
-        title={"Media"}
-        showProfile={false}
-        showProgressBar={operationInProgress}
-      />
-      <IonContent className="ion-padding">
-        {isEditMode && (
-          <IonLabel class="slection-head">
-            {isEditMode && (
-              <IonLabel
-                className="slection-count"
-                onClick={() => {
-                  handleDeselectAll();
-                  setIsEditMode(false);
-                }}
-              >
-                <IonImg
-                  src={
-                    CrossIcon.src ||
-                    (CrossIcon.value as unknown as string) ||
-                    (CrossIcon as unknown as string)
-                  }
-                />
-                {selectedCount > 0
-                  ? selectedCount + " item selected"
-                  : "Select item"}
-              </IonLabel>
-            )}
-            {selectedCount > 0 && !areAllSelected && (
-              <IonLabel
-                className="select-action"
-                onClick={handleSelectAll}
-              >
-                Select All
-              </IonLabel>
-            )}
-            {selectedCount > 0 && areAllSelected && (
-              <IonLabel
-                className="select-action"
-                onClick={handleDeselectAll}
-              >
-                Deselect All
-              </IonLabel>
-            )}
-          </IonLabel>
-        )}
-        <IonGrid class="media-cnt">
-          <IonSegment
-            className="gallery-tabs"
-            value={selectedSegment}
-            onIonChange={(e) => setSelectedTab(e.detail.value!)}
-          >
-            <IonSegmentButton value="all">
-              <IonImg
-                src={
-                  GridIcon.src ||
-                  (GridIcon.value as unknown as string) ||
-                  (GridIcon as unknown as string)
-                }
-              />
-            </IonSegmentButton>
-            <IonSegmentButton value="photo">
-              <IonImg
-                src={
-                  PhotoIcon.src ||
-                  (PhotoIcon.value as unknown as string) ||
-                  (PhotoIcon as unknown as string)
-                }
-              />
-            </IonSegmentButton>
-            <IonSegmentButton value="video">
-              <IonImg
-                src={
-                  VideoIcon.src ||
-                  (VideoIcon.value as unknown as string) ||
-                  (VideoIcon as unknown as string)
-                }
-              />
-            </IonSegmentButton>
-          </IonSegment>
-          {photos && photos.length > 0 ? (
-            // <div onContextMenu={handleEditMode}>
-            <MasonryPhotoAlbum
-              photos={photos}
-              // @ts-ignore
-              render={{
-                link: (props) => (
-                  <StyledLink
-                    {...props}
-                    isEditView={isEditMode}
-                  />
-                ),
-
-                // render image selection icon
-                extras: (_, { photo: { selected, type }, index }) => (
-                  <>
-                    <div
-                      onContextMenu={(event) => {
-                        event.preventDefault();
-                        handleEditMode(index);
-                      }}
-                      className="media-type"
-                      onTouchStart={() => handleTouchStart(index)}
-                      onTouchEnd={() => handleTouchEnd()}
-                      onTouchCancel={() => handleTouchEnd()}
-                    >
-                      {isEditMode && (
-                        <SelectIcon
-                          selected={!selected}
-                          onClick={(event) => {
-                            setPhotos((prevPhotos) => {
-                              const newPhotos = [...prevPhotos];
-                              newPhotos[index].selected = !selected;
-                              return newPhotos;
-                            });
-                            // prevent the event from propagating to the parent link element
-                            event.preventDefault();
-                            event.stopPropagation();
-                          }}
-                        />
-                      )}
-                      {type == "video" && (
-                        <>
-                          <IonImg
-                            class="type-declaration"
-                            src={
-                              VideoType.src ||
-                              (VideoType.value as unknown as string) ||
-                              (VideoType as unknown as string)
-                            }
-                          />
-                        </>
-                      )}
-                      {type == "image" && (
-                        <>
-                          <IonImg
-                            class="type-declaration"
-                            src={
-                              ImageType.src ||
-                              (ImageType.value as unknown as string) ||
-                              (ImageType as unknown as string)
-                            }
-                          />
-                        </>
-                      )}
-                    </div>
-                  </>
-                ),
-              }}
-              // custom components' props
-              componentsProps={{
-                link: ({ photo: { href } }) =>
-                  // add target="_blank" and rel="noreferrer noopener" to external links
-                  href?.startsWith("http")
-                    ? { target: "_blank", rel: "noreferrer noopener" }
-                    : undefined,
-              }}
-              // on click callback
-              onClick={({ event, photo, index }) => {
-                setLightboxIndex(index);
-                if (!isEditMode) {
-                  // let a link open in a new tab / new window / download
-                  if (event.shiftKey || event.altKey || event.metaKey) return;
-                  // prevent the default link behavior
-                  event.preventDefault();
-                  // open photo in a lightbox
-                  setLightboxPhoto(photo);
-                } else {
-                  setPhotos((prevPhotos) => {
-                    const newPhotos = [...prevPhotos];
-                    newPhotos[index].selected = !newPhotos[index].selected;
-                    return newPhotos;
-                  });
-                }
-              }}
-              sizes={{
-                size: "1168px",
-                sizes: [
-                  {
-                    viewport: "(max-width: 1200px)",
-                    size: "calc(100vw - 32px)",
-                  },
-                ],
-              }}
-              // re-calculate the layout only at specific breakpoints
-              breakpoints={[220, 360, 480, 600, 900, 1200]}
-            />
-          ) : (
-            <IonRow>
-              <IonCol>
-                <IonImg
-                  src={
-                    NoMedia.src ||
-                    (NoMedia.value as unknown as string) ||
-                    (NoMedia as unknown as string)
-                  }
-                  className="no-media"
-                />
-              </IonCol>
-            </IonRow>
-          )}
-        </IonGrid>
-        <Lightbox
-          open={Boolean(lightboxPhoto)}
-          close={() => setLightboxPhoto(undefined)}
-          // @ts-ignore
-          slides={photos}
-          carousel={{ finite: true }}
-          render={{ buttonPrev: () => null, buttonNext: () => null }}
-          styles={{ root: { "--yarl__color_backdrop": "rgba(0, 0, 0, .8)" } }}
-          controller={{
-            closeOnBackdropClick: false,
-            closeOnPullUp: false,
-            closeOnPullDown: false,
-          }}
-          plugins={[Fullscreen, Slideshow, Zoom, Video]}
-          index={lightboxIndex}
-        />
-
-        {/* {isLoading && <IonSpinner name="crescent" />} */}
-        {/* Hidden file input for image upload */}
-        <input
-          multiple
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }} // Hide the file input
-          ref={fileInputRef} // Assign ref to the file input
-          onChange={handleFileChange} // Handle file change
-        />
-        {/* Error Toast */}
-        {error && (
-          <IonToast
-            isOpen={!!error}
-            message={error}
-            duration={2000}
-            color="danger"
-            onDidDismiss={() => setError(null)}
-          />
-        )}
-        <IonInfiniteScroll
-          onIonInfinite={async (e) => {
-            loadImages();
-            (e.target as HTMLIonInfiniteScrollElement).complete();
-          }}
-          threshold="100px"
-          disabled={false}
-        >
-          <IonInfiniteScrollContent loadingText="Loading more images..." />
-        </IonInfiniteScroll>
-        {!isEditMode && (
-          <IonFab
-            slot="fixed"
-            vertical="bottom"
-            horizontal="end"
-          >
-            <IonFabButton onClick={() => fileInputRef.current?.click()}>
-              <IonIcon icon={add}></IonIcon>
-            </IonFabButton>
-          </IonFab>
-        )}
-      </IonContent>
-      {isEditMode ? (
-        <>
-          <IonFooter className="footer">
-            <IonToolbar>
-              <IonGrid className="ion-padding footer-cnt">
-                <IonRow>
-                  <IonCol
-                    className="ion-no-padding"
-                    onClick={handleShareSelected}
-                  >
-                    <img
-                      src={
-                        ShareIcon.src ||
-                        (ShareIcon.value as unknown as string) ||
-                        (ShareIcon as unknown as string)
-                      }
-                      alt="Share"
-                    />
-                  </IonCol>
-                  <IonCol
-                    className="ion-no-padding"
-                    onClick={handleDownloadSelected}
-                  >
-                    <img
-                      src={
-                        Download.src ||
-                        (Download.value as unknown as string) ||
-                        (Download as unknown as string)
-                      }
-                      alt="Split Bill"
-                    />
-                  </IonCol>
-                  <IonCol className="ion-no-padding">
-                    <img
-                      src={
-                        save.src ||
-                        (save.value as unknown as string) ||
-                        (save as unknown as string)
-                      }
-                      alt="save"
-                    />
-                  </IonCol>
-                  <IonCol
-                    className="ion-no-padding"
-                    onClick={handleDeleteSelected}
-                  >
-                    <img
-                      src={
-                        Delete.src ||
-                        (Delete.value as unknown as string) ||
-                        (Delete as unknown as string)
-                      }
-                      alt="Delete"
-                    />
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </IonToolbar>
-          </IonFooter>
-        </>
-      ) : (
-        <Footer
-          activeTab={"media"}
+    <>
+      {(["admin", "owner"].includes(eventRelation?.visitType) ||
+        (["member"].includes(eventRelation?.visitType) &&
+          eventRelation?.rsvp &&
+          eventRelation.rsvp?.response)) && (
+        <SideNavBar
           event={event}
+          activeTab="media"
           settings={event.settings}
           eventRelation={eventRelation}
         />
       )}
-    </IonPage>
+      <IonPage id="main-content">
+        <Header
+          eventId={eventId}
+          showMenu={false}
+          showGoBack={false}
+          showLogo={true}
+          logoPosition="left"
+          showContactList={false}
+          title={"Media"}
+          showProfile={false}
+          showProgressBar={operationInProgress}
+          event={event}
+          eventRelation={eventRelation}
+        />
+        <IonContent className="ion-padding">
+          {isEditMode && (
+            <IonLabel class="slection-head">
+              {isEditMode && (
+                <IonLabel
+                  className="slection-count"
+                  onClick={() => {
+                    handleDeselectAll();
+                    setIsEditMode(false);
+                  }}
+                >
+                  <IonImg
+                    src={
+                      CrossIcon.src ||
+                      (CrossIcon.value as unknown as string) ||
+                      (CrossIcon as unknown as string)
+                    }
+                  />
+                  {selectedCount > 0
+                    ? selectedCount + " item selected"
+                    : "Select item"}
+                </IonLabel>
+              )}
+              {selectedCount > 0 && !areAllSelected && (
+                <IonLabel
+                  className="select-action"
+                  onClick={handleSelectAll}
+                >
+                  Select All
+                </IonLabel>
+              )}
+              {selectedCount > 0 && areAllSelected && (
+                <IonLabel
+                  className="select-action"
+                  onClick={handleDeselectAll}
+                >
+                  Deselect All
+                </IonLabel>
+              )}
+            </IonLabel>
+          )}
+          <IonGrid class="media-cnt">
+            <CenteredColumn>
+              <IonSegment
+                className="gallery-tabs"
+                value={selectedSegment}
+                onIonChange={(e) => setSelectedTab(e.detail.value!)}
+              >
+                <IonSegmentButton value="all">
+                  <IonImg
+                    src={
+                      GridIcon.src ||
+                      (GridIcon.value as unknown as string) ||
+                      (GridIcon as unknown as string)
+                    }
+                  />
+                </IonSegmentButton>
+                <IonSegmentButton value="photo">
+                  <IonImg
+                    src={
+                      PhotoIcon.src ||
+                      (PhotoIcon.value as unknown as string) ||
+                      (PhotoIcon as unknown as string)
+                    }
+                  />
+                </IonSegmentButton>
+                <IonSegmentButton value="video">
+                  <IonImg
+                    src={
+                      VideoIcon.src ||
+                      (VideoIcon.value as unknown as string) ||
+                      (VideoIcon as unknown as string)
+                    }
+                  />
+                </IonSegmentButton>
+              </IonSegment>
+            </CenteredColumn>
+            {photos && photos.length > 0 ? (
+              // <div onContextMenu={handleEditMode}>
+              <MasonryPhotoAlbum
+                photos={photos}
+                // @ts-ignore
+                render={{
+                  link: (props) => (
+                    <StyledLink
+                      {...props}
+                      isEditView={isEditMode}
+                    />
+                  ),
+
+                  // render image selection icon
+                  extras: (_, { photo: { selected, type }, index }) => (
+                    <>
+                      <div
+                        onContextMenu={(event) => {
+                          event.preventDefault();
+                          handleEditMode(index);
+                        }}
+                        className="media-type"
+                        onTouchStart={() => handleTouchStart(index)}
+                        onTouchEnd={() => handleTouchEnd()}
+                        onTouchCancel={() => handleTouchEnd()}
+                      >
+                        {isEditMode && (
+                          <SelectIcon
+                            selected={!selected}
+                            onClick={(event) => {
+                              setPhotos((prevPhotos) => {
+                                const newPhotos = [...prevPhotos];
+                                newPhotos[index].selected = !selected;
+                                return newPhotos;
+                              });
+                              // prevent the event from propagating to the parent link element
+                              event.preventDefault();
+                              event.stopPropagation();
+                            }}
+                          />
+                        )}
+                        {type == "video" && (
+                          <>
+                            <IonImg
+                              class="type-declaration"
+                              src={
+                                VideoType.src ||
+                                (VideoType.value as unknown as string) ||
+                                (VideoType as unknown as string)
+                              }
+                            />
+                          </>
+                        )}
+                        {type == "image" && (
+                          <>
+                            <IonImg
+                              class="type-declaration"
+                              src={
+                                ImageType.src ||
+                                (ImageType.value as unknown as string) ||
+                                (ImageType as unknown as string)
+                              }
+                            />
+                          </>
+                        )}
+                      </div>
+                    </>
+                  ),
+                }}
+                // custom components' props
+                componentsProps={{
+                  link: ({ photo: { href } }) =>
+                    // add target="_blank" and rel="noreferrer noopener" to external links
+                    href?.startsWith("http")
+                      ? { target: "_blank", rel: "noreferrer noopener" }
+                      : undefined,
+                }}
+                // on click callback
+                onClick={({ event, photo, index }) => {
+                  setLightboxIndex(index);
+                  if (!isEditMode) {
+                    // let a link open in a new tab / new window / download
+                    if (event.shiftKey || event.altKey || event.metaKey) return;
+                    // prevent the default link behavior
+                    event.preventDefault();
+                    // open photo in a lightbox
+                    setLightboxPhoto(photo);
+                  } else {
+                    setPhotos((prevPhotos) => {
+                      const newPhotos = [...prevPhotos];
+                      newPhotos[index].selected = !newPhotos[index].selected;
+                      return newPhotos;
+                    });
+                  }
+                }}
+                sizes={{
+                  size: "1168px",
+                  sizes: [
+                    {
+                      viewport: "(max-width: 1200px)",
+                      size: "calc(100vw - 32px)",
+                    },
+                  ],
+                }}
+                // re-calculate the layout only at specific breakpoints
+                breakpoints={[220, 360, 480, 600, 900, 1200]}
+              />
+            ) : (
+              <IonRow>
+                <IonCol>
+                  <IonImg
+                    src={
+                      NoMedia.src ||
+                      (NoMedia.value as unknown as string) ||
+                      (NoMedia as unknown as string)
+                    }
+                    className="no-media"
+                  />
+                </IonCol>
+              </IonRow>
+            )}
+          </IonGrid>
+          <Lightbox
+            open={Boolean(lightboxPhoto)}
+            close={() => setLightboxPhoto(undefined)}
+            // @ts-ignore
+            slides={photos}
+            carousel={{ finite: true }}
+            render={{ buttonPrev: () => null, buttonNext: () => null }}
+            styles={{ root: { "--yarl__color_backdrop": "rgba(0, 0, 0, .8)" } }}
+            controller={{
+              closeOnBackdropClick: false,
+              closeOnPullUp: false,
+              closeOnPullDown: false,
+            }}
+            plugins={[Fullscreen, Slideshow, Zoom, Video]}
+            index={lightboxIndex}
+          />
+
+          {/* {isLoading && <IonSpinner name="crescent" />} */}
+          {/* Hidden file input for image upload */}
+          <input
+            multiple
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }} // Hide the file input
+            ref={fileInputRef} // Assign ref to the file input
+            onChange={handleFileChange} // Handle file change
+          />
+          {/* Error Toast */}
+          {error && (
+            <IonToast
+              isOpen={!!error}
+              message={error}
+              duration={2000}
+              color="danger"
+              onDidDismiss={() => setError(null)}
+            />
+          )}
+          <IonInfiniteScroll
+            onIonInfinite={async (e) => {
+              loadImages();
+              (e.target as HTMLIonInfiniteScrollElement).complete();
+            }}
+            threshold="100px"
+            disabled={false}
+          >
+            <IonInfiniteScrollContent loadingText="Loading more images..." />
+          </IonInfiniteScroll>
+          {!isEditMode && (
+            <IonFab
+              slot="fixed"
+              vertical="bottom"
+              horizontal="end"
+            >
+              <IonFabButton onClick={() => fileInputRef.current?.click()}>
+                <IonIcon icon={add}></IonIcon>
+              </IonFabButton>
+            </IonFab>
+          )}
+        </IonContent>
+        {isEditMode ? (
+          <>
+            <IonFooter className="footer">
+              <IonToolbar>
+                <IonGrid className="ion-padding footer-cnt">
+                  <IonRow>
+                    <IonCol
+                      className="ion-no-padding"
+                      onClick={handleShareSelected}
+                    >
+                      <img
+                        src={
+                          ShareIcon.src ||
+                          (ShareIcon.value as unknown as string) ||
+                          (ShareIcon as unknown as string)
+                        }
+                        alt="Share"
+                      />
+                    </IonCol>
+                    <IonCol
+                      className="ion-no-padding"
+                      onClick={handleDownloadSelected}
+                    >
+                      <img
+                        src={
+                          Download.src ||
+                          (Download.value as unknown as string) ||
+                          (Download as unknown as string)
+                        }
+                        alt="Split Bill"
+                      />
+                    </IonCol>
+                    <IonCol className="ion-no-padding">
+                      <img
+                        src={
+                          save.src ||
+                          (save.value as unknown as string) ||
+                          (save as unknown as string)
+                        }
+                        alt="save"
+                      />
+                    </IonCol>
+                    <IonCol
+                      className="ion-no-padding"
+                      onClick={handleDeleteSelected}
+                    >
+                      <img
+                        src={
+                          Delete.src ||
+                          (Delete.value as unknown as string) ||
+                          (Delete as unknown as string)
+                        }
+                        alt="Delete"
+                      />
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonToolbar>
+            </IonFooter>
+          </>
+        ) : (
+          <Footer
+            activeTab={"media"}
+            event={event}
+            settings={event.settings}
+            eventRelation={eventRelation}
+            className="ion-hide-md-up"
+          />
+        )}
+      </IonPage>
+    </>
   );
 };
 
