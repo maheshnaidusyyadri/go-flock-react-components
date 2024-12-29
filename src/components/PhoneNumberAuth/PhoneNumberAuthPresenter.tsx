@@ -8,7 +8,6 @@ import {
   IonLabel,
   IonText,
   IonGrid,
-  IonCard,
   IonFooter,
   IonRow,
   IonCol,

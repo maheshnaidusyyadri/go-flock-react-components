@@ -144,7 +144,8 @@ const CustomActions: React.FC<CustomActionsProps> = ({
                   <IonImg
                     src={
                       action.icon.src ||
-                      (action.icon.value as unknown as string)
+                      (action.icon.value as unknown as string) ||
+                      (action.icon as unknown as string)
                     }
                     alt={action.label}
                   />

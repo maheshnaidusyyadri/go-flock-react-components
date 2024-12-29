@@ -11,6 +11,7 @@ import {
   ownerEventRelation,
   OwnerProfile,
   rsvpGuestEventRelation,
+  unAuthEventRelation,
 } from "../Common/MockData";
 import { action } from "@storybook/addon-actions";
 import { withRouter } from "storybook-addon-remix-react-router";
@@ -85,7 +86,7 @@ PrivateEventCoHostViewWithoutInvitation.args = {
 export const EventGuestViewUnAuth = Template.bind({});
 EventGuestViewUnAuth.args = {
   ...PublicEventHostViewWithInvitation.args,
-  eventRelation: guestEventRelation,
+  eventRelation: unAuthEventRelation,
   profile: undefined,
 };
 
@@ -98,7 +99,7 @@ EventGuestViewAuthRSVPFlow.args = {
 export const EventGuestViewUnAuthRSVPFlow = Template.bind({});
 EventGuestViewUnAuthRSVPFlow.args = {
   ...PublicEventHostViewWithInvitation.args,
-  eventRelation: guestEventRelation,
+  eventRelation: unAuthEventRelation,
   profile: undefined,
 };
 

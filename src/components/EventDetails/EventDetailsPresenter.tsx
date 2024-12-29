@@ -229,12 +229,17 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
     />
   ) : (
     <>
-      <SideNavBar
-        event={event}
-        activeTab="invitation"
-        settings={event.settings}
-        eventRelation={eventRelation}
-      />
+      {(["admin", "owner"].includes(eventRelation?.visitType) ||
+        (["member"].includes(eventRelation?.visitType) &&
+          eventRelation?.rsvp &&
+          eventRelation.rsvp?.response)) && (
+        <SideNavBar
+          event={event}
+          activeTab="invitation"
+          settings={event.settings}
+          eventRelation={eventRelation}
+        />
+      )}
       <IonPage id="main-content">
         <Header
           showLogo={true}

@@ -34,6 +34,7 @@ import No from "../Common/Icons/No";
 import NotSure from "../Common/Icons/NotSure";
 import party from "party-js";
 import useToastUtils from "../../utils/ToastUtils";
+import CenteredColumn from "../Common/CenteredColumn";
 
 const CustomPhoneNumber = lazy(() => import("../Common/CustomPhone"));
 const OtpVerification = lazy(() => import("../Common/OtpVerification"));
@@ -297,207 +298,256 @@ const RsvpModalPage: React.FC<RsvpModalPageProps> = ({
         className="ion-padding rsvp-modal"
         ref={contentRef}
       >
-        <IonList className="rsvp-actions">
-          <IonItem
-            className="ionitem"
-            onClick={() => handleClick("yes")}
-          >
-            <IonText
-              className={`iontext yes ${
-                activeOption === "yes" ? "active" : ""
-              }`}
-            >
-              <Yes />
-              Yes
-            </IonText>
-          </IonItem>
-          <IonItem
-            className="ionitem"
-            onClick={() => handleClick("no")}
-          >
-            <IonText
-              className={`iontext no ${activeOption === "no" ? "active" : ""}`}
-            >
-              <No />
-              No
-            </IonText>
-          </IonItem>
-          <IonItem
-            className="ionitem"
-            onClick={() => handleClick("notSure")}
-          >
-            <IonText
-              className={`iontext notSure ${
-                activeOption === "notSure" ? "active" : ""
-              }`}
-            >
-              <NotSure />
-              Not sure
-            </IonText>
-          </IonItem>
-        </IonList>
-        <FormProvider {...methods}>
-          {activeOption !== "no" && (
-            <IonGrid className="guest-section">
-              <IonCard className="guest-info">
-                <IonCard className="card-cnt">
-                  <IonThumbnail>
-                    <IonImg
-                      src={adultsIcon.src || (adultsIcon as unknown as string)}
-                    />
-                  </IonThumbnail>
-                  <IonLabel className="guest-type">Adults</IonLabel>
-                  <IonCard className="counter-sec">
-                    <IonButton
-                      className="counter-btn"
-                      onClick={decrementAdults}
-                    >
-                      <IonImg
-                        src={minusIcon.src || (minusIcon as unknown as string)}
-                      />
-                    </IonButton>
-                    <IonLabel className="counter-value">{adultCount}</IonLabel>
-                    <IonButton
-                      className="counter-btn"
-                      onClick={incrementAdults}
-                    >
-                      <IonImg
-                        src={plusIcon.src || (plusIcon as unknown as string)}
-                      />
-                    </IonButton>
-                  </IonCard>
-                </IonCard>
-              </IonCard>
-              <IonCard className="guest-info">
-                <IonCard className="card-cnt">
-                  <IonThumbnail>
-                    <IonImg
-                      src={kidsIcon.src || (plusIcon as unknown as string)}
-                    />
-                  </IonThumbnail>
-                  <IonLabel class="guest-type">Kids</IonLabel>
-                  <IonCard className="counter-sec">
-                    <IonButton
-                      className="counter-btn"
-                      onClick={decrementKids}
-                    >
-                      <IonImg
-                        src={minusIcon.src || (minusIcon as unknown as string)}
-                      />
-                    </IonButton>
-                    <IonLabel className="counter-value">{kidsCount}</IonLabel>
-                    <IonButton
-                      className="counter-btn"
-                      onClick={incrementKids}
-                    >
-                      <IonImg
-                        src={plusIcon.src || (plusIcon as unknown as string)}
-                      />
-                    </IonButton>
-                  </IonCard>
-                </IonCard>
-              </IonCard>
-              {showValidation && (
-                <IonText class="form-error">
-                  {"* At least one adult or kid is required"}
+        <IonGrid>
+          <CenteredColumn>
+            <IonList className="rsvp-actions">
+              <IonItem
+                className="ionitem"
+                onClick={() => handleClick("yes")}
+              >
+                <IonText
+                  className={`iontext yes ${
+                    activeOption === "yes" ? "active" : ""
+                  }`}
+                >
+                  <Yes />
+                  Yes
                 </IonText>
+              </IonItem>
+              <IonItem
+                className="ionitem"
+                onClick={() => handleClick("no")}
+              >
+                <IonText
+                  className={`iontext no ${
+                    activeOption === "no" ? "active" : ""
+                  }`}
+                >
+                  <No />
+                  No
+                </IonText>
+              </IonItem>
+              <IonItem
+                className="ionitem"
+                onClick={() => handleClick("notSure")}
+              >
+                <IonText
+                  className={`iontext notSure ${
+                    activeOption === "notSure" ? "active" : ""
+                  }`}
+                >
+                  <NotSure />
+                  Not sure
+                </IonText>
+              </IonItem>
+            </IonList>
+            <FormProvider {...methods}>
+              {activeOption !== "no" && (
+                <IonGrid className="guest-section">
+                  <IonCard className="guest-info">
+                    <IonCard className="card-cnt">
+                      <IonThumbnail>
+                        <IonImg
+                          src={
+                            adultsIcon.src || (adultsIcon as unknown as string)
+                          }
+                        />
+                      </IonThumbnail>
+                      <IonLabel className="guest-type">Adults</IonLabel>
+                      <IonCard className="counter-sec">
+                        <IonButton
+                          className="counter-btn"
+                          onClick={decrementAdults}
+                        >
+                          <IonImg
+                            src={
+                              minusIcon.src || (minusIcon as unknown as string)
+                            }
+                          />
+                        </IonButton>
+                        <IonLabel className="counter-value">
+                          {adultCount}
+                        </IonLabel>
+                        <IonButton
+                          className="counter-btn"
+                          onClick={incrementAdults}
+                        >
+                          <IonImg
+                            src={
+                              plusIcon.src || (plusIcon as unknown as string)
+                            }
+                          />
+                        </IonButton>
+                      </IonCard>
+                    </IonCard>
+                  </IonCard>
+                  <IonCard className="guest-info">
+                    <IonCard className="card-cnt">
+                      <IonThumbnail>
+                        <IonImg
+                          src={kidsIcon.src || (kidsIcon as unknown as string)}
+                        />
+                      </IonThumbnail>
+                      <IonLabel class="guest-type">Kids</IonLabel>
+                      <IonCard className="counter-sec">
+                        <IonButton
+                          className="counter-btn"
+                          onClick={decrementKids}
+                        >
+                          <IonImg
+                            src={
+                              minusIcon.src || (minusIcon as unknown as string)
+                            }
+                          />
+                        </IonButton>
+                        <IonLabel className="counter-value">
+                          {kidsCount}
+                        </IonLabel>
+                        <IonButton
+                          className="counter-btn"
+                          onClick={incrementKids}
+                        >
+                          <IonImg
+                            src={
+                              plusIcon.src || (plusIcon as unknown as string)
+                            }
+                          />
+                        </IonButton>
+                      </IonCard>
+                    </IonCard>
+                  </IonCard>
+                  {showValidation && (
+                    <IonText class="form-error">
+                      {"* At least one adult or kid is required"}
+                    </IonText>
+                  )}
+                </IonGrid>
               )}
-            </IonGrid>
-          )}
 
-          <IonGrid className="guest-form">
-            {activeOption === "no" && (
-              <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
-                  <CustomTextarea
-                    placeholder={"Write a note..."}
-                    label={"Send a note (Optional)"}
-                    fieldName={"note"}
-                    isRequired={false}
-                    errors={errors}
-                    register={register}
-                  />
-                </IonCol>
-              </IonRow>
-            )}
-            {(!profile || profile.prefName === "") && (
-              <>
-                <IonItemDivider className="devider"></IonItemDivider>
-                {phoneVerificationState === "start" && (
-                  <>
-                    <IonRow>
-                      <IonCol className="form-group ion-padding-bottom">
-                        <CustomInput
-                          placeholder={"Enter your name"}
-                          label={"Your Name"}
-                          fieldName={"name"}
-                          isRequired={true}
-                          errors={errors}
-                          errorText={"Name"}
-                          register={register}
-                        />
-                      </IonCol>
-                    </IonRow>
-                    <IonRow>
-                      <IonCol className="form-group">
-                        <CustomPhoneNumber
-                          control={control}
-                          fieldName="phone"
-                          isRequired={true}
-                          errors={errors}
-                          register={register}
-                          errorText={"Mobile Number"}
-                          onPhoneChange={(e: any) => setPhoneNumber(e)}
-                        />
-                      </IonCol>
-                    </IonRow>
-                  </>
-                )}
-                {phoneVerificationState === "otpSent" && (
+              <IonGrid className="guest-form">
+                {activeOption === "no" && (
                   <IonRow>
-                    <IonCol className="form-group">
-                      <FormProvider {...methods}>
-                        <OtpVerification
-                          control={control}
-                          phoneNumber={phoneNumber}
-                          errors={errors}
-                          fieldName="otp"
-                          isRequired={true}
-                          sendOTP={sendOTP}
-                        />
-                      </FormProvider>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <CustomTextarea
+                        placeholder={"Write a note..."}
+                        label={"Send a note (Optional)"}
+                        fieldName={"note"}
+                        isRequired={false}
+                        errors={errors}
+                        register={register}
+                      />
                     </IonCol>
                   </IonRow>
                 )}
-              </>
+                {(!profile || profile.prefName === "") && (
+                  <>
+                    <IonItemDivider className="devider"></IonItemDivider>
+                    {phoneVerificationState === "start" && (
+                      <>
+                        <IonRow>
+                          <IonCol className="form-group ion-padding-bottom">
+                            <CustomInput
+                              placeholder={"Enter your name"}
+                              label={"Your Name"}
+                              fieldName={"name"}
+                              isRequired={true}
+                              errors={errors}
+                              errorText={"Name"}
+                              register={register}
+                            />
+                          </IonCol>
+                        </IonRow>
+                        <IonRow>
+                          <IonCol className="form-group">
+                            <CustomPhoneNumber
+                              control={control}
+                              fieldName="phone"
+                              isRequired={true}
+                              errors={errors}
+                              register={register}
+                              errorText={"Mobile Number"}
+                              onPhoneChange={(e: any) => setPhoneNumber(e)}
+                            />
+                          </IonCol>
+                        </IonRow>
+                      </>
+                    )}
+                    {phoneVerificationState === "otpSent" && (
+                      <IonRow>
+                        <IonCol className="form-group">
+                          <FormProvider {...methods}>
+                            <OtpVerification
+                              control={control}
+                              phoneNumber={phoneNumber}
+                              errors={errors}
+                              fieldName="otp"
+                              isRequired={true}
+                              sendOTP={sendOTP}
+                            />
+                          </FormProvider>
+                        </IonCol>
+                      </IonRow>
+                    )}
+                  </>
+                )}
+              </IonGrid>
+            </FormProvider>
+          </CenteredColumn>
+          <div
+            className="ion-hide-md-down ion-padding-top"
+            onClick={handleSubmit(handleRsvpSubmission, onGenerateError)}
+          >
+            {(profile || phoneVerificationState === "otpSent") && (
+              <CenteredColumn>
+                <IonButton
+                  disabled={submitRSVPInProgress}
+                  className="primary-btn rounded"
+                >
+                  {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
+                </IonButton>
+              </CenteredColumn>
             )}
-          </IonGrid>
-        </FormProvider>
+            {!profile && phoneVerificationState === "start" && (
+              <CenteredColumn>
+                <IonButton
+                  disabled={submitRSVPInProgress}
+                  className="primary-btn rounded"
+                >
+                  {sendingOtp ? "Sending OTP" : "Verify phone & RSVP"}
+                </IonButton>
+              </CenteredColumn>
+            )}
+          </div>
+        </IonGrid>
       </IonContent>
       {(profile || phoneVerificationState === "otpSent") && (
         <IonFooter
-          className="stickyFooter"
+          className="ion-padding ion-hide-md-up"
           onClick={handleSubmit(handleRsvpSubmission, onGenerateError)}
         >
-          <IonButton
-            disabled={submitRSVPInProgress}
-            className="primary-btn rounded"
-          >
-            {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
-          </IonButton>
+          <CenteredColumn>
+            <IonButton
+              disabled={submitRSVPInProgress}
+              className="primary-btn rounded"
+            >
+              {submitRSVPInProgress ? "Submitting RSVP" : "Submit RSVP"}
+            </IonButton>
+          </CenteredColumn>
         </IonFooter>
       )}
       {!profile && phoneVerificationState === "start" && (
         <IonFooter
-          className="stickyFooter"
+          className="ion-padding ion-hide-md-up"
           onClick={handleSubmit(handleSendOtp, onGenerateError)}
         >
-          <IonButton
-            disabled={submitRSVPInProgress}
-            className="primary-btn rounded"
-          >
-            {sendingOtp ? "Sending OTP" : "Verify phone & RSVP"}
-          </IonButton>
+          <CenteredColumn>
+            <IonButton
+              disabled={submitRSVPInProgress}
+              className="primary-btn rounded"
+            >
+              {sendingOtp ? "Sending OTP" : "Verify phone & RSVP"}
+            </IonButton>
+          </CenteredColumn>
         </IonFooter>
       )}
     </IonPage>
