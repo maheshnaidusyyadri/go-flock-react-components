@@ -17,6 +17,7 @@ import {
 import backArrow from "../../images/icons/back-arrow.svg";
 import { getDisplayName } from "../../utils/utils";
 import selected from "../../images/icons/checked.svg";
+import CenteredColumn from "../Common/CenteredColumn";
 
 interface SelectMembersProps {
   members: any[];
@@ -71,7 +72,11 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
           <IonImg
             slot="start"
             className="arrow_icon ion-margin-start"
-            src={backArrow.src || (backArrow.value as unknown as string)}
+            src={
+              backArrow.src ||
+              (backArrow.value as unknown as string) ||
+              (backArrow as unknown as string)
+            }
             alt="Page Back"
             onClick={handleBack}
           />
@@ -80,55 +85,61 @@ const SelectMembers: React.FC<SelectMembersProps> = ({
       </IonHeader>
       <IonContent className="members_cnt ion-padding">
         <IonGrid className="aroundspace ion-no-padding ion-no-margin">
-          <IonCardHeader className="card_header">
-            <IonLabel className="ion-title">Members</IonLabel>
-            {isMultiple && (
-              <IonText
-                className="list-action"
-                onClick={handleSelectAll}
-              >
-                {selectedMembers.length === members.length
-                  ? "Deselect All"
-                  : "Select All"}
-              </IonText>
-            )}
-          </IonCardHeader>
-
-          <IonList className="list_wrap">
-            {members.map((member: any, index: number) => (
-              <IonItem
-                key={index}
-                className="user_item"
-                onClick={() => handleSelectMember(member)}
-              >
-                <IonThumbnail
-                  slot="start"
-                  className="dp"
+          <CenteredColumn>
+            <IonCardHeader className="card_header">
+              <IonLabel className="ion-title">Members</IonLabel>
+              {isMultiple && (
+                <IonText
+                  className="list-action"
+                  onClick={handleSelectAll}
                 >
-                  {member.profileImg ? (
+                  {selectedMembers.length === members.length
+                    ? "Deselect All"
+                    : "Select All"}
+                </IonText>
+              )}
+            </IonCardHeader>
+
+            <IonList className="list_wrap">
+              {members.map((member: any, index: number) => (
+                <IonItem
+                  key={index}
+                  className="user_item"
+                  onClick={() => handleSelectMember(member)}
+                >
+                  <IonThumbnail
+                    slot="start"
+                    className="dp"
+                  >
+                    {member.profileImg ? (
+                      <IonImg
+                        src={member.profileImg}
+                        alt={`${member.name}'s profile`}
+                      />
+                    ) : (
+                      <IonAvatar className="profile-dp">
+                        {getDisplayName(member?.name)}
+                      </IonAvatar>
+                    )}
+                  </IonThumbnail>
+                  <IonLabel className="user_name">
+                    {member.name || member.phone}
+                  </IonLabel>
+                  {((isMultiple &&
+                    selectedMembers.some((m) => m.id === member.id)) ||
+                    (!isMultiple && selectedMember?.id === member.id)) && (
                     <IonImg
-                      src={member.profileImg}
-                      alt={`${member.name}'s profile`}
+                      src={
+                        selected.src ||
+                        (selected.value as unknown as string) ||
+                        (selected as unknown as string)
+                      }
                     />
-                  ) : (
-                    <IonAvatar className="profile-dp">
-                      {getDisplayName(member?.name)}
-                    </IonAvatar>
                   )}
-                </IonThumbnail>
-                <IonLabel className="user_name">
-                  {member.name || member.phone}
-                </IonLabel>
-                {((isMultiple &&
-                  selectedMembers.some((m) => m.id === member.id)) ||
-                  (!isMultiple && selectedMember?.id === member.id)) && (
-                  <IonImg
-                    src={selected.src || (selected.value as unknown as string)}
-                  />
-                )}
-              </IonItem>
-            ))}
-          </IonList>
+                </IonItem>
+              ))}
+            </IonList>
+          </CenteredColumn>
         </IonGrid>
       </IonContent>
     </>

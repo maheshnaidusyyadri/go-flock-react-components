@@ -34,6 +34,7 @@ import SelectMembers from "./SelectExpense";
 //import { EventMember, Transaction } from "@goflock/types";
 import { EventMember, Transaction } from "@goflock/types/src/index";
 import { getDisplayName } from "../../utils/utils";
+import CenteredColumn from "../Common/CenteredColumn";
 
 interface ExpenseMember {
   id: string;
@@ -349,392 +350,458 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
         profile={profile}
       />
       <IonContent className="ion-padding expense_page">
-        <IonList className="stepper-container ion-no-margin ion-margin-bottom">
-          {renderSteps()}
-        </IonList>
-        <FormProvider {...methods}>
-          {currentStep == 1 && (
-            <IonGrid
-              className={`ion-no-padding ion-padding-top step-content ${getStepClass(
-                1
-              )}`}
-            >
-              <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
-                  <CustomInput
-                    placeholder={"Expense Details"}
-                    label={"Expense details"}
-                    fieldName={"billName"}
-                    isRequired={true}
-                    errors={errors}
-                    errorText={"Expense Details"}
-                    register={register}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol className="form-group ion-padding-bottom">
-                  <CustomInput
-                    placeholder={"Total Amount"}
-                    label={"Total Amount"}
-                    fieldName={"totalAmount"}
-                    isRequired={true}
-                    errors={errors}
-                    errorText={"Total Amount"}
-                    register={register}
-                    inputType="number"
-                    onInputChange={(e) => setTotalAmount(e.detail.value)}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol
-                  className="form-group ion-padding-bottom"
-                  onClick={handlePaidByClick}
+        <IonGrid>
+          <CenteredColumn>
+            <IonList className="stepper-container ion-no-margin ion-margin-bottom">
+              {renderSteps()}
+            </IonList>
+            <FormProvider {...methods}>
+              {currentStep == 1 && (
+                <IonGrid
+                  className={`ion-no-padding ion-padding-top step-content ${getStepClass(
+                    1
+                  )}`}
                 >
-                  <CustomInput
-                    placeholder={"You"}
-                    label={"Paid by"}
-                    fieldName={"paidBy"}
-                    isRequired={true}
-                    errors={errors}
-                    errorText={"Paid By"}
-                    register={register}
-                    readonly={true}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol
-                  className="form-group ion-padding-bottom"
-                  onClick={handleChooseMembersClick}
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <CustomInput
+                        placeholder={"Expense Details"}
+                        label={"Expense details"}
+                        fieldName={"billName"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Expense Details"}
+                        register={register}
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol className="form-group ion-padding-bottom">
+                      <CustomInput
+                        placeholder={"Total Amount"}
+                        label={"Total Amount"}
+                        fieldName={"totalAmount"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Total Amount"}
+                        register={register}
+                        inputType="number"
+                        onInputChange={(e) => setTotalAmount(e.detail.value)}
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol
+                      className="form-group ion-padding-bottom"
+                      onClick={handlePaidByClick}
+                    >
+                      <CustomInput
+                        placeholder={"You"}
+                        label={"Paid by"}
+                        fieldName={"paidBy"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Paid By"}
+                        register={register}
+                        readonly={true}
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol
+                      className="form-group ion-padding-bottom"
+                      onClick={handleChooseMembersClick}
+                    >
+                      <CustomInput
+                        placeholder={"Choose members"}
+                        label={"Split among"}
+                        fieldName={"splitAmong"}
+                        isRequired={true}
+                        errors={errors}
+                        errorText={"Choose members"}
+                        register={register}
+                        readonly={true}
+                      />
+                    </IonCol>
+                  </IonRow>
+                  <IonRow>
+                    <IonCol></IonCol>
+                  </IonRow>
+                  <IonGrid class="profile-list">
+                    {selectedMembers.map((eventMember: ExpenseMember) => (
+                      <IonList
+                        key={eventMember.id}
+                        className="profile-item"
+                        onClick={() => handleRemove(eventMember)}
+                      >
+                        <IonThumbnail className="profile-avatar-wrapper">
+                          <>
+                            {eventMember.profileImg ? (
+                              <IonAvatar className="profile-avatar">
+                                <IonImg
+                                  src={eventMember.profileImg}
+                                  alt={eventMember.name}
+                                />
+                              </IonAvatar>
+                            ) : (
+                              <IonAvatar className="profile-dp">
+                                {getDisplayName(eventMember?.name)}
+                              </IonAvatar>
+                            )}
+                          </>
+                          <IonImg
+                            src={
+                              unselect.src ||
+                              (unselect.value as unknown as string) ||
+                              (unselect as unknown as string)
+                            }
+                            alt="status"
+                            className="remove_user"
+                          />
+                        </IonThumbnail>
+                        <IonLabel className="profile-name">
+                          {eventMember.name}
+                        </IonLabel>
+                      </IonList>
+                    ))}
+                  </IonGrid>
+                </IonGrid>
+              )}
+              {currentStep == 2 && (
+                <IonGrid
+                  className={`ion-no-padding step-content ${getStepClass(2)}`}
                 >
-                  <CustomInput
-                    placeholder={"Choose members"}
-                    label={"Split among"}
-                    fieldName={"splitAmong"}
-                    isRequired={true}
-                    errors={errors}
-                    errorText={"Choose members"}
-                    register={register}
-                    readonly={true}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol></IonCol>
-              </IonRow>
-              <IonGrid class="profile-list">
-                {selectedMembers.map((eventMember: ExpenseMember) => (
-                  <IonList
-                    key={eventMember.id}
-                    className="profile-item"
-                    onClick={() => handleRemove(eventMember)}
+                  <IonSegment
+                    className="segment-tabs"
+                    value={selectedSegment}
+                    onIonChange={(e) =>
+                      setSelectedSegment(
+                        e.detail.value as "equal" | "amount" | "percentage"
+                      )
+                    }
                   >
-                    <IonThumbnail className="profile-avatar-wrapper">
-                      <>
-                        {eventMember.profileImg ? (
-                          <IonAvatar className="profile-avatar">
-                            <IonImg
-                              src={eventMember.profileImg}
-                              alt={eventMember.name}
-                            />
-                          </IonAvatar>
-                        ) : (
-                          <IonAvatar className="profile-dp">
-                            {getDisplayName(eventMember?.name)}
-                          </IonAvatar>
-                        )}
-                      </>
+                    <IonSegmentButton value="equal">
                       <IonImg
                         src={
-                          unselect.src || (unselect.value as unknown as string)
+                          EqualIcon.src ||
+                          (EqualIcon.value as unknown as string) ||
+                          (EqualIcon as unknown as string)
                         }
-                        alt="status"
-                        className="remove_user"
                       />
-                    </IonThumbnail>
-                    <IonLabel className="profile-name">
-                      {eventMember.name}
-                    </IonLabel>
-                  </IonList>
-                ))}
-              </IonGrid>
-            </IonGrid>
-          )}
-          {currentStep == 2 && (
-            <IonGrid
-              className={`ion-no-padding step-content ${getStepClass(2)}`}
-            >
-              <IonSegment
-                className="segment-tabs"
-                value={selectedSegment}
-                onIonChange={(e) =>
-                  setSelectedSegment(
-                    e.detail.value as "equal" | "amount" | "percentage"
-                  )
-                }
-              >
-                <IonSegmentButton value="equal">
-                  <IonImg
-                    src={
-                      EqualIcon.src || (EqualIcon.value as unknown as string)
-                    }
-                  />
-                </IonSegmentButton>
-                <IonSegmentButton value="amount">
-                  <IonImg
-                    src={
-                      DollarIcon.src || (DollarIcon.value as unknown as string)
-                    }
-                  />
-                </IonSegmentButton>
-                <IonSegmentButton value="percentage">
-                  <IonImg
-                    src={
-                      PercentIcon.src ||
-                      (PercentIcon.value as unknown as string)
-                    }
-                  />
-                </IonSegmentButton>
-              </IonSegment>
+                    </IonSegmentButton>
+                    <IonSegmentButton value="amount">
+                      <IonImg
+                        src={
+                          DollarIcon.src ||
+                          (DollarIcon.value as unknown as string) ||
+                          (DollarIcon as unknown as string)
+                        }
+                      />
+                    </IonSegmentButton>
+                    <IonSegmentButton value="percentage">
+                      <IonImg
+                        src={
+                          PercentIcon.src ||
+                          (PercentIcon.value as unknown as string) ||
+                          (PercentIcon as unknown as string)
+                        }
+                      />
+                    </IonSegmentButton>
+                  </IonSegment>
 
-              {selectedSegment === "equal" && (
-                <IonRow id="home-page">
-                  <IonCol size="12">
-                    <IonList className="list_wrap">
-                      {selectedEqallAmount.map((Item, index) => (
-                        <IonItem
-                          key={index}
-                          className="user_item"
-                        >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            {Item.profileImg ? (
-                              <IonAvatar className="profile-avatar">
-                                <IonImg
-                                  src={Item.profileImg}
-                                  alt={`${Item.name}'s profile`}
-                                />
-                              </IonAvatar>
-                            ) : (
-                              <IonAvatar className="profile-dp">
-                                {getDisplayName(Item?.name)}
-                              </IonAvatar>
-                            )}
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phoneNumber}
-                          </IonLabel>
-                          <IonText class="amout">${Item.amount}</IonText>
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </IonCol>
-                </IonRow>
-              )}
+                  {selectedSegment === "equal" && (
+                    <IonRow id="home-page">
+                      <IonCol size="12">
+                        <IonList className="list_wrap">
+                          {selectedEqallAmount.map((Item, index) => (
+                            <IonItem
+                              key={index}
+                              className="user_item"
+                            >
+                              <IonThumbnail
+                                slot="start"
+                                className="dp"
+                              >
+                                {Item.profileImg ? (
+                                  <IonAvatar className="profile-avatar">
+                                    <IonImg
+                                      src={Item.profileImg}
+                                      alt={`${Item.name}'s profile`}
+                                    />
+                                  </IonAvatar>
+                                ) : (
+                                  <IonAvatar className="profile-dp">
+                                    {getDisplayName(Item?.name)}
+                                  </IonAvatar>
+                                )}
+                              </IonThumbnail>
+                              <IonLabel className="user_name">
+                                {Item.name || Item.phoneNumber}
+                              </IonLabel>
+                              <IonText class="amout">${Item.amount}</IonText>
+                            </IonItem>
+                          ))}
+                        </IonList>
+                      </IonCol>
+                    </IonRow>
+                  )}
 
-              {selectedSegment === "amount" && (
-                <IonRow id="radio-page">
-                  <IonCol size="12">
-                    <IonList className="list_wrap expense_tabs">
-                      {selectedMembers.map((Item, index) => (
-                        <IonItem
-                          key={index}
-                          className="user_item"
-                        >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            {Item.profileImg ? (
-                              <IonAvatar className="profile-avatar">
-                                <IonImg
-                                  src={Item.profileImg}
-                                  alt={`${Item.name}'s profile`}
-                                />
-                              </IonAvatar>
-                            ) : (
-                              <IonAvatar className="profile-dp">
-                                {getDisplayName(Item?.name)}
-                              </IonAvatar>
-                            )}
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phone}
-                          </IonLabel>
-                          <IonInput
-                            className="ion_input prefix"
-                            value={Item.amount}
-                            label=""
-                            labelPlacement="stacked"
-                            placeholder="0.00"
-                            type="number" // Ensures numeric input
-                            inputmode="decimal"
-                            onIonInput={(e) =>
-                              handleAmountChange(e.detail.value || "", index)
-                            }
-                          />
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </IonCol>
-                </IonRow>
-              )}
-
-              {selectedSegment === "percentage" && (
-                <IonRow id="library-page">
-                  <IonCol size="12">
-                    <IonList className="list_wrap expense_tabs">
-                      {selectedMembers.map((Item, index) => (
-                        <IonItem
-                          key={index}
-                          className="user_item"
-                        >
-                          <IonThumbnail
-                            slot="start"
-                            className="dp"
-                          >
-                            {Item.profileImg ? (
-                              <IonAvatar className="profile-avatar">
-                                <IonImg
-                                  src={Item.profileImg}
-                                  alt={`${Item.name}'s profile`}
-                                />
-                              </IonAvatar>
-                            ) : (
-                              <IonAvatar className="profile-dp">
-                                {getDisplayName(Item?.name)}
-                              </IonAvatar>
-                            )}
-                          </IonThumbnail>
-                          <IonLabel className="user_name">
-                            {Item.name || Item.phone}
-                          </IonLabel>
-                          <IonInput
-                            class="ion_input safix"
-                            value={Item.percentage}
-                            label=""
-                            labelPlacement="stacked"
-                            placeholder="0"
-                            type="number" // Ensures numeric input
-                            inputmode="decimal"
-                            onIonInput={(e) =>
-                              handlePercentageChange(
-                                e.detail.value || "",
-                                index
-                              )
-                            }
-                          />
-                        </IonItem>
-                      ))}
-                    </IonList>
-                  </IonCol>
-                </IonRow>
-              )}
-              {showError && (
-                <>
                   {selectedSegment === "amount" && (
-                    <IonLabel className="contribution_alert">
-                      ${sumOfSelectedAmt} of ${selectedAmount}
-                      <IonText className="balance">
-                        ($
-                        {Math.abs(selectedAmount - sumOfSelectedAmt).toFixed(
-                          2
-                        )}{" "}
-                        {selectedAmount - sumOfSelectedAmt < 0
-                          ? "exceeded"
-                          : "left"}
-                        )
-                      </IonText>
-                    </IonLabel>
+                    <IonRow id="radio-page">
+                      <IonCol size="12">
+                        <IonList className="list_wrap expense_tabs">
+                          {selectedMembers.map((Item, index) => (
+                            <IonItem
+                              key={index}
+                              className="user_item"
+                            >
+                              <IonThumbnail
+                                slot="start"
+                                className="dp"
+                              >
+                                {Item.profileImg ? (
+                                  <IonAvatar className="profile-avatar">
+                                    <IonImg
+                                      src={Item.profileImg}
+                                      alt={`${Item.name}'s profile`}
+                                    />
+                                  </IonAvatar>
+                                ) : (
+                                  <IonAvatar className="profile-dp">
+                                    {getDisplayName(Item?.name)}
+                                  </IonAvatar>
+                                )}
+                              </IonThumbnail>
+                              <IonLabel className="user_name">
+                                {Item.name || Item.phone}
+                              </IonLabel>
+                              <IonInput
+                                className="ion_input prefix"
+                                value={Item.amount}
+                                label=""
+                                labelPlacement="stacked"
+                                placeholder="0.00"
+                                type="number" // Ensures numeric input
+                                inputmode="decimal"
+                                onIonInput={(e) =>
+                                  handleAmountChange(
+                                    e.detail.value || "",
+                                    index
+                                  )
+                                }
+                              />
+                            </IonItem>
+                          ))}
+                        </IonList>
+                      </IonCol>
+                    </IonRow>
                   )}
 
                   {selectedSegment === "percentage" && (
-                    <IonLabel className="contribution_alert">
-                      {((sumOfSelectedAmt / selectedAmount) * 100).toFixed(2)}%
-                      of 100%
-                      <IonText className="balance">
-                        (%
-                        {Math.abs(
-                          ((selectedAmount - sumOfSelectedAmt) /
-                            selectedAmount) *
-                            100
-                        ).toFixed(2)}{" "}
-                        {selectedAmount - sumOfSelectedAmt < 0
-                          ? "exceeded"
-                          : "left"}
-                        )
-                      </IonText>
-                    </IonLabel>
+                    <IonRow id="library-page">
+                      <IonCol size="12">
+                        <IonList className="list_wrap expense_tabs">
+                          {selectedMembers.map((Item, index) => (
+                            <IonItem
+                              key={index}
+                              className="user_item"
+                            >
+                              <IonThumbnail
+                                slot="start"
+                                className="dp"
+                              >
+                                {Item.profileImg ? (
+                                  <IonAvatar className="profile-avatar">
+                                    <IonImg
+                                      src={Item.profileImg}
+                                      alt={`${Item.name}'s profile`}
+                                    />
+                                  </IonAvatar>
+                                ) : (
+                                  <IonAvatar className="profile-dp">
+                                    {getDisplayName(Item?.name)}
+                                  </IonAvatar>
+                                )}
+                              </IonThumbnail>
+                              <IonLabel className="user_name">
+                                {Item.name || Item.phone}
+                              </IonLabel>
+                              <IonInput
+                                class="ion_input safix"
+                                value={Item.percentage}
+                                label=""
+                                labelPlacement="stacked"
+                                placeholder="0"
+                                type="number" // Ensures numeric input
+                                inputmode="decimal"
+                                onIonInput={(e) =>
+                                  handlePercentageChange(
+                                    e.detail.value || "",
+                                    index
+                                  )
+                                }
+                              />
+                            </IonItem>
+                          ))}
+                        </IonList>
+                      </IonCol>
+                    </IonRow>
                   )}
-                </>
-              )}
-            </IonGrid>
-          )}
-          {currentStep == 3 && (
-            <IonGrid className={`step-content ${getStepClass(3)}`}>
-              <IonList className="list_wrap">
-                {selectedMembers.map((Item, index) => (
-                  <IonItem
-                    key={index}
-                    className="user_item"
-                  >
-                    <IonThumbnail
-                      slot="start"
-                      className="dp"
-                    >
-                      {Item.profileImg ? (
-                        <IonAvatar className="profile-avatar">
-                          <IonImg
-                            src={Item.profileImg}
-                            alt={`${Item.name}'s profile`}
-                          />
-                        </IonAvatar>
-                      ) : (
-                        <IonAvatar className="profile-dp">
-                          {getDisplayName(Item?.name)}
-                        </IonAvatar>
+                  {showError && (
+                    <>
+                      {selectedSegment === "amount" && (
+                        <IonLabel className="contribution_alert">
+                          ${sumOfSelectedAmt} of ${selectedAmount}
+                          <IonText className="balance">
+                            ($
+                            {Math.abs(
+                              selectedAmount - sumOfSelectedAmt
+                            ).toFixed(2)}{" "}
+                            {selectedAmount - sumOfSelectedAmt < 0
+                              ? "exceeded"
+                              : "left"}
+                            )
+                          </IonText>
+                        </IonLabel>
                       )}
-                    </IonThumbnail>
-                    <IonLabel className="user_name">
-                      {Item.name || Item.phoneNumber || ""}
-                    </IonLabel>
-                    <IonText class="amout">${Item.amount}</IonText>
-                  </IonItem>
-                ))}
-              </IonList>
-            </IonGrid>
-          )}
-        </FormProvider>
+
+                      {selectedSegment === "percentage" && (
+                        <IonLabel className="contribution_alert">
+                          {((sumOfSelectedAmt / selectedAmount) * 100).toFixed(
+                            2
+                          )}
+                          % of 100%
+                          <IonText className="balance">
+                            (%
+                            {Math.abs(
+                              ((selectedAmount - sumOfSelectedAmt) /
+                                selectedAmount) *
+                                100
+                            ).toFixed(2)}{" "}
+                            {selectedAmount - sumOfSelectedAmt < 0
+                              ? "exceeded"
+                              : "left"}
+                            )
+                          </IonText>
+                        </IonLabel>
+                      )}
+                    </>
+                  )}
+                </IonGrid>
+              )}
+              {currentStep == 3 && (
+                <IonGrid className={`step-content ${getStepClass(3)}`}>
+                  <IonList className="list_wrap">
+                    {selectedMembers.map((Item, index) => (
+                      <IonItem
+                        key={index}
+                        className="user_item"
+                      >
+                        <IonThumbnail
+                          slot="start"
+                          className="dp"
+                        >
+                          {Item.profileImg ? (
+                            <IonAvatar className="profile-avatar">
+                              <IonImg
+                                src={Item.profileImg}
+                                alt={`${Item.name}'s profile`}
+                              />
+                            </IonAvatar>
+                          ) : (
+                            <IonAvatar className="profile-dp">
+                              {getDisplayName(Item?.name)}
+                            </IonAvatar>
+                          )}
+                        </IonThumbnail>
+                        <IonLabel className="user_name">
+                          {Item.name || Item.phoneNumber || ""}
+                        </IonLabel>
+                        <IonText class="amout">${Item.amount}</IonText>
+                      </IonItem>
+                    ))}
+                  </IonList>
+                </IonGrid>
+              )}
+            </FormProvider>
+          </CenteredColumn>
+        </IonGrid>
+        <div className="ion-hide-md-down ion-padding-top">
+          <CenteredColumn>
+            <IonRow>
+              {currentStep > 1 && (
+                <IonCol>
+                  <IonButton
+                    className="primary-btn actions rounded"
+                    onClick={prevStep}
+                    expand="block"
+                  >
+                    Previous
+                  </IonButton>
+                </IonCol>
+              )}
+              {currentStep !== totalSteps && (
+                <IonCol>
+                  <IonButton
+                    className="primary-btn actions rounded"
+                    onClick={handleSubmit(nextStep, onError)}
+                    expand="block"
+                  >
+                    Next
+                  </IonButton>
+                </IonCol>
+              )}
+              {currentStep === totalSteps && (
+                <IonCol>
+                  <IonButton
+                    className="primary-btn save rounded"
+                    onClick={handleSubmit(handleSave, onError)}
+                    expand="block"
+                  >
+                    Save & Back To Home
+                  </IonButton>
+                </IonCol>
+              )}
+            </IonRow>
+          </CenteredColumn>
+        </div>
       </IonContent>
-      <IonFooter className="actions-container stickyFooter ion-padding">
-        <IonButton
-          className="primary-btn actions"
-          onClick={prevStep}
-          disabled={currentStep === 1}
-        >
-          Previous
-        </IonButton>
-        <IonButton
-          className="primary-btn actions"
-          onClick={handleSubmit(nextStep, onError)}
-          disabled={currentStep === totalSteps}
-        >
-          Next
-        </IonButton>
-        {currentStep === totalSteps && (
-          <IonButton
-            className="primary-btn save"
-            // onClick={() => handleSave()}
-            onClick={handleSubmit(handleSave, onError)}
-            expand="block"
-          >
-            Save & Back To Home
-          </IonButton>
-        )}
+      <IonFooter className="ion-padding ion-hide-md-up">
+        <IonRow>
+          {currentStep > 1 && (
+            <IonCol>
+              <IonButton
+                className="primary-btn actions rounded"
+                onClick={prevStep}
+                expand="block"
+              >
+                Previous
+              </IonButton>
+            </IonCol>
+          )}
+          {currentStep !== totalSteps && (
+            <IonCol>
+              <IonButton
+                className="primary-btn actions rounded"
+                onClick={handleSubmit(nextStep, onError)}
+                expand="block"
+              >
+                Next
+              </IonButton>
+            </IonCol>
+          )}
+          {currentStep === totalSteps && (
+            <IonCol>
+              <IonButton
+                className="primary-btn save rounded"
+                onClick={handleSubmit(handleSave, onError)}
+                expand="block"
+              >
+                Save & Back To Home
+              </IonButton>
+            </IonCol>
+          )}
+        </IonRow>
       </IonFooter>
       <IonGrid className={`custom-modal ${isOpen ? "open" : ""}`}>
         {true && (
@@ -747,12 +814,14 @@ const AddExpensePresenter: React.FC<EventAddExpenseProps> = ({
               modalClose={handleClose}
             />
             <IonFooter className="stickyFooter hasFooter">
-              <IonButton
-                className="primary-btn rounded"
-                onClick={() => setIsOpen(false)}
-              >
-                Done
-              </IonButton>
+              <CenteredColumn>
+                <IonButton
+                  className="primary-btn rounded"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Done
+                </IonButton>
+              </CenteredColumn>
             </IonFooter>
           </>
         )}

@@ -243,6 +243,7 @@ const EventDetailsPresenter: React.FC<EventProps> = ({
       <IonPage id="main-content">
         <Header
           showLogo={true}
+          logoPosition="left"
           showGoBack={false}
           eventId={event.id}
           event={event}

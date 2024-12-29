@@ -118,31 +118,31 @@ const Header: React.FC<HeaderProps> = ({
             {showLogo && logoPosition === "left" && (
               <IonButtons slot="start">
                 {eventRelation &&
-                ["admin", "owner", "member"].includes(
-                  eventRelation.visitType
-                ) ? (
-                  <IonMenuButton
-                    menu="side-nav"
-                    autoHide={false}
-                    className="ion-hide-md-down"
-                  />
-                ) : (
-                  <IonButton
-                    routerLink="/"
-                    className=""
-                  >
-                    <IonThumbnail className="profile-icon">
-                      <IonImg
-                        src={
-                          goflockLogo.src ||
-                          (goflockLogo.value as unknown as string) ||
-                          (goflockLogo as unknown as string)
-                        }
-                        alt="profile"
-                      />
-                    </IonThumbnail>
-                  </IonButton>
-                )}
+                  ["admin", "owner", "member"].includes(
+                    eventRelation.visitType
+                  ) && (
+                    <IonMenuButton
+                      menu="side-nav"
+                      autoHide={false}
+                      className="ion-hide-md-down"
+                    />
+                  )}
+
+                <IonButton
+                  routerLink="/"
+                  className="ion-hide-md-up"
+                >
+                  <IonThumbnail className="profile-icon">
+                    <IonImg
+                      src={
+                        goflockLogo.src ||
+                        (goflockLogo.value as unknown as string) ||
+                        (goflockLogo as unknown as string)
+                      }
+                      alt="profile"
+                    />
+                  </IonThumbnail>
+                </IonButton>
               </IonButtons>
             )}
           </IonButtons>
